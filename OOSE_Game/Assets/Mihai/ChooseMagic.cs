@@ -11,12 +11,12 @@ using System.Collections.Generic;
 public class ChooseMagic : MonoBehaviour {
 	public GameObject magicWallObject;
 	public GameObject magicAreaObject;
-
+	public MapInfo mI;
 	public float objectSize;
 	private TouchInfo prevInfo,info;
 	private int wallsDraw;
 	private float delay = 0.1f;
-
+	private int minX,maxX,minZ,maxZ ;
 	// Use this for initialization
 	void Start () {
 		if(objectSize<=0){
@@ -34,6 +34,11 @@ public class ChooseMagic : MonoBehaviour {
 		info = prevInfo = null;
 		wallsDraw = 0;
 		delay = 0.1f;
+		minX = mI.xSize;
+		maxX = 0;
+		minZ = mI.zSize;
+		maxZ = 0;
+		mI.RefreshMap ();
 		StartCoroutine ("drawMagic");
 	}
 	void endDraw(){
@@ -59,6 +64,7 @@ public class ChooseMagic : MonoBehaviour {
 	}
 
 	private void drawWall(){
+
 		if (Inputs.touches.Count > 0) {
 			if (!Inputs.touches [Inputs.touches.Count - 1].stationary && Inputs.touches [Inputs.touches.Count - 1].Hit().collider !=null) {
 				if(Inputs.touches [Inputs.touches.Count - 1].Hit().collider.gameObject.layer == 8){
@@ -66,9 +72,18 @@ public class ChooseMagic : MonoBehaviour {
 					info = Inputs.touches [Inputs.touches.Count - 1];
 
 					if(prevInfo !=null){
-						float nrObjects = Vector3.Distance (prevInfo.Hit ().point, info.Hit ().point)/objectSize;
+						Vector3 pos1 = prevInfo.Hit ().point;
+						Vector3 pos2 = info.Hit ().point;
+						float nrObjects = Vector3.Distance (pos1,pos2)/objectSize;
 						for(int i = 0; i<nrObjects; i++){
-							Instantiate(magicWallObject,Vector3.Lerp (prevInfo.Hit ().point,info.Hit ().point,i/nrObjects),Quaternion.identity);
+							Vector3 posW = Vector3.Lerp (pos1,pos2,i/nrObjects);
+							Instantiate(magicWallObject,posW,Quaternion.identity);
+							mI.Map[(int)posW.x,(int)posW.z].wall = true;
+							minX = Mathf.Min(minX,(int)posW.x);
+							minZ = Mathf.Min (minZ,(int)posW.z);
+
+							maxX = Mathf.Max(maxX,(int)posW.x);
+							maxZ = Mathf.Max (maxZ,(int)posW.z);
 							wallsDraw++;
 						}
 					}
@@ -103,40 +118,20 @@ public class ChooseMagic : MonoBehaviour {
 	}
 	private IEnumerator doAreaMagic(){
 		Debug.Log ("AREA MAGIC");
+		mI.CalculateInterior (minX,maxX,minZ,maxZ);
+		for(int x= minX ; x<maxX+1; x++ ){
+
+			for(int z= minZ; z<maxZ+1; z++){
+				if(mI.Map[x,z].vValue%2 == 1 && mI.Map[x,z].hValue%2==1){
+					Instantiate(magicAreaObject,new Vector3(x,0,z),Quaternion.identity);
+				}
+
+			}
+			yield return new WaitForSeconds(0.1f);
+		}
 		yield return new WaitForSeconds(2);
 
 	}
 
-	/*
-	private void grassFire(int x, int y){
-		tiles [x, y].visited = true;
-		tiles [x, y].interior = true;
-		Instantiate (magicAreaObject, Camera.main.ScreenToWorldPoint(new Vector3(x+Inputs.minX,y+Inputs.minY,10)),Quaternion.identity);
-				if (!tiles [x + 1, y].visited && !tiles [x + 1, y].border) {
-						grassFire (x + 1, y);
-				}else if(tiles [x + 1, y].border && !tiles [x + 1, y].visited){
-						tiles [x+1, y].visited = true;
-						tiles [x+1, y].interior = true;
-				}
-				if (!tiles [x - 1, y].visited && !tiles [x - 1, y].border) {
-						grassFire (x - 1, y);
-				}else if(tiles [x - 1, y].border && !tiles [x - 1, y].visited){
-					tiles [x-1, y].visited = true;
-					tiles [x-1, y].interior = true;
-				}
-				if (!tiles [x, y + 1].visited && !tiles [x, y + 1].border) {
-						grassFire (x, y + 1);
-				}else if(tiles [x, y+1].border && !tiles [x, y+1].visited){
-					tiles [x, y+1].visited = true;
-					tiles [x, y+1].interior = true;
-				}
-				if (!tiles [x, y - 1].visited && !tiles [x, y - 1].border) {
-								grassFire (x, y - 1);
-				}else if(tiles [x, y-1].border && !tiles [x, y-1].visited){
-					tiles [x, y-1].visited = true;
-					tiles [x, y-1].interior = true;
-				}
-		}
-		*/
 
 }

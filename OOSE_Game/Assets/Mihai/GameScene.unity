@@ -214,7 +214,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 838805872}
   m_LocalRotation: {x: .258819044, y: 0, z: 0, w: .965925813}
-  m_LocalPosition: {x: 0, y: 12.3337908, z: 7.12091732}
+  m_LocalPosition: {x: 150, y: 12.3337908, z: 150}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -250,6 +250,7 @@ GameObject:
   - 4: {fileID: 1095608646}
   - 114: {fileID: 1095608645}
   - 154: {fileID: 1095608644}
+  - 114: {fileID: 1095608647}
   m_Layer: 8
   m_Name: Terrain
   m_TagString: Untagged
@@ -300,10 +301,25 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1095608643}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -150, y: 0, z: -100}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+--- !u!114 &1095608647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1095608643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 122917fc99a8481439c0641b7bbad14e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  xSize: 300
+  zSize: 300
+  debug: {fileID: 100000, guid: baa3e0740cfe3d9459e31331170e56a8, type: 2}
+  ok: 0
 --- !u!1 &1290095319
 GameObject:
   m_ObjectHideFlags: 0
@@ -335,7 +351,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   magicWallObject: {fileID: 100000, guid: 134e500a41cc12f449a0b79e83d6dc0b, type: 2}
-  magicAreaObject: {fileID: 0}
+  magicAreaObject: {fileID: 100000, guid: baa3e0740cfe3d9459e31331170e56a8, type: 2}
+  mI: {fileID: 1095608647}
   objectSize: 1
 --- !u!23 &1290095321
 Renderer:
@@ -366,7 +383,7 @@ SphereCollider:
   m_GameObject: {fileID: 1290095319}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: .5
   m_Center: {x: 0, y: 0, z: 0}
