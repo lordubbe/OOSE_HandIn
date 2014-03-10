@@ -77,6 +77,7 @@ public class ChooseMagic : MonoBehaviour {
 						float nrObjects = Vector3.Distance (pos1,pos2)/objectSize;
 						for(int i = 0; i<nrObjects; i++){
 							Vector3 posW = Vector3.Lerp (pos1,pos2,i/nrObjects);
+							posW = new Vector3((int)posW.x,(int)posW.y,(int)posW.z);
 							Instantiate(magicWallObject,posW,Quaternion.identity);
 							mI.Map[(int)posW.x,(int)posW.z].wall = true;
 							minX = Mathf.Min(minX,(int)posW.x);
@@ -127,7 +128,7 @@ public class ChooseMagic : MonoBehaviour {
 				}
 
 			}
-			yield return new WaitForSeconds(0.1f);
+			yield return new WaitForSeconds(0.00001f * maxZ);
 		}
 		yield return new WaitForSeconds(2);
 
