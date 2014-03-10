@@ -21,20 +21,21 @@ public class TouchInfo {
 		hitExists = false;
 	}
 
-	public RaycastHit Hit(){
-				if (hitExists) {
-					return _hit;
-				} else {
-					Ray ray = Camera.main.ScreenPointToRay (position);
-					RaycastHit hit;
-					if (Physics.Raycast (ray, out hit)) {
-							hitExists = true;
-							_hit = hit;
-							return hit;
 
-					} else
-							return hit;
-				}
+	public RaycastHit Hit(){
+		if (hitExists) {
+			return _hit;
+		} else {
+			Ray ray = Camera.main.ScreenPointToRay (position);
+			RaycastHit hit;
+			if (Physics.Raycast (ray, out hit)) {
+				hitExists = true;
+				_hit = hit;
+				return hit;
+				
+			} else
+				return hit;
 		}
+	}
 
 }

@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class MapInfo : MonoBehaviour {
+public class MapInfo {
 
 	public int xSize,zSize;
 	public GameObject debug;
