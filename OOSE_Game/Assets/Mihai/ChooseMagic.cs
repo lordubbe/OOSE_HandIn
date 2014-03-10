@@ -122,7 +122,7 @@ public class ChooseMagic : MonoBehaviour {
 		for(int x= minX ; x<maxX+1; x++ ){
 
 			for(int z= minZ; z<maxZ+1; z++){
-				if(mI.Map[x,z].vValue%2 == 1 && mI.Map[x,z].hValue%2==1){
+				if(mI.Map[x,z].vValue%2 == 1 && mI.Map[x,z].hValue%2==1 && mI.Map[x,z].okLine){
 					Instantiate(magicAreaObject,new Vector3(x,0,z),Quaternion.identity);
 				}
 

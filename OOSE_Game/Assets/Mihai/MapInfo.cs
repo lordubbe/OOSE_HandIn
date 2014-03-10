@@ -46,6 +46,28 @@ public class MapInfo : MonoBehaviour {
 				Map[x,z].hValue = horizontal;
 			}
 		}
+		for(int x=minX; x<maxX+1; x++){
+			byte maxV=0;
+			for(int z=minZ; z<maxZ+1; z++){
+				maxV = (byte)Mathf.Max(maxV, Map[x,z].vValue);
+			}
+			if(maxV % 2 == 0){
+				for(int z=minZ; z<maxZ+1; z++){
+					Map[x,z].okLine = true;
+				}
+			}
+		}
+		for(int z=minZ; z<maxZ+1; z++){
+			byte maxH=0;
+			for(int x=minX; x<maxX+1; x++){
+				maxH = (byte)Mathf.Max(maxH, Map[x,z].hValue);
+			}
+			if(maxH % 2 == 0){
+				for(int x=minX; x<maxX+1; x++){
+					Map[x,z].okLine = true;
+				}
+			}
+		}
 		Debug.Log ("Calculated");
 		}
 	

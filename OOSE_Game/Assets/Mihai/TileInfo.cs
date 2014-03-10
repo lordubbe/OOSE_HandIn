@@ -11,15 +11,20 @@ public class TileInfo {
 	public byte hValue;
 	public byte vValue;
 
+	public bool okLine;
+
 	public TileInfo(){
 		wall = false;
+		okLine = false;
 		hValue = 0;
 		vValue = 0;
+
 	}
 	public TileInfo(bool wall, byte hValue=0,byte vValue=0){
 		this.wall = wall;
 		this.hValue = hValue;
 		this.vValue = vValue;
+		okLine = false;
 	}
 
 
