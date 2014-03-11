@@ -14,7 +14,7 @@ GameObject:
   - 114: {fileID: 11400000}
   - 54: {fileID: 5400000}
   m_Layer: 0
-  m_Name: FireWall
+  m_Name: Debug
   m_TagString: MagicWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43,7 +43,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: e74f3e831f2f9ac4c8e43ec96b296171, type: 2}
+  - {fileID: 2100000, guid: 5fcd65ac25ac47a4b83a381651b9d930, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
