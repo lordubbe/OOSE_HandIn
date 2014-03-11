@@ -12,6 +12,10 @@ public class ChooseMagic : MonoBehaviour {
 	//public GameObject DebugObj; //used for debuging 
 	public GameObject pointer; //the game object with the particle emitter, it must have the "DieInTime component"
 	public GameObject wall; //the game object that is instantiated to display the walls
+
+	[Range (0.0001f,0.3f)]
+	public float particleMovementDelay = 0.01f;
+
 	private GameObject p; //the instance of the pointer used in the class
 	private MapInfo map; 
 
@@ -52,7 +56,7 @@ public class ChooseMagic : MonoBehaviour {
 				}
 			}
 			
-			yield return new WaitForSeconds(0.1f);
+			yield return new WaitForSeconds(particleMovementDelay);
 		}
 	}
 

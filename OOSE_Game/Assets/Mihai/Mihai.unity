@@ -325,9 +325,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b820a64ba86d2854aab60c6d15d7e4ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DebugObj: {fileID: 100000, guid: f685a03e0f76a664f9a70b1659415633, type: 2}
   pointer: {fileID: 1290095319}
   wall: {fileID: 100000, guid: 134e500a41cc12f449a0b79e83d6dc0b, type: 2}
+  particleMovementDelay: .00100000005
 --- !u!4 &908071201
 Transform:
   m_ObjectHideFlags: 0

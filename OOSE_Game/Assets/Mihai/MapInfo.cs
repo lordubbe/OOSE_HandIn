@@ -38,22 +38,24 @@ public class MapInfo {
 
 		//calculate the size needed for the map
 		int minX = 100000, maxX = 0, minZ = 10000000, maxZ = 0;
-		for(int i =0; i<touches.Length; i++){
-			if(touches[i].Hit().collider.gameObject.layer == 8){
-				if(Mathf.Min (minX,(int)touches[i].Hit().point.x) != minX){
-					minX = (int)touches[i].Hit().point.x;
+		for (int i =0; i<touches.Length; i++) {
+						if (touches [i].Hit ().collider) {
+								if (touches [i].Hit ().collider.gameObject.layer == 8) {
+										if (Mathf.Min (minX, (int)touches [i].Hit ().point.x) != minX) {
+												minX = (int)touches [i].Hit ().point.x;
+										}
+										if (Mathf.Min (minZ, (int)touches [i].Hit ().point.z) != minZ) {
+												minZ = (int)touches [i].Hit ().point.z;
+										}
+										if (Mathf.Max (maxX, (int)touches [i].Hit ().point.x) != maxX) {
+												maxX = (int)touches [i].Hit ().point.x;
+										}
+										if (Mathf.Max (maxZ, (int)touches [i].Hit ().point.z) != maxZ) {
+												maxZ = (int)touches [i].Hit ().point.z;
+										}
+								}
+						}
 				}
-				if(Mathf.Min (minZ,(int)touches[i].Hit().point.z) != minZ){
-					minZ = (int)touches[i].Hit().point.z;
-				}
-				if(Mathf.Max (maxX,(int)touches[i].Hit().point.x) != maxX){
-					maxX = (int)touches[i].Hit().point.x;
-				}
-				if(Mathf.Max (maxZ,(int)touches[i].Hit().point.z) != maxZ){
-					maxZ = (int)touches[i].Hit().point.z;
-				}
-			}
-		}
 		_xSize = maxX - minX + 1;
 		_zSize = maxZ - minZ + 1;
 		position.x = minX;
@@ -63,21 +65,22 @@ public class MapInfo {
 		int c = 0;
 		//put the info about the walls in the map
 		for(int i = 0 ; i<touches.Length; i++){
-			if(touches[i].Hit().collider.gameObject.layer == 8){
+			if(touches[i].Hit ().collider){
+				if(touches[i].Hit().collider.gameObject.layer == 8){
 
-//				map[(int)(touches[i].Hit().point.x-position.x),(int)(touches[i].Hit().point.z-position.z)].wall = true;
-//				map[(int)(touches[i].Hit().point.x-position.x),(int)(touches[i].Hit().point.z-position.z)].nr = i;
+	//				map[(int)(touches[i].Hit().point.x-position.x),(int)(touches[i].Hit().point.z-position.z)].wall = true;
+	//				map[(int)(touches[i].Hit().point.x-position.x),(int)(touches[i].Hit().point.z-position.z)].nr = i;
 
-				if(c!=0){
-					createLines (touches[c].Hit().point,touches[i].Hit().point,i);
-					map[(int)(touches[i].Hit().point.x-position.x),(int)(touches[i].Hit().point.z-position.z)].isTouch = true;
-					map[(int)(touches[c].Hit().point.x-position.x),(int)(touches[c].Hit().point.z-position.z)].isTouch = true;
+					if(c!=0){
+						createLines (touches[c].Hit().point,touches[i].Hit().point,i);
+						map[(int)(touches[i].Hit().point.x-position.x),(int)(touches[i].Hit().point.z-position.z)].isTouch = true;
+						map[(int)(touches[c].Hit().point.x-position.x),(int)(touches[c].Hit().point.z-position.z)].isTouch = true;
+
+					}
+					c=i;
 
 				}
-				c=i;
-
 			}
-
 		}
 
 	}
