@@ -72,6 +72,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pointer: {fileID: 0}
+  wall: {fileID: 0}
+  particleMovementDelay: .00999999978
 --- !u!135 &13500000
 SphereCollider:
   m_ObjectHideFlags: 1
