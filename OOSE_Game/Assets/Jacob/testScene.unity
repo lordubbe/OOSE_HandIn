@@ -192,9 +192,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54344d4ec0c4b4734a13ec69325511d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tileWidth: 1
+  tileHeight: 1
   emptyTile: {fileID: 400000, guid: ede89c57f0b204a189d04eb28f590208, type: 2}
   wallTile: {fileID: 400000, guid: 0ef5fccebde0249a1858066ac652c2ae, type: 2}
-  tile: {fileID: 400000, guid: 1cb71ef7b9ab84bccb10912ae9ad64d5, type: 2}
+  tile1: {fileID: 400000, guid: 1cb71ef7b9ab84bccb10912ae9ad64d5, type: 2}
   tile2: {fileID: 400000, guid: 8d060eab766eb4adebf854a9142d04cf, type: 2}
   tile3: {fileID: 400000, guid: e95c8501e8d534ba4858c94a6115e58c, type: 2}
   tile4: {fileID: 400000, guid: 14245e767ae9746a1934199fffff4a18, type: 2}

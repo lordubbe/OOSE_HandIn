@@ -2,15 +2,17 @@
 using System.Collections;
 
 public class LevelSpawn : MonoBehaviour {
-	
+
+	public int tileWidth = 1, tileHeight = 1;
+
 	public Transform emptyTile;
 	public Transform wallTile;
-	public Transform tile;
+	public Transform tile1;
 	public Transform tile2;
 	public Transform tile3;
 	public Transform tile4;
 	public Transform tile5;
-
+	
 	public int MAX_LEVEL_WIDTH = 50;
 	public int MAX_LEVEL_HEIGHT = 50;
 	
@@ -26,63 +28,62 @@ public class LevelSpawn : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		
 		levelMatrix = generateRooms(MAX_LEVEL_WIDTH, MAX_LEVEL_HEIGHT);//generate level
 		//generate walls
-
-		for(int x=0; x<MAX_LEVEL_WIDTH; x++){
-			for(int z=0; z<MAX_LEVEL_HEIGHT; z++){
-				switch(levelMatrix[x,z]){
+		
+		for(int x=0; x<MAX_LEVEL_WIDTH; x+=tileWidth){
+			for(int y=0; y<MAX_LEVEL_HEIGHT; y+=tileHeight){
+				switch(levelMatrix[x,y]){
 				case 0://nothing
 					//Instantiate (emptyTile, new Vector3 (x, 0, z), Quaternion.identity);
 					break;
 					
 				case 1://standard tile
-					Instantiate (tile, new Vector3 (x, 0, z), Quaternion.identity);
+					Instantiate (tile1, new Vector3 (x, 0, y), Quaternion.identity);
 					break;
 					
 				case 2://other tile
-					Instantiate (tile2, new Vector3 (x, 0, z), Quaternion.identity);
+					Instantiate (tile2, new Vector3 (x, 0, y), Quaternion.identity);
 					break;
-
+					
 				case 3://other tile
-					Instantiate (tile3, new Vector3 (x, 0, z), Quaternion.identity);
+					Instantiate (tile3, new Vector3 (x, 0, y), Quaternion.identity);
 					break;
-
+					
 				case 4://other tile
-					Instantiate (tile4, new Vector3 (x, 0, z), Quaternion.identity);
+					Instantiate (tile4, new Vector3 (x, 0, y), Quaternion.identity);
 					break;
-
+					
 				case 5://other tile
-					Instantiate (tile5, new Vector3 (x, 0, z), Quaternion.identity);
+					Instantiate (tile5, new Vector3 (x, 0, y), Quaternion.identity);
 					break;
-
+					
 				case 6://other tile
-					Instantiate (tile, new Vector3 (x, 0, z), Quaternion.identity);
+					Instantiate (tile1, new Vector3 (x, 0, y), Quaternion.identity);
 					break;
-
+					
 				case 7://other tile
-					Instantiate (tile2, new Vector3 (x, 0, z), Quaternion.identity);
+					Instantiate (tile2, new Vector3 (x, 0, y), Quaternion.identity);
 					break;
-
+					
 				case 8://other tile
-					Instantiate (tile3, new Vector3 (x, 0, z), Quaternion.identity);
+					Instantiate (tile3, new Vector3 (x, 0, y), Quaternion.identity);
 					break;
-
+					
 				case 9://other tile
-					Instantiate (tile4, new Vector3 (x, 0, z), Quaternion.identity);
+					Instantiate (tile4, new Vector3 (x, 0, y), Quaternion.identity);
 					break;
-
+					
 				case 10://other tile
-					Instantiate (tile5, new Vector3 (x, 0, z), Quaternion.identity);
+					Instantiate (tile5, new Vector3 (x, 0, y), Quaternion.identity);
 					break;
-
+					
 				case 11://corridor
-					Instantiate (emptyTile, new Vector3 (x, 0, z), Quaternion.identity);
+					Instantiate (emptyTile, new Vector3 (x, 0, y), Quaternion.identity);
 					break;
-
+					
 				case 12://wall
-					Instantiate (wallTile, new Vector3 (x, 0, z), Quaternion.identity);
+					Instantiate (wallTile, new Vector3 (x, 0, y), Quaternion.identity);
 					break;
 					
 				default://else
@@ -119,15 +120,15 @@ public class LevelSpawn : MonoBehaviour {
 		int numberOfRooms = Random.Range(minRooms, maxRooms+1);
 		int[] roomArray = new int[numberOfRooms*2];//Will hold spawn coordinates
 		int[] roomSizeArray = new int[numberOfRooms*2];//Will hold the room dimensions 
-
+		
 		int[] roomCenterArray = new int[numberOfRooms*2];//Will hold the center of the room (for corridor spawning);
-
-		//Fill the roomArray with spawn coordinates for each room (Pattern: [0]=x, [1]=y, [2]=x1, [3]=y1, ... ), and fill up the corresponding size array
+		
+		//Fill the roomArray with spawn coordinates for each room (Pattern: [0]=x1, [1]=y1, [2]=x2, [3]=y2, ... ), and fill up the corresponding size array
 		for(int i=0; i< numberOfRooms*2; i+=2){
 			roomArray[i]=Random.Range(0, MAX_LEVEL_WIDTH);//x value of room
 			roomArray[i+1]=Random.Range(0, MAX_LEVEL_HEIGHT);//y value of room
-			roomSizeArray[i] = Random.Range(minRoomWidth, maxRoomWidth);//width of room
-			roomSizeArray[i+1] = Random.Range(minRoomHeight, maxRoomHeight);//height of room
+			roomSizeArray[i] = Random.Range(minRoomWidth, maxRoomWidth);//save width of room
+			roomSizeArray[i+1] = Random.Range(minRoomHeight, maxRoomHeight);//save height of room
 			//print ("roomEnd_X: "+(roomArray[i]+maxRoomWidth)+", roomEnd_Y: "+(roomArray[i+1]+maxRoomHeight));//DEBUG PRINT the x+room width and y+room height
 			if(roomArray[i]+roomSizeArray[i]>MAX_LEVEL_WIDTH){//if the x coordinate + the room width exceeds the level width (Out Of Bounds [OOB])
 				int overflowX = (roomArray[i]+roomSizeArray[i])-MAX_LEVEL_WIDTH;//How many tiles does the room width go out of bounds?
@@ -145,18 +146,18 @@ public class LevelSpawn : MonoBehaviour {
 			roomCenterArray[i] = roomArray[i]+(roomSizeArray[i]/2);
 			roomCenterArray[i+1] = roomArray[i+1]+(roomSizeArray[i+1]/2);
 			//print ("Room center: "+roomCenterArray[i]+","+roomCenterArray[i+1]);
-
+			
 		}
-
-
+		
+		
 		//Print room positions for debugging
 		for(int j=0; j<roomArray.Length; j+=2){
 			//print ("room_x: "+roomArray[j]+", room_y: "+roomArray[j+1]);
 		}
-
+		
 		int[,] materialArray = new int[level.Length, level.Length];
 		int a = 1;//material counter
-
+		
 		//Now actually make the rooms
 		for(int k=0; k<roomArray.Length; k+=2){//iterate through each room
 			for(int l=roomArray[k]; l<roomArray[k]+roomSizeArray[k]; l++){//width of room spawned from the x position 
@@ -166,14 +167,14 @@ public class LevelSpawn : MonoBehaviour {
 					}else{
 						level[l, m] = a;//set material
 					}
-
+					
 				}
 			}
 			a++;//increment material counter
 		}
-
+		
 		print ("TOTAL ROOMS IN LEVEL: "+ numberOfRooms);
-
+		
 		//Make corridors between rooms
 		int x_;
 		int y_;
@@ -181,7 +182,7 @@ public class LevelSpawn : MonoBehaviour {
 		int targetY;
 		int x_incr;
 		int y_incr;
-
+		
 		for(int i=0; i<roomCenterArray.Length; i+=2){
 			if(i < roomCenterArray.Length-2){//if its not the last room
 				x_ = roomCenterArray[i];
@@ -207,26 +208,37 @@ public class LevelSpawn : MonoBehaviour {
 						level[targetX, y] = 11;
 					}
 				}
-			
+				
 			}
 		}
-
-		//Make walls!
-		for(int x=1; x<MAX_LEVEL_WIDTH-1; x++){
-			for(int z=1; z<MAX_LEVEL_HEIGHT-1; z++){
-				//vertical walls
-				if(level[x,z]==0 && (level[x+1,z]!=0 && level[x+1,z]!=12)){
-					level[x,z]=12;
-				}
-				if(level[x,z]==0 && (level[x-1,z]!=0 && level[x-1,z]!=12)){
-					level[x,z]=12;
-				}
-				//horizontal walls
-				if(level[x,z]==0 && (level[x,z+1]!=0 && level[x,z+1]!=12)){
-					level[x,z]=12;
-				}
-				if(level[x,z]==0 && (level[x,z-1]!=0 && level[x,z-1]!=12)){
-					level[x,z]=12;
+		
+		//Make walls! (12 = wall)
+		for(int x=0; x<MAX_LEVEL_WIDTH; x++){
+			for(int z=0; z<MAX_LEVEL_HEIGHT; z++){
+				print (x+","+z);
+				//EDGE OF MAP CASES
+				
+				if((x==MAX_LEVEL_WIDTH-1 || x==0) && level[x,z] != 0){
+					level[x,z] = 12;
+				}else if((z==MAX_LEVEL_HEIGHT-1 || z==0) && level[x,z] != 0){
+					level[x,z] = 12;
+				}else{
+					
+					//REST OF MAP
+					//vertical walls
+					if((x != MAX_LEVEL_WIDTH-1)&& level[x,z]==0 && (level[x+1,z]!=0 && level[x+1,z]!=12)){//If current position does not hold another tile and next position is not nothing and not a wall
+						level[x,z]=12;
+					}
+					if((x != 0)&& level[x,z]==0 && (level[x-1,z]!=0 && level[x-1,z]!=12)){
+						level[x,z]=12;
+					}
+					//horizontal walls
+					if((z != MAX_LEVEL_HEIGHT-1)&& level[x,z]==0 && (level[x,z+1]!=0 && level[x,z+1]!=12)){
+						level[x,z]=12;
+					}
+					if((z != 0)&& level[x,z]==0 && (level[x,z-1]!=0 && level[x,z-1]!=12)){
+						level[x,z]=12;
+					}
 				}
 			}
 		}
