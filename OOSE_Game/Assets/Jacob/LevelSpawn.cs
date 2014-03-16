@@ -5,17 +5,18 @@ public class LevelSpawn : MonoBehaviour {
 
 	public int tileWidth = 1, tileHeight = 1;
 
-	public Transform emptyTile;
+	//The actual tiles to be spawned
+	public Transform pathTile;
 	public Transform wallTile;
-	public Transform tile1;
-	public Transform tile2;
-	public Transform tile3;
-	public Transform tile4;
-	public Transform tile5;
-	
+	public Transform stoneTile;
+	public Transform lavaTile;
+	public Transform torchTile;
+
+	//General level information
 	public int MAX_LEVEL_WIDTH = 50;
 	public int MAX_LEVEL_HEIGHT = 50;
-	
+
+	//Dungeon generation specifics
 	public int seed = 100;
 	public int minRooms = 2;
 	public int maxRooms = 4;
@@ -23,6 +24,8 @@ public class LevelSpawn : MonoBehaviour {
 	public int minRoomHeight = 5;
 	public int maxRoomWidth = 10;
 	public int maxRoomHeight = 10;
+
+	public int torchFrequency = 15;//in percent
 	
 	private int[,] levelMatrix;
 	
@@ -39,51 +42,23 @@ public class LevelSpawn : MonoBehaviour {
 					break;
 					
 				case 1://standard tile
-					Instantiate (tile1, new Vector3 (x, 0, y), Quaternion.identity);
-					break;
-					
-				case 2://other tile
-					Instantiate (tile2, new Vector3 (x, 0, y), Quaternion.identity);
-					break;
-					
-				case 3://other tile
-					Instantiate (tile3, new Vector3 (x, 0, y), Quaternion.identity);
-					break;
-					
-				case 4://other tile
-					Instantiate (tile4, new Vector3 (x, 0, y), Quaternion.identity);
-					break;
-					
-				case 5://other tile
-					Instantiate (tile5, new Vector3 (x, 0, y), Quaternion.identity);
-					break;
-					
-				case 6://other tile
-					Instantiate (tile1, new Vector3 (x, 0, y), Quaternion.identity);
-					break;
-					
-				case 7://other tile
-					Instantiate (tile2, new Vector3 (x, 0, y), Quaternion.identity);
-					break;
-					
-				case 8://other tile
-					Instantiate (tile3, new Vector3 (x, 0, y), Quaternion.identity);
-					break;
-					
-				case 9://other tile
-					Instantiate (tile4, new Vector3 (x, 0, y), Quaternion.identity);
-					break;
-					
-				case 10://other tile
-					Instantiate (tile5, new Vector3 (x, 0, y), Quaternion.identity);
+					Instantiate (stoneTile, new Vector3 (x, 0, y), Quaternion.identity);
 					break;
 					
 				case 11://corridor
-					Instantiate (emptyTile, new Vector3 (x, 0, y), Quaternion.identity);
+					Instantiate (pathTile, new Vector3 (x, 0, y), Quaternion.identity);
 					break;
 					
 				case 12://wall
-					Instantiate (wallTile, new Vector3 (x, 0, y), Quaternion.identity);
+					Instantiate (wallTile, new Vector3 (x, 1, y), Quaternion.identity);
+					break;
+
+				case 30://lava
+					Instantiate (lavaTile, new Vector3 (x, 0, y), Quaternion.identity);
+					break;
+
+				case 90://torch
+					Instantiate (torchTile, new Vector3 (x, 1, y), Quaternion.identity);
 					break;
 					
 				default://else
@@ -151,13 +126,13 @@ public class LevelSpawn : MonoBehaviour {
 		
 		
 		//Print room positions for debugging
+		/*
 		for(int j=0; j<roomArray.Length; j+=2){
-			//print ("room_x: "+roomArray[j]+", room_y: "+roomArray[j+1]);
+			print ("room_x: "+roomArray[j]+", room_y: "+roomArray[j+1]);
 		}
-		
-		int[,] materialArray = new int[level.Length, level.Length];
-		int a = 1;//material counter
-		
+		*/
+
+
 		//Now actually make the rooms
 		for(int k=0; k<roomArray.Length; k+=2){//iterate through each room
 			for(int l=roomArray[k]; l<roomArray[k]+roomSizeArray[k]; l++){//width of room spawned from the x position 
@@ -165,12 +140,11 @@ public class LevelSpawn : MonoBehaviour {
 					if(level[l, m] != 0){//If theres already a tile there // JUST TO CHECK WHERE THEY OVERLAP
 						level[l, m] = level[l, m];	
 					}else{
-						level[l, m] = a;//set material
+						level[l, m] = 1;//set it to be standard ground material
 					}
 					
 				}
 			}
-			a++;//increment material counter
 		}
 		
 		print ("TOTAL ROOMS IN LEVEL: "+ numberOfRooms);
@@ -180,8 +154,6 @@ public class LevelSpawn : MonoBehaviour {
 		int y_;
 		int targetX;
 		int targetY;
-		int x_incr;
-		int y_incr;
 		
 		for(int i=0; i<roomCenterArray.Length; i+=2){
 			if(i < roomCenterArray.Length-2){//if its not the last room
@@ -214,36 +186,70 @@ public class LevelSpawn : MonoBehaviour {
 		
 		//Make walls! (12 = wall)
 		for(int x=0; x<MAX_LEVEL_WIDTH; x++){
-			for(int z=0; z<MAX_LEVEL_HEIGHT; z++){
-				print (x+","+z);
-				//EDGE OF MAP CASES
-				
-				if((x==MAX_LEVEL_WIDTH-1 || x==0) && level[x,z] != 0){
-					level[x,z] = 12;
-				}else if((z==MAX_LEVEL_HEIGHT-1 || z==0) && level[x,z] != 0){
-					level[x,z] = 12;
+			for(int y=0; y<MAX_LEVEL_HEIGHT; y++){
+				//print (x+","+y);
+
+				//EDGE OF MAP CASES. To take care of the rooms that are at the map boundaries
+				if((x==MAX_LEVEL_WIDTH-1 || x==0) && level[x,y] != 0){//since the level array goes from 0-MAX_LEVEL_WIDTH-1, so will this.
+					level[x,y] = 12;
+				}else if((y==MAX_LEVEL_HEIGHT-1 || y==0) && level[x,y] != 0){
+					level[x,y] = 12;
 				}else{
 					
 					//REST OF MAP
 					//vertical walls
-					if((x != MAX_LEVEL_WIDTH-1)&& level[x,z]==0 && (level[x+1,z]!=0 && level[x+1,z]!=12)){//If current position does not hold another tile and next position is not nothing and not a wall
-						level[x,z]=12;
+					if((x != MAX_LEVEL_WIDTH-1)&& level[x,y]==0 && (level[x+1,y]!=0 && level[x+1,y]!=12)){//If current position does not hold another tile and next position is not nothing and not a wall
+						level[x,y]=12;
 					}
-					if((x != 0)&& level[x,z]==0 && (level[x-1,z]!=0 && level[x-1,z]!=12)){
-						level[x,z]=12;
+					if((x != 0)&& level[x,y]==0 && (level[x-1,y]!=0 && level[x-1,y]!=12)){
+						level[x,y]=12;
 					}
 					//horizontal walls
-					if((z != MAX_LEVEL_HEIGHT-1)&& level[x,z]==0 && (level[x,z+1]!=0 && level[x,z+1]!=12)){
-						level[x,z]=12;
+					if((y != MAX_LEVEL_HEIGHT-1)&& level[x,y]==0 && (level[x,y+1]!=0 && level[x,y+1]!=12)){
+						level[x,y]=12;
 					}
-					if((z != 0)&& level[x,z]==0 && (level[x,z-1]!=0 && level[x,z-1]!=12)){
-						level[x,z]=12;
+					if((y != 0)&& level[x,y]==0 && (level[x,y-1]!=0 && level[x,y-1]!=12)){
+						level[x,y]=12;
 					}
 				}
 			}
 		}
+
+		//Light the map up! Place some torches, my man!
+		for(int x=0; x<MAX_LEVEL_WIDTH; x++){
+			for(int y=0; y<MAX_LEVEL_HEIGHT; y++){
+				if(Random.Range (0, 100) < torchFrequency){
+					if(level[x,y] == 12){//Torches can only be on walls, so we check if the current tile is a wall!
+						level[x,y] = 90;
+					}
+				}
+			}
+		}
+
+		/*
+		//Make lava obstacles!!! Hell yeah!
+		for(int x=0; x<MAX_LEVEL_WIDTH; x++){
+			for(int y=0; y<MAX_LEVEL_HEIGHT; y++){
+				if(Random.Range (0, 100) > 90){
+					if(level[x,y] != 12 && level[x,y] != 0 && level[x,y] != 11){//If its not a wall, path, nothing, or... TO BE CONTINUED PROLLY
+						level[x,y] = 30;
+					}
+				}
+			}
+		}
+		*/
 		
 		return level;
 	}
 	//--------------------------------------------------------------------------------LEVEL SPAWN ALGORITHM END
+
+	int[] findNeighbors(int x, int y, int[,] levelMatrix){//will return what a given positions neighbors are
+		int[] neighbors = new int[8];//8 neighbors for a tile (0=north, 1=north-east, 2=east, 3=south-east, 4=south, 5=south-west, 6=west, 7=north-west)
+
+	
+
+		return neighbors;
+
+	}
+
 }

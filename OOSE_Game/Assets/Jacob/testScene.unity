@@ -194,13 +194,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tileWidth: 1
   tileHeight: 1
-  emptyTile: {fileID: 400000, guid: ede89c57f0b204a189d04eb28f590208, type: 2}
-  wallTile: {fileID: 400000, guid: 0ef5fccebde0249a1858066ac652c2ae, type: 2}
-  tile1: {fileID: 400000, guid: 1cb71ef7b9ab84bccb10912ae9ad64d5, type: 2}
-  tile2: {fileID: 400000, guid: 8d060eab766eb4adebf854a9142d04cf, type: 2}
-  tile3: {fileID: 400000, guid: e95c8501e8d534ba4858c94a6115e58c, type: 2}
-  tile4: {fileID: 400000, guid: 14245e767ae9746a1934199fffff4a18, type: 2}
-  tile5: {fileID: 400000, guid: fa466eec30a4d4b26a12916755e953e5, type: 2}
+  pathTile: {fileID: 400000, guid: 8d060eab766eb4adebf854a9142d04cf, type: 2}
+  wallTile: {fileID: 400000, guid: e95c8501e8d534ba4858c94a6115e58c, type: 2}
+  stoneTile: {fileID: 400000, guid: 1cb71ef7b9ab84bccb10912ae9ad64d5, type: 2}
+  lavaTile: {fileID: 400000, guid: 14245e767ae9746a1934199fffff4a18, type: 2}
+  torchTile: {fileID: 400000, guid: ab3502416d7564f7a8d49b3339b1f8ef, type: 2}
   MAX_LEVEL_WIDTH: 50
   MAX_LEVEL_HEIGHT: 50
   seed: 100
@@ -210,3 +208,4 @@ MonoBehaviour:
   minRoomHeight: 5
   maxRoomWidth: 10
   maxRoomHeight: 10
+  torchFrequency: 15
