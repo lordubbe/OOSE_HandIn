@@ -2,20 +2,20 @@
 using System.Collections;
 
 public class LevelSpawn : MonoBehaviour {
-
+	
 	public int tileWidth = 1, tileHeight = 1;
-
+	
 	//The actual tiles to be spawned
 	public Transform pathTile;
 	public Transform wallTile;
 	public Transform stoneTile;
 	public Transform lavaTile;
 	public Transform torchTile;
-
+	
 	//General level information
 	public int MAX_LEVEL_WIDTH = 50;
 	public int MAX_LEVEL_HEIGHT = 50;
-
+	
 	//Dungeon generation specifics
 	public int seed = 100;
 	public int minRooms = 2;
@@ -24,7 +24,7 @@ public class LevelSpawn : MonoBehaviour {
 	public int minRoomHeight = 5;
 	public int maxRoomWidth = 10;
 	public int maxRoomHeight = 10;
-
+	
 	public int torchFrequency = 15;//in percent
 	
 	private int[,] levelMatrix;
@@ -52,13 +52,35 @@ public class LevelSpawn : MonoBehaviour {
 				case 12://wall
 					Instantiate (wallTile, new Vector3 (x, 1, y), Quaternion.identity);
 					break;
-
+					
 				case 30://lava
 					Instantiate (lavaTile, new Vector3 (x, 0, y), Quaternion.identity);
 					break;
-
+					
 				case 90://torch
-					Instantiate (torchTile, new Vector3 (x, 1, y), Quaternion.identity);
+					//Instantiate (torchTile, new Vector3 (x, 1, y), Quaternion.identity);
+					print ("torch at "+x+","+y);
+					switch(findNearestGroundTile(x,y,levelMatrix)){
+						case 0://left
+							Instantiate (torchTile, new Vector3 (x, 1, y), Quaternion.Euler(0, 0, 0));
+							//torchTile.name = "LEFT";
+							break;
+						case 1://up
+							Instantiate (torchTile, new Vector3 (x, 1, y), Quaternion.Euler(0, 90, 0));
+							//torchTile.name = "UP";
+							break;
+						case 2://right
+							Instantiate (torchTile, new Vector3 (x, 1, y), Quaternion.Euler(0, 180, 0));
+							//torchTile.name = "RIGHT";
+							break;
+						case 3://down
+							Instantiate (torchTile, new Vector3 (x, 1, y), Quaternion.Euler(0, 270, 0));
+							//torchTile.name = "DOWN";
+							break;
+						default:
+						Instantiate (torchTile, new Vector3 (x, 1, y), Quaternion.Euler(0, 0, 0));
+							break;
+					}
 					break;
 					
 				default://else
@@ -131,8 +153,8 @@ public class LevelSpawn : MonoBehaviour {
 			print ("room_x: "+roomArray[j]+", room_y: "+roomArray[j+1]);
 		}
 		*/
-
-
+		
+		
 		//Now actually make the rooms
 		for(int k=0; k<roomArray.Length; k+=2){//iterate through each room
 			for(int l=roomArray[k]; l<roomArray[k]+roomSizeArray[k]; l++){//width of room spawned from the x position 
@@ -161,7 +183,7 @@ public class LevelSpawn : MonoBehaviour {
 				y_ = roomCenterArray[i+1];
 				targetX = roomCenterArray[i+2];
 				targetY = roomCenterArray[i+3];
-				print ("xDiff: "+(x_-targetX)+" yDiff: "+(y_-targetY));
+				//print ("xDiff: "+(x_-targetX)+" yDiff: "+(y_-targetY));
 				if(x_-targetX >0){
 					for(int x=x_; x>targetX; x--){//x path
 						level[x, y_] = 11;
@@ -188,7 +210,7 @@ public class LevelSpawn : MonoBehaviour {
 		for(int x=0; x<MAX_LEVEL_WIDTH; x++){
 			for(int y=0; y<MAX_LEVEL_HEIGHT; y++){
 				//print (x+","+y);
-
+				
 				//EDGE OF MAP CASES. To take care of the rooms that are at the map boundaries
 				if((x==MAX_LEVEL_WIDTH-1 || x==0) && level[x,y] != 0){//since the level array goes from 0-MAX_LEVEL_WIDTH-1, so will this.
 					level[x,y] = 12;
@@ -214,18 +236,18 @@ public class LevelSpawn : MonoBehaviour {
 				}
 			}
 		}
-
+		
 		//Light the map up! Place some torches, my man!
 		for(int x=0; x<MAX_LEVEL_WIDTH; x++){
 			for(int y=0; y<MAX_LEVEL_HEIGHT; y++){
 				if(Random.Range (0, 100) < torchFrequency){
 					if(level[x,y] == 12){//Torches can only be on walls, so we check if the current tile is a wall!
 						level[x,y] = 90;
+						
 					}
 				}
 			}
 		}
-
 		/*
 		//Make lava obstacles!!! Hell yeah!
 		for(int x=0; x<MAX_LEVEL_WIDTH; x++){
@@ -242,14 +264,43 @@ public class LevelSpawn : MonoBehaviour {
 		return level;
 	}
 	//--------------------------------------------------------------------------------LEVEL SPAWN ALGORITHM END
+	public int findNearestGroundTile(int x, int y, int[,] levelMatrix){//will return what a given positions neighbors are
+		int dir;//default rotation
+		/*
+		if(x-1 >= 0 && x+1 <=MAX_LEVEL_WIDTH && y-1>=0 && y+1 <=MAX_LEVEL_HEIGHT){
+			print ("x-1:"+(levelMatrix[x-1, y])+", y+1:"+(levelMatrix[x,y+1])+", x+1:"+(levelMatrix[x+1,y])+", y-1:"+(levelMatrix[x,y-1])+"."); 
+		}*/
 
-	int[] findNeighbors(int x, int y, int[,] levelMatrix){//will return what a given positions neighbors are
-		int[] neighbors = new int[8];//8 neighbors for a tile (0=north, 1=north-east, 2=east, 3=south-east, 4=south, 5=south-west, 6=west, 7=north-west)
-
-	
-
-		return neighbors;
-
+		if((x-1 > 0) && ((levelMatrix[x-1, y] == 1) || levelMatrix[x-1, y] == 11)){//So left will always be first choice, then up, right and then down (left=0, up=1, right=2, down=3)
+			dir = 0;//left is ground
+			print ("left");
+		}
+		else if((y+1 < MAX_LEVEL_HEIGHT) && (levelMatrix[x,y+1] == 1 || levelMatrix[x, y+1] == 11)){
+			dir = 1;//up is ground
+			print ("up");
+		}
+		else if((x+1 < MAX_LEVEL_WIDTH) && (levelMatrix[x+1,y] == 1 || levelMatrix[x+1, y] == 11)){
+			dir = 2;//right is ground
+			print ("right");
+		}
+		else if((y-1 > 0) && (levelMatrix[x,y-1] == 1 || levelMatrix[x, y-1] == 11)){
+			dir = 3;//down is ground
+			print ("down");
+		}else{
+			dir = 0;
+		}
+		print ("dir("+x+","+y+")"+": "+dir);
+		return dir;
 	}
 
+
+	
+	int getAmountOfNeighbors(int num){//OMG i actually remembered how to do recursion! This will return the amount of neighbors (
+		if(num == 0){
+			return num;
+		}else{
+			return 8*num + getAmountOfNeighbors(num-1);
+		}
+	}
+	
 }
