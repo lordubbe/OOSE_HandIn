@@ -124,6 +124,9 @@ public class LevelSpawn : MonoBehaviour {
 				GameObject go;
 				if(x_-targetX >0){
 					for(int x=x_; x>targetX; x--){//x path
+						if(level[x,y_]!=null){
+							print (level[x,y_].tileMesh);
+						}
 						level[x, y_] = path;
 						path.x = x;
 						path.y = y_;
