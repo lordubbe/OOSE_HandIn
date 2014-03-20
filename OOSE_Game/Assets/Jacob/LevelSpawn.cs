@@ -26,13 +26,71 @@ public class LevelSpawn : MonoBehaviour {
 	public int maxRoomHeight = 10;
 	
 	public int torchFrequency = 15;//in percent
-	
-	private Tile[,] levelMatrix;
+
+	//Enemies
+	public int enemySpawnFreq = 10;
+	public Vector3[] enemySpawnTiles;
+
+	//Player
+	public Vector3 playerSpawn;
+
+	private Tile[,] levelMatrix;//holds the level
 	
 	// Use this for initialization
 	void Start () {
 
 		levelMatrix = generateRooms(MAX_LEVEL_WIDTH, MAX_LEVEL_HEIGHT);//generate level
+
+		//spawn level
+		for(int x=0; x<MAX_LEVEL_WIDTH; x++){
+			for(int y=0; y<MAX_LEVEL_HEIGHT; y++){
+				GameObject go;
+				if(levelMatrix[x,y] != null){
+					if(levelMatrix[x,y].type == Tile.tileType.wall){
+						go = Instantiate(levelMatrix[x,y].tileMesh, new Vector3(x*tileWidth, tileHeight, y*tileHeight), Quaternion.identity) as GameObject; 
+					}else{
+						go = Instantiate(levelMatrix[x,y].tileMesh, new Vector3(x*tileWidth, 0, y*tileHeight), Quaternion.identity) as GameObject;
+					}
+				}
+
+			}
+		}
+
+		//Light the map up! Place some torches, my man!
+		for(int x=0; x<MAX_LEVEL_WIDTH; x++){
+			for(int y=0; y<MAX_LEVEL_HEIGHT; y++){
+				if(Random.Range (0, 100) < torchFrequency){
+					if(levelMatrix[x,y] != null && levelMatrix[x,y].type == Tile.tileType.wall){//Torches can only be on walls, so we check if the current tile is a wall!
+						Tile torch = new Tile();
+						torch.tileMesh = torchTile;
+						//torch.type = Tile.tileType.wall; // TO BE CHANGED UPON TORCH SYSTEM ENHANCEMENT
+						torch.isWalkable = false;
+						torch.speed = 1;
+						torch.damage = 0;
+						torch.canSpawnEnemies = false;
+						torch.x = x;
+						torch.y = y;
+						Transform light = Instantiate(torch.tileMesh, new Vector3(x*tileWidth, tileHeight, y*tileHeight), rotateTowardsNearestGroundTile(x,y,levelMatrix)) as Transform;
+						//light.transform.parent = levelMatrix[x,y].tileMesh; //WHATEVER CAN'T PARENT THEM YET!!! :( 
+						//print ("torch at: "+x*tileWidth+","+y*tileWidth);
+					}
+				}
+			}
+		}
+		//END OF TORCH PLACEMENT
+
+		int enemiesInLevel = 0;
+		//Control monster spawns!!! Oooooh!
+		for(int x=0; x<MAX_LEVEL_WIDTH; x++){
+			for(int y=0; y<MAX_LEVEL_HEIGHT; y++){
+				if(levelMatrix[x,y]!=null && levelMatrix[x,y].canSpawnEnemies && Random.Range(0,100)<enemySpawnFreq){
+					//SPAWN ENEMY
+					GameObject enemy = Instantiate(lavaTile, new Vector3(x*tileWidth, 0.5f, y*tileHeight), Quaternion.identity) as GameObject;
+					enemiesInLevel++;
+				}
+			}
+		}
+		print ("TOTAL ENEMIES IN LEVEL: "+enemiesInLevel);
 
 	}
 
@@ -80,8 +138,12 @@ public class LevelSpawn : MonoBehaviour {
 			//print ("Room center: "+roomCenterArray[i]+","+roomCenterArray[i+1]);
 			
 		}
-		
-		
+
+		//SET PLAYER SPAWN *QUICKLY - NOT OPTIMAL*
+		playerSpawn = new Vector3(roomCenterArray[0], tileHeight, roomCenterArray[1]);
+		Transform player = Instantiate(lavaTile, new Vector3(playerSpawn.x*tileWidth, playerSpawn.y, playerSpawn.z*tileHeight), Quaternion.identity) as Transform; //JUST PLACEHOLDER SPAWN FOR LOOKS
+		player.transform.localScale = new Vector3(1, 5, 1);//JUST TO VISUALIZE
+
 		//Print room positions for debugging
 		/*
 		for(int j=0; j<roomArray.Length; j+=2){
@@ -94,12 +156,11 @@ public class LevelSpawn : MonoBehaviour {
 		for(int k=0; k<roomArray.Length; k+=2){//iterate through each room
 			for(int l=roomArray[k]; l<roomArray[k]+roomSizeArray[k]; l++){//width of room spawned from the x position 
 				for(int m=roomArray[k+1]; m<roomArray[k+1]+roomSizeArray[k+1]; m++){//height –––||–––
-
 						Tile ground = new Tile(l, m, 1, 0, true, true);
 						ground.tileMesh = stoneTile;
 						level[l, m] = ground;//set it to be standard ground
 						level[l, m].type = Tile.tileType.ground;
-					GameObject go = Instantiate(level[l, m].tileMesh, new Vector3(l*tileWidth, 0, m*tileHeight), Quaternion.identity) as GameObject;
+					//GameObject go = Instantiate(level[l, m].tileMesh, new Vector3(l*tileWidth, 0, m*tileHeight), Quaternion.identity) as GameObject;
 				}
 			}
 		}
@@ -121,23 +182,23 @@ public class LevelSpawn : MonoBehaviour {
 				//print ("xDiff: "+(x_-targetX)+" yDiff: "+(y_-targetY));
 				Tile path = new Tile();
 				path.tileMesh = pathTile;
-				GameObject go;
+				//GameObject go;
 				if(x_-targetX >0){
 					for(int x=x_; x>targetX; x--){//x path
 						if(level[x,y_]!=null){
-							print (level[x,y_].tileMesh);
+							//print (level[x,y_].tileMesh);
 						}
 						level[x, y_] = path;
 						path.x = x;
 						path.y = y_;
-						go = Instantiate(level[x,y_].tileMesh, new Vector3(x*tileWidth, 0, y_*tileHeight), Quaternion.identity) as GameObject;
+						//go = Instantiate(level[x,y_].tileMesh, new Vector3(x*tileWidth, 0, y_*tileHeight), Quaternion.identity) as GameObject;
 					}
 				}else{
 					for(int x=x_; x<targetX; x++){//x path
 						level[x, y_] = path;
 						path.x = x;
 						path.y = y_;
-						go = Instantiate(level[x,y_].tileMesh, new Vector3(x*tileWidth, 0, y_*tileHeight), Quaternion.identity) as GameObject;
+						//go = Instantiate(level[x,y_].tileMesh, new Vector3(x*tileWidth, 0, y_*tileHeight), Quaternion.identity) as GameObject;
 					}
 				}
 				if(y_-targetY >0){
@@ -145,14 +206,14 @@ public class LevelSpawn : MonoBehaviour {
 						level[targetX, y] = path;
 						path.x = targetX;
 						path.y = y;
-						go = Instantiate(level[targetX,y].tileMesh, new Vector3(targetX*tileWidth, 0, y*tileHeight), Quaternion.identity) as GameObject;
+						//go = Instantiate(level[targetX,y].tileMesh, new Vector3(targetX*tileWidth, 0, y*tileHeight), Quaternion.identity) as GameObject;
 					}
 				}else{
 					for(int y=y_; y<targetY; y++){//y path
 						level[targetX, y] = path;
 						path.x = targetX;
 						path.y = y;
-						go = Instantiate(level[targetX,y].tileMesh, new Vector3(targetX*tileWidth, 0, y*tileHeight), Quaternion.identity) as GameObject;
+						//go = Instantiate(level[targetX,y].tileMesh, new Vector3(targetX*tileWidth, 0, y*tileHeight), Quaternion.identity) as GameObject;
 					}
 				}
 				path.canSpawnEnemies = true;
@@ -176,75 +237,43 @@ public class LevelSpawn : MonoBehaviour {
 				wall.x = x;
 				wall.y = y;
 				wall.type = Tile.tileType.wall;
-				GameObject go;
+				//GameObject go;
 				//EDGE OF MAP CASES. To take care of the rooms that are at the map boundaries
 				if((x==MAX_LEVEL_WIDTH-1 || x==0) && level[x,y] != null){//since the level array goes from 0-MAX_LEVEL_WIDTH-1, so will this.
 					level[x,y] = wall;
-					go = Instantiate (level[x,y].tileMesh, new Vector3(x*tileWidth, tileHeight, y*tileHeight), Quaternion.identity) as GameObject;
+					//go = Instantiate (level[x,y].tileMesh, new Vector3(x*tileWidth, tileHeight, y*tileHeight), Quaternion.identity) as GameObject;
 				}else if((y==MAX_LEVEL_HEIGHT-1 || y==0) && level[x,y] != null){
 					level[x,y] = wall;
-					go = Instantiate (level[x,y].tileMesh, new Vector3(x*tileWidth, tileHeight, y*tileHeight), Quaternion.identity) as GameObject;
+					//go = Instantiate (level[x,y].tileMesh, new Vector3(x*tileWidth, tileHeight, y*tileHeight), Quaternion.identity) as GameObject;
 				}else{
 					//REST OF MAP
 					//vertical walls
 					if((x != MAX_LEVEL_WIDTH-1)&& level[x,y]==null && (level[x+1,y]!=null && level[x+1,y].type!=Tile.tileType.wall)){//If current position does not hold another tile and next position is not nothing and not a wall
 						level[x,y]=wall;
-						go = Instantiate (level[x,y].tileMesh, new Vector3(x*tileWidth, tileHeight, y*tileHeight), Quaternion.identity) as GameObject;
+						//go = Instantiate (level[x,y].tileMesh, new Vector3(x*tileWidth, tileHeight, y*tileHeight), Quaternion.identity) as GameObject;
 					}
 					if((x != 0)&& level[x,y]==null && (level[x-1,y]!=null && level[x-1,y].type!=Tile.tileType.wall)){
 						level[x,y]=wall;
-						go = Instantiate (level[x,y].tileMesh, new Vector3(x*tileWidth, tileHeight, y*tileHeight), Quaternion.identity) as GameObject;
+						//go = Instantiate (level[x,y].tileMesh, new Vector3(x*tileWidth, tileHeight, y*tileHeight), Quaternion.identity) as GameObject;
 					}
 					//horizontal walls
 					if((y != MAX_LEVEL_HEIGHT-1)&& level[x,y]==null && (level[x,y+1]!=null && level[x,y+1].type!=Tile.tileType.wall)){
 						level[x,y]=wall;
-						go = Instantiate (level[x,y].tileMesh, new Vector3(x*tileWidth, tileHeight, y*tileHeight), Quaternion.identity) as GameObject;
+					//	go = Instantiate (level[x,y].tileMesh, new Vector3(x*tileWidth, tileHeight, y*tileHeight), Quaternion.identity) as GameObject;
 					}
 					if((y != 0)&& level[x,y]==null && (level[x,y-1]!=null && level[x,y-1].type!=Tile.tileType.wall)){
 						level[x,y]=wall;
-						go = Instantiate (level[x,y].tileMesh, new Vector3(x*tileWidth, tileHeight, y*tileHeight), Quaternion.identity) as GameObject;
+						//go = Instantiate (level[x,y].tileMesh, new Vector3(x*tileWidth, tileHeight, y*tileHeight), Quaternion.identity) as GameObject;
 					}
 				}
 			}
 		}
-		
-		//Light the map up! Place some torches, my man!
-		for(int x=0; x<MAX_LEVEL_WIDTH; x++){
-			for(int y=0; y<MAX_LEVEL_HEIGHT; y++){
-				if(Random.Range (0, 100) < torchFrequency){
-					if(level[x,y] != null && level[x,y].type == Tile.tileType.wall){//Torches can only be on walls, so we check if the current tile is a wall!
-						Tile torch = new Tile();
-						torch.tileMesh = torchTile;
-						//torch.type = Tile.tileType.wall; // TO BE CHANGED UPON TORCH SYSTEM ENHANCEMENT
-						torch.isWalkable = false;
-						torch.speed = 1;
-						torch.damage = 0;
-						torch.canSpawnEnemies = false;
-						torch.x = x;
-						torch.y = y;
-						GameObject go = Instantiate(torch.tileMesh, new Vector3(x*tileWidth, tileHeight, y*tileHeight), rotateTowardsNearestGroundTile(x,y,level)) as GameObject;
-						//go.transform.parent = level[x,y].tileMesh; //WHATEVER CAN'T PARENT THEM YET!!! :( 
-						//print ("torch at: "+x*tileWidth+","+y*tileWidth);
-					}
-				}
-			}
-		}
-		/*
-		//Make lava obstacles!!! Hell yeah!
-		for(int x=0; x<MAX_LEVEL_WIDTH; x++){
-			for(int y=0; y<MAX_LEVEL_HEIGHT; y++){
-				if(Random.Range (0, 100) > 90){
-					if(level[x,y] != 12 && level[x,y] != 0 && level[x,y] != 11){//If its not a wall, path, nothing, or... TO BE CONTINUED PROLLY
-						level[x,y] = 30;
-					}
-				}
-			}
-		}
-		*/
-		
 		return level;
 	}
 	//--------------------------------------------------------------------------------LEVEL SPAWN ALGORITHM END
+
+
+
 	public Quaternion rotateTowardsNearestGroundTile(int x, int y, Tile[,] levelMatrix){//will return what a given positions neighbors are
 		//int dir = 0;//default rotation
 		Quaternion dir = Quaternion.Euler(0, 0, 0);

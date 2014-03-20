@@ -209,3 +209,4 @@ MonoBehaviour:
   maxRoomWidth: 10
   maxRoomHeight: 10
   torchFrequency: 15
+  enemySpawnFreq: 10
