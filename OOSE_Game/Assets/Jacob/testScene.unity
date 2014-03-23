@@ -199,6 +199,7 @@ MonoBehaviour:
   stoneTile: {fileID: 400000, guid: 1cb71ef7b9ab84bccb10912ae9ad64d5, type: 2}
   lavaTile: {fileID: 400000, guid: 14245e767ae9746a1934199fffff4a18, type: 2}
   torchTile: {fileID: 400000, guid: ab3502416d7564f7a8d49b3339b1f8ef, type: 2}
+  chestObject: {fileID: 400004, guid: fec665fdb56c144afadd812cb41e5c36, type: 2}
   MAX_LEVEL_WIDTH: 50
   MAX_LEVEL_HEIGHT: 50
   seed: 100
@@ -210,3 +211,6 @@ MonoBehaviour:
   maxRoomHeight: 10
   torchFrequency: 15
   enemySpawnFreq: 10
+  enemySpawnPositions: []
+  playerSpawn: {x: 0, y: 0, z: 0}
+  chestSpawnFreq: 5

@@ -11,6 +11,7 @@ public class LevelSpawn : MonoBehaviour {
 	public Transform stoneTile;
 	public Transform lavaTile;
 	public Transform torchTile;
+	public Transform chestObject;
 	
 	//General level information
 	public int MAX_LEVEL_WIDTH = 50;
@@ -29,10 +30,13 @@ public class LevelSpawn : MonoBehaviour {
 
 	//Enemies
 	public int enemySpawnFreq = 10;
-	public Vector3[] enemySpawnTiles;
+	public Vector3[] enemySpawnPositions;
 
 	//Player
 	public Vector3 playerSpawn;
+
+	//Goodies
+	public int chestSpawnFreq = 5;
 
 	private Tile[,] levelMatrix;//holds the level
 	
@@ -70,7 +74,7 @@ public class LevelSpawn : MonoBehaviour {
 						torch.canSpawnEnemies = false;
 						torch.x = x;
 						torch.y = y;
-						Transform light = Instantiate(torch.tileMesh, new Vector3(x*tileWidth, tileHeight, y*tileHeight), rotateTowardsNearestGroundTile(x,y,levelMatrix)) as Transform;
+						Transform light = Instantiate(torch.tileMesh, new Vector3(x*tileWidth, tileHeight, y*tileHeight), rotateTowardsNearestTileOfType(Tile.tileType.ground, x,y,levelMatrix)) as Transform;
 						//light.transform.parent = levelMatrix[x,y].tileMesh; //WHATEVER CAN'T PARENT THEM YET!!! :( 
 						//print ("torch at: "+x*tileWidth+","+y*tileWidth);
 					}
@@ -78,6 +82,17 @@ public class LevelSpawn : MonoBehaviour {
 			}
 		}
 		//END OF TORCH PLACEMENT
+
+		//Place some goodies! Chests incominnnggg!
+		for(int x=0; x<MAX_LEVEL_WIDTH; x++){
+			for(int y=0; y<MAX_LEVEL_HEIGHT; y++){
+				if(Random.Range (0, 100) < chestSpawnFreq){
+					if(levelMatrix[x,y]!=null && levelMatrix[x,y].type == Tile.tileType.ground){
+						Transform chest = Instantiate(chestObject, new Vector3(x*tileWidth, 1.273649f, y*tileWidth), rotateTowardsNearestTileOfType(Tile.tileType.wall, x, y, levelMatrix)) as Transform;
+					}
+				}
+			}
+		}
 
 		int enemiesInLevel = 0;
 		//Control monster spawns!!! Oooooh!
@@ -274,13 +289,13 @@ public class LevelSpawn : MonoBehaviour {
 
 
 
-	public Quaternion rotateTowardsNearestGroundTile(int x, int y, Tile[,] levelMatrix){//will return what a given positions neighbors are
+	public Quaternion rotateTowardsNearestTileOfType(Tile.tileType type, int x, int y, Tile[,] levelMatrix){//will return what a given positions neighbors are
 		//int dir = 0;//default rotation
 		Quaternion dir = Quaternion.Euler(0, 0, 0);
 
 		if( x-1 > 0){
 			if((levelMatrix[x-1, y] != null)){//So left will always be first choice, then up, right and then down (left=0, up=1, right=2, down=3)
-				if(levelMatrix[x-1,y].type == Tile.tileType.ground){
+				if(levelMatrix[x-1,y].type == type){
 					dir = Quaternion.Euler(0, 0, 0);//left is ground
 			//		print ("type: "+levelMatrix[x-1,y].type);
 			//		print("left");
