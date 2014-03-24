@@ -4,7 +4,9 @@ using System.Collections;
 public class LevelSpawn : MonoBehaviour {
 	
 	public int tileWidth = 1, tileHeight = 1;
-	
+
+	public Transform levelParent;
+
 	//The actual tiles to be spawned
 	public Transform pathTile;
 	public Transform wallTile;
@@ -54,12 +56,18 @@ public class LevelSpawn : MonoBehaviour {
 		for(int x=0; x<MAX_LEVEL_WIDTH; x++){
 			for(int y=0; y<MAX_LEVEL_HEIGHT; y++){
 				GameObject go;
+				Transform what;
 				if(levelMatrix[x,y] != null){
 					if(levelMatrix[x,y].type == Tile.tileType.wall){
-						go = Instantiate(levelMatrix[x,y].tileMesh, new Vector3(x*tileWidth, tileHeight, y*tileHeight), Quaternion.identity) as GameObject;//instantiate 1 height up
-						go = Instantiate(levelMatrix[x,y].tileMesh, new Vector3(x*tileWidth, 0, y*tileHeight), Quaternion.identity) as GameObject; //and ground level for better visuals
+						go = (GameObject)Instantiate(levelMatrix[x,y].tileMesh, new Vector3(x*tileWidth, tileHeight, y*tileHeight), Quaternion.identity);//instantiate 1 height up
+						go.transform.parent = levelParent.transform;
+						go = (GameObject)Instantiate(levelMatrix[x,y].tileMesh, new Vector3(x*tileWidth, 0, y*tileHeight), Quaternion.identity); //and ground level for better visuals
+						go.transform.parent = levelParent.transform;
 					}else{
-						go = Instantiate(levelMatrix[x,y].tileMesh, new Vector3(x*tileWidth, 0, y*tileHeight), Quaternion.identity) as GameObject;
+						//go = (GameObject)Instantiate(levelMatrix[x,y].tileMesh, new Vector3(x*tileWidth, 0, y*tileHeight), Quaternion.identity);
+						what = (Transform)Instantiate(levelMatrix[x,y].tileMesh, new Vector3(x*tileWidth, 0, y*tileHeight), Quaternion.identity); 
+						what.parent = levelParent.transform;
+						//go.transform.parent = levelParent.transform;
 					}
 				}
 
@@ -80,7 +88,8 @@ public class LevelSpawn : MonoBehaviour {
 						torch.canSpawnEnemies = false;
 						torch.x = x;
 						torch.y = y;
-						Transform light = Instantiate(torch.tileMesh, new Vector3(x*tileWidth, tileHeight, y*tileHeight), rotateTowardsNearestTileOfType(Tile.tileType.ground, x,y,levelMatrix)) as Transform;
+						Transform light = (Transform)Instantiate(torch.tileMesh, new Vector3(x*tileWidth, tileHeight, y*tileHeight), rotateTowardsNearestTileOfType(Tile.tileType.ground, x,y,levelMatrix));
+						light.parent = levelMatrix[x,y].tileMesh;
 						//light.transform.parent = levelMatrix[x,y].tileMesh; //WHATEVER CAN'T PARENT THEM YET!!! :( 
 						//print ("torch at: "+x*tileWidth+","+y*tileWidth);
 					}
