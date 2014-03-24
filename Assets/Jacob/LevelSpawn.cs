@@ -39,7 +39,12 @@ public class LevelSpawn : MonoBehaviour {
 	public int chestSpawnFreq = 5;
 
 	private Tile[,] levelMatrix;//holds the level
-	
+
+
+	public delegate void FINISH_GENERATION();
+	public static event FINISH_GENERATION FinishGeneration; 
+
+
 	// Use this for initialization
 	void Start () {
 
@@ -105,7 +110,7 @@ public class LevelSpawn : MonoBehaviour {
 			}
 		}
 		print ("TOTAL ENEMIES IN LEVEL: "+enemiesInLevel);
-
+		if(FinishGeneration!=null)FinishGeneration (); //trigger the event that anounces that the generation ended
 	}
 
 	//--------------------------------------------------------------------------------LEVEL SPAWN ALGORITHM BEGIN

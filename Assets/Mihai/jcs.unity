@@ -149,8 +149,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1238444465}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalRotation: {x: .0517648868, y: .166476265, z: .00875199959, w: .984646857}
+  m_LocalPosition: {x: 0, y: 21.2864838, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -192,13 +192,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54344d4ec0c4b4734a13ec69325511d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileWidth: 1
-  tileHeight: 1
+  tileWidth: 2
+  tileHeight: 2
   pathTile: {fileID: 400000, guid: 8d060eab766eb4adebf854a9142d04cf, type: 2}
   wallTile: {fileID: 400000, guid: e95c8501e8d534ba4858c94a6115e58c, type: 2}
   stoneTile: {fileID: 400000, guid: 1cb71ef7b9ab84bccb10912ae9ad64d5, type: 2}
   lavaTile: {fileID: 400000, guid: 14245e767ae9746a1934199fffff4a18, type: 2}
   torchTile: {fileID: 400000, guid: ab3502416d7564f7a8d49b3339b1f8ef, type: 2}
+  chestObject: {fileID: 400004, guid: fec665fdb56c144afadd812cb41e5c36, type: 2}
   MAX_LEVEL_WIDTH: 50
   MAX_LEVEL_HEIGHT: 50
   seed: 100
@@ -209,3 +210,7 @@ MonoBehaviour:
   maxRoomWidth: 10
   maxRoomHeight: 10
   torchFrequency: 15
+  enemySpawnFreq: 10
+  enemySpawnPositions: []
+  playerSpawn: {x: 0, y: 0, z: 0}
+  chestSpawnFreq: 2
