@@ -89,7 +89,8 @@ public class LevelSpawn : MonoBehaviour {
 						torch.x = x;
 						torch.y = y;
 						Transform light = (Transform)Instantiate(torch.tileMesh, new Vector3(x*tileWidth, tileHeight, y*tileHeight), rotateTowardsNearestTileOfType(Tile.tileType.ground, x,y,levelMatrix));
-						light.parent = levelMatrix[x,y].tileMesh;
+						light.parent = levelMatrix[x,y].tileMesh.transform;
+						print (light.parent);
 						//light.transform.parent = levelMatrix[x,y].tileMesh; //WHATEVER CAN'T PARENT THEM YET!!! :( 
 						//print ("torch at: "+x*tileWidth+","+y*tileWidth);
 					}
