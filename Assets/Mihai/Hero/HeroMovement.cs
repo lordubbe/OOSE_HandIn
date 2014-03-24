@@ -84,7 +84,7 @@ public class HeroMovement : MonoBehaviour {
 		while(power>-jumpPower && !gr.checkGround() ){
 			transform.position += new Vector3(0,power,0)*Time.deltaTime;
 			power-= gr.GRAVITY * gr.MASS* Time.deltaTime;
-			cf.CameraMove(); 
+			cf.CameraMove();
 			yield return new WaitForSeconds(0.03f);
 		}
 		anim.SetBool("Jump",false);

@@ -13,7 +13,8 @@ public class CameraFollow : MonoBehaviour {
 	}
 
 	public void CameraMove(){
-		transform.position = character.position + distance;
-
+		transform.position = new Vector3(character.position.x,0,character.position.z) + distance;
+		//transform.LookAt(character.position);
+		
 	}
 }
