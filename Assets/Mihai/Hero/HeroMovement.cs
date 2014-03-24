@@ -11,20 +11,24 @@ public class HeroMovement : MonoBehaviour {
 
 	public float mass = 80;
 
-	private float fallSpeed=0;
-	private const float GRAVITY = 9.8f;
-	private bool grounded;
+
 	private LevelSpawn lp;
 	// Use this for initialization
 	void Awake () {
 		futurePosition = new Vector3(0,0,0);
 		Performance.UpdateEvent += Move;
+
 		lp = GameObject.Find ("levelSpawner").GetComponent<LevelSpawn>();
 		LevelSpawn.FinishGeneration += heroStartPosition;
 	}
-	
+	void OnDestroy(){
+		Performance.UpdateEvent -= Move;
+
+
+	}
 	void heroStartPosition(){
-		transform.position = lp.playerSpawn;
+		transform.position = new Vector3(lp.playerSpawn.x,1,lp.playerSpawn.z);
+
 	}
 
 	void calculateFuturePosition(){
@@ -66,15 +70,6 @@ public class HeroMovement : MonoBehaviour {
 		rotateToTarget ();
 		walkToTarget ();
 	}
-	void applyGravity(){
-			cc.transform.position-= new Vector3(0, 9 * Time.deltaTime,0);
-			
-			if(fallSpeed * mass<83.3f * Time.deltaTime){
-				fallSpeed += (GRAVITY  * Time.deltaTime * Time.deltaTime);
-			}else fallSpeed = 83.3f * Time.deltaTime/mass;
-			cc.transform.position -= new Vector3(0,fallSpeed*mass,0);
-			
-		
-	}
+
 
 }
