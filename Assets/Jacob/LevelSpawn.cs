@@ -214,14 +214,12 @@ public class LevelSpawn : MonoBehaviour {
 						level[x, y_] = path;
 						path.x = x;
 						path.y = y_;
-						//go = Instantiate(level[x,y_].tileMesh, new Vector3(x*tileWidth, 0, y_*tileHeight), Quaternion.identity) as GameObject;
 					}
 				}else{
 					for(int x=x_; x<targetX; x++){//x path
 						level[x, y_] = path;
 						path.x = x;
 						path.y = y_;
-						//go = Instantiate(level[x,y_].tileMesh, new Vector3(x*tileWidth, 0, y_*tileHeight), Quaternion.identity) as GameObject;
 					}
 				}
 				if(y_-targetY >0){
@@ -229,14 +227,12 @@ public class LevelSpawn : MonoBehaviour {
 						level[targetX, y] = path;
 						path.x = targetX;
 						path.y = y;
-						//go = Instantiate(level[targetX,y].tileMesh, new Vector3(targetX*tileWidth, 0, y*tileHeight), Quaternion.identity) as GameObject;
 					}
 				}else{
 					for(int y=y_; y<targetY; y++){//y path
 						level[targetX, y] = path;
 						path.x = targetX;
 						path.y = y;
-						//go = Instantiate(level[targetX,y].tileMesh, new Vector3(targetX*tileWidth, 0, y*tileHeight), Quaternion.identity) as GameObject;
 					}
 				}
 				path.canSpawnEnemies = true;
@@ -250,7 +246,6 @@ public class LevelSpawn : MonoBehaviour {
 		//Make walls!
 		for(int x=0; x<MAX_LEVEL_WIDTH; x++){
 			for(int y=0; y<MAX_LEVEL_HEIGHT; y++){
-				//print (x+","+y);
 				Tile wall = new Tile();
 				wall.tileMesh = wallTile;
 				wall.canSpawnEnemies = false;
@@ -260,33 +255,27 @@ public class LevelSpawn : MonoBehaviour {
 				wall.x = x;
 				wall.y = y;
 				wall.type = Tile.tileType.wall;
-				//GameObject go;
+
 				//EDGE OF MAP CASES. To take care of the rooms that are at the map boundaries
 				if((x==MAX_LEVEL_WIDTH-1 || x==0) && level[x,y] != null){//since the level array goes from 0-MAX_LEVEL_WIDTH-1, so will this.
 					level[x,y] = wall;
-					//go = Instantiate (level[x,y].tileMesh, new Vector3(x*tileWidth, tileHeight, y*tileHeight), Quaternion.identity) as GameObject;
 				}else if((y==MAX_LEVEL_HEIGHT-1 || y==0) && level[x,y] != null){
 					level[x,y] = wall;
-					//go = Instantiate (level[x,y].tileMesh, new Vector3(x*tileWidth, tileHeight, y*tileHeight), Quaternion.identity) as GameObject;
 				}else{
 					//REST OF MAP
 					//vertical walls
 					if((x != MAX_LEVEL_WIDTH-1)&& level[x,y]==null && (level[x+1,y]!=null && level[x+1,y].type!=Tile.tileType.wall)){//If current position does not hold another tile and next position is not nothing and not a wall
 						level[x,y]=wall;
-						//go = Instantiate (level[x,y].tileMesh, new Vector3(x*tileWidth, tileHeight, y*tileHeight), Quaternion.identity) as GameObject;
 					}
 					if((x != 0)&& level[x,y]==null && (level[x-1,y]!=null && level[x-1,y].type!=Tile.tileType.wall)){
 						level[x,y]=wall;
-						//go = Instantiate (level[x,y].tileMesh, new Vector3(x*tileWidth, tileHeight, y*tileHeight), Quaternion.identity) as GameObject;
 					}
 					//horizontal walls
 					if((y != MAX_LEVEL_HEIGHT-1)&& level[x,y]==null && (level[x,y+1]!=null && level[x,y+1].type!=Tile.tileType.wall)){
 						level[x,y]=wall;
-					//	go = Instantiate (level[x,y].tileMesh, new Vector3(x*tileWidth, tileHeight, y*tileHeight), Quaternion.identity) as GameObject;
 					}
 					if((y != 0)&& level[x,y]==null && (level[x,y-1]!=null && level[x,y-1].type!=Tile.tileType.wall)){
 						level[x,y]=wall;
-						//go = Instantiate (level[x,y].tileMesh, new Vector3(x*tileWidth, tileHeight, y*tileHeight), Quaternion.identity) as GameObject;
 					}
 				}
 			}
@@ -298,7 +287,6 @@ public class LevelSpawn : MonoBehaviour {
 
 
 	public Quaternion rotateTowardsNearestTileOfType(Tile.tileType type, int x, int y, Tile[,] levelMatrix){//will return what a given positions neighbors are
-		//int dir = 0;//default rotation
 		Quaternion dir = Quaternion.Euler(0, 0, 0);
 
 		if( x-1 > 0){
@@ -309,7 +297,6 @@ public class LevelSpawn : MonoBehaviour {
 			}
 		}
 		if(y+1 < MAX_LEVEL_HEIGHT-1){
-			//print ("y+1:"+levelMatrix[x,y+1].type);
 			if((levelMatrix[x, y+1] != null)){
 				if(levelMatrix[x,y+1].type == type){
 					dir = Quaternion.Euler(0, 90, 0);//up is ground
@@ -317,13 +304,11 @@ public class LevelSpawn : MonoBehaviour {
 			}
 		}
 		if(x+1 < MAX_LEVEL_WIDTH-1 && (levelMatrix[x+1, y] != null)){
-			//print ("x+1:"+levelMatrix[x+1,y].type);
 			if(levelMatrix[x+1,y].type == type){
 				dir = Quaternion.Euler(0, 180, 0);//right is ground
 			}
 		}
 		if(y-1 > 0 && (levelMatrix[x, y-1] != null)){
-			//print ("y-1:"+levelMatrix[x,y-1].type);
 			if(levelMatrix[x,y-1].type == type){
 				dir = Quaternion.Euler(0, 270, 0);//down is ground
 			}
