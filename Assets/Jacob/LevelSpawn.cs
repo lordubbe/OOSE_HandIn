@@ -159,9 +159,9 @@ public class LevelSpawn : MonoBehaviour {
 		}
 
 		//SET PLAYER SPAWN *QUICKLY - NOT OPTIMAL*
-		playerSpawn = new Vector3(roomCenterArray[0], tileHeight, roomCenterArray[1]);
-		Transform player = Instantiate(lavaTile, new Vector3(playerSpawn.x*tileWidth, playerSpawn.y, playerSpawn.z*tileHeight), Quaternion.identity) as Transform; //JUST PLACEHOLDER SPAWN FOR LOOKS
-		player.transform.localScale = new Vector3(1, 5, 1);//JUST TO VISUALIZE
+		playerSpawn = new Vector3(roomCenterArray[0]*tileWidth, tileHeight, roomCenterArray[1]*tileHeight);
+		//Transform player = Instantiate(lavaTile, new Vector3(playerSpawn.x*tileWidth, playerSpawn.y, playerSpawn.z*tileHeight), Quaternion.identity) as Transform; //JUST PLACEHOLDER SPAWN FOR LOOKS
+		//player.transform.localScale = new Vector3(1, 5, 1);//JUST TO VISUALIZE
 
 		//Print room positions for debugging
 		/*

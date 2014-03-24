@@ -14,14 +14,18 @@ public class HeroMovement : MonoBehaviour {
 	private float fallSpeed=0;
 	private const float GRAVITY = 9.8f;
 	private bool grounded;
+	private LevelSpawn lp;
 	// Use this for initialization
 	void Awake () {
 		futurePosition = new Vector3(0,0,0);
 		Performance.UpdateEvent += Move;
-
+		lp = GameObject.Find ("levelSpawner").GetComponent<LevelSpawn>();
+		LevelSpawn.FinishGeneration += heroStartPosition;
 	}
 	
-
+	void heroStartPosition(){
+		transform.position = lp.playerSpawn;
+	}
 
 	void calculateFuturePosition(){
 		//calculate where the hero should be the next frame based on the speed and the inputs
