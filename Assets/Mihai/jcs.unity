@@ -1959,6 +1959,7 @@ MonoBehaviour:
   - {fileID: 1430585726}
   - {fileID: 476421102}
   debug: 0
+  minHeight: 1
 --- !u!1001 &1064611245
 Prefab:
   m_ObjectHideFlags: 0
@@ -2005,6 +2006,10 @@ Prefab:
     - target: {fileID: 400172, guid: 4ed0ce987202591438aa44fec79c11c3, type: 2}
       propertyPath: m_LocalPosition.y
       value: .0907822847
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400004, guid: 4ed0ce987202591438aa44fec79c11c3, type: 2}
+      propertyPath: minHeight
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4ed0ce987202591438aa44fec79c11c3, type: 2}

@@ -13,6 +13,7 @@ public class Gravity : MonoBehaviour
 	public float terminalVelocity = 80;
 	public Transform[] boundingPoints;
 	public bool debug;
+	public float minHeight;
 	private bool grounded;
 	
 	// Use this for initialization
@@ -54,7 +55,11 @@ public class Gravity : MonoBehaviour
 
 	void fall()
 	{
-		transform.position-= new Vector3(0,speed,0)*Time.deltaTime;
+		if(transform.position.y>minHeight)transform.position-= new Vector3(0,speed,0)*Time.deltaTime;
+		else{
+		 transform.position = new Vector3(transform.position.x,minHeight,transform.position.z);
+		 grounded = true;
+		 }
 	}
 	public bool checkGround()
 	{
