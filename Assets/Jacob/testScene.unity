@@ -2080,7 +2080,7 @@ MonoBehaviour:
   runSpeed: 5
   walkSpeed: 2
   mass: 80
-  jumpPower: 30
+  jumpPower: 12
 --- !u!95 &994209410
 Animator:
   serializedVersion: 2
