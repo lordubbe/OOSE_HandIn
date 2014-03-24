@@ -55,13 +55,13 @@ public class LevelSpawn : MonoBehaviour {
 		//spawn level
 		for(int x=0; x<MAX_LEVEL_WIDTH; x++){
 			for(int y=0; y<MAX_LEVEL_HEIGHT; y++){
-				GameObject go;
+				Transform go;
 				Transform what;
 				if(levelMatrix[x,y] != null){
 					if(levelMatrix[x,y].type == Tile.tileType.wall){
-						go = (GameObject)Instantiate(levelMatrix[x,y].tileMesh, new Vector3(x*tileWidth, tileHeight, y*tileHeight), Quaternion.identity);//instantiate 1 height up
+						go = (Transform)Instantiate(levelMatrix[x,y].tileMesh, new Vector3(x*tileWidth, tileHeight, y*tileHeight), Quaternion.identity);//instantiate 1 height up
 						go.transform.parent = levelParent.transform;
-						go = (GameObject)Instantiate(levelMatrix[x,y].tileMesh, new Vector3(x*tileWidth, 0, y*tileHeight), Quaternion.identity); //and ground level for better visuals
+						go = (Transform)Instantiate(levelMatrix[x,y].tileMesh, new Vector3(x*tileWidth, 0, y*tileHeight), Quaternion.identity); //and ground level for better visuals
 						go.transform.parent = levelParent.transform;
 					}else{
 						//go = (GameObject)Instantiate(levelMatrix[x,y].tileMesh, new Vector3(x*tileWidth, 0, y*tileHeight), Quaternion.identity);
