@@ -12,7 +12,7 @@ public class CameraFollow : MonoBehaviour {
 		Performance.UpdateEvent += CameraMove;
 	}
 
-	void CameraMove(){
+	public void CameraMove(){
 		transform.position = character.position + distance;
 
 	}

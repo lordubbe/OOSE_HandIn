@@ -49,7 +49,7 @@ public class Gravity : MonoBehaviour
 			speed = 0;
 		}
 		grounded = checkGround();
-		GameObject.Find("Main Camera").GetComponent<CameraFollow>().CameraMove();
+		GameObject.Find("Main Camera").GetComponent<CameraFollow>().CameraMove(); 
 	}
 
 	void fall()

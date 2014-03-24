@@ -56,7 +56,8 @@ public class LevelSpawn : MonoBehaviour {
 				GameObject go;
 				if(levelMatrix[x,y] != null){
 					if(levelMatrix[x,y].type == Tile.tileType.wall){
-						go = Instantiate(levelMatrix[x,y].tileMesh, new Vector3(x*tileWidth, tileHeight, y*tileHeight), Quaternion.identity) as GameObject; 
+						go = Instantiate(levelMatrix[x,y].tileMesh, new Vector3(x*tileWidth, tileHeight, y*tileHeight), Quaternion.identity) as GameObject;//instantiate 1 height up
+						go = Instantiate(levelMatrix[x,y].tileMesh, new Vector3(x*tileWidth, 0, y*tileHeight), Quaternion.identity) as GameObject; //and ground level for better visuals
 					}else{
 						go = Instantiate(levelMatrix[x,y].tileMesh, new Vector3(x*tileWidth, 0, y*tileHeight), Quaternion.identity) as GameObject;
 					}
@@ -91,7 +92,7 @@ public class LevelSpawn : MonoBehaviour {
 		for(int x=0; x<MAX_LEVEL_WIDTH; x++){
 			for(int y=0; y<MAX_LEVEL_HEIGHT; y++){
 				if(Random.Range (0, 100) < chestSpawnFreq){
-					if(levelMatrix[x,y]!=null && levelMatrix[x,y].type == Tile.tileType.ground){
+					if(levelMatrix[x,y]!=null && levelMatrix[x,y].type == Tile.tileType.wall){
 						Transform chest = Instantiate(chestObject, new Vector3(x*tileWidth, 1.273649f, y*tileWidth), rotateTowardsNearestTileOfType(Tile.tileType.wall, x, y, levelMatrix)) as Transform;
 					}
 				}
@@ -108,6 +109,9 @@ public class LevelSpawn : MonoBehaviour {
 					enemiesInLevel++;
 				}
 			}
+			enemySpawnPositions = new Vector3[enemiesInLevel];//initialize the array holding the spawn positions of the enemies, and then fill it up ...to be continued
+			
+
 		}
 		print ("TOTAL ENEMIES IN LEVEL: "+enemiesInLevel);
 		if(FinishGeneration!=null)FinishGeneration (); //trigger the event that anounces that the generation ended
@@ -118,7 +122,7 @@ public class LevelSpawn : MonoBehaviour {
 		
 		Tile[,] level = new Tile[MAX_LEVEL_WIDTH, MAX_LEVEL_HEIGHT];
 
-		//INITIALIZE level AS null
+		//INITIALIZE level as null
 		for(int x=0; x<MAX_LEVEL_WIDTH; x++){
 			for(int z=0; z<MAX_LEVEL_HEIGHT; z++){
 				level[x,z] = null;
@@ -127,7 +131,7 @@ public class LevelSpawn : MonoBehaviour {
 		
 		//Decide number of rooms
 		int numberOfRooms = Random.Range(minRooms, maxRooms+1);
-		int[] roomArray = new int[numberOfRooms*2];//Will hold spawn coordinates
+		int[] roomArray = new int[numberOfRooms*2];//Will hold spawn coordinates (bottom left coordinate of room)
 		int[] roomSizeArray = new int[numberOfRooms*2];//Will hold the room dimensions 
 		
 		int[] roomCenterArray = new int[numberOfRooms*2];//Will hold the center of the room (for corridor spawning);
@@ -160,30 +164,23 @@ public class LevelSpawn : MonoBehaviour {
 
 		//SET PLAYER SPAWN *QUICKLY - NOT OPTIMAL*
 		playerSpawn = new Vector3(roomCenterArray[0]*tileWidth, tileHeight, roomCenterArray[1]*tileHeight);
-		//Transform player = Instantiate(lavaTile, new Vector3(playerSpawn.x*tileWidth, playerSpawn.y, playerSpawn.z*tileHeight), Quaternion.identity) as Transform; //JUST PLACEHOLDER SPAWN FOR LOOKS
-		//player.transform.localScale = new Vector3(1, 5, 1);//JUST TO VISUALIZE
-
-		//Print room positions for debugging
-		/*
-		for(int j=0; j<roomArray.Length; j+=2){
-			print ("room_x: "+roomArray[j]+", room_y: "+roomArray[j+1]);
-		}
-		*/
 		
 		
 		//Now actually make the rooms
 		for(int k=0; k<roomArray.Length; k+=2){//iterate through each room
-
-			Room room = new Room(Room.roomType.normal, roomSizeArray[k], roomSizeArray[k+1], new Vector3(roomCenterArray[k], 0, roomCenterArray[k+1]));
+			//set the type of the room to the default/normal room
+			Room room = new Room(Room.roomType.normal, roomSizeArray[k], roomSizeArray[k+1], new Vector3(roomCenterArray[k], 0, roomCenterArray[k+1]));//create new room
+			room.tiles = new Tile[roomSizeArray[k], roomSizeArray[k+1]];//set size of the room tiles array
 
 			for(int l=roomArray[k]; l<roomArray[k]+roomSizeArray[k]; l++){//width of room spawned from the x position 
 				for(int m=roomArray[k+1]; m<roomArray[k+1]+roomSizeArray[k+1]; m++){//height –––||–––
 
 					Tile ground = new Tile(l, m, 1, 0, true, true);
-						ground.tileMesh = stoneTile;
-						level[l, m] = ground;//set it to be standard ground
-						level[l, m].type = Tile.tileType.ground;
+					ground.tileMesh = stoneTile;
+					level[l, m] = ground;//set it to be standard ground
+					level[l, m].type = Tile.tileType.ground;
 
+					room.tiles[l-roomArray[k], m-roomArray[k+1]] = ground;//set the tile to be in the room tiles array
 				}
 			}
 		}
