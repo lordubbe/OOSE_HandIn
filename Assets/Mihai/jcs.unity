@@ -327,6 +327,10 @@ Prefab:
       propertyPath: AttackSpeed
       value: 1.10000002
       objectReference: {fileID: 0}
+    - target: {fileID: 100026, guid: 9637649c230b21a42ba7711a64520b5c, type: 2}
+      propertyPath: m_Name
+      value: Hero
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9637649c230b21a42ba7711a64520b5c, type: 2}
   m_RootGameObject: {fileID: 436630163}
@@ -549,6 +553,7 @@ GameObject:
   - 23: {fileID: 432490368}
   - 111: {fileID: 432490367}
   - 114: {fileID: 432490370}
+  - 65: {fileID: 432490371}
   m_Layer: 8
   m_Name: shield02
   m_TagString: Untagged
@@ -626,6 +631,18 @@ MonoBehaviour:
   throughWall: {fileID: 2100000, guid: e820c73755f315e4ea5d3684db121828, type: 2}
   cam: {fileID: 0}
   ignoreLayer: 8
+--- !u!65 &432490371
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 432490365}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: .987428129, y: .38053298, z: .960188389}
+  m_Center: {x: -.226215601, y: -.197147071, z: .0150518389}
 --- !u!1 &436630163
 GameObject:
   m_ObjectHideFlags: 0
@@ -638,7 +655,7 @@ GameObject:
   - 143: {fileID: 436630166}
   - 114: {fileID: 436630165}
   m_Layer: 8
-  m_Name: DemoCharacter3
+  m_Name: Hero
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1693,6 +1710,7 @@ GameObject:
   - 23: {fileID: 1956949556}
   - 111: {fileID: 1956949555}
   - 114: {fileID: 1956949558}
+  - 65: {fileID: 1956949559}
   m_Layer: 8
   m_Name: sword1H01
   m_TagString: Untagged
@@ -1770,6 +1788,18 @@ MonoBehaviour:
   throughWall: {fileID: 2100000, guid: e820c73755f315e4ea5d3684db121828, type: 2}
   cam: {fileID: 0}
   ignoreLayer: 8
+--- !u!65 &1956949559
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1956949553}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: .394396603, y: .15798682, z: 1.77412987}
+  m_Center: {x: -.0065515833, y: 1.05601643e-07, z: .668153703}
 --- !u!1 &1988450924
 GameObject:
   m_ObjectHideFlags: 0

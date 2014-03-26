@@ -40,6 +40,7 @@ public class CharacterMove : MonoBehaviour {
 		animation["2h_idle"].layer = 1;
 		
 		//Ajust the animation speed to ForwardSpeed and BackwardSpeed
+		
 		animation["1h_run"].speed = ForwardSpeed/3;
 		animation["1h_attack1"].speed = AttackSpeed;
 		animation["1h_attack2"].speed = AttackSpeed;
@@ -65,53 +66,64 @@ public class CharacterMove : MonoBehaviour {
 			float vA2 = Input.GetAxis ("Vertical2");
 			
 			animation.CrossFade("1h_idle");
+			
+			
+			
+			
+			
 			if( Mathf.Abs(vA1)>.01f || Mathf.Abs (hA1) >0.01f){
-				animation.CrossFade("1h_run");
-				if(ForwardDirection.x != hA1 || ForwardDirection.z != vA1 ){
-					Vector3 rot = ForwardDirection+transform.position;
-					rot = new Vector3(rot.x,transform.position.y,rot.z);
-					transform.LookAt(rot);
+				if(Input.GetAxis("Fire1")<0.1f){
+					animation.CrossFade("1h_run");
+					if(ForwardDirection.x != hA1 || ForwardDirection.z != vA1 ){
+						Vector3 rot = ForwardDirection+transform.position;
+						rot = new Vector3(rot.x,transform.position.y,rot.z);
+						transform.LookAt(rot);
+						
+						
+					}
+					ForwardDirection = new Vector3(hA1,0,vA1);
+				}else{
 					
 					
+					if( Mathf.Abs(vA1)>.01f || Mathf.Abs (hA1) >0.01f){
+						animation.CrossFade("1h_run");
+						ForwardDirection = new Vector3(hA1,0,vA1);
+					}
 				}
-				ForwardDirection = new Vector3(hA1,0,vA1);
-				
-			}else if(Input.GetAxis ("Fire1")<=0.1f){
-				ForwardDirection = new Vector3(hA1,0,vA1);
-				
-				if( Mathf.Abs(vA2)>.01f || Mathf.Abs (hA2) >0.01f){
-				 animation.CrossFade("back");
-					ForwardDirection += new Vector3(hA2/2,0,vA2/2);
-				}
-			
-			}
-			
-			if(Input.GetAxis ("Fire1")>=0.1f){
-				ForwardDirection = new Vector3(hA1,0,vA1);
-				if((vA2)>0f){
-					animation.CrossFade("1h_attack2");
-				}else if((vA2)<0f){
-					animation.CrossFade("2h_idle");
-				}else if( (hA2)>0f){
-					animation.CrossFade("1h_attack1");
-				}else if( (hA2)<0f){
-					animation.CrossFade("2h_attack2");
-				}
-			}
-			
-			if(Input.GetKeyDown (KeyCode.Space)){
-				animation.CrossFade("jump");
-				ForwardDirection += new Vector3(0,JumpForce,0);
+			}else{
+				ForwardDirection = new Vector3(0,0,0);
 			}
 			
 			
+			if((vA2)>0f){
+				animation.CrossFade("1h_attack2");
+			}else if((vA2)<0f){
+				animation.CrossFade("2h_idle");
+			}else if( (hA2)>0f){
+				animation.CrossFade("1h_attack1");
+			}else if( (hA2)<0f){
+				animation.CrossFade("2h_attack2");
+			}
 			
-			
-			
+			}
+		if(Input.GetKeyDown (KeyCode.Space)){
+			animation.CrossFade("jump");
+			ForwardDirection += new Vector3(0,JumpForce,0);
 		}
+			ForwardDirection -= new Vector3(0,gravity * Time.deltaTime,0);
+			charController.Move(ForwardDirection * (Time.deltaTime * RunSpeed));
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+	
 		
-		ForwardDirection -= new Vector3(0,gravity * Time.deltaTime,0);
-		charController.Move(ForwardDirection * (Time.deltaTime * RunSpeed));
 	}
 }
 
