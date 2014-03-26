@@ -1,4 +1,15 @@
-﻿using UnityEngine;
+﻿/*
+    /$$$$$                               /$$                                                 /$$                 /$$           /$$
+   |__  $$                              | $$                                                | $$                | $$          | $$
+      | $$  /$$$$$$   /$$$$$$$  /$$$$$$ | $$$$$$$   /$$$$$$$        /$$$$$$$  /$$$$$$   /$$$$$$$  /$$$$$$       | $$  /$$$$$$ | $$
+      | $$ |____  $$ /$$_____/ /$$__  $$| $$__  $$ /$$_____/       /$$_____/ /$$__  $$ /$$__  $$ /$$__  $$      | $$ /$$__  $$| $$
+ /$$  | $$  /$$$$$$$| $$      | $$  \ $$| $$  \ $$|  $$$$$$       | $$      | $$  \ $$| $$  | $$| $$$$$$$$      | $$| $$  \ $$| $$
+| $$  | $$ /$$__  $$| $$      | $$  | $$| $$  | $$ \____  $$      | $$      | $$  | $$| $$  | $$| $$_____/      | $$| $$  | $$| $$
+|  $$$$$$/|  $$$$$$$|  $$$$$$$|  $$$$$$/| $$$$$$$/ /$$$$$$$/      |  $$$$$$$|  $$$$$$/|  $$$$$$$|  $$$$$$$      | $$|  $$$$$$/| $$
+ \______/  \_______/ \_______/ \______/ |_______/ |_______/        \_______/ \______/  \_______/ \_______/      |__/ \______/ |__/
+
+*/
+using UnityEngine;
 using System.Collections;
 
 public class LevelSpawn : MonoBehaviour {
@@ -14,6 +25,7 @@ public class LevelSpawn : MonoBehaviour {
 	public Transform lavaTile;
 	public Transform torchTile;
 	public Transform chestObject;
+	public Transform[] decorations;
 	
 	//General level information
 	public int MAX_LEVEL_WIDTH = 50;
@@ -52,36 +64,39 @@ public class LevelSpawn : MonoBehaviour {
 
 		levelMatrix = generateRooms(MAX_LEVEL_WIDTH, MAX_LEVEL_HEIGHT);//generate level
 
-		//spawn level
+/*
+╔═╗╔═╗╔═╗╦ ╦╔╗╔  ╔╦╗╦ ╦╔═╗  ╔╦╗╔═╗╔═╗
+╚═╗╠═╝╠═╣║║║║║║   ║ ╠═╣║╣   ║║║╠═╣╠═╝
+╚═╝╩  ╩ ╩╚╩╝╝╚╝   ╩ ╩ ╩╚═╝  ╩ ╩╩ ╩╩  
+*/
 		for(int x=0; x<MAX_LEVEL_WIDTH; x++){
 			for(int y=0; y<MAX_LEVEL_HEIGHT; y++){
 				Transform go;
-				Transform what;
 				if(levelMatrix[x,y] != null){
 					if(levelMatrix[x,y].type == Tile.tileType.wall){
-						go = (Transform)Instantiate(levelMatrix[x,y].tileMesh, new Vector3(x*tileWidth, tileHeight, y*tileHeight), Quaternion.identity);//instantiate 1 height up
-						go.transform.parent = levelParent.transform;
+						levelMatrix[x,y].tileMesh = (Transform)Instantiate(levelMatrix[x,y].tileMesh, new Vector3(x*tileWidth, tileHeight, y*tileHeight), Quaternion.identity);//instantiate 1 height up
+						levelMatrix[x,y].tileMesh.transform.parent = levelParent.transform;
 						go = (Transform)Instantiate(levelMatrix[x,y].tileMesh, new Vector3(x*tileWidth, 0, y*tileHeight), Quaternion.identity); //and ground level for better visuals
 						go.transform.parent = levelParent.transform;
 					}else{
-						//go = (GameObject)Instantiate(levelMatrix[x,y].tileMesh, new Vector3(x*tileWidth, 0, y*tileHeight), Quaternion.identity);
-						what = (Transform)Instantiate(levelMatrix[x,y].tileMesh, new Vector3(x*tileWidth, 0, y*tileHeight), Quaternion.identity); 
-						what.parent = levelParent.transform;
-						//go.transform.parent = levelParent.transform;
+						levelMatrix[x,y].tileMesh = (Transform)Instantiate(levelMatrix[x,y].tileMesh, new Vector3(x*tileWidth, 0, y*tileHeight), Quaternion.identity); 
+						levelMatrix[x,y].tileMesh.transform.parent = levelParent.transform;
 					}
 				}
-
 			}
 		}
 
-		//Light the map up! Place some torches, my man!
+		/*  PLACE SOME 
+		╔╦╗╔═╗╦═╗╔═╗╦ ╦╔═╗╔═╗
+		 ║ ║ ║╠╦╝║  ╠═╣║╣ ╚═╗
+		 ╩ ╚═╝╩╚═╚═╝╩ ╩╚═╝╚═╝
+		*/
 		for(int x=0; x<MAX_LEVEL_WIDTH; x++){
 			for(int y=0; y<MAX_LEVEL_HEIGHT; y++){
 				if(Random.Range (0, 100) < torchFrequency){
 					if(levelMatrix[x,y] != null && levelMatrix[x,y].type == Tile.tileType.wall){//Torches can only be on walls, so we check if the current tile is a wall!
 						Tile torch = new Tile();
 						torch.tileMesh = torchTile;
-						//torch.type = Tile.tileType.wall; // TO BE CHANGED UPON TORCH SYSTEM ENHANCEMENT
 						torch.isWalkable = false;
 						torch.speed = 1;
 						torch.damage = 0;
@@ -89,33 +104,66 @@ public class LevelSpawn : MonoBehaviour {
 						torch.x = x;
 						torch.y = y;
 						Transform light = (Transform)Instantiate(torch.tileMesh, new Vector3(x*tileWidth, tileHeight, y*tileHeight), rotateTowardsNearestTileOfType(Tile.tileType.ground, x,y,levelMatrix));
-						light.parent = levelMatrix[x,y].tileMesh.transform;
-						print (light.parent);
+						light.parent = levelMatrix[x,y].tileMesh.transform; //Make it a parent of the wallblock
+						//print (light.parent);
 						//light.transform.parent = levelMatrix[x,y].tileMesh; //WHATEVER CAN'T PARENT THEM YET!!! :( 
 						//print ("torch at: "+x*tileWidth+","+y*tileWidth);
 					}
 				}
 			}
 		}
-
+		/*  PLACE SOME 
+		╔═╗╦ ╦╔═╗╔═╗╔╦╗╔═╗
+		║  ╠═╣║╣ ╚═╗ ║ ╚═╗
+		╚═╝╩ ╩╚═╝╚═╝ ╩ ╚═╝
+		*/
 		//Place some goodies! Chests incominnnggg!
 		for(int x=0; x<MAX_LEVEL_WIDTH; x++){
 			for(int y=0; y<MAX_LEVEL_HEIGHT; y++){
 				if(Random.Range (0, 100) < chestSpawnFreq){
 					if(levelMatrix[x,y]!=null && levelMatrix[x,y].type == Tile.tileType.wall){
-						Transform chest = Instantiate(chestObject, new Vector3(x*tileWidth, 1.273649f, y*tileWidth), rotateTowardsNearestTileOfType(Tile.tileType.wall, x, y, levelMatrix)) as Transform;
+						Transform chest = Instantiate(chestObject, new Vector3(x*tileWidth, tileHeight, y*tileWidth), rotateTowardsNearestTileOfType(Tile.tileType.ground, x, y, levelMatrix)) as Transform;
+						chest.parent = levelMatrix[x,y].tileMesh.transform;
 					}
 				}
 			}
 		}
 
+		/*  SPAWN SOME 
+		╔╦╗╔═╗╔═╗╔═╗╦═╗╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
+		 ║║║╣ ║  ║ ║╠╦╝╠═╣ ║ ║║ ║║║║╚═╗
+		═╩╝╚═╝╚═╝╚═╝╩╚═╩ ╩ ╩ ╩╚═╝╝╚╝╚═╝
+		*/
+		for(int x=0; x<MAX_LEVEL_WIDTH; x++){
+			for(int y=0; y<MAX_LEVEL_HEIGHT; y++){
+				Transform dec = decorations[Random.Range(0, decorations.Length)];
+				if(Random.Range (0, 100) < 30){
+					//Make sure it's against a wall and that the particular wall tile in question doesn't already hold another item
+					if(levelMatrix[x,y]!=null && levelMatrix[x,y].type == Tile.tileType.wall && (levelMatrix[x,y].tileMesh.childCount != null && levelMatrix[x,y].tileMesh.childCount < 1)){
+						Transform bookshelf = Instantiate(dec, new Vector3(x*tileWidth, tileHeight, y*tileWidth), rotateTowardsNearestTileOfType(Tile.tileType.ground, x, y, levelMatrix)) as Transform;
+						bookshelf.parent = levelMatrix[x,y].tileMesh.transform;
+					}
+				}
+			}
+		}
+
+
+
+/*					SPAWN SOME 
+		• ▌ ▄ ·.        ▐ ▄ .▄▄ · ▄▄▄▄▄▄▄▄ .▄▄▄  .▄▄ · ▄▄ 
+		·██ ▐███▪▪     •█▌▐█▐█ ▀. •██  ▀▄.▀·▀▄ █·▐█ ▀. ██▌
+		▐█ ▌▐▌▐█· ▄█▀▄ ▐█▐▐▌▄▀▀▀█▄ ▐█.▪▐▀▀▪▄▐▀▀▄ ▄▀▀▀█▄▐█·
+		██ ██▌▐█▌▐█▌.▐▌██▐█▌▐█▄▪▐█ ▐█▌·▐█▄▄▌▐█•█▌▐█▄▪▐█.▀ 
+		▀▀  █▪▀▀▀ ▀█▄▀▪▀▀ █▪ ▀▀▀▀  ▀▀▀  ▀▀▀ .▀  ▀ ▀▀▀▀  ▀ 
+*/
 		int enemiesInLevel = 0;
-		//Control monster spawns!!! Oooooh!
+
 		for(int x=0; x<MAX_LEVEL_WIDTH; x++){
 			for(int y=0; y<MAX_LEVEL_HEIGHT; y++){
 				if(levelMatrix[x,y]!=null && levelMatrix[x,y].canSpawnEnemies && Random.Range(0,100)<enemySpawnFreq){
 					//SPAWN ENEMY
-					GameObject enemy = Instantiate(lavaTile, new Vector3(x*tileWidth, 0.5f, y*tileHeight), Quaternion.identity) as GameObject;
+					Transform enemy = (Transform)Instantiate(lavaTile, new Vector3(x*tileWidth, 0.5f, y*tileHeight), Quaternion.identity);
+					enemy.localScale = new Vector3(1,2,1);
 					enemiesInLevel++;
 				}
 			}
@@ -132,6 +180,15 @@ public class LevelSpawn : MonoBehaviour {
 		
 		Tile[,] level = new Tile[MAX_LEVEL_WIDTH, MAX_LEVEL_HEIGHT];
 
+/*
+		 ██████╗ ███████╗███╗   ██╗███████╗██████╗  █████╗ ████████╗███████╗        ██████╗  ██████╗  ██████╗ ███╗   ███╗███████╗
+		██╔════╝ ██╔════╝████╗  ██║██╔════╝██╔══██╗██╔══██╗╚══██╔══╝██╔════╝        ██╔══██╗██╔═══██╗██╔═══██╗████╗ ████║██╔════╝
+		██║  ███╗█████╗  ██╔██╗ ██║█████╗  ██████╔╝███████║   ██║   █████╗          ██████╔╝██║   ██║██║   ██║██╔████╔██║███████╗
+		██║   ██║██╔══╝  ██║╚██╗██║██╔══╝  ██╔══██╗██╔══██║   ██║   ██╔══╝          ██╔══██╗██║   ██║██║   ██║██║╚██╔╝██║╚════██║
+		╚██████╔╝███████╗██║ ╚████║███████╗██║  ██║██║  ██║   ██║   ███████╗        ██║  ██║╚██████╔╝╚██████╔╝██║ ╚═╝ ██║███████║
+		 ╚═════╝ ╚══════╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚══════╝        ╚═╝  ╚═╝ ╚═════╝  ╚═════╝ ╚═╝     ╚═╝╚══════╝
+
+*/
 		//INITIALIZE level as null
 		for(int x=0; x<MAX_LEVEL_WIDTH; x++){
 			for(int z=0; z<MAX_LEVEL_HEIGHT; z++){
@@ -196,8 +253,12 @@ public class LevelSpawn : MonoBehaviour {
 		}
 		
 		print ("TOTAL ROOMS IN LEVEL: "+ numberOfRooms);
-		
-		//Make corridors between rooms
+
+/*
+╔╦╗╔═╗╦╔═╔═╗  ╔═╗╔═╗╦═╗╦═╗╦╔╦╗╔═╗╦═╗╔═╗  ╔╗ ╔═╗╔╦╗╦ ╦╔═╗╔═╗╔╗╔  ╦═╗╔═╗╔═╗╔╦╗╔═╗
+║║║╠═╣╠╩╗║╣   ║  ║ ║╠╦╝╠╦╝║ ║║║ ║╠╦╝╚═╗  ╠╩╗║╣  ║ ║║║║╣ ║╣ ║║║  ╠╦╝║ ║║ ║║║║╚═╗
+╩ ╩╩ ╩╩ ╩╚═╝  ╚═╝╚═╝╩╚═╩╚═╩═╩╝╚═╝╩╚═╚═╝  ╚═╝╚═╝ ╩ ╚╩╝╚═╝╚═╝╝╚╝  ╩╚═╚═╝╚═╝╩ ╩╚═╝
+*/
 		int x_;
 		int y_;
 		int targetX;
@@ -212,6 +273,7 @@ public class LevelSpawn : MonoBehaviour {
 				//print ("xDiff: "+(x_-targetX)+" yDiff: "+(y_-targetY));
 				Tile path = new Tile();
 				path.tileMesh = pathTile;
+				path.tileMesh.name = "pathTile";
 				//GameObject go;
 				if(x_-targetX >0){
 					for(int x=x_; x>targetX; x--){//x path
@@ -250,7 +312,11 @@ public class LevelSpawn : MonoBehaviour {
 			}
 		}
 		
-		//Make walls!
+/*
+╔╗ ╦ ╦╦╦  ╔╦╗  ╦ ╦╔═╗╦  ╦  ╔═╗  ╦  ╦╦╔═╔═╗  ╔═╗  ╔╗ ╔═╗╔═╗╔═╗
+╠╩╗║ ║║║   ║║  ║║║╠═╣║  ║  ╚═╗  ║  ║╠╩╗║╣   ╠═╣  ╠╩╗║ ║╚═╗╚═╗
+╚═╝╚═╝╩╩═╝═╩╝  ╚╩╝╩ ╩╩═╝╩═╝╚═╝  ╩═╝╩╩ ╩╚═╝  ╩ ╩  ╚═╝╚═╝╚═╝╚═╝
+*/
 		for(int x=0; x<MAX_LEVEL_WIDTH; x++){
 			for(int y=0; y<MAX_LEVEL_HEIGHT; y++){
 				Tile wall = new Tile();
@@ -291,7 +357,47 @@ public class LevelSpawn : MonoBehaviour {
 	}
 	//--------------------------------------------------------------------------------LEVEL SPAWN ALGORITHM END
 
+	public Tile getNeighbor(string direction, Tile input, Tile[,] levelMatrix){
 
+		switch(direction){
+		case "left":
+			//
+			if(levelMatrix[(int)input.x-1, (int)input.y] != null){
+				return levelMatrix[(int)input.x-1, (int)input.y];
+			}else{
+				return null;
+			}
+			break;
+		case "up":
+			//
+			if(levelMatrix[(int)input.x, (int)input.y+1] != null){
+				return levelMatrix[(int)input.x, (int)input.y+1];
+			}else{
+				return null;
+			}
+			break;
+		case "down":
+			//
+			if(levelMatrix[(int)input.x, (int)input.y-1] != null){
+				return levelMatrix[(int)input.x, (int)input.y-1];
+			}else{
+				return null;
+			}
+			break;
+		case "right":
+			//
+			if(levelMatrix[(int)input.x+1, (int)input.y] != null){
+				return levelMatrix[(int)input.x+1, (int)input.y];
+			}else{
+				return null;
+			}
+			break;
+		default:
+			//if some retarded string has been input
+			return null;
+			break;
+		}
+	}
 
 	public Quaternion rotateTowardsNearestTileOfType(Tile.tileType type, int x, int y, Tile[,] levelMatrix){//will return what a given positions neighbors are
 		Quaternion dir = Quaternion.Euler(0, 0, 0);
@@ -332,5 +438,16 @@ public class LevelSpawn : MonoBehaviour {
 			return 8*num + getAmountOfNeighbors(num-1);
 		}
 	}
-	
+/*
+ ███▄ ▄███▓ █     █░█    ██  ▄▄▄       ██░ ██  ▄▄▄       ██░ ██  ▄▄▄       ██░ ██  ▄▄▄       ▐██▌ 
+▓██▒▀█▀ ██▒▓█░ █ ░█░██  ▓██▒▒████▄    ▓██░ ██▒▒████▄    ▓██░ ██▒▒████▄    ▓██░ ██▒▒████▄     ▐██▌ 
+▓██    ▓██░▒█░ █ ░█▓██  ▒██░▒██  ▀█▄  ▒██▀▀██░▒██  ▀█▄  ▒██▀▀██░▒██  ▀█▄  ▒██▀▀██░▒██  ▀█▄   ▐██▌ 
+▒██    ▒██ ░█░ █ ░█▓▓█  ░██░░██▄▄▄▄██ ░▓█ ░██ ░██▄▄▄▄██ ░▓█ ░██ ░██▄▄▄▄██ ░▓█ ░██ ░██▄▄▄▄██  ▓██▒ 
+▒██▒   ░██▒░░██▒██▓▒▒█████▓  ▓█   ▓██▒░▓█▒░██▓ ▓█   ▓██▒░▓█▒░██▓ ▓█   ▓██▒░▓█▒░██▓ ▓█   ▓██▒ ▒▄▄  
+░ ▒░   ░  ░░ ▓░▒ ▒ ░▒▓▒ ▒ ▒  ▒▒   ▓▒█░ ▒ ░░▒░▒ ▒▒   ▓▒█░ ▒ ░░▒░▒ ▒▒   ▓▒█░ ▒ ░░▒░▒ ▒▒   ▓▒█░ ░▀▀▒ 
+░  ░      ░  ▒ ░ ░ ░░▒░ ░ ░   ▒   ▒▒ ░ ▒ ░▒░ ░  ▒   ▒▒ ░ ▒ ░▒░ ░  ▒   ▒▒ ░ ▒ ░▒░ ░  ▒   ▒▒ ░ ░  ░ 
+░      ░     ░   ░  ░░░ ░ ░   ░   ▒    ░  ░░ ░  ░   ▒    ░  ░░ ░  ░   ▒    ░  ░░ ░  ░   ▒       ░ 
+       ░       ░      ░           ░  ░ ░  ░  ░      ░  ░ ░  ░  ░      ░  ░ ░  ░  ░      ░  ░ ░    
+
+*/
 }

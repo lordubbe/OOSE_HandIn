@@ -468,7 +468,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &100060
 GameObject:
   m_ObjectHideFlags: 0
@@ -849,7 +849,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &100110
 GameObject:
   m_ObjectHideFlags: 1
@@ -987,7 +987,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &100128
 GameObject:
   m_ObjectHideFlags: 1
@@ -1605,7 +1605,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100022}
-  m_LocalRotation: {x: -.5169034, y: .435198963, z: .565487146, w: .472902745}
+  m_LocalRotation: {x: -.51690346, y: .435198992, z: .565487206, w: .472902775}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1.00000012, y: 1.00000012, z: 1.00000012}
   m_Children:
@@ -2789,6 +2789,7 @@ MonoBehaviour:
   - {fileID: 400174}
   - {fileID: 400186}
   debug: 0
+  minHeight: 0
 --- !u!135 &13500000
 SphereCollider:
   m_ObjectHideFlags: 1
