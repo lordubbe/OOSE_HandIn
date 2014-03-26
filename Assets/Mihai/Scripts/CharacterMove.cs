@@ -104,14 +104,15 @@ public class CharacterMove : MonoBehaviour {
 			}else if( (hA2)<0f){
 				animation.CrossFade("2h_attack2");
 			}
-			
+			if(Input.GetKeyDown (KeyCode.Space)){
+				animation.CrossFade("jump");
+				ForwardDirection += new Vector3(0,JumpForce,0);
 			}
-		if(Input.GetKeyDown (KeyCode.Space)){
-			animation.CrossFade("jump");
-			ForwardDirection += new Vector3(0,JumpForce,0);
+			
 		}
-			ForwardDirection -= new Vector3(0,gravity * Time.deltaTime,0);
-			charController.Move(ForwardDirection * (Time.deltaTime * RunSpeed));
+		
+		ForwardDirection -= new Vector3(0,gravity * Time.deltaTime,0);
+		charController.Move(ForwardDirection * (Time.deltaTime * RunSpeed));
 			
 			
 			

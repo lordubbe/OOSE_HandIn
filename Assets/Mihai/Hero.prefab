@@ -194,6 +194,8 @@ GameObject:
   - 33: {fileID: 3300002}
   - 23: {fileID: 2300002}
   - 111: {fileID: 11100002}
+  - 114: {fileID: 11400000}
+  - 65: {fileID: 6500000}
   m_Layer: 8
   m_Name: shield02
   m_TagString: Untagged
@@ -213,7 +215,7 @@ GameObject:
   - 143: {fileID: 14300000}
   - 114: {fileID: 11400002}
   m_Layer: 8
-  m_Name: DemoCharacter3
+  m_Name: Hero
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -335,6 +337,7 @@ GameObject:
   - 33: {fileID: 3300004}
   - 23: {fileID: 2300004}
   - 111: {fileID: 11100006}
+  - 114: {fileID: 11400004}
   m_Layer: 8
   m_Name: helmet01
   m_TagString: Untagged
@@ -561,7 +564,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400072}
   - 137: {fileID: 13700000}
-  - 114: {fileID: 11400000}
+  - 114: {fileID: 11400006}
   m_Layer: 8
   m_Name: fat
   m_TagString: Untagged
@@ -580,6 +583,8 @@ GameObject:
   - 33: {fileID: 3300006}
   - 23: {fileID: 2300006}
   - 111: {fileID: 11100008}
+  - 114: {fileID: 11400008}
+  - 65: {fileID: 6500002}
   m_Layer: 8
   m_Name: sword1H01
   m_TagString: Untagged
@@ -1181,6 +1186,30 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100074}
   m_Mesh: {fileID: 4300000, guid: c80affcf3bbc6664dad3a9d6ccd4990e, type: 3}
+--- !u!65 &6500000
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100024}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: .987428129, y: .38053298, z: .960188389}
+  m_Center: {x: -.226215601, y: -.197147071, z: .0150518389}
+--- !u!65 &6500002
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100074}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: .394396603, y: .15798682, z: 1.77412987}
+  m_Center: {x: -.0065515833, y: 1.05601643e-07, z: .668153703}
 --- !u!111 &11100000
 Animation:
   m_ObjectHideFlags: 1
@@ -1266,7 +1295,7 @@ MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100072}
+  m_GameObject: {fileID: 100024}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e355ac12db32ea04d9d0735005fbe24b, type: 3}
@@ -1289,9 +1318,51 @@ MonoBehaviour:
   ForwardSpeed: 6
   TurnSpeed: 4
   JumpForce: 2
-  AttackSpeed: 1.39999998
+  AttackSpeed: 1.10000002
   lp: {fileID: 0}
   mixTransform: {fileID: 400058}
+--- !u!114 &11400004
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e355ac12db32ea04d9d0735005fbe24b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  throughWall: {fileID: 2100000, guid: e820c73755f315e4ea5d3684db121828, type: 2}
+  cam: {fileID: 0}
+  ignoreLayer: 8
+--- !u!114 &11400006
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e355ac12db32ea04d9d0735005fbe24b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  throughWall: {fileID: 2100000, guid: e820c73755f315e4ea5d3684db121828, type: 2}
+  cam: {fileID: 0}
+  ignoreLayer: 8
+--- !u!114 &11400008
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e355ac12db32ea04d9d0735005fbe24b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  throughWall: {fileID: 2100000, guid: e820c73755f315e4ea5d3684db121828, type: 2}
+  cam: {fileID: 0}
+  ignoreLayer: 8
 --- !u!137 &13700000
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
