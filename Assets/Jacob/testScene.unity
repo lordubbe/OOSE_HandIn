@@ -2043,6 +2043,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GRAVITY: 9.80000019
   MASS: 10
+  speed: 0
   terminalVelocity: 83
   boundingPoints:
   - {fileID: 1283901690}
@@ -2052,6 +2053,7 @@ MonoBehaviour:
   - {fileID: 506263716}
   debug: 0
   minHeight: 0
+  grounded: 0
 --- !u!114 &994209408
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2076,12 +2078,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a387e822e949ef54f8572250deb4ab30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  futurePosition: {x: 0, y: 0, z: 0}
   anim: {fileID: 994209410}
   cc: {fileID: 994209406}
   runSpeed: 5
   walkSpeed: 2
   mass: 80
   jumpPower: 12
+  cf: {fileID: 0}
+  gr: {fileID: 0}
+  lp: {fileID: 0}
 --- !u!95 &994209410
 Animator:
   serializedVersion: 2
@@ -3431,6 +3437,7 @@ MonoBehaviour:
   decorations:
   - {fileID: 400002, guid: 33322e6254bd34c838c747d85dec0aab, type: 2}
   - {fileID: 400000, guid: aaaed593b169d451083c4ffbe004c9b4, type: 2}
+  - {fileID: 400004, guid: 3ba8547cd5fce4a1d95a5c5bae3144ea, type: 2}
   MAX_LEVEL_WIDTH: 50
   MAX_LEVEL_HEIGHT: 50
   seed: 100
