@@ -18,11 +18,12 @@ public class CharacterMove : MonoBehaviour {
 	private float RunSpeed  = 5.0f;
 	
 	private bool isRotating = false;
+	private CameraFollow cf;
 	// Use this for initialization
 	void Awake () {
 		LevelSpawn.FinishGeneration += addPlayer;
 		charController = this.gameObject.GetComponent<CharacterController>();
-		
+		cf = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraFollow>();
 		animation.wrapMode = WrapMode.Loop;
 		animation["1h_attack1"].wrapMode = WrapMode.Once;
 		animation["1h_attack2"].wrapMode = WrapMode.Once;
@@ -41,7 +42,7 @@ public class CharacterMove : MonoBehaviour {
 		
 		//Ajust the animation speed to ForwardSpeed and BackwardSpeed
 		
-		animation["1h_run"].speed = ForwardSpeed/3;
+		animation["1h_run"].speed = ForwardSpeed/5;
 		animation["1h_attack1"].speed = AttackSpeed;
 		animation["1h_attack2"].speed = AttackSpeed;
 		animation["2h_attack2"].speed = AttackSpeed;
@@ -78,16 +79,16 @@ public class CharacterMove : MonoBehaviour {
 						Vector3 rot = ForwardDirection+transform.position;
 						rot = new Vector3(rot.x,transform.position.y,rot.z);
 						transform.LookAt(rot);
-						
+
 						
 					}
-					ForwardDirection = new Vector3(hA1,0,vA1);
+					ForwardDirection = Vector3.Normalize(new Vector3(hA1,0,vA1));
 				}else{
 					
 					
 					if( Mathf.Abs(vA1)>.01f || Mathf.Abs (hA1) >0.01f){
 						animation.CrossFade("1h_run");
-						ForwardDirection = new Vector3(hA1,0,vA1);
+						ForwardDirection = Vector3.Normalize(new Vector3(hA1,0,vA1));
 					}
 				}
 			}else{
