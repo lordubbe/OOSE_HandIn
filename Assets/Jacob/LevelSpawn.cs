@@ -11,12 +11,15 @@
 */
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class LevelSpawn : MonoBehaviour {
 	
 	public int tileWidth = 1, tileHeight = 1;
 
 	public Transform levelParent;
+	public Transform Walls;
+
 
 	//The actual tiles to be spawned
 	public Transform pathTile;
@@ -52,6 +55,11 @@ public class LevelSpawn : MonoBehaviour {
 	//Goodies
 	public int chestSpawnFreq = 5;
 
+	//for mesh merging
+	public MeshFilter[] meshFilters;
+	public Material material;
+
+
 	private Tile[,] levelMatrix;//holds the level
 
 
@@ -69,15 +77,17 @@ public class LevelSpawn : MonoBehaviour {
 ╚═╗╠═╝╠═╣║║║║║║   ║ ╠═╣║╣   ║║║╠═╣╠═╝
 ╚═╝╩  ╩ ╩╚╩╝╝╚╝   ╩ ╩ ╩╚═╝  ╩ ╩╩ ╩╩  
 */
+		//List<MeshFilter> meshFilters = new List<MeshFilter>();//for combining the meshes 
 		for(int x=0; x<MAX_LEVEL_WIDTH; x++){
 			for(int y=0; y<MAX_LEVEL_HEIGHT; y++){
 				Transform go;
 				if(levelMatrix[x,y] != null){
 					if(levelMatrix[x,y].type == Tile.tileType.wall){
+						//checkIfLongWall(levelMatrix[x,y], levelMatrix);/////////
 						levelMatrix[x,y].tileMesh = (Transform)Instantiate(levelMatrix[x,y].tileMesh, new Vector3(x*tileWidth, tileHeight, y*tileHeight), Quaternion.identity);//instantiate 1 height up
-						levelMatrix[x,y].tileMesh.transform.parent = levelParent.transform;
+						levelMatrix[x,y].tileMesh.transform.parent = Walls.transform;
 						go = (Transform)Instantiate(levelMatrix[x,y].tileMesh, new Vector3(x*tileWidth, 0, y*tileHeight), Quaternion.identity); //and ground level for better visuals
-						go.transform.parent = levelParent.transform;
+						go.transform.parent = Walls.transform;
 					}else{
 						levelMatrix[x,y].tileMesh = (Transform)Instantiate(levelMatrix[x,y].tileMesh, new Vector3(x*tileWidth, 0, y*tileHeight), Quaternion.identity); 
 						levelMatrix[x,y].tileMesh.transform.parent = levelParent.transform;
@@ -85,6 +95,13 @@ public class LevelSpawn : MonoBehaviour {
 				}
 			}
 		}
+
+		//COMBINE MESHES!!!!!
+		//MeshFilter[] meshArray = meshFilters.ToArray();
+		//mergeMeshes(meshArray);
+		
+
+
 
 		/*  PLACE SOME 
 		╔╦╗╔═╗╦═╗╔═╗╦ ╦╔═╗╔═╗
@@ -356,9 +373,60 @@ public class LevelSpawn : MonoBehaviour {
 		return level;
 	}
 	//--------------------------------------------------------------------------------LEVEL SPAWN ALGORITHM END
+	
+
+	public Quaternion rotateTowardsNearestTileOfType(Tile.tileType type, int x, int y, Tile[,] levelMatrix){//will return what a given positions neighbors are
+		Quaternion dir = Quaternion.Euler(0, 0, 0);
+
+		if( x-1 > 0){
+			if((levelMatrix[x-1, y] != null)){//So left will always be first choice, then up, right and then down (left=0, up=1, right=2, down=3)
+				if(levelMatrix[x-1,y].type == type){
+					dir = Quaternion.Euler(0, 0, 0);//left is ground
+				}
+			}
+		}
+		if(y+1 < MAX_LEVEL_HEIGHT-1){
+			if((levelMatrix[x, y+1] != null)){
+				if(levelMatrix[x,y+1].type == type){
+					dir = Quaternion.Euler(0, 90, 0);//up is ground
+				}
+			}
+		}
+		if(x+1 < MAX_LEVEL_WIDTH-1 && (levelMatrix[x+1, y] != null)){
+			if(levelMatrix[x+1,y].type == type){
+				dir = Quaternion.Euler(0, 180, 0);//right is ground
+			}
+		}
+		if(y-1 > 0 && (levelMatrix[x, y-1] != null)){
+			if(levelMatrix[x,y-1].type == type){
+				dir = Quaternion.Euler(0, 270, 0);//down is ground
+			}
+		}
+		return dir;
+	}
+
+	private int checkIfLongWall(Tile inputTile, Tile[,] levelMatrix){
+		int lengthOfWall = 1;
+//Horizontal
+		//left
+		/*
+		if(getNeighbor("left", inputTile, levelMatrix) != null){
+
+		}
+		*/
+		//right
+
+//Vertical
+		//up
+
+		//down
+		 
+
+		return lengthOfWall;
+	}
 
 	public Tile getNeighbor(string direction, Tile input, Tile[,] levelMatrix){
-
+		
 		switch(direction){
 		case "left":
 			//
@@ -399,36 +467,6 @@ public class LevelSpawn : MonoBehaviour {
 		}
 	}
 
-	public Quaternion rotateTowardsNearestTileOfType(Tile.tileType type, int x, int y, Tile[,] levelMatrix){//will return what a given positions neighbors are
-		Quaternion dir = Quaternion.Euler(0, 0, 0);
-
-		if( x-1 > 0){
-			if((levelMatrix[x-1, y] != null)){//So left will always be first choice, then up, right and then down (left=0, up=1, right=2, down=3)
-				if(levelMatrix[x-1,y].type == type){
-					dir = Quaternion.Euler(0, 0, 0);//left is ground
-				}
-			}
-		}
-		if(y+1 < MAX_LEVEL_HEIGHT-1){
-			if((levelMatrix[x, y+1] != null)){
-				if(levelMatrix[x,y+1].type == type){
-					dir = Quaternion.Euler(0, 90, 0);//up is ground
-				}
-			}
-		}
-		if(x+1 < MAX_LEVEL_WIDTH-1 && (levelMatrix[x+1, y] != null)){
-			if(levelMatrix[x+1,y].type == type){
-				dir = Quaternion.Euler(0, 180, 0);//right is ground
-			}
-		}
-		if(y-1 > 0 && (levelMatrix[x, y-1] != null)){
-			if(levelMatrix[x,y-1].type == type){
-				dir = Quaternion.Euler(0, 270, 0);//down is ground
-			}
-		}
-		return dir;
-	}
-
 
 	
 	int getAmountOfNeighbors(int num){//OMG i actually remembered how to do recursion! This will return the amount of neighbors (
@@ -450,4 +488,101 @@ public class LevelSpawn : MonoBehaviour {
        ░       ░      ░           ░  ░ ░  ░  ░      ░  ░ ░  ░  ░      ░  ░ ░  ░  ░      ░  ░ ░    
 
 */
+	public void mergeMeshes (MeshFilter[] meshFilters){ 
+		Material material = null;
+		// if not specified, go find meshes
+		if(meshFilters.Length == 0)
+		{
+			// find all the mesh filters
+			Component[] comps = GetComponentsInChildren(typeof(MeshFilter));
+			meshFilters = new MeshFilter[comps.Length];
+			
+			int mfi = 0;
+			foreach(Component comp in comps)
+				meshFilters[mfi++] = (MeshFilter) comp;
+		}
+		
+		// figure out array sizes
+		int vertCount = 0;
+		int normCount = 0;
+		int triCount = 0;
+		int uvCount = 0;
+		
+		foreach(MeshFilter mf in meshFilters)
+		{
+			vertCount += mf.mesh.vertices.Length; 
+			normCount += mf.mesh.normals.Length;
+			triCount += mf.mesh.triangles.Length; 
+			uvCount += mf.mesh.uv.Length;
+			if(material == null)
+				material = mf.gameObject.renderer.material;       
+		}
+		
+		// allocate arrays
+		Vector3[] verts = new Vector3[vertCount];
+		Vector3[] norms = new Vector3[normCount];
+		Transform[] aBones = new Transform[meshFilters.Length];
+		Matrix4x4[] bindPoses = new Matrix4x4[meshFilters.Length];
+		BoneWeight[] weights = new BoneWeight[vertCount];
+		int[] tris  = new int[triCount];
+		Vector2[] uvs = new Vector2[uvCount];
+		
+		int vertOffset = 0;
+		int normOffset = 0;
+		int triOffset = 0;
+		int uvOffset = 0;
+		int meshOffset = 0;
+		
+		// merge the meshes and set up bones
+		foreach(MeshFilter mf in meshFilters)
+		{     
+			foreach(int i in mf.mesh.triangles)
+				tris[triOffset++] = i + vertOffset;
+			
+			aBones[meshOffset] = mf.transform;
+			bindPoses[meshOffset] = Matrix4x4.identity;
+			
+			foreach(Vector3 v in mf.mesh.vertices)
+			{
+				weights[vertOffset].weight0 = 1.0f;
+				weights[vertOffset].boneIndex0 = meshOffset;
+				verts[vertOffset++] = v;
+			}
+			
+			foreach(Vector3 n in mf.mesh.normals)
+				norms[normOffset++] = n;
+			
+			foreach(Vector2 uv in mf.mesh.uv)
+				uvs[uvOffset++] = uv;
+			
+			meshOffset++;
+			
+			MeshRenderer mr = 
+				mf.gameObject.GetComponent(typeof(MeshRenderer)) 
+					as MeshRenderer;
+			
+			if(mr)
+				mr.enabled = false;
+		}
+		
+		// hook up the mesh
+		Mesh me = new Mesh();       
+		me.name = gameObject.name;
+		me.vertices = verts;
+		me.normals = norms;
+		me.boneWeights = weights;
+		me.uv = uvs;
+		me.triangles = tris;
+		me.bindposes = bindPoses;
+		
+		// hook up the mesh renderer        
+		SkinnedMeshRenderer smr = 
+			gameObject.AddComponent(typeof(SkinnedMeshRenderer)) 
+				as SkinnedMeshRenderer;
+		
+		smr.sharedMesh = me;
+		smr.bones = aBones;
+		renderer.material = material;
+		
+	}
 }
