@@ -1258,6 +1258,8 @@ Animation:
   - {fileID: 7400000, guid: a7416d64004be4d479c7a1a916a44bab, type: 3}
   - {fileID: 7400000, guid: 60b9d270d3977714aaaf42ae712da752, type: 3}
   - {fileID: 7400000, guid: 589cd9b0722d8bc468848a773adcccd0, type: 3}
+  - {fileID: 7400000, guid: 6685bd0f54c5e08408aeb03f0b528f5b, type: 3}
+  - {fileID: 7400000, guid: ee00ce7e187d53b41968d49d1eb6cf0a, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
@@ -1320,6 +1322,7 @@ MonoBehaviour:
   JumpForce: 2
   AttackSpeed: 1.10000002
   lp: {fileID: 0}
+  runAnimationMultiplayer: .200000003
   mixTransform: {fileID: 400028}
 --- !u!114 &11400004
 MonoBehaviour:
