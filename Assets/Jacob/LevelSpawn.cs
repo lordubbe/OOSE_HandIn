@@ -28,6 +28,7 @@ public class LevelSpawn : MonoBehaviour {
 	public Transform lavaTile;
 	public Transform torchTile;
 	public Transform chestObject;
+	public Transform enemyObject; //added by Mihai, Jacob please dont be mad!
 	public Transform[] decorations;
 	
 	//General level information
@@ -179,8 +180,14 @@ public class LevelSpawn : MonoBehaviour {
 			for(int y=0; y<MAX_LEVEL_HEIGHT; y++){
 				if(levelMatrix[x,y]!=null && levelMatrix[x,y].canSpawnEnemies && Random.Range(0,100)<enemySpawnFreq){
 					//SPAWN ENEMY
+					/*
 					Transform enemy = (Transform)Instantiate(lavaTile, new Vector3(x*tileWidth, 0.5f, y*tileHeight), Quaternion.identity);
 					enemy.localScale = new Vector3(1,2,1);
+					enemiesInLevel++;
+					*/
+					//Section modified by Mihai - Jacob please don't be mad
+					Transform enemy = (Transform)Instantiate(enemyObject, new Vector3(x*tileWidth, 1, y*tileHeight), Quaternion.identity);
+					//enemy.localScale = new Vector3(1,2,1);
 					enemiesInLevel++;
 				}
 			}
