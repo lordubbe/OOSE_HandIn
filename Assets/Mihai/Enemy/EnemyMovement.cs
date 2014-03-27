@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class EnemyMovement : MonoBehaviour {
+public class EnemyMovement : MonoBehaviour,IAnimationController {
 
 	public float ForwardSpeed  = 6;
 	public float WalkSpeed = 3;
@@ -15,6 +15,8 @@ public class EnemyMovement : MonoBehaviour {
 	
 	public Transform mixTransform;
 	
+	public bool debugRandomMovement = false;
+	
 	private Vector3 ForwardDirection  = Vector3.zero;
 	private CharacterController charController;
 	private float gravity  = 9.81f;
@@ -24,13 +26,14 @@ public class EnemyMovement : MonoBehaviour {
 	
 	// Use this for initialization
 	void Awake () {
-		charController = this.gameObject.GetComponent<CharacterController>();
+		
 		
 		animation.wrapMode = WrapMode.Loop;
 		animation["attack1"].wrapMode = WrapMode.Once;
 		animation["attack2"].wrapMode = WrapMode.Once;
 		animation["attack3"].wrapMode = WrapMode.Once;
 		animation["die"].wrapMode = WrapMode.Once;
+		animation["hit"].wrapMode = WrapMode.Once;
 		
 		animation["attack1"].AddMixingTransform(mixTransform);
 		animation["attack2"].AddMixingTransform(mixTransform);
@@ -50,23 +53,27 @@ public class EnemyMovement : MonoBehaviour {
 		animation["attack3"].speed = AttackSpeed;
 		
 		animation.Stop();
+		charController = this.gameObject.GetComponent<CharacterController>();
 		lp = GameObject.Find ("levelSpawner").GetComponent<LevelSpawn>();
 		
-		LevelSpawn.FinishGeneration+=walkRandom;
+		if(debugRandomMovement) LevelSpawn.FinishGeneration+=walkRandom;
+		
 		
 	}
-	
+	void Start(){
+		
+	}
 	void walkRandom(){
 		//creates a random path to walk on for testing
 		Vector3 pos = transform.position;
-		Vector3[] p = new Vector3[4];
+		Vector3[] p = new Vector3[20];
 		p[0] = pos;
-		for(int i = 1; i<4; i++){
-			p[i] = p[i-1] + new Vector3(Random.Range (-30.0f,30.0f)+5f,0,Random.Range (-30.0f,30.0f)+5f);
+		for(int i = 1; i<20; i++){
+			p[i] = p[i-1] + new Vector3(Random.Range (-3.0f,3.0f),0,Random.Range (-3.0f,3.0f));
 		}
 		path = p;
 		nodeInPath = 0;
-		runOnPath ();
+		walkOnPath ();
 	}
 	
 	public void walkTo(Vector3 position, string onComplete){
@@ -79,12 +86,14 @@ public class EnemyMovement : MonoBehaviour {
 		ht.Add ("position",position);
 		ht.Add ("easetype","linear");
 		ht.Add ("oncomplete",onComplete);
+		ht.Add ("name","walk");
 		iTween.MoveTo(this.gameObject,ht);
 	}
 	public void walkOnPath(){
 		//moves object on a path using walk animation
 		if(nodeInPath == path.Length){
-			setIdle ();
+			if(!debugRandomMovement) setIdle ();
+			else walkRandom();
 		}else{
 			walkTo (path[nodeInPath],"walkOnPath");
 			nodeInPath++;
@@ -101,6 +110,7 @@ public class EnemyMovement : MonoBehaviour {
 		ht.Add ("position",position);
 		ht.Add ("easetype","linear");
 		ht.Add ("oncomplete",onComplete);
+		ht.Add ("name","run");
 		iTween.MoveTo(this.gameObject,ht);
 	}
 	public void runOnPath(){
@@ -121,6 +131,7 @@ public class EnemyMovement : MonoBehaviour {
 		ht.Add ("position",t);
 		ht.Add ("easetype","linear");
 		ht.Add ("oncomplete",onComplete);
+		ht.Add ("name","run");
 		iTween.MoveTo(this.gameObject,ht);
 	}
 	
@@ -139,16 +150,18 @@ public class EnemyMovement : MonoBehaviour {
 		animation.CrossFade("attack3");
 	}
 	public void Hit(){
+		iTween.Stop (this.gameObject);
+		iTween.Stop (this.gameObject);
 		animation.CrossFade("hit");
 	}
 	public void Die(){
+		Debug.Log ("dead");
 		animation.CrossFade("die");
 	}
-
+	public void BlockUp(){
 	
+	}
+	public void BlockDown(){
 	
-	
-	
-	
-	
+	}
 }
