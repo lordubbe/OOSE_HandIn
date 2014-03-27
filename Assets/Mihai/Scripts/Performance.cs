@@ -15,16 +15,19 @@ public class Performance : MonoBehaviour {
 	private static IEnumerator Refresh(){
 		while(true){
 			if(UpdateEvent!=null) UpdateEvent();
-		
-
-			if(Time.deltaTime>0.016f){
-				//if frame rate is bellow 60fps make the delay longer by 5%
-				delay+= (delay *5/100);
-			}else{
-				//if frame rate is over 60fps make delay shorter by 5%
-				delay-= (delay *5/100);
-			}
-			yield return new WaitForSeconds(0.016f);
+			
+			
+			
+			yield return new WaitForSeconds(0.016f*delay);
+		}
+	}
+	private void Update(){
+		if(Time.deltaTime>0.020f){
+			//if frame rate is bellow 60fps make the delay longer by 5%
+			delay= (delay *5/100);
+		}else{
+			//if frame rate is over 60fps make delay shorter by 5%
+			delay-= (delay *5/100);
 		}
 	}
 	

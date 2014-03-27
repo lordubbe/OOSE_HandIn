@@ -1,4 +1,9 @@
-﻿using UnityEngine;
+﻿/// <summary>
+/// Character move.
+/// Code by Mihai-Ovidiu Anton
+/// </summary>
+
+using UnityEngine;
 using System.Collections;
 
 public class CharacterMove : MonoBehaviour {
@@ -17,18 +22,18 @@ public class CharacterMove : MonoBehaviour {
 	private float gravity  = 9.81f;
 	private float RunSpeed  = 5.0f;
 	
-	private bool isRotating = false;
-	private CameraFollow cf;
+
+	private string prevAnim;
 	// Use this for initialization
 	void Awake () {
 		LevelSpawn.FinishGeneration += addPlayer;
 		charController = this.gameObject.GetComponent<CharacterController>();
-		cf = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraFollow>();
+		
 		animation.wrapMode = WrapMode.Loop;
 		animation["1h_attack1"].wrapMode = WrapMode.Once;
 		animation["1h_attack2"].wrapMode = WrapMode.Once;
 		animation["2h_attack2"].wrapMode = WrapMode.Once;
-		animation["2h_idle"].wrapMode = WrapMode.Once;
+		//animation["2h_idle"].wrapMode = WrapMode.Once;
 		
 		animation["1h_attack1"].AddMixingTransform(mixTransform);
 		animation["1h_attack2"].AddMixingTransform(mixTransform);
@@ -67,7 +72,7 @@ public class CharacterMove : MonoBehaviour {
 			float vA2 = Input.GetAxis ("Vertical2");
 			
 			animation.CrossFade("1h_idle");
-			
+			prevAnim = "1h_idle";
 			
 			
 			
@@ -75,6 +80,7 @@ public class CharacterMove : MonoBehaviour {
 			if( Mathf.Abs(vA1)>.01f || Mathf.Abs (hA1) >0.01f){
 				if(Input.GetAxis("Fire1")<0.1f){
 					animation.CrossFade("1h_run");
+					prevAnim = "1h_run";
 					if(ForwardDirection.x != hA1 || ForwardDirection.z != vA1 ){
 						Vector3 rot = ForwardDirection+transform.position;
 						rot = new Vector3(rot.x,transform.position.y,rot.z);
@@ -88,6 +94,7 @@ public class CharacterMove : MonoBehaviour {
 					
 					if( Mathf.Abs(vA1)>.01f || Mathf.Abs (hA1) >0.01f){
 						animation.CrossFade("1h_run");
+						prevAnim = "1h_run";
 						ForwardDirection = Vector3.Normalize(new Vector3(hA1,0,vA1));
 					}
 				}
@@ -98,13 +105,17 @@ public class CharacterMove : MonoBehaviour {
 			
 			if((vA2)>0f){
 				animation.CrossFade("1h_attack2");
+				
 			}else if((vA2)<0f){
 				animation.CrossFade("2h_idle");
+				
 			}else if( (hA2)>0f){
 				animation.CrossFade("1h_attack1");
+				
 			}else if( (hA2)<0f){
 				animation.CrossFade("2h_attack2");
-			}
+				
+			}else if(vA2 ==0) animation.Stop("2h_idle");
 			if(Input.GetKeyDown (KeyCode.Space)){
 				animation.CrossFade("jump");
 				ForwardDirection += new Vector3(0,JumpForce,0);
@@ -117,7 +128,7 @@ public class CharacterMove : MonoBehaviour {
 			
 			
 			
-			
+		
 			
 			
 			
