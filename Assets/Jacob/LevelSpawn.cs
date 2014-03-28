@@ -20,8 +20,8 @@ public class LevelSpawn : MonoBehaviour {
 	public Transform levelParent;
 	public Transform Walls;
 
-
 	//The actual tiles to be spawned
+	public Transform emptyTile;
 	public Transform pathTile;
 	public Transform wallTile;
 	public Transform stoneTile;
@@ -61,8 +61,8 @@ public class LevelSpawn : MonoBehaviour {
 	public Material material;
 
 
-	private Tile[,] levelMatrix;//holds the level
-
+	public static Tile[,] levelMatrix;//holds the level
+	private Room[] roomsInLevel;
 
 	public delegate void FINISH_GENERATION();
 	public static event FINISH_GENERATION FinishGeneration; 
@@ -78,7 +78,7 @@ public class LevelSpawn : MonoBehaviour {
 ╚═╗╠═╝╠═╣║║║║║║   ║ ╠═╣║╣   ║║║╠═╣╠═╝
 ╚═╝╩  ╩ ╩╚╩╝╝╚╝   ╩ ╩ ╩╚═╝  ╩ ╩╩ ╩╩  
 */
-		//List<MeshFilter> meshFilters = new List<MeshFilter>();//for combining the meshes 
+
 		for(int x=0; x<MAX_LEVEL_WIDTH; x++){
 			for(int y=0; y<MAX_LEVEL_HEIGHT; y++){
 				Transform go;
@@ -96,11 +96,47 @@ public class LevelSpawn : MonoBehaviour {
 				}
 			}
 		}
+/*
+		╔═╗╔═╗╔╦╗╔╗ ╦╔╗╔╔═╗  ╔╦╗╔═╗╔═╗╦ ╦╔═╗╔═╗
+		║  ║ ║║║║╠╩╗║║║║║╣   ║║║║╣ ╚═╗╠═╣║╣ ╚═╗
+		╚═╝╚═╝╩ ╩╚═╝╩╝╚╝╚═╝  ╩ ╩╚═╝╚═╝╩ ╩╚═╝╚═╝
+*//*
+		//COMBINE THE MESHES OF THE ROOMS	
+		for(int roomCount = 0; roomCount<roomsInLevel.Length; roomCount++){//loop through rooms
+			string roomName = "ROOM"+roomCount;
+			GameObject roomHolder = new GameObject(roomName);
+			for(int i=0; i< roomsInLevel[roomCount].tiles.GetLength(0); i++){
+				for(int j=0; j<roomsInLevel[roomCount].tiles.GetLength(1); j++){
+					if(roomsInLevel[roomCount].tiles[i,j].type != Tile.tileType.path){
+						Transform tr = (Transform)Instantiate(emptyTile, new Vector3(i*tileWidth, roomCount*2, j*tileHeight), Quaternion.identity);
+						tr.transform.parent = roomHolder.transform;
+					}
 
-		//COMBINE MESHES!!!!!
+				}
+			}
+			roomHolder.AddComponent<MeshMerger>();
+		}
+		*/
+
+/*		List<MeshFilter> roomMeshFilters = new List<MeshFilter>();//appendable list for the meshes
+		for(int roomCount = 0; roomCount<roomsInLevel.Length; roomCount++){//loop through rooms
+			for(int i=0; i< roomsInLevel[roomCount].tiles.GetLength(0); i++){
+				for(int j=0; j<roomsInLevel[roomCount].tiles.GetLength(1); j++){
+					//print (roomsInLevel[roomCount].tiles[i,j].tileMesh.GetComponent<MeshFilter>());
+					Transform tr = (Transform)Instantiate(emptyTile, new Vector3(i*tileWidth, roomCount*2, j*tileHeight), Quaternion.identity);
+					//roomMeshFilters.Add(roomsInLevel[roomCount].tiles[i,j].tileMesh.GetComponent<MeshFilter>());
+					roomMeshFilters.Add (emptyTile.GetComponent<MeshFilter>());
+					tr.transform.parent = roomHolder.transform;
+				}
+			}
+
+		}
+
+		MeshFilter[] meshArray = roomMeshFilters.ToArray();
+		mergeMeshes(meshArray, null);//COMBINE MESHES!!!!!
 		//MeshFilter[] meshArray = meshFilters.ToArray();
 		//mergeMeshes(meshArray);
-		
+		*/
 
 
 
@@ -140,8 +176,19 @@ public class LevelSpawn : MonoBehaviour {
 			for(int y=0; y<MAX_LEVEL_HEIGHT; y++){
 				if(Random.Range (0, 100) < chestSpawnFreq){
 					if(levelMatrix[x,y]!=null && levelMatrix[x,y].type == Tile.tileType.wall){
-						Transform chest = Instantiate(chestObject, new Vector3(x*tileWidth, tileHeight, y*tileWidth), rotateTowardsNearestTileOfType(Tile.tileType.ground, x, y, levelMatrix)) as Transform;
-						chest.parent = levelMatrix[x,y].tileMesh.transform;
+						Tile leftNeighbor = getNeighbor("left", levelMatrix[x,y], levelMatrix);
+						Tile upNeighbor = getNeighbor("up", levelMatrix[x,y], levelMatrix);
+						Tile rightNeighbor = getNeighbor("right", levelMatrix[x,y], levelMatrix);
+						Tile downNeighbor = getNeighbor("down", levelMatrix[x,y], levelMatrix);
+
+						if((leftNeighbor != null && leftNeighbor.type != Tile.tileType.path)		//Make sure it doesn't spawn by pathTiles	
+						   && (upNeighbor != null && upNeighbor.type != Tile.tileType.path)			//
+						   && (rightNeighbor != null && rightNeighbor.type != Tile.tileType.path)	//
+						   && (downNeighbor != null && downNeighbor.type != Tile.tileType.path)){	//
+						
+							Transform chest = Instantiate(chestObject, new Vector3(x*tileWidth, tileHeight, y*tileWidth), rotateTowardsNearestTileOfType(Tile.tileType.ground, x, y, levelMatrix)) as Transform;
+							chest.parent = levelMatrix[x,y].tileMesh.transform;
+						}
 					}
 				}
 			}
@@ -180,14 +227,8 @@ public class LevelSpawn : MonoBehaviour {
 			for(int y=0; y<MAX_LEVEL_HEIGHT; y++){
 				if(levelMatrix[x,y]!=null && levelMatrix[x,y].canSpawnEnemies && Random.Range(0,100)<enemySpawnFreq){
 					//SPAWN ENEMY
-					/*
-					Transform enemy = (Transform)Instantiate(lavaTile, new Vector3(x*tileWidth, 0.5f, y*tileHeight), Quaternion.identity);
-					enemy.localScale = new Vector3(1,2,1);
-					enemiesInLevel++;
-					*/
 					//Section modified by Mihai - Jacob please don't be mad
 					Transform enemy = (Transform)Instantiate(enemyObject, new Vector3(x*tileWidth, 1, y*tileHeight), Quaternion.identity);
-					//enemy.localScale = new Vector3(1,2,1);
 					enemiesInLevel++;
 				}
 			}
@@ -211,7 +252,6 @@ public class LevelSpawn : MonoBehaviour {
 		██║   ██║██╔══╝  ██║╚██╗██║██╔══╝  ██╔══██╗██╔══██║   ██║   ██╔══╝          ██╔══██╗██║   ██║██║   ██║██║╚██╔╝██║╚════██║
 		╚██████╔╝███████╗██║ ╚████║███████╗██║  ██║██║  ██║   ██║   ███████╗        ██║  ██║╚██████╔╝╚██████╔╝██║ ╚═╝ ██║███████║
 		 ╚═════╝ ╚══════╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚══════╝        ╚═╝  ╚═╝ ╚═════╝  ╚═════╝ ╚═╝     ╚═╝╚══════╝
-
 */
 		//INITIALIZE level as null
 		for(int x=0; x<MAX_LEVEL_WIDTH; x++){
@@ -220,8 +260,8 @@ public class LevelSpawn : MonoBehaviour {
 			}
 		}	
 		
-		//Decide number of rooms
-		int numberOfRooms = Random.Range(minRooms, maxRooms+1);
+		int numberOfRooms = Random.Range(minRooms, maxRooms+1);//Decide number of rooms
+
 		int[] roomArray = new int[numberOfRooms*2];//Will hold spawn coordinates (bottom left coordinate of room)
 		int[] roomSizeArray = new int[numberOfRooms*2];//Will hold the room dimensions 
 		
@@ -233,7 +273,7 @@ public class LevelSpawn : MonoBehaviour {
 			roomArray[i+1]=Random.Range(0, MAX_LEVEL_HEIGHT);//y value of room
 			roomSizeArray[i] = Random.Range(minRoomWidth, maxRoomWidth);//save width of room
 			roomSizeArray[i+1] = Random.Range(minRoomHeight, maxRoomHeight);//save height of room
-			//print ("roomEnd_X: "+(roomArray[i]+maxRoomWidth)+", roomEnd_Y: "+(roomArray[i+1]+maxRoomHeight));//DEBUG PRINT the x+room width and y+room height
+
 			if(roomArray[i]+roomSizeArray[i]>MAX_LEVEL_WIDTH){//if the x coordinate + the room width exceeds the level width (Out Of Bounds [OOB])
 				int overflowX = (roomArray[i]+roomSizeArray[i])-MAX_LEVEL_WIDTH;//How many tiles does the room width go out of bounds?
 				//print ("OUT OF BOUNDS WIDTH");
@@ -256,8 +296,9 @@ public class LevelSpawn : MonoBehaviour {
 		//SET PLAYER SPAWN *QUICKLY - NOT OPTIMAL*
 		playerSpawn = new Vector3(roomCenterArray[0]*tileWidth, tileHeight, roomCenterArray[1]*tileHeight);
 		
-		
+		roomsInLevel = new Room[numberOfRooms];
 		//Now actually make the rooms
+		int roomCount = 0;
 		for(int k=0; k<roomArray.Length; k+=2){//iterate through each room
 			//set the type of the room to the default/normal room
 			Room room = new Room(Room.roomType.normal, roomSizeArray[k], roomSizeArray[k+1], new Vector3(roomCenterArray[k], 0, roomCenterArray[k+1]));//create new room
@@ -270,15 +311,20 @@ public class LevelSpawn : MonoBehaviour {
 					ground.tileMesh = stoneTile;
 					level[l, m] = ground;//set it to be standard ground
 					level[l, m].type = Tile.tileType.ground;
-
 					room.tiles[l-roomArray[k], m-roomArray[k+1]] = ground;//set the tile to be in the room tiles array
 				}
 			}
+			roomsInLevel[roomCount] = room;
+			/* //PRINT THE TILES OF THE ROOMS
+			for(int i=0; i<room.tiles.GetLength(0); i++){
+				for(int j=0; j< room.tiles.GetLength(1); j++){
+					print (room.tiles[i, j]);
+				}
+			}*/
+			roomCount++;
 		}
-		
 		print ("TOTAL ROOMS IN LEVEL: "+ numberOfRooms);
-
-/*
+	/*
 ╔╦╗╔═╗╦╔═╔═╗  ╔═╗╔═╗╦═╗╦═╗╦╔╦╗╔═╗╦═╗╔═╗  ╔╗ ╔═╗╔╦╗╦ ╦╔═╗╔═╗╔╗╔  ╦═╗╔═╗╔═╗╔╦╗╔═╗
 ║║║╠═╣╠╩╗║╣   ║  ║ ║╠╦╝╠╦╝║ ║║║ ║╠╦╝╚═╗  ╠╩╗║╣  ║ ║║║║╣ ║╣ ║║║  ╠╦╝║ ║║ ║║║║╚═╗
 ╩ ╩╩ ╩╩ ╩╚═╝  ╚═╝╚═╝╩╚═╩╚═╩═╩╝╚═╝╩╚═╚═╝  ╚═╝╚═╝ ╩ ╚╩╝╚═╝╚═╝╝╚╝  ╩╚═╚═╝╚═╝╩ ╩╚═╝
@@ -332,7 +378,7 @@ public class LevelSpawn : MonoBehaviour {
 				path.isWalkable = true;
 				path.damage = 0;
 				path.speed = 1;
-				path.type = Tile.tileType.ground;
+				path.type = Tile.tileType.path;
 			}
 		}
 		
@@ -437,7 +483,7 @@ public class LevelSpawn : MonoBehaviour {
 		switch(direction){
 		case "left":
 			//
-			if(levelMatrix[(int)input.x-1, (int)input.y] != null){
+			if(input.x > 0 && levelMatrix[(int)input.x-1, (int)input.y] != null){
 				return levelMatrix[(int)input.x-1, (int)input.y];
 			}else{
 				return null;
@@ -445,7 +491,7 @@ public class LevelSpawn : MonoBehaviour {
 			break;
 		case "up":
 			//
-			if(levelMatrix[(int)input.x, (int)input.y+1] != null){
+			if(input.y < MAX_LEVEL_HEIGHT-1 && levelMatrix[(int)input.x, (int)input.y+1] != null){
 				return levelMatrix[(int)input.x, (int)input.y+1];
 			}else{
 				return null;
@@ -453,7 +499,7 @@ public class LevelSpawn : MonoBehaviour {
 			break;
 		case "down":
 			//
-			if(levelMatrix[(int)input.x, (int)input.y-1] != null){
+			if(input.y > 0 && levelMatrix[(int)input.x, (int)input.y-1] != null){
 				return levelMatrix[(int)input.x, (int)input.y-1];
 			}else{
 				return null;
@@ -461,7 +507,7 @@ public class LevelSpawn : MonoBehaviour {
 			break;
 		case "right":
 			//
-			if(levelMatrix[(int)input.x+1, (int)input.y] != null){
+			if(input.x < MAX_LEVEL_WIDTH-1 && levelMatrix[(int)input.x+1, (int)input.y] != null){
 				return levelMatrix[(int)input.x+1, (int)input.y];
 			}else{
 				return null;
@@ -495,101 +541,5 @@ public class LevelSpawn : MonoBehaviour {
        ░       ░      ░           ░  ░ ░  ░  ░      ░  ░ ░  ░  ░      ░  ░ ░  ░  ░      ░  ░ ░    
 
 */
-	public void mergeMeshes (MeshFilter[] meshFilters){ 
-		Material material = null;
-		// if not specified, go find meshes
-		if(meshFilters.Length == 0)
-		{
-			// find all the mesh filters
-			Component[] comps = GetComponentsInChildren(typeof(MeshFilter));
-			meshFilters = new MeshFilter[comps.Length];
-			
-			int mfi = 0;
-			foreach(Component comp in comps)
-				meshFilters[mfi++] = (MeshFilter) comp;
-		}
-		
-		// figure out array sizes
-		int vertCount = 0;
-		int normCount = 0;
-		int triCount = 0;
-		int uvCount = 0;
-		
-		foreach(MeshFilter mf in meshFilters)
-		{
-			vertCount += mf.mesh.vertices.Length; 
-			normCount += mf.mesh.normals.Length;
-			triCount += mf.mesh.triangles.Length; 
-			uvCount += mf.mesh.uv.Length;
-			if(material == null)
-				material = mf.gameObject.renderer.material;       
-		}
-		
-		// allocate arrays
-		Vector3[] verts = new Vector3[vertCount];
-		Vector3[] norms = new Vector3[normCount];
-		Transform[] aBones = new Transform[meshFilters.Length];
-		Matrix4x4[] bindPoses = new Matrix4x4[meshFilters.Length];
-		BoneWeight[] weights = new BoneWeight[vertCount];
-		int[] tris  = new int[triCount];
-		Vector2[] uvs = new Vector2[uvCount];
-		
-		int vertOffset = 0;
-		int normOffset = 0;
-		int triOffset = 0;
-		int uvOffset = 0;
-		int meshOffset = 0;
-		
-		// merge the meshes and set up bones
-		foreach(MeshFilter mf in meshFilters)
-		{     
-			foreach(int i in mf.mesh.triangles)
-				tris[triOffset++] = i + vertOffset;
-			
-			aBones[meshOffset] = mf.transform;
-			bindPoses[meshOffset] = Matrix4x4.identity;
-			
-			foreach(Vector3 v in mf.mesh.vertices)
-			{
-				weights[vertOffset].weight0 = 1.0f;
-				weights[vertOffset].boneIndex0 = meshOffset;
-				verts[vertOffset++] = v;
-			}
-			
-			foreach(Vector3 n in mf.mesh.normals)
-				norms[normOffset++] = n;
-			
-			foreach(Vector2 uv in mf.mesh.uv)
-				uvs[uvOffset++] = uv;
-			
-			meshOffset++;
-			
-			MeshRenderer mr = 
-				mf.gameObject.GetComponent(typeof(MeshRenderer)) 
-					as MeshRenderer;
-			
-			if(mr)
-				mr.enabled = false;
-		}
-		
-		// hook up the mesh
-		Mesh me = new Mesh();       
-		me.name = gameObject.name;
-		me.vertices = verts;
-		me.normals = norms;
-		me.boneWeights = weights;
-		me.uv = uvs;
-		me.triangles = tris;
-		me.bindposes = bindPoses;
-		
-		// hook up the mesh renderer        
-		SkinnedMeshRenderer smr = 
-			gameObject.AddComponent(typeof(SkinnedMeshRenderer)) 
-				as SkinnedMeshRenderer;
-		
-		smr.sharedMesh = me;
-		smr.bones = aBones;
-		renderer.material = material;
-		
-	}
+
 }

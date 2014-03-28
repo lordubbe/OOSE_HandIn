@@ -62,8 +62,8 @@ public class MeshMerger : MonoBehaviour
 	void Start () 
 	{ 
 		// if not specified, go find meshes
-		if(meshFilters.Length == 0)
-		{
+		//if(meshFilters.Length == 0)
+		//{
 			// find all the mesh filters
 			Component[] comps = GetComponentsInChildren(typeof(MeshFilter));
 			meshFilters = new MeshFilter[comps.Length];
@@ -71,7 +71,7 @@ public class MeshMerger : MonoBehaviour
 			int mfi = 0;
 			foreach(Component comp in comps)
 				meshFilters[mfi++] = (MeshFilter) comp;
-		}
+		//}
 		
 		// figure out array sizes
 		int vertCount = 0;

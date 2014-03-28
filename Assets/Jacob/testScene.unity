@@ -236,7 +236,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 327535703}
-  offset: {x: 0, y: 2, z: -2}
+  initialOffset: {x: 0, y: 3, z: -5}
+  viewDistance: 3
+  movementThreshold: 0
+  lerpTime: 100
+  resetTime: 1
+  resetLerpTime: 50
 --- !u!81 &191728085
 AudioListener:
   m_ObjectHideFlags: 0
@@ -469,6 +474,8 @@ Animation:
   - {fileID: 7400000, guid: a7416d64004be4d479c7a1a916a44bab, type: 3}
   - {fileID: 7400000, guid: 60b9d270d3977714aaaf42ae712da752, type: 3}
   - {fileID: 7400000, guid: 589cd9b0722d8bc468848a773adcccd0, type: 3}
+  - {fileID: 7400000, guid: 6685bd0f54c5e08408aeb03f0b528f5b, type: 3}
+  - {fileID: 7400000, guid: ee00ce7e187d53b41968d49d1eb6cf0a, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
@@ -1625,12 +1632,14 @@ MonoBehaviour:
   tileHeight: 2
   levelParent: {fileID: 850913288}
   Walls: {fileID: 424201274}
+  emptyTile: {fileID: 400000, guid: ede89c57f0b204a189d04eb28f590208, type: 2}
   pathTile: {fileID: 400000, guid: 8d060eab766eb4adebf854a9142d04cf, type: 2}
   wallTile: {fileID: 400000, guid: e95c8501e8d534ba4858c94a6115e58c, type: 2}
   stoneTile: {fileID: 400000, guid: 1cb71ef7b9ab84bccb10912ae9ad64d5, type: 2}
   lavaTile: {fileID: 400000, guid: 14245e767ae9746a1934199fffff4a18, type: 2}
   torchTile: {fileID: 400000, guid: ab3502416d7564f7a8d49b3339b1f8ef, type: 2}
   chestObject: {fileID: 400000, guid: 9e73de16ca9d14679a8eddacfae470bd, type: 2}
+  enemyObject: {fileID: 400098, guid: 826a41427cb729744a8cc6bbc3099fa4, type: 2}
   decorations:
   - {fileID: 400002, guid: 33322e6254bd34c838c747d85dec0aab, type: 2}
   - {fileID: 400000, guid: aaaed593b169d451083c4ffbe004c9b4, type: 2}
@@ -1638,8 +1647,8 @@ MonoBehaviour:
   MAX_LEVEL_WIDTH: 50
   MAX_LEVEL_HEIGHT: 50
   seed: 100
-  minRooms: 4
-  maxRooms: 10
+  minRooms: 6
+  maxRooms: 20
   minRoomWidth: 5
   minRoomHeight: 5
   maxRoomWidth: 10
@@ -1648,7 +1657,9 @@ MonoBehaviour:
   enemySpawnFreq: 10
   enemySpawnPositions: []
   playerSpawn: {x: 0, y: 0, z: 0}
-  chestSpawnFreq: 2
+  chestSpawnFreq: 5
+  meshFilters: []
+  material: {fileID: 0}
 --- !u!1 &1747758013
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,7 +6,7 @@ public class Tile{
 	public Transform tileMesh;//This will hold the model of the tile
 
 	public enum tileType{
-		ground, wall
+		ground, wall, path
 	};
 
 	public tileType type;
