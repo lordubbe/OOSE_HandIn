@@ -43,7 +43,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.1010704, y: -2.93294907, z: 36.0741386}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400002}
@@ -54,9 +54,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100002}
-  m_LocalRotation: {x: 0, y: .1305262, z: 0, w: .991444886}
-  m_LocalPosition: {x: .790222585, y: .473840833, z: .518101573}
-  m_LocalScale: {x: .200000003, y: .200000003, z: 1.5}
+  m_LocalRotation: {x: 0, y: -.119659536, z: 0, w: .992815018}
+  m_LocalPosition: {x: .25838545, y: .58950007, z: .706402123}
+  m_LocalScale: {x: .300000012, y: .200000003, z: 1.5}
   m_Children: []
   m_Father: {fileID: 400000}
 --- !u!23 &2300000
@@ -130,7 +130,7 @@ MonoBehaviour:
   affectedTags:
   - Creature
   cs: {fileID: 0}
-  time: .5
+  time: .300000012
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1

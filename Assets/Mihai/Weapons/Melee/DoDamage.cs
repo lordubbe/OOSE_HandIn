@@ -38,7 +38,10 @@ public class DoDamage : MonoBehaviour {
 				CharacterStats otherCS = other.GetComponent<CharacterStats>();
 				if(otherCS.shieldUp){
 					otherCS.Health -= Mathf.Clamp (realDmg-otherCS.defence,0, realDmg);
-					realDmg *= 0.2f; //after hitting a block the next potential enemies hit will get much less damage from this swing
+					realDmg *= 0.5f; //after hitting a block the next potential enemies hit will get much less damage from this swing
+					realDmg -= otherCS.defence; //also remove the block of the opponent
+					realDmg = Mathf.Max (0,realDmg); //make sure realDmg is positive
+					
 				} else{
 					otherCS.Health -= realDmg;
 					realDmg *=0.8f; // the damage for other enemies hit by this swing will be less by 20%
