@@ -45,12 +45,14 @@ public class CharacterStats : MonoBehaviour {
 	}
 	
 	void Update(){
-		if(maxHealth>_health){
-			_health+= regenPerSecond * Time.deltaTime;
-		}
-		if(_health<=0 && !dead){
-			Die ();
-			
+		if(!dead){
+			if(maxHealth>_health){
+				_health+= regenPerSecond * Time.deltaTime;
+			}
+			if(_health<=0 && !dead){
+				Die ();
+				
+			}
 		}
 	}	
 	public IAnimationController getAnim(){

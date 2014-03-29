@@ -17,9 +17,9 @@ public class EnemyMovement : MonoBehaviour,IAnimationController {
 	
 	public bool debugRandomMovement = false;
 	
-	private Vector3 ForwardDirection  = Vector3.zero;
-	private CharacterController charController;
-	private float gravity  = 9.81f;
+
+
+
 	private float RunSpeed  = 5.0f;
 	private Vector3[] path;
 	private int nodeInPath;
@@ -53,7 +53,7 @@ public class EnemyMovement : MonoBehaviour,IAnimationController {
 		animation["attack3"].speed = AttackSpeed;
 		
 		animation.Stop();
-		charController = this.gameObject.GetComponent<CharacterController>();
+
 		lp = GameObject.Find ("levelSpawner").GetComponent<LevelSpawn>();
 		
 		if(debugRandomMovement) LevelSpawn.FinishGeneration+=walkRandom;
@@ -63,6 +63,14 @@ public class EnemyMovement : MonoBehaviour,IAnimationController {
 	void Start(){
 		
 	}
+	
+	public void moveOnPath(Vector3[] path){
+		this.path = path;
+		nodeInPath = 0;
+		runOnPath(); 
+		
+	}
+	
 	void walkRandom(){
 		//creates a random path to walk on for testing
 		Vector3 pos = transform.position;
@@ -89,7 +97,7 @@ public class EnemyMovement : MonoBehaviour,IAnimationController {
 		ht.Add ("name","walk");
 		iTween.MoveTo(this.gameObject,ht);
 	}
-	public void walkOnPath(){
+	private void walkOnPath(){
 		//moves object on a path using walk animation
 		if(nodeInPath == path.Length){
 			if(!debugRandomMovement) setIdle ();
@@ -113,7 +121,7 @@ public class EnemyMovement : MonoBehaviour,IAnimationController {
 		ht.Add ("name","run");
 		iTween.MoveTo(this.gameObject,ht);
 	}
-	public void runOnPath(){
+	private void runOnPath(){
 		//moves object on path using run animation
 		if(nodeInPath == path.Length){
 			setIdle ();

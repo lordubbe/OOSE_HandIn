@@ -752,6 +752,7 @@ GameObject:
   - 143: {fileID: 14300000}
   - 114: {fileID: 11400000}
   - 114: {fileID: 11400002}
+  - 114: {fileID: 11400004}
   m_Layer: 0
   m_Name: Troll 1
   m_TagString: Creature
@@ -793,7 +794,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100004}
-  m_LocalRotation: {x: -.0491300337, y: -.0266430471, z: .354972333, w: .93320477}
+  m_LocalRotation: {x: -.04913003, y: -.0266430452, z: .354972303, w: .93320471}
   m_LocalPosition: {x: -.665425837, y: 7.62939436e-08, z: 7.62939436e-08}
   m_LocalScale: {x: 1, y: 1, z: 1.00000012}
   m_Children:
@@ -949,7 +950,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100030}
-  m_LocalRotation: {x: .078642562, y: .030446602, z: -.219491765, w: .971962869}
+  m_LocalRotation: {x: .0786425546, y: .0304466002, z: -.21949175, w: .97196281}
   m_LocalPosition: {x: -.630752563, y: 0, z: 0}
   m_LocalScale: {x: 1.00000012, y: 1.00000012, z: 1.00000012}
   m_Children:
@@ -1057,7 +1058,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100048}
-  m_LocalRotation: {x: -.00237190421, y: -.000771795749, z: .235318154, w: .971915245}
+  m_LocalRotation: {x: -.00237190397, y: -.000771795691, z: .235318139, w: .971915185}
   m_LocalPosition: {x: -.097054556, y: 1.90734859e-08, z: 0}
   m_LocalScale: {x: .99999994, y: 1, z: 1}
   m_Children:
@@ -1352,11 +1353,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100098}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-<<<<<<< HEAD:Assets/Mihai/Prefabs/Troll 1.prefab
-  m_LocalPosition: {x: 80.2966995, y: 1.62931538, z: 23.1432343}
-=======
   m_LocalPosition: {x: 90.2974701, y: -4.83642721, z: 12.6544352}
->>>>>>> FETCH_HEAD:Assets/Mihai/Enemy/Troll 1.prefab
   m_LocalScale: {x: .5, y: .5, z: .5}
   m_Children:
   - {fileID: 400000}
@@ -1462,7 +1459,7 @@ MonoBehaviour:
   runAnimationMultiplayer: .200000003
   walkAnimationMultiplayer: 1
   mixTransform: {fileID: 400022}
-  debugRandomMovement: 1
+  debugRandomMovement: 0
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1481,6 +1478,20 @@ MonoBehaviour:
   defence: 8
   dead: 0
   _health: 0
+--- !u!114 &11400004
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60baebdcca0d5fb40b2d193b8274a56b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movement: {fileID: 11400000}
+  targetObject: {fileID: 0}
+  calculatePath: 0
 --- !u!137 &13700000
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

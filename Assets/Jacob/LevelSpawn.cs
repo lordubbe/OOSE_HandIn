@@ -15,7 +15,7 @@ using System.Collections.Generic;
 
 public class LevelSpawn : MonoBehaviour {
 	
-	public int tileWidth = 1, tileHeight = 1;
+	public static int tileWidth = 2, tileHeight = 2;
 
 	public Transform levelParent;
 	public Transform Walls;

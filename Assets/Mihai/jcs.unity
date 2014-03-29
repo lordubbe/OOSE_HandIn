@@ -1206,7 +1206,7 @@ MonoBehaviour:
   character: {fileID: 359376841}
   initialOffset: {x: 0, y: 3, z: -5}
   viewDistance: 3
-  movementThreshold: 0
+  movementThreshold: 1
   lerpTime: 100
   resetTime: 1
   resetLerpTime: 50
@@ -1653,6 +1653,10 @@ Prefab:
       propertyPath: forwardOffset
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 11400004, guid: 9ff3697ef7ee7284aabb4b5a9bcf6577, type: 2}
+      propertyPath: movementThreshold
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9ff3697ef7ee7284aabb4b5a9bcf6577, type: 2}
   m_RootGameObject: {fileID: 1542635310}
@@ -1749,11 +1753,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54344d4ec0c4b4734a13ec69325511d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileWidth: 2
-  tileHeight: 2
   levelParent: {fileID: 1723601083}
+  Walls: {fileID: 400000, guid: 0ef5fccebde0249a1858066ac652c2ae, type: 2}
+  emptyTile: {fileID: 400000, guid: ede89c57f0b204a189d04eb28f590208, type: 2}
   pathTile: {fileID: 400000, guid: 8d060eab766eb4adebf854a9142d04cf, type: 2}
-  wallTile: {fileID: 400000, guid: e95c8501e8d534ba4858c94a6115e58c, type: 2}
+  wallTile: {fileID: 400000, guid: abb4b4b43563f3347bc0c9ce9caee14f, type: 2}
   stoneTile: {fileID: 400000, guid: 1cb71ef7b9ab84bccb10912ae9ad64d5, type: 2}
   lavaTile: {fileID: 400000, guid: 14245e767ae9746a1934199fffff4a18, type: 2}
   torchTile: {fileID: 400000, guid: ab3502416d7564f7a8d49b3339b1f8ef, type: 2}
@@ -1767,8 +1771,8 @@ MonoBehaviour:
   MAX_LEVEL_HEIGHT: 50
   seed: 100
   minRooms: 4
-  maxRooms: 20
-  minRoomWidth: 8
+  maxRooms: 30
+  minRoomWidth: 15
   minRoomHeight: 5
   maxRoomWidth: 10
   maxRoomHeight: 10
@@ -1777,6 +1781,8 @@ MonoBehaviour:
   enemySpawnPositions: []
   playerSpawn: {x: 0, y: 0, z: 0}
   chestSpawnFreq: 2
+  meshFilters: []
+  material: {fileID: 0}
 --- !u!1 &1759307607
 GameObject:
   m_ObjectHideFlags: 0
