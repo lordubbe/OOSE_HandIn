@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class EnemyMovement : MonoBehaviour,IAnimationController {
@@ -16,13 +16,13 @@ public class EnemyMovement : MonoBehaviour,IAnimationController {
 	public Transform mixTransform;
 	
 	public bool debugRandomMovement = false;
-	
+	public GameObject[] attacks;
 
 
 
 	private float RunSpeed  = 5.0f;
-	private Vector3[] path;
-	private int nodeInPath;
+	internal Vector3[] path;
+	internal int nodeInPath;
 	
 	// Use this for initialization
 	void Awake () {
@@ -90,7 +90,7 @@ public class EnemyMovement : MonoBehaviour,IAnimationController {
 		walkOnPath ();
 	}
 	
-	public void walkTo(Vector3 position, string onComplete){
+	public void walkTo(Vector3 position, string onComplete=""){
 		//uses iTween to move the object towards position and play walk animation. When it is done it calls the onComplete function
 		animation.CrossFade("walk");
 		Hashtable ht = new Hashtable();
@@ -99,7 +99,20 @@ public class EnemyMovement : MonoBehaviour,IAnimationController {
 		ht.Add ("speed",WalkSpeed);
 		ht.Add ("position",position);
 		ht.Add ("easetype","linear");
-		ht.Add ("oncomplete",onComplete);
+		if(onComplete!="") ht.Add ("oncomplete",onComplete);
+		ht.Add ("name","walk");
+		iTween.MoveTo(this.gameObject,ht);
+	}
+	public void walkToLockTarget(Vector3 position, Vector3 target){
+		//uses iTween to move the object towards position and play walk animation. When it is done it calls the onComplete function
+		animation.CrossFade("walk");
+		Hashtable ht = new Hashtable();
+		ht.Add("looktarget",target);
+		
+		ht.Add ("speed",WalkSpeed);
+		ht.Add ("position",position);
+		ht.Add ("easetype","linear");
+		
 		ht.Add ("name","walk");
 		iTween.MoveTo(this.gameObject,ht);
 	}
@@ -114,7 +127,7 @@ public class EnemyMovement : MonoBehaviour,IAnimationController {
 		}		
 	}
 	
-	public void runTo(Vector3 position, string onComplete){
+	public void runTo(Vector3 position, string onComplete=""){
 	 //moves object to position using run animation. Calls on complete when finished
 		animation.CrossFade("run");
 		Hashtable ht = new Hashtable();
@@ -123,7 +136,7 @@ public class EnemyMovement : MonoBehaviour,IAnimationController {
 		ht.Add ("speed",RunSpeed);
 		ht.Add ("position",position);
 		ht.Add ("easetype","linear");
-		ht.Add ("oncomplete",onComplete);
+		if(onComplete!="")ht.Add ("oncomplete",onComplete);
 		ht.Add ("name","run");
 		iTween.MoveTo(this.gameObject,ht);
 	}
@@ -136,7 +149,7 @@ public class EnemyMovement : MonoBehaviour,IAnimationController {
 			nodeInPath++;
 		}		
 	}
-	public void runTo(Transform t,string onComplete){
+	public void runTo(Transform t,string onComplete=""){
 		animation.CrossFade("run");
 		Hashtable ht = new Hashtable();
 		ht.Add("looktarget",t);
@@ -144,7 +157,7 @@ public class EnemyMovement : MonoBehaviour,IAnimationController {
 		ht.Add ("speed",RunSpeed);
 		ht.Add ("position",t);
 		ht.Add ("easetype","linear");
-		ht.Add ("oncomplete",onComplete);
+		if(onComplete!="")ht.Add ("oncomplete",onComplete);
 		ht.Add ("name","run");
 		iTween.MoveTo(this.gameObject,ht);
 	}
@@ -157,15 +170,27 @@ public class EnemyMovement : MonoBehaviour,IAnimationController {
 	
 	public void Attack1(){
 		iTween.Stop (this.gameObject);
+		animation.CrossFade("idle");
 		animation.CrossFade("attack1");
+		GameObject go = Instantiate(attacks[0],transform.position,transform.rotation) as GameObject;
+		
+		go.transform.parent = transform;
 	}
 	public void Attack2(){
 		iTween.Stop (this.gameObject);
+		animation.CrossFade("idle");
 		animation.CrossFade("attack2");
+		GameObject go = Instantiate(attacks[0],transform.position,transform.rotation) as GameObject;
+		
+		go.transform.parent = transform;
 	}
 	public void Attack3(){
 		iTween.Stop (this.gameObject);
+		animation.CrossFade("idle");
 		animation.CrossFade("attack3");
+		GameObject go = Instantiate(attacks[0],transform.position,transform.rotation) as GameObject;
+		
+		go.transform.parent = transform;
 	}
 	public void Hit(){
 		iTween.Stop (this.gameObject);
@@ -183,4 +208,5 @@ public class EnemyMovement : MonoBehaviour,IAnimationController {
 	public void BlockDown(){
 	
 	}
+	
 }

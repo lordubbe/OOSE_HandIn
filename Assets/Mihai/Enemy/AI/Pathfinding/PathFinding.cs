@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -15,6 +15,7 @@ public class PathFinding  {
 	private Node end;
 	private float height;
 	private float error;
+	
 	public PathFinding(Vector3 sPos,Vector3 fPos, pathF completeF, float error = 0, float height = 1){
 		buildNodeMap ();
 		

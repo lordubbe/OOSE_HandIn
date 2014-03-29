@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 400000}
   - 114: {fileID: 11400000}
   m_Layer: 0
-  m_Name: SwordAttackRight
+  m_Name: Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,7 +30,7 @@ GameObject:
   - 114: {fileID: 11400002}
   - 54: {fileID: 5400000}
   m_Layer: 0
-  m_Name: SwordAttackRight
+  m_Name: SwordAttackLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -54,8 +54,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100002}
-  m_LocalRotation: {x: 0, y: .987793922, z: 0, w: -.155766681}
-  m_LocalPosition: {x: -.139981553, y: .58950007, z: .683267653}
+  m_LocalRotation: {x: 0, y: -.119659536, z: 0, w: .992815018}
+  m_LocalPosition: {x: .25838545, y: .58950007, z: .706402123}
   m_LocalScale: {x: .300000012, y: .200000003, z: 1.5}
   m_Children: []
   m_Father: {fileID: 400000}
@@ -125,12 +125,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 790ab3076a7b8444a9f3183aa32c95d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: {x: 0, y: -90, z: 0}
-  damage: 30
+  direction: {x: 0, y: 90, z: 0}
+  damage: 10
   affectedTags:
-  - Creature
+  - Player
   cs: {fileID: 0}
-  time: .300000012
+  time: 1
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1

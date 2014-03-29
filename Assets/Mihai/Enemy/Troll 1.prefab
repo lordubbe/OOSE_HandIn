@@ -753,6 +753,8 @@ GameObject:
   - 114: {fileID: 11400000}
   - 114: {fileID: 11400002}
   - 114: {fileID: 11400004}
+  - 114: {fileID: 11400006}
+  - 114: {fileID: 11400008}
   m_Layer: 0
   m_Name: Troll 1
   m_TagString: Creature
@@ -1450,16 +1452,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15c4509c0e313ea4aac41ad70d6beddc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ForwardSpeed: 6
+  ForwardSpeed: 5
   WalkSpeed: 2
   TurnSpeed: 4
   JumpForce: 2
-  AttackSpeed: 1.39999998
+  AttackSpeed: 1
   lp: {fileID: 0}
   runAnimationMultiplayer: .200000003
   walkAnimationMultiplayer: 1
   mixTransform: {fileID: 400022}
   debugRandomMovement: 0
+  attacks:
+  - {fileID: 100000, guid: efc75e70ba4b3cd4d88eab3054dcf59c, type: 2}
+  - {fileID: 100000, guid: 815bfd1c45eb39749a93d0f4d6823a90, type: 2}
+  - {fileID: 100000, guid: d8456b4fd027f8043bde4fc927854475, type: 2}
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1492,13 +1498,43 @@ MonoBehaviour:
   _state: 0
   stats: {fileID: 11400002}
   movement: {fileID: 11400000}
+  fighting: {fileID: 11400008}
   idleTime: 5
   randomWalkTime: 30
-  attackDistance: 4
+  attackDistance: 2
   lifePercentToFlee: 10
   lifePercentToStopFlee: 50
   distanceToStopChase: 25
   timer: 0
+--- !u!114 &11400006
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 096be2b7b12110f41a978c866ee04240, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateMachine: {fileID: 11400004}
+  enemies: []
+  viewDistance: 5
+--- !u!114 &11400008
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 113852264f275a949aeca730b495ce91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyMovement: {fileID: 11400000}
+  attackCullDown: 3
+  enemy: {fileID: 0}
+  movement: 1
 --- !u!137 &13700000
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
