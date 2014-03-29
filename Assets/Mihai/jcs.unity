@@ -1770,8 +1770,8 @@ MonoBehaviour:
   MAX_LEVEL_WIDTH: 50
   MAX_LEVEL_HEIGHT: 50
   seed: 100
-  minRooms: 4
-  maxRooms: 30
+  minRooms: 10
+  maxRooms: 20
   minRoomWidth: 15
   minRoomHeight: 5
   maxRoomWidth: 10

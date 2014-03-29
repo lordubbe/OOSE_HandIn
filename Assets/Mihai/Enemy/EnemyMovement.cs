@@ -64,10 +64,16 @@ public class EnemyMovement : MonoBehaviour,IAnimationController {
 		
 	}
 	
-	public void moveOnPath(Vector3[] path){
+	public void RunOnPath(Vector3[] path){
 		this.path = path;
 		nodeInPath = 0;
 		runOnPath(); 
+		
+	}
+	public void WalkOnPath(Vector3[] path){
+		this.path = path;
+		nodeInPath = 0;
+		walkOnPath(); 
 		
 	}
 	
@@ -145,25 +151,30 @@ public class EnemyMovement : MonoBehaviour,IAnimationController {
 	
 	
 	public void setIdle(){
+		iTween.Stop (this.gameObject);
 		animation.CrossFade("idle");
 	}
 	
 	public void Attack1(){
+		iTween.Stop (this.gameObject);
 		animation.CrossFade("attack1");
 	}
 	public void Attack2(){
+		iTween.Stop (this.gameObject);
 		animation.CrossFade("attack2");
 	}
 	public void Attack3(){
+		iTween.Stop (this.gameObject);
 		animation.CrossFade("attack3");
 	}
 	public void Hit(){
 		iTween.Stop (this.gameObject);
-		iTween.Stop (this.gameObject);
+		
 		animation.CrossFade("hit");
 	}
 	public void Die(){
 		Debug.Log ("dead");
+		iTween.Stop (this.gameObject);
 		animation.CrossFade("die");
 	}
 	public void BlockUp(){

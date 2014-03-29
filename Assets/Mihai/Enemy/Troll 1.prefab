@@ -1489,9 +1489,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60baebdcca0d5fb40b2d193b8274a56b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _state: 0
+  stats: {fileID: 11400002}
   movement: {fileID: 11400000}
-  targetObject: {fileID: 0}
-  calculatePath: 0
+  idleTime: 5
+  randomWalkTime: 30
+  attackDistance: 4
+  lifePercentToFlee: 10
+  lifePercentToStopFlee: 50
+  distanceToStopChase: 25
+  timer: 0
 --- !u!137 &13700000
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
