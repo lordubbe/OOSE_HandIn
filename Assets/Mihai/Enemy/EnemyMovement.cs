@@ -23,7 +23,7 @@ public class EnemyMovement : MonoBehaviour,IAnimationController {
 	private float RunSpeed  = 5.0f;
 	internal Vector3[] path;
 	internal int nodeInPath;
-	
+	private Vector3 prevPos;
 	// Use this for initialization
 	void Awake () {
 		
@@ -180,7 +180,7 @@ public class EnemyMovement : MonoBehaviour,IAnimationController {
 		iTween.Stop (this.gameObject);
 		animation.CrossFade("idle");
 		animation.CrossFade("attack2");
-		GameObject go = Instantiate(attacks[0],transform.position,transform.rotation) as GameObject;
+		GameObject go = Instantiate(attacks[1],transform.position,transform.rotation) as GameObject;
 		
 		go.transform.parent = transform;
 	}
@@ -188,7 +188,7 @@ public class EnemyMovement : MonoBehaviour,IAnimationController {
 		iTween.Stop (this.gameObject);
 		animation.CrossFade("idle");
 		animation.CrossFade("attack3");
-		GameObject go = Instantiate(attacks[0],transform.position,transform.rotation) as GameObject;
+		GameObject go = Instantiate(attacks[2],transform.position,transform.rotation) as GameObject;
 		
 		go.transform.parent = transform;
 	}
@@ -198,7 +198,7 @@ public class EnemyMovement : MonoBehaviour,IAnimationController {
 		animation.CrossFade("hit");
 	}
 	public void Die(){
-		Debug.Log ("dead");
+
 		iTween.Stop (this.gameObject);
 		animation.CrossFade("die");
 	}
@@ -208,5 +208,13 @@ public class EnemyMovement : MonoBehaviour,IAnimationController {
 	public void BlockDown(){
 	
 	}
+	
+	private void Update(){
+		prevPos = transform.position;
+		
+	}
+	
+	
+
 	
 }

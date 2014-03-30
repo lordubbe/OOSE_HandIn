@@ -5,6 +5,8 @@ public class EnemyFighting : MonoBehaviour {
 	public EnemyMovement enemyMovement;
 	public float attackCullDown = 1.0f;
 	public Transform enemy;
+	
+	
 	public float movement = 1.0f;
 	private bool _fightMode;
 	private bool canAttack;
@@ -39,7 +41,7 @@ public class EnemyFighting : MonoBehaviour {
 		canAttack = true;
 	}
 	IEnumerator refreshMovement(){
-		yield return new WaitForSeconds (movement/enemyMovement.ForwardSpeed+1.2f);
+		yield return new WaitForSeconds (1.2f);
 		move = true;
 	}
 	
@@ -48,21 +50,46 @@ public class EnemyFighting : MonoBehaviour {
 			direction = (int)Mathf.Pow(-1,Random.Range(0,8));
 			canAttack = false;
 			float angle = Vector3.Angle (enemy.position,transform.forward);
+			
 			if(angle<20.0f) enemyMovement.Attack1();
-			else if(Vector3.Angle (enemy.position,transform.right)<Vector3.Angle (enemy.position, -transform.right)){
-				enemyMovement.Attack2();
-			}else{
-				enemyMovement.Attack3();
+			
+			else{
+				Vector3 cross = Vector3.Cross(transform.forward, enemy.forward); 
+				if(cross.y>0){
+					enemyMovement.Attack2();
+				}else{
+					enemyMovement.Attack3();
+				}
 			}
 			StartCoroutine (refreshAttack());
 			
 		}else if(move){
-			move = false;
-			StartCoroutine (refreshMovement());
-			//enemyMovement.walkToLockTarget(transform.position+ transform.right* direction * movement,enemy.position);
+			Debug.DrawRay(transform.position +new Vector3(0,0.5f,0), Vector3.Normalize(Vector3.forward * direction  - transform.position)*4*movement,Color.red,3);
+			if(!Physics.Raycast(transform.position +new Vector3(0,0.5f,0),Vector3.Normalize(Vector3.forward * direction - transform.position),movement*4)){
+				lastPos = transform.position;
+				move = false;
+				StartCoroutine (refreshMovement());
+				enemyMovement.walkToLockTarget(transform.position+ transform.right* direction * movement,enemy.position);
+			}
 		}
 			
 		
+	}
+	private Vector3 lastPos;
+	private void OnCollisionEnter(){
+		move = false;
+		transform.position = lastPos;
+		
+	}
+	private void OnCollisionStay(){
+		move = false;
+		transform.position = lastPos;
+		
+		
+	}
+	private void OnCollisionExit(){
+		
+		StartCoroutine (refreshMovement());
 	}
 	
 }
