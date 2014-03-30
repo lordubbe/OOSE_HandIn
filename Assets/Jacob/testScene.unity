@@ -400,9 +400,10 @@ GameObject:
   - 111: {fileID: 327535706}
   - 143: {fileID: 327535705}
   - 114: {fileID: 327535704}
+  - 114: {fileID: 327535707}
   m_Layer: 8
   m_Name: Hero
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -414,7 +415,7 @@ Transform:
   m_PrefabInternal: {fileID: 2106459114}
   m_GameObject: {fileID: 327535702}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: -4.37113883e-08}
-  m_LocalPosition: {x: 8.00063896, y: .569210291, z: -.502030849}
+  m_LocalPosition: {x: -4.80579329, y: 1.00703049, z: -5.30076504}
   m_LocalScale: {x: .5, y: .5, z: .5}
   m_Children:
   - {fileID: 180790581}
@@ -437,7 +438,10 @@ MonoBehaviour:
   JumpForce: 2
   AttackSpeed: 1.10000002
   lp: {fileID: 1723601084}
+  runAnimationMultiplayer: .200000003
   mixTransform: {fileID: 1832011608}
+  attackCullDown: 1
+  attacks: []
 --- !u!143 &327535705
 CharacterController:
   m_ObjectHideFlags: 0
@@ -475,11 +479,32 @@ Animation:
   - {fileID: 7400000, guid: 60b9d270d3977714aaaf42ae712da752, type: 3}
   - {fileID: 7400000, guid: 589cd9b0722d8bc468848a773adcccd0, type: 3}
   - {fileID: 7400000, guid: 6685bd0f54c5e08408aeb03f0b528f5b, type: 3}
-  - {fileID: 7400000, guid: ee00ce7e187d53b41968d49d1eb6cf0a, type: 2}
+  - {fileID: 7400000, guid: 6dfd7aedf3b77794885ecea3249e8177, type: 3}
+  - {fileID: 7400000, guid: 0dc2207a4e6a3904f84d98d69cfc15dd, type: 3}
+  - {fileID: 7400000, guid: 20bdeb803f5e495438e374c7ac23cecc, type: 3}
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 1
+--- !u!114 &327535707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400010, guid: ef407d9c70e9eb94e93dc7c162ec88f3,
+    type: 2}
+  m_PrefabInternal: {fileID: 2106459114}
+  m_GameObject: {fileID: 327535702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc5d37b2085104f4bb5acda736dfdb72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  regenPerSecond: .5
+  shieldUp: 0
+  damage: 0
+  defence: 15
+  dead: 0
+  _health: 0
 --- !u!1 &424201273
 GameObject:
   m_ObjectHideFlags: 0
@@ -1628,8 +1653,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54344d4ec0c4b4734a13ec69325511d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileWidth: 2
-  tileHeight: 2
+  seedBasedGeneration: 0
+  seed: 100
   levelParent: {fileID: 850913288}
   Walls: {fileID: 424201274}
   emptyTile: {fileID: 400000, guid: ede89c57f0b204a189d04eb28f590208, type: 2}
@@ -1639,14 +1664,18 @@ MonoBehaviour:
   lavaTile: {fileID: 400000, guid: 14245e767ae9746a1934199fffff4a18, type: 2}
   torchTile: {fileID: 400000, guid: ab3502416d7564f7a8d49b3339b1f8ef, type: 2}
   chestObject: {fileID: 400000, guid: 9e73de16ca9d14679a8eddacfae470bd, type: 2}
-  enemyObject: {fileID: 400098, guid: 826a41427cb729744a8cc6bbc3099fa4, type: 2}
+  enemyObject: {fileID: 400000, guid: fa466eec30a4d4b26a12916755e953e5, type: 2}
   decorations:
   - {fileID: 400002, guid: 33322e6254bd34c838c747d85dec0aab, type: 2}
   - {fileID: 400000, guid: aaaed593b169d451083c4ffbe004c9b4, type: 2}
   - {fileID: 400004, guid: 3ba8547cd5fce4a1d95a5c5bae3144ea, type: 2}
+  furniture:
+  - {fileID: 400002, guid: 99846ffde933e48068025cb10c494d54, type: 2}
+  - {fileID: 400000, guid: f0b6b4665b1a54b95ab5470888eb6310, type: 2}
+  - {fileID: 400022, guid: 1f7ff9326beaa4d4a842ebe2029fa0f5, type: 2}
+  - {fileID: 400000, guid: df5780b28890b46daaecc8a3e1d54d14, type: 2}
   MAX_LEVEL_WIDTH: 50
   MAX_LEVEL_HEIGHT: 50
-  seed: 100
   minRooms: 6
   maxRooms: 20
   minRoomWidth: 5
@@ -1655,11 +1684,8 @@ MonoBehaviour:
   maxRoomHeight: 10
   torchFrequency: 15
   enemySpawnFreq: 10
-  enemySpawnPositions: []
-  playerSpawn: {x: 0, y: 0, z: 0}
   chestSpawnFreq: 5
-  meshFilters: []
-  material: {fileID: 0}
+  playerSpawn: {x: 0, y: 0, z: 0}
 --- !u!1 &1747758013
 GameObject:
   m_ObjectHideFlags: 0
@@ -1891,15 +1917,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400026, guid: ef407d9c70e9eb94e93dc7c162ec88f3, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 8.00063896
+      value: -4.80579329
       objectReference: {fileID: 0}
     - target: {fileID: 400026, guid: ef407d9c70e9eb94e93dc7c162ec88f3, type: 2}
       propertyPath: m_LocalPosition.y
-      value: .569210291
+      value: 1.00703049
       objectReference: {fileID: 0}
     - target: {fileID: 400026, guid: ef407d9c70e9eb94e93dc7c162ec88f3, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -.502030849
+      value: -5.30076504
       objectReference: {fileID: 0}
     - target: {fileID: 400026, guid: ef407d9c70e9eb94e93dc7c162ec88f3, type: 2}
       propertyPath: m_LocalRotation.x
