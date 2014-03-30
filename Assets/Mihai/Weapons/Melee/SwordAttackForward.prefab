@@ -131,6 +131,7 @@ MonoBehaviour:
   - Creature
   cs: {fileID: 0}
   time: .300000012
+  attackDelay: .300000012
   distance: 1.79999995
   childObj: {fileID: 100002}
 --- !u!114 &11400002

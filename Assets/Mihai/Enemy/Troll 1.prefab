@@ -1452,8 +1452,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15c4509c0e313ea4aac41ad70d6beddc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ForwardSpeed: 5
-  WalkSpeed: 2
+  ForwardSpeed: 3
+  WalkSpeed: 1
   TurnSpeed: 4
   JumpForce: 2
   AttackSpeed: 1
@@ -1504,7 +1504,7 @@ MonoBehaviour:
   attackDistance: 2
   lifePercentToFlee: 10
   lifePercentToStopFlee: 50
-  distanceToStopChase: 25
+  distanceToStopChase: 40
   timer: 0
 --- !u!114 &11400006
 MonoBehaviour:
@@ -1519,7 +1519,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stateMachine: {fileID: 11400004}
   enemies: []
-  viewDistance: 5
+  viewDistance: 15
 --- !u!114 &11400008
 MonoBehaviour:
   m_ObjectHideFlags: 1

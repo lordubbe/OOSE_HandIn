@@ -182,7 +182,7 @@ public class EnemyStateMachine : MonoBehaviour {
 	bool directPath;
 	void Refresh(){
 		
-		
+		timeP+=Time.deltaTime;
 		timeP += Time.deltaTime;
 		
 		if(state == State.runToTarget){

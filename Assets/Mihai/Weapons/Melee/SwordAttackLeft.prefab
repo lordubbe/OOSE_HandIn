@@ -131,6 +131,7 @@ MonoBehaviour:
   - Creature
   cs: {fileID: 0}
   time: .300000012
+  attackDelay: .200000003
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -131,6 +131,7 @@ MonoBehaviour:
   - Player
   cs: {fileID: 0}
   time: .5
+  attackDelay: .300000012
   distance: 1
   childObj: {fileID: 100002}
 --- !u!114 &11400002
