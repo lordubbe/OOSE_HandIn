@@ -12,7 +12,9 @@ public class Room{
 	};
 
 	public roomType type;
-
+	/// <summary>
+	/// Initializes a new instance of the <see cref="Room"/> class.
+	/// </summary>
 	public Room(){
 		width = 0;
 		height = 0;
