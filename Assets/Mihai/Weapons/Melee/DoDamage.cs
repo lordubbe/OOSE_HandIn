@@ -36,7 +36,7 @@ public class DoDamage : MonoBehaviour {
 			if(hittedObjects.IndexOf(other.transform)==-1){
 				hittedObjects.Add (other.transform);
 				CharacterStats otherCS = other.GetComponent<CharacterStats>();
-				if(otherCS.shieldUp){
+				if(otherCS.shieldUp && other.transform.InverseTransformPoint(transform.position).z>0){
 					otherCS.Health -= Mathf.Clamp (realDmg-otherCS.defence,0, realDmg);
 					realDmg *= 0.5f; //after hitting a block the next potential enemies hit will get much less damage from this swing
 					realDmg -= otherCS.defence; //also remove the block of the opponent
