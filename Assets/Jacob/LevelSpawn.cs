@@ -14,10 +14,14 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class LevelSpawn : MonoBehaviour {
+<<<<<<< HEAD
 
 	public bool seedBasedGeneration = false;
 	public int seed = 100;
 
+=======
+	
+>>>>>>> FETCH_HEAD
 	public static int tileWidth = 2, tileHeight = 2;
 
 	public Transform levelParent;

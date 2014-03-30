@@ -7,7 +7,7 @@
 
 using UnityEngine;
 using System.Collections;
-
+using System.Collections.Generic;
 
 public class CameraForward : MonoBehaviour {
 
@@ -28,9 +28,10 @@ public class CameraForward : MonoBehaviour {
 	
 	private float lerpV = 0;
 	private float rt;
+	private List<Vector3> cameraForwards;
 	// Use this for initialization
 	void Start () {
-	
+		cameraForwards = new List<Vector3>();
 		//fetching the data from the parent
 		character = transform.parent.gameObject.GetComponent<CameraFollow>().character;
 		viewDistance = transform.parent.gameObject.GetComponent<CameraFollow>().viewDistance;
@@ -43,11 +44,22 @@ public class CameraForward : MonoBehaviour {
 		
 		Performance.UpdateEvent+=refresh;
 	}
-	
+	Vector3 avgVector3(Vector3[] vs){
+		Vector3 avg = new Vector3(0,0,0);
+		foreach(Vector3 v in vs){
+			avg+= v;
+		}
+		avg /= vs.Length;
+		return avg;
+	}
 	
 	void refresh () {
 		float hA = Input.GetAxis("Horizontal");
 		float vA = Input.GetAxis("Vertical");
+		cameraForwards.Add (character.forward);
+		if(cameraForwards.Count>50){
+			cameraForwards.RemoveAt(0);
+		}
 		if(hA ==0 && vA == 0){
 			//if the character was not moving in the previous frame
 			if(move){
@@ -74,7 +86,7 @@ public class CameraForward : MonoBehaviour {
 		}
 		if(move){
 			//reposition camera
-				gameObject.transform.position = Vector3.Lerp(transform.position,transform.parent.position+character.forward*viewDistance,lerpV);
+				gameObject.transform.position = Vector3.Lerp(transform.position,transform.parent.position+avgVector3(cameraForwards.ToArray())*viewDistance,lerpV);
 				lerpV+= Time.deltaTime/lerpTime+(lerpV*.01f);
 			
 		}

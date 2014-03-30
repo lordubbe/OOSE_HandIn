@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 400000}
   - 114: {fileID: 11400000}
   m_Layer: 0
-  m_Name: SwordAttackRight
+  m_Name: Forward
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,7 +30,7 @@ GameObject:
   - 114: {fileID: 11400002}
   - 54: {fileID: 5400000}
   m_Layer: 0
-  m_Name: SwordAttackRight
+  m_Name: SwordAttackForward
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -54,9 +54,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100002}
-  m_LocalRotation: {x: 0, y: .987793922, z: 0, w: -.155766681}
-  m_LocalPosition: {x: -.139981553, y: .58950007, z: .683267653}
-  m_LocalScale: {x: .300000012, y: .200000003, z: 1.5}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: .646224737, z: .9047153}
+  m_LocalScale: {x: .5, y: .200000003, z: .00999999978}
   m_Children: []
   m_Father: {fileID: 400000}
 --- !u!23 &2300000
@@ -122,15 +122,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 790ab3076a7b8444a9f3183aa32c95d6, type: 3}
+  m_Script: {fileID: 11500000, guid: 2587bd1f7ec07524f8f9075099481635, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: {x: 0, y: -90, z: 0}
-  damage: 30
+  direction: {x: 0, y: 0, z: 0}
+  damage: 5
   affectedTags:
-  - Creature
+  - Player
   cs: {fileID: 0}
-  time: .300000012
+  time: .5
+  attackDelay: .300000012
+  distance: 1
+  childObj: {fileID: 100002}
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1

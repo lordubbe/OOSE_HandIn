@@ -15,7 +15,7 @@ public class CharacterStats : MonoBehaviour {
 			if(value<_health){
 			if(!dead){
 				anim.Hit();
-				Debug.Log ("aaauch only "+value+" health left");
+				//Debug.Log ("aaauch only "+value+" health left");
 				}
 			}
 			_health = value;
@@ -45,12 +45,14 @@ public class CharacterStats : MonoBehaviour {
 	}
 	
 	void Update(){
-		if(maxHealth>_health){
-			_health+= regenPerSecond * Time.deltaTime;
-		}
-		if(_health<=0 && !dead){
-			Die ();
-			
+		if(!dead){
+			if(maxHealth>_health){
+				_health+= regenPerSecond * Time.deltaTime;
+			}
+			if(_health<=0 && !dead){
+				Die ();
+				
+			}
 		}
 	}	
 	public IAnimationController getAnim(){
@@ -61,6 +63,7 @@ public class CharacterStats : MonoBehaviour {
 		}else return null;
 	}
 	public void Die(){
+		GameObject.Find("GUICamera").GetComponent<GUIManager>().kills ++;
 		anim.Die ();
 		dead = true;
 		Collider col = gameObject.GetComponent<Collider>();

@@ -126,11 +126,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   direction: {x: 0, y: 0, z: 0}
-  damage: 20
+  damage: 40
   affectedTags:
   - Creature
   cs: {fileID: 0}
   time: .300000012
+  attackDelay: .300000012
   distance: 1.79999995
   childObj: {fileID: 100002}
 --- !u!114 &11400002

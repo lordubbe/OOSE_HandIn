@@ -752,6 +752,9 @@ GameObject:
   - 143: {fileID: 14300000}
   - 114: {fileID: 11400000}
   - 114: {fileID: 11400002}
+  - 114: {fileID: 11400004}
+  - 114: {fileID: 11400006}
+  - 114: {fileID: 11400008}
   m_Layer: 0
   m_Name: Troll 1
   m_TagString: Creature
@@ -793,7 +796,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100004}
-  m_LocalRotation: {x: -.0491300337, y: -.0266430471, z: .354972333, w: .93320477}
+  m_LocalRotation: {x: -.04913003, y: -.0266430452, z: .354972303, w: .93320471}
   m_LocalPosition: {x: -.665425837, y: 7.62939436e-08, z: 7.62939436e-08}
   m_LocalScale: {x: 1, y: 1, z: 1.00000012}
   m_Children:
@@ -949,7 +952,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100030}
-  m_LocalRotation: {x: .078642562, y: .030446602, z: -.219491765, w: .971962869}
+  m_LocalRotation: {x: .0786425546, y: .0304466002, z: -.21949175, w: .97196281}
   m_LocalPosition: {x: -.630752563, y: 0, z: 0}
   m_LocalScale: {x: 1.00000012, y: 1.00000012, z: 1.00000012}
   m_Children:
@@ -1057,7 +1060,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100048}
-  m_LocalRotation: {x: -.00237190421, y: -.000771795749, z: .235318154, w: .971915245}
+  m_LocalRotation: {x: -.00237190397, y: -.000771795691, z: .235318139, w: .971915185}
   m_LocalPosition: {x: -.097054556, y: 1.90734859e-08, z: 0}
   m_LocalScale: {x: .99999994, y: 1, z: 1}
   m_Children:
@@ -1352,11 +1355,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100098}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-<<<<<<< HEAD:Assets/Mihai/Prefabs/Troll 1.prefab
-  m_LocalPosition: {x: 80.2966995, y: 1.62931538, z: 23.1432343}
-=======
-  m_LocalPosition: {x: 90.2974701, y: -4.83642721, z: 12.6544352}
->>>>>>> FETCH_HEAD:Assets/Mihai/Enemy/Troll 1.prefab
+  m_LocalPosition: {x: 43.3588715, y: -1.48139238, z: 72.8119583}
   m_LocalScale: {x: .5, y: .5, z: .5}
   m_Children:
   - {fileID: 400000}
@@ -1453,16 +1452,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15c4509c0e313ea4aac41ad70d6beddc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ForwardSpeed: 6
-  WalkSpeed: 2
+  ForwardSpeed: 3
+  WalkSpeed: 1
   TurnSpeed: 4
   JumpForce: 2
-  AttackSpeed: 1.39999998
+  AttackSpeed: 1
   lp: {fileID: 0}
   runAnimationMultiplayer: .200000003
   walkAnimationMultiplayer: 1
   mixTransform: {fileID: 400022}
-  debugRandomMovement: 1
+  debugRandomMovement: 0
+  attacks:
+  - {fileID: 100000, guid: efc75e70ba4b3cd4d88eab3054dcf59c, type: 2}
+  - {fileID: 100000, guid: 815bfd1c45eb39749a93d0f4d6823a90, type: 2}
+  - {fileID: 100000, guid: d8456b4fd027f8043bde4fc927854475, type: 2}
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1477,10 +1480,61 @@ MonoBehaviour:
   maxHealth: 50
   regenPerSecond: .5
   shieldUp: 0
-  damage: 0
+  damage: 5
   defence: 8
   dead: 0
   _health: 0
+--- !u!114 &11400004
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60baebdcca0d5fb40b2d193b8274a56b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _state: 0
+  stats: {fileID: 11400002}
+  movement: {fileID: 11400000}
+  fighting: {fileID: 11400008}
+  idleTime: 5
+  randomWalkTime: 30
+  attackDistance: 2
+  lifePercentToFlee: 10
+  lifePercentToStopFlee: 50
+  distanceToStopChase: 40
+  timer: 0
+--- !u!114 &11400006
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 096be2b7b12110f41a978c866ee04240, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateMachine: {fileID: 11400004}
+  enemies: []
+  viewDistance: 15
+--- !u!114 &11400008
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 113852264f275a949aeca730b495ce91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyMovement: {fileID: 11400000}
+  attackCullDown: 3
+  enemy: {fileID: 0}
+  movement: 1
 --- !u!137 &13700000
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

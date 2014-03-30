@@ -32,7 +32,7 @@ public class CharacterMove : MonoBehaviour,IAnimationController {
 	private bool canAttack;
 
 
-	private string prevAnim;
+
 	// Use this for initialization
 	void Awake () {
 		
@@ -94,7 +94,7 @@ public class CharacterMove : MonoBehaviour,IAnimationController {
 			float vA2 = Input.GetAxis ("Vertical2");
 			
 			animation.CrossFade("1h_idle");
-			prevAnim = "1h_idle";
+
 			
 			
 			
@@ -102,7 +102,7 @@ public class CharacterMove : MonoBehaviour,IAnimationController {
 			if( Mathf.Abs(vA1)>.01f || Mathf.Abs (hA1) >0.01f){
 				if(Input.GetAxis("Fire1")<0.1f){
 					animation.CrossFade("1h_run");
-					prevAnim = "1h_run";
+				
 					if(ForwardDirection.x != hA1 || ForwardDirection.z != vA1 ){
 						Vector3 rot = ForwardDirection+transform.position;
 						rot = new Vector3(rot.x,transform.position.y,rot.z);
@@ -116,7 +116,7 @@ public class CharacterMove : MonoBehaviour,IAnimationController {
 					
 					if( Mathf.Abs(vA1)>.01f || Mathf.Abs (hA1) >0.01f){
 						animation.CrossFade("1h_run");
-						prevAnim = "1h_run";
+					
 						ForwardDirection = Vector3.Normalize(new Vector3(hA1,0,vA1));
 					}
 				}

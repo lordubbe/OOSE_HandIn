@@ -10,18 +10,20 @@ public class Attack : MonoBehaviour {
 	public string[] affectedTags;
 	public CharacterStats cs;
 	public float time = 1.0f;
+	public float attackDelay=0.2f;
+	
+	private Vector3 scale;
 	void Start(){
 		cs = transform.parent.GetComponent<CharacterStats>();
-		SwingSword();
-		Invoke("removeMe",time);
+		scale = transform.localScale;
+		transform.localScale = new Vector3(.01f,.01f,.01f);
+		Invoke ("SwordAttack",attackDelay);
 	}
 	
-	public virtual void SwingSword(){
-		Hashtable ht = new Hashtable();
-		ht.Add ("time",time);
-		ht.Add ("amount",Vector3.Normalize(direction));
-		ht.Add ("oncomplete","removeMe");
-		iTween.MoveBy(gameObject,ht);
+	public virtual void SwordAttack(){
+		
+		transform.localScale = scale;
+		Invoke("removeMe",time);
 	}
 	protected void removeMe(){
 		Destroy(gameObject);
