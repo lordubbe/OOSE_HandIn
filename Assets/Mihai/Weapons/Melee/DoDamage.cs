@@ -27,7 +27,7 @@ public class DoDamage : MonoBehaviour {
 	void OnTriggerEnter(Collider other){
 		bool doDmg = false;
 		foreach(string t in affectedTags){
-			if(other.tag == t){
+			if(other.tag == t && other.gameObject!=cs.gameObject){
 				doDmg = true;
 				break;
 			}

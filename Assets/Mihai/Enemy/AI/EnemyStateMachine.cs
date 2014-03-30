@@ -184,7 +184,7 @@ public class EnemyStateMachine : MonoBehaviour {
 		
 		timeP+=Time.deltaTime;
 		timeP += Time.deltaTime;
-		
+		if(enemy == null) enemyInSight = false;
 		if(state == State.runToTarget){
 			if(directPath && enemyInSight){
 				iTween.Stop(this.gameObject);
@@ -204,7 +204,7 @@ public class EnemyStateMachine : MonoBehaviour {
 	
 	
 	void LookForPath(){
-		if (state == State.runToTarget){
+		if (state == State.runToTarget && enemy!=null){
 			RaycastHit hit;
 			Vector3 me = transform.position +new  Vector3(0,0.5f,0);
 			Vector3 en = enemy.position +new Vector3(0,0.5f,0);
@@ -249,6 +249,15 @@ public class EnemyStateMachine : MonoBehaviour {
 		Vector3 randomDestination = new Vector3(rX*LevelSpawn.tileWidth,transform.position.y,rZ*LevelSpawn.tileHeight);
 		
 		PathFinding pf = new PathFinding(transform.position,randomDestination,movement.RunOnPath,0.7f,1);
+		Invoke ("lookForEnemyNear",7.0f);
 	}
-	
+	void lookForEnemyNear(){
+		if(enemy != null && state == State.flee){
+			if(squareDistance(enemy.position,transform.position)<16){
+				startFlee();
+			}else{
+				Invoke ("lookForEnemyNear",1.5f);
+			}
+		}
+	}
 }

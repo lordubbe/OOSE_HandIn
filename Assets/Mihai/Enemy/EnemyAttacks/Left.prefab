@@ -129,6 +129,7 @@ MonoBehaviour:
   damage: 10
   affectedTags:
   - Player
+  - Creature
   cs: {fileID: 0}
   time: 1
   attackDelay: .300000012

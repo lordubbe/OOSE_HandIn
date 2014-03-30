@@ -46,7 +46,7 @@ public class EnemyFighting : MonoBehaviour {
 	}
 	
 	private void fight(){
-		if(canAttack){
+		if(canAttack & enemy !=null){
 			direction = (int)Mathf.Pow(-1,Random.Range(0,8));
 			canAttack = false;
 			float angle = Vector3.Angle (enemy.position,transform.forward);
@@ -63,9 +63,9 @@ public class EnemyFighting : MonoBehaviour {
 			}
 			StartCoroutine (refreshAttack());
 			
-		}else if(move){
-			Debug.DrawRay(transform.position +new Vector3(0,0.5f,0), Vector3.Normalize(Vector3.forward * direction  - transform.position)*4*movement,Color.red,3);
-			if(!Physics.Raycast(transform.position +new Vector3(0,0.5f,0),Vector3.Normalize(Vector3.forward * direction - transform.position),movement*4)){
+		}else if(move && enemy!=null){
+			Debug.DrawRay(transform.position +new Vector3(0,0.5f,0), Vector3.Normalize(transform.right * direction  - transform.position)*movement*2.5f,Color.red,3);
+			if(!Physics.Raycast(transform.position +new Vector3(0,0.5f,0),Vector3.Normalize(transform.right * direction - transform.position),movement*2.5f)){
 				lastPos = transform.position;
 				move = false;
 				StartCoroutine (refreshMovement());

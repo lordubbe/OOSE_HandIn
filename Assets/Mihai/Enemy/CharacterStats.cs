@@ -68,6 +68,11 @@ public class CharacterStats : MonoBehaviour {
 		dead = true;
 		Collider col = gameObject.GetComponent<Collider>();
 		Destroy (col);
+		gameObject.tag = "Dead";
+		Invoke("DeleteGO",10.0f);
 		
+	}
+	private void DeleteGO(){
+		Destroy (gameObject);
 	}
 }
