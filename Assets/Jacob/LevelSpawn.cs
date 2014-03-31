@@ -14,14 +14,10 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class LevelSpawn : MonoBehaviour {
-<<<<<<< HEAD
 
 	public bool seedBasedGeneration = false;
 	public int seed = 100;
 
-=======
-	
->>>>>>> FETCH_HEAD
 	public static int tileWidth = 2, tileHeight = 2;
 
 	public Transform levelParent;
@@ -125,7 +121,7 @@ public class LevelSpawn : MonoBehaviour {
 		*/
 //
 
-		/*  PLACE SOME 
+		/*  LIGHT THE PLACE UP WITH SOME 
 		╔╦╗╔═╗╦═╗╔═╗╦ ╦╔═╗╔═╗
 		 ║ ║ ║╠╦╝║  ╠═╣║╣ ╚═╗
 		 ╩ ╚═╝╩╚═╚═╝╩ ╩╚═╝╚═╝
@@ -142,7 +138,7 @@ public class LevelSpawn : MonoBehaviour {
 						torch.canSpawnEnemies = false;
 						torch.x = x;
 						torch.y = y;
-						Transform light = (Transform)Instantiate(torch.tileMesh, new Vector3(x*tileWidth, tileHeight, y*tileHeight), rotateTowardsNearestTileOfType(Tile.tileType.ground, x,y,levelMatrix));
+						Transform light = (Transform)Instantiate(torch.tileMesh, new Vector3(x*tileWidth, tileHeight, y*tileHeight), rotateTowardsNearestTileOfType(Tile.tileType.ground, torch.x,torch.y,levelMatrix));
 						light.parent = levelMatrix[x,y].tileMesh.transform; //Make it a parent of the wallblock
 					}
 				}
@@ -163,10 +159,10 @@ public class LevelSpawn : MonoBehaviour {
 						Tile rightNeighbor = getNeighbor("right", levelMatrix[x,y], levelMatrix);
 						Tile downNeighbor = getNeighbor("down", levelMatrix[x,y], levelMatrix);
 
-						if((leftNeighbor != null && leftNeighbor.type != Tile.tileType.path)		//Make sure it doesn't spawn by pathTiles	
-						   && (upNeighbor != null && upNeighbor.type != Tile.tileType.path)			//
-						   && (rightNeighbor != null && rightNeighbor.type != Tile.tileType.path)	//
-						   && (downNeighbor != null && downNeighbor.type != Tile.tileType.path)){	//
+						if((leftNeighbor != null && leftNeighbor.tileMesh.tag != "Path")		//Make sure it doesn't spawn by pathTiles	
+						   && (upNeighbor != null && upNeighbor.tileMesh.tag != "Path")			//
+						   && (rightNeighbor != null && rightNeighbor.tileMesh.tag != "Path")	//
+						   && (downNeighbor != null && downNeighbor.tileMesh.tag != "Path")){	//
 						
 							Transform chest = Instantiate(chestObject, new Vector3(x*tileWidth, tileHeight, y*tileWidth), rotateTowardsNearestTileOfType(Tile.tileType.ground, x, y, levelMatrix)) as Transform;
 							chest.parent = levelMatrix[x,y].tileMesh.transform;
@@ -345,7 +341,7 @@ public class LevelSpawn : MonoBehaviour {
 						Tile path = new Tile(x, y_, 1, 0, true, true);
 						path.tileMesh = pathTile;
 						path.tileMesh.name = "pathTile";
-						path.type = Tile.tileType.path;
+						path.type = Tile.tileType.ground;
 						level[x, y_] = path;
 					}
 				}else{
@@ -353,7 +349,7 @@ public class LevelSpawn : MonoBehaviour {
 						Tile path = new Tile(x, y_, 1, 0, true, true);
 						path.tileMesh = pathTile;
 						path.tileMesh.name = "pathTile";
-						path.type = Tile.tileType.path;
+						path.type = Tile.tileType.ground;
 						level[x, y_] = path;
 					}
 				}
@@ -362,7 +358,7 @@ public class LevelSpawn : MonoBehaviour {
 						Tile path = new Tile(targetX, y, 1, 0, true, true);
 						path.tileMesh = pathTile;
 						path.tileMesh.name = "pathTile";
-						path.type = Tile.tileType.path;
+						path.type = Tile.tileType.ground;
 						level[targetX, y] = path;
 					}
 				}else{
@@ -370,7 +366,7 @@ public class LevelSpawn : MonoBehaviour {
 						Tile path = new Tile(targetX, y, 1, 0, true, true);
 						path.tileMesh = pathTile;
 						path.tileMesh.name = "pathTile";
-						path.type = Tile.tileType.path;
+						path.type = Tile.tileType.ground;
 						level[targetX, y] = path;
 					}
 				}
@@ -424,34 +420,17 @@ public class LevelSpawn : MonoBehaviour {
 
 	public Quaternion rotateTowardsNearestTileOfType(Tile.tileType type, int x, int y, Tile[,] levelMatrix){//will return what a given positions neighbors are
 		Quaternion dir = Quaternion.Euler(0, 0, 0);
-		print ("Thing at: "+x*tileWidth+","+y*tileHeight);
-		if( x-1 > 0){
-			if((levelMatrix[x-1, y] != null)){//So left will always be first choice, then up, right and then down (left=0, up=1, right=2, down=3)
-				if(levelMatrix[x-1,y].type == type){
-					dir = Quaternion.Euler(0, 0, 0);//left is ground
-					print ("Nearest "+type+" at "+((x-1)*tileWidth)+","+((y)*tileWidth));
-				}
-			}
+		if(getNeighbor("left", levelMatrix[x,y], levelMatrix)!=null && getNeighbor("left", levelMatrix[x,y], levelMatrix).type == type){
+			dir = Quaternion.Euler(0, 0, 0);//left is ground
 		}
-		if(y+1 < MAX_LEVEL_HEIGHT-1){
-			if((levelMatrix[x, y+1] != null)){
-				if(levelMatrix[x,y+1].type == type){
-					dir = Quaternion.Euler(0, 90, 0);//up is ground
-					print ("Nearest "+type+" at "+(x*tileWidth)+","+((y+1)*tileWidth)); 
-				}
-			}
+		if(getNeighbor("up", levelMatrix[x,y], levelMatrix)!=null && getNeighbor("up", levelMatrix[x,y], levelMatrix).type == type){
+			dir = Quaternion.Euler(0, 90, 0);//up is ground
 		}
-		if(x+1 < MAX_LEVEL_WIDTH-1 && (levelMatrix[x+1, y] != null)){
-			if(levelMatrix[x+1,y].type == type){
-				dir = Quaternion.Euler(0, 180, 0);//right is ground
-				print ("Nearest "+type+" at "+((x+1)*tileWidth)+","+((y)*tileWidth)); 
-			}
+		if(getNeighbor("right", levelMatrix[x,y], levelMatrix)!=null && getNeighbor("right", levelMatrix[x,y], levelMatrix).type == type){
+			dir = Quaternion.Euler(0, 180, 0);//right is ground
 		}
-		if(y-1 > 0 && (levelMatrix[x, y-1] != null)){
-			if(levelMatrix[x,y-1].type == type){
-				dir = Quaternion.Euler(0, 270, 0);//down is ground
-				print ("Nearest "+type+" at "+(x*tileWidth)+","+((y-1)*tileWidth));
-			}
+		if(getNeighbor("down", levelMatrix[x,y], levelMatrix)!=null && getNeighbor("down", levelMatrix[x,y], levelMatrix).type == type){
+			dir = Quaternion.Euler(0, 270, 0);//down is ground
 		}
 		return dir;
 	}
