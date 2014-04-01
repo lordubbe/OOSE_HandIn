@@ -181,7 +181,7 @@ public class LevelSpawn : MonoBehaviour {
 				Transform furn = furniture[Random.Range(0, furniture.Length)];
 				if(Random.Range (0, 100) < 5){
 					if(levelMatrix[x,y]!=null){
-						if(isSpaceAvailableWithinRange(1, levelMatrix[x,y], levelMatrix, true)){
+						if(isSpaceAvailableWithinRange(1, levelMatrix[x,y], levelMatrix, false)){
 							Transform furnit = (Transform)Instantiate(furn, new Vector3(x*tileWidth, 0, y*tileWidth), Quaternion.Euler(0,Random.Range (0,360),0));
 							furnit.parent = levelMatrix[x,y].tileMesh.transform;
 						}
