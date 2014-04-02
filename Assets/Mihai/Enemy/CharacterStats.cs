@@ -60,7 +60,9 @@ public class CharacterStats : MonoBehaviour {
 			return this.gameObject.GetComponent<CharacterMove>();
 		}else if(this.gameObject.GetComponent<EnemyMovement>()){
 			return this.gameObject.GetComponent<EnemyMovement>();
-		}else return null;
+		}else if(this.gameObject.GetComponent<FirstPersonCharacterMove>()){
+            return this.gameObject.GetComponent<FirstPersonCharacterMove>();
+        }else return null;
 	}
 	public void Die(){
 		GameObject.Find("GUICamera").GetComponent<GUIManager>().kills ++;
