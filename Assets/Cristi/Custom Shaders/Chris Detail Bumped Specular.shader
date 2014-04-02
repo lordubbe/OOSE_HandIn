@@ -6,6 +6,8 @@ _Shininess ("Shininess", Range (0.03, 1)) = 0.078125
 //_BlendColor ("Blend Color", Range (0.03,1)) =  0.5
 //_IntBumpTex ("Bump Intensity Base", Range (0.03,1)) =  0.5
 //_IntBumpD ("Bump Intensity Detail", Range (0.03,1)) =  0.5
+_BaseGlow ("Base Glow", Range (0.03,3)) = 1
+
 _MainTex ("Base (RGB) Gloss (A)", 2D) = "white" {}
 _BumpMap ("Normalmap", 2D) = "bump" {}
 _Detail ("Detail (RGB) Gloss (A)", 2D) = "gray" {}
@@ -30,6 +32,8 @@ float _Shininess;
 float _BlendColor;
 float _IntBumpTex;
 float _IntBumpD;
+float _BaseGlow;
+
 
 
  
@@ -47,12 +51,15 @@ fixed4 d = tex2D(_Detail, IN.uv_Detail);
 float3 e = UnpackNormal(tex2D(_BumpMap, IN.uv_BumpMap));
 float3 f = UnpackNormal(tex2D(_BumpMapD, IN.uv_BumpMapD));
 
-float3 g = (_IntBumpTex,_IntBumpTex,0);
+//float3 g = (_IntBumpTex,_IntBumpTex,0);
+
+
 
 
 c.rgb *= d.rgb*2;
 o.Albedo = c.rgb; 
-o.Gloss = c.a; //+d.a;
+//d.a=c.a*_GlowBlend;
+o.Gloss = d.a+c.a*_BaseGlow;    
 o.Specular = _Shininess;
 o.Alpha = c.a * _Color.a;    
 

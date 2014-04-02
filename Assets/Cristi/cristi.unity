@@ -558,7 +558,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 828a5f972088063498b0fd9043481001, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debugMesh: {fileID: 1003157704}
+  debugMesh: {fileID: 0}
 --- !u!114 &357625952
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -572,7 +572,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyMovement: {fileID: 357625956}
-  attackCullDown: 3
+  attackCullDown: 1
   enemy: {fileID: 0}
   movement: 1
 --- !u!114 &357625953
