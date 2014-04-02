@@ -45,11 +45,11 @@ Material:
       data:
         first:
           name: _Shininess
-        second: .0300000031
+        second: 1
       data:
         first:
           name: _BlendColor
-        second: .5
+        second: .0299999993
       data:
         first:
           name: _BlendBump
@@ -61,7 +61,7 @@ Material:
       data:
         first:
           name: _IntBumpD
-        second: .549642861
+        second: .0299999993
     m_Colors:
       data:
         first:
@@ -70,4 +70,4 @@ Material:
       data:
         first:
           name: _SpecColor
-        second: {r: 1, g: 1, b: 1, a: 1}
+        second: {r: .875, g: .875, b: .875, a: 1}
