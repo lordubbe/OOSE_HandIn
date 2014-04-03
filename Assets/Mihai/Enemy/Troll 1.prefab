@@ -1536,7 +1536,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyMovement: {fileID: 11400000}
-  attackCullDown: 3
+  attackCullDown: 1
   enemy: {fileID: 0}
   movement: 1
 --- !u!114 &11400010
@@ -1550,7 +1550,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 828a5f972088063498b0fd9043481001, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debugMesh: {fileID: 400096}
+  debugMesh: {fileID: 0}
 --- !u!137 &13700000
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
