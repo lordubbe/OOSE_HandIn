@@ -29,12 +29,14 @@ public class LevelSpawn : MonoBehaviour {
 	public Transform wallTile;
 	public Transform stoneTile;
 	public Transform lavaTile;
+	public Transform trickTile;
 	public Transform torchTile;
 	public Transform chestObject;
 	public Transform enemyObject; //added by Mihai, Jacob please dont be mad!
 	public Transform[] decorations;
 	public Transform[] furniture;
-	
+	public Transform pillar;
+	public Transform cratesStacked;
 	//General level information
 	public int MAX_LEVEL_WIDTH = 50;
 	public int MAX_LEVEL_HEIGHT = 50;
@@ -171,6 +173,35 @@ public class LevelSpawn : MonoBehaviour {
 				}
 			}
 		}
+
+		/* PLACE DOWN SOME
+		╔═╗╦╦  ╦  ╔═╗╦═╗╔═╗
+		╠═╝║║  ║  ╠═╣╠╦╝╚═╗
+		╩  ╩╩═╝╩═╝╩ ╩╩╚═╚═╝
+		*/// TO PROVIDE SOME MAD SUPPORT FO DA ROOF!
+		
+		//to be written...................
+		for(int roomCount=0; roomCount<roomsInLevel.Length; roomCount++){//loop through rooms
+			Transform pillah = (Transform)Instantiate(pillar, roomsInLevel[roomCount].center*tileWidth, Quaternion.identity);
+			int[] moveOptions = {-1, 1};
+			//Make sure it doesn't stand right on a path
+			while(levelMatrix[(int)pillah.transform.position.x/tileWidth, (int)pillah.transform.position.z/tileHeight].tileMesh.tag == "Path"){
+				pillah.transform.position+= new Vector3(moveOptions[Random.Range(0,moveOptions.Length)]*tileWidth, 0, moveOptions[Random.Range(0,moveOptions.Length)]*tileHeight);
+			}
+			pillah.parent = levelMatrix[(int)pillah.transform.position.x/tileWidth, (int)pillah.transform.position.z/tileHeight].tileMesh.transform;
+			//Maybe spawn some crates around it?
+			int lol = moveOptions[Random.Range(0,moveOptions.Length)];
+			print (lol);
+			if(lol>0){//50% chance as of now
+				Transform crateStack = (Transform)Instantiate(cratesStacked, pillah.transform.position, Quaternion.Euler(0, Random.Range(0,360), 0));
+				crateStack.parent = levelMatrix[(int)pillah.transform.position.x/tileWidth, (int)pillah.transform.position.z/tileHeight].tileMesh.transform;
+			}
+			/*
+if( levelMatrix[(int)pillah.transform.position.x/tileWidth, (int)pillah.transform.position.z/tileHeight].tileMesh.childCount != null 
+			      && levelMatrix[(int)pillah.transform.position.x/tileWidth, (int)pillah.transform.position.z/tileHeight].tileMesh.childCount <1 ){}
+			*/
+		}
+
 		/*  PLACE SOME 
 		╔═╗╦ ╦╦═╗╔╗╔╦╔╦╗╦ ╦╦═╗╔═╗
 		╠╣ ║ ║╠╦╝║║║║ ║ ║ ║╠╦╝║╣ 
@@ -181,7 +212,7 @@ public class LevelSpawn : MonoBehaviour {
 				Transform furn = furniture[Random.Range(0, furniture.Length)];
 				if(Random.Range (0, 100) < 5){
 					if(levelMatrix[x,y]!=null){
-						if(isSpaceAvailableWithinRange(1, levelMatrix[x,y], levelMatrix, true)){
+						if(isSpaceAvailableWithinRange(1, levelMatrix[x,y], levelMatrix, false)){
 							Transform furnit = (Transform)Instantiate(furn, new Vector3(x*tileWidth, 0, y*tileWidth), Quaternion.Euler(0,Random.Range (0,360),0));
 							furnit.parent = levelMatrix[x,y].tileMesh.transform;
 						}
@@ -189,6 +220,7 @@ public class LevelSpawn : MonoBehaviour {
 				}
 			}
 		}
+
 
 		/*  SPAWN SOME 
 		╔╦╗╔═╗╔═╗╔═╗╦═╗╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
@@ -224,9 +256,11 @@ public class LevelSpawn : MonoBehaviour {
 				if(levelMatrix[x,y]!=null && levelMatrix[x,y].canSpawnEnemies && Random.Range(0,100)<enemySpawnFreq){
 					//SPAWN ENEMY
 					//Section modified by Mihai - Jacob please don't be mad
-					Transform enemy = (Transform)Instantiate(enemyObject, new Vector3(x*tileWidth, 1, y*tileHeight), Quaternion.identity);
-					enemy.name = "lol a troll";//
-					enemiesInLevel++;
+					if(levelMatrix[x,y].tileMesh.childCount != null && levelMatrix[x,y].tileMesh.childCount<1){//only spawn enemy if there is not something else spawned there
+						Transform enemy = (Transform)Instantiate(enemyObject, new Vector3(x*tileWidth, 1, y*tileHeight), Quaternion.identity);
+						enemy.name = "lol a troll";//
+						enemiesInLevel++;
+					}
 				}
 			}
 		}

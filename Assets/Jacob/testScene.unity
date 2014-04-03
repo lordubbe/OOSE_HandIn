@@ -1657,7 +1657,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   seedBasedGeneration: 0
-  seed: 100
+  seed: 8723
   levelParent: {fileID: 850913288}
   Walls: {fileID: 424201274}
   emptyTile: {fileID: 400000, guid: ede89c57f0b204a189d04eb28f590208, type: 2}
@@ -1665,6 +1665,7 @@ MonoBehaviour:
   wallTile: {fileID: 400000, guid: e95c8501e8d534ba4858c94a6115e58c, type: 2}
   stoneTile: {fileID: 400000, guid: 1cb71ef7b9ab84bccb10912ae9ad64d5, type: 2}
   lavaTile: {fileID: 400000, guid: 14245e767ae9746a1934199fffff4a18, type: 2}
+  trickTile: {fileID: 400000, guid: eeeb63d6ba9c347f4853ce3031a3d9f1, type: 2}
   torchTile: {fileID: 400000, guid: ab3502416d7564f7a8d49b3339b1f8ef, type: 2}
   chestObject: {fileID: 400000, guid: 9e73de16ca9d14679a8eddacfae470bd, type: 2}
   enemyObject: {fileID: 400098, guid: 826a41427cb729744a8cc6bbc3099fa4, type: 2}
@@ -1677,6 +1678,8 @@ MonoBehaviour:
   - {fileID: 400000, guid: f0b6b4665b1a54b95ab5470888eb6310, type: 2}
   - {fileID: 400022, guid: 1f7ff9326beaa4d4a842ebe2029fa0f5, type: 2}
   - {fileID: 400000, guid: df5780b28890b46daaecc8a3e1d54d14, type: 2}
+  pillar: {fileID: 400000, guid: 4eb3ff23b92754503ac34230df576e81, type: 2}
+  cratesStacked: {fileID: 400000, guid: 4bdde7ae224ae414e8f14ec93c113f9d, type: 2}
   MAX_LEVEL_WIDTH: 50
   MAX_LEVEL_HEIGHT: 50
   minRooms: 6

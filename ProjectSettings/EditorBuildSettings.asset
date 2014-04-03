@@ -9,3 +9,5 @@ EditorBuildSettings:
     path: Assets/Mihai/Old/Mihai.unity
   - enabled: 1
     path: Assets/Mihai/jcs.unity
+  - enabled: 0
+    path: Assets/Jacob/testScene.unity
