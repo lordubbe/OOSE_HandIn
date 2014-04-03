@@ -129,10 +129,11 @@ MonoBehaviour:
   damage: 5
   affectedTags:
   - Player
-  - Creature
   cs: {fileID: 0}
   time: .5
   attackDelay: .300000012
+  minDmg: 0
+  maxDmg: 0
   distance: 1
   childObj: {fileID: 100002}
 --- !u!114 &11400002
