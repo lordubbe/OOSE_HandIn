@@ -1890,6 +1890,76 @@ SkinnedMeshRenderer:
     m_Center: {x: .0256991386, y: .366511345, z: 1.59527624}
     m_Extent: {x: 1.51628399, y: 2.47793245, z: 1.69585049}
   m_DirtyAABB: 0
+--- !u!1 &1019583479
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1019583483}
+  - 33: {fileID: 1019583482}
+  - 64: {fileID: 1019583481}
+  - 23: {fileID: 1019583480}
+  m_Layer: 0
+  m_Name: Plane
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!23 &1019583480
+Renderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1019583479}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_LightmapIndex: 255
+  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
+  m_Materials:
+  - {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_LightProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_SortingLayerID: 0
+--- !u!64 &1019583481
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1019583479}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_SmoothSphereCollisions: 0
+  m_Convex: 0
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!33 &1019583482
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1019583479}
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1019583483
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1019583479}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 24.7013245, y: 7.18813419, z: 53.8569374}
+  m_LocalScale: {x: 4.46423197, y: 4.46423197, z: 4.46423197}
+  m_Children: []
+  m_Father: {fileID: 0}
 --- !u!1 &1023774978
 GameObject:
   m_ObjectHideFlags: 0
@@ -3453,9 +3523,9 @@ MonoBehaviour:
   levelParent: {fileID: 1723601083}
   Walls: {fileID: 400000, guid: 0ef5fccebde0249a1858066ac652c2ae, type: 2}
   emptyTile: {fileID: 400000, guid: ede89c57f0b204a189d04eb28f590208, type: 2}
-  pathTile: {fileID: 400000, guid: 8d060eab766eb4adebf854a9142d04cf, type: 2}
-  wallTile: {fileID: 400000, guid: 3842a5281d178034c97ccd4d142fa655, type: 2}
-  stoneTile: {fileID: 400000, guid: 1cb71ef7b9ab84bccb10912ae9ad64d5, type: 2}
+  pathTile: {fileID: 400000, guid: 0d0717df871336d4d90e4a5b6020b41d, type: 2}
+  wallTile: {fileID: 400002, guid: 52d7ec47f63cfb84dbe035447117dc13, type: 2}
+  stoneTile: {fileID: 400000, guid: 0d0717df871336d4d90e4a5b6020b41d, type: 2}
   lavaTile: {fileID: 400000, guid: 14245e767ae9746a1934199fffff4a18, type: 2}
   torchTile: {fileID: 400000, guid: ab3502416d7564f7a8d49b3339b1f8ef, type: 2}
   chestObject: {fileID: 400000, guid: 9e73de16ca9d14679a8eddacfae470bd, type: 2}

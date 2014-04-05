@@ -132,6 +132,8 @@ MonoBehaviour:
   cs: {fileID: 0}
   time: .300000012
   attackDelay: .200000003
+  minDmg: 5
+  maxDmg: 15
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1

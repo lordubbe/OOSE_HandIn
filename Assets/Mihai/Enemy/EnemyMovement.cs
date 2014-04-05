@@ -173,23 +173,25 @@ public class EnemyMovement : MonoBehaviour,IAnimationController {
 		animation.CrossFade("idle");
 		animation.CrossFade("attack1");
 		GameObject go = Instantiate(attacks[0],transform.position,transform.rotation) as GameObject;
-		
+        go.GetComponent<Attack>().SwordAttack(1.0f);
 		go.transform.parent = transform;
 	}
 	public void Attack2(){
 		iTween.Stop (this.gameObject);
 		animation.CrossFade("idle");
 		animation.CrossFade("attack2");
+
 		GameObject go = Instantiate(attacks[1],transform.position,transform.rotation) as GameObject;
-		
+        go.GetComponent<Attack>().SwordAttack(1.0f);
 		go.transform.parent = transform;
 	}
 	public void Attack3(){
 		iTween.Stop (this.gameObject);
 		animation.CrossFade("idle");
 		animation.CrossFade("attack3");
+        
 		GameObject go = Instantiate(attacks[2],transform.position,transform.rotation) as GameObject;
-		
+        go.GetComponent<Attack>().SwordAttack(1.0f);
 		go.transform.parent = transform;
 	}
 	public void Hit(){

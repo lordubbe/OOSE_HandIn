@@ -3,9 +3,9 @@ using System.Collections;
 
 public class SwingAttack : Attack {
 	
-	public override void SwordAttack ()
+	public override void swordAttack ()
 	{
-		base.SwordAttack();
+		base.swordAttack();
 		Hashtable ht = new Hashtable();
 		ht.Add ("easetype","linear");
 		ht.Add ("time",time);

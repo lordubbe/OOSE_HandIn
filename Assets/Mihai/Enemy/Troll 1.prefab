@@ -1522,7 +1522,6 @@ MonoBehaviour:
   enemies: []
   viewDistance: 15
   tags:
-  - Creature
   - Player
 --- !u!114 &11400008
 MonoBehaviour:

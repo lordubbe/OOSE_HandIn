@@ -132,6 +132,8 @@ MonoBehaviour:
   cs: {fileID: 0}
   time: .300000012
   attackDelay: .300000012
+  minDmg: 5
+  maxDmg: 15
   distance: 1.79999995
   childObj: {fileID: 100002}
 --- !u!114 &11400002
@@ -145,9 +147,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19d7b770829340f4987dd8b11acb04b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
+  damage: 10
   cs: {fileID: 0}
-  affectedTags: []
+  affectedTags:
+  - Creature
   inheritValuesFromParent: 1
 --- !u!1001 &100100000
 Prefab:
