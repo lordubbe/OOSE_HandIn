@@ -28,6 +28,8 @@ public class LevelSpawn : MonoBehaviour {
 	public Transform pathTile;
 	public Transform wallTile;
 	public Transform stoneTile;
+	public Transform wallToRoofTile;
+	public Transform roofTile;
 	public Transform lavaTile;
 	public Transform trickTile;
 	public Transform torchTile;
@@ -64,6 +66,7 @@ public class LevelSpawn : MonoBehaviour {
 	private MeshFilter[] meshFilters;
 	private Material material;
 
+	public List<Transform> lights;
 
 	public static Tile[,] levelMatrix;//holds the level
 	private Room[] roomsInLevel;
@@ -86,13 +89,10 @@ public class LevelSpawn : MonoBehaviour {
 */
 		for(int x=0; x<MAX_LEVEL_WIDTH; x++){
 			for(int y=0; y<MAX_LEVEL_HEIGHT; y++){
-				Transform go;
 				if(levelMatrix[x,y] != null){
 					if(levelMatrix[x,y].type == Tile.tileType.wall){
-						levelMatrix[x,y].tileMesh = (Transform)Instantiate(levelMatrix[x,y].tileMesh, new Vector3(x*tileWidth, tileHeight, y*tileHeight), Quaternion.identity);//instantiate 1 height up
+						levelMatrix[x,y].tileMesh = (Transform)Instantiate(levelMatrix[x,y].tileMesh, new Vector3(x*tileWidth, 0, y*tileHeight), rotateTowardsNearestTileOfType(Tile.tileType.ground,x,y,levelMatrix));//instantiate 1 height up
 						levelMatrix[x,y].tileMesh.transform.parent = Walls.transform;
-						go = (Transform)Instantiate(levelMatrix[x,y].tileMesh, new Vector3(x*tileWidth, 0, y*tileHeight), Quaternion.identity); //and ground level for better visuals
-						go.transform.parent = Walls.transform;
 					}else{
 						levelMatrix[x,y].tileMesh = (Transform)Instantiate(levelMatrix[x,y].tileMesh, new Vector3(x*tileWidth, 0, y*tileHeight), Quaternion.identity); 
 						levelMatrix[x,y].tileMesh.transform.parent = levelParent.transform;
@@ -128,6 +128,8 @@ public class LevelSpawn : MonoBehaviour {
 		 ║ ║ ║╠╦╝║  ╠═╣║╣ ╚═╗
 		 ╩ ╚═╝╩╚═╚═╝╩ ╩╚═╝╚═╝
 		*/
+		lights = new List<Transform>();
+		int lightCount = 0;
 		for(int x=0; x<MAX_LEVEL_WIDTH; x++){
 			for(int y=0; y<MAX_LEVEL_HEIGHT; y++){
 				if(Random.Range (0, 100) < torchFrequency){
@@ -142,10 +144,13 @@ public class LevelSpawn : MonoBehaviour {
 						torch.y = y;
 						Transform light = (Transform)Instantiate(torch.tileMesh, new Vector3(x*tileWidth, tileHeight, y*tileHeight), rotateTowardsNearestTileOfType(Tile.tileType.ground, torch.x,torch.y,levelMatrix));
 						light.parent = levelMatrix[x,y].tileMesh.transform; //Make it a parent of the wallblock
+						lights.Add(	torch.tileMesh.GetChild(0).GetChild(0)	);
+						lightCount++;
 					}
 				}
 			}
 		}
+
 		/*  PLACE SOME 
 		╔═╗╦ ╦╔═╗╔═╗╔╦╗╔═╗
 		║  ╠═╣║╣ ╚═╗ ║ ╚═╗
@@ -191,7 +196,6 @@ public class LevelSpawn : MonoBehaviour {
 			pillah.parent = levelMatrix[(int)pillah.transform.position.x/tileWidth, (int)pillah.transform.position.z/tileHeight].tileMesh.transform;
 			//Maybe spawn some crates around it?
 			int lol = moveOptions[Random.Range(0,moveOptions.Length)];
-			print (lol);
 			if(lol>0){//50% chance as of now
 				Transform crateStack = (Transform)Instantiate(cratesStacked, pillah.transform.position, Quaternion.Euler(0, Random.Range(0,360), 0));
 				crateStack.parent = levelMatrix[(int)pillah.transform.position.x/tileWidth, (int)pillah.transform.position.z/tileHeight].tileMesh.transform;
@@ -210,7 +214,7 @@ if( levelMatrix[(int)pillah.transform.position.x/tileWidth, (int)pillah.transfor
 		for(int x=0; x<MAX_LEVEL_WIDTH; x++){
 			for(int y=0; y<MAX_LEVEL_HEIGHT; y++){
 				Transform furn = furniture[Random.Range(0, furniture.Length)];
-				if(Random.Range (0, 100) < 5){
+				if(Random.Range (0, 100) < 30){
 					if(levelMatrix[x,y]!=null){
 						if(isSpaceAvailableWithinRange(1, levelMatrix[x,y], levelMatrix, false)){
 							Transform furnit = (Transform)Instantiate(furn, new Vector3(x*tileWidth, 0, y*tileWidth), Quaternion.Euler(0,Random.Range (0,360),0));
@@ -231,8 +235,10 @@ if( levelMatrix[(int)pillah.transform.position.x/tileWidth, (int)pillah.transfor
 			for(int y=0; y<MAX_LEVEL_HEIGHT; y++){
 				Transform dec = decorations[Random.Range(0, decorations.Length)];
 				if(Random.Range (0, 100) < 30){
+					//if(levelMatrix[x,y]!=null && levelMatrix[x,y].tileMesh.childCount != null)
+					//	print (levelMatrix[x,y]+": "+levelMatrix[x,y].type+", "+levelMatrix[x,y].tileMesh.childCount);
 					//Make sure it's against a wall and that the particular wall tile in question doesn't already hold another item
-					if(levelMatrix[x,y]!=null && levelMatrix[x,y].type == Tile.tileType.wall && (levelMatrix[x,y].tileMesh.childCount != null && levelMatrix[x,y].tileMesh.childCount < 1)){
+					if(levelMatrix[x,y]!=null && levelMatrix[x,y].type == Tile.tileType.wall && (levelMatrix[x,y].tileMesh.childCount != null && levelMatrix[x,y].tileMesh.childCount < 3)){
 						Transform deco = Instantiate(dec, new Vector3(x*tileWidth, tileHeight, y*tileWidth), rotateTowardsNearestTileOfType(Tile.tileType.ground, x, y, levelMatrix)) as Transform;
 						deco.parent = levelMatrix[x,y].tileMesh.transform;
 					}
@@ -248,7 +254,7 @@ if( levelMatrix[(int)pillah.transform.position.x/tileWidth, (int)pillah.transfor
 		▐█ ▌▐▌▐█· ▄█▀▄ ▐█▐▐▌▄▀▀▀█▄ ▐█.▪▐▀▀▪▄▐▀▀▄ ▄▀▀▀█▄▐█·
 		██ ██▌▐█▌▐█▌.▐▌██▐█▌▐█▄▪▐█ ▐█▌·▐█▄▄▌▐█•█▌▐█▄▪▐█.▀ 
 		▀▀  █▪▀▀▀ ▀█▄▀▪▀▀ █▪ ▀▀▀▀  ▀▀▀  ▀▀▀ .▀  ▀ ▀▀▀▀  ▀ 
-*/
+*//*
 		int enemiesInLevel = 0;
 
 		for(int x=0; x<MAX_LEVEL_WIDTH; x++){
@@ -264,7 +270,7 @@ if( levelMatrix[(int)pillah.transform.position.x/tileWidth, (int)pillah.transfor
 				}
 			}
 		}
-		print ("TOTAL ENEMIES IN LEVEL: "+enemiesInLevel);
+		print ("TOTAL ENEMIES IN LEVEL: "+enemiesInLevel);*/
 		if(FinishGeneration!=null)FinishGeneration (); //trigger the event that anounces that the generation ended
 	}
 
@@ -352,7 +358,7 @@ if( levelMatrix[(int)pillah.transform.position.x/tileWidth, (int)pillah.transfor
 			}*/
 			roomCount++;
 		}
-		print ("TOTAL ROOMS IN LEVEL: "+ numberOfRooms);
+	//	print ("TOTAL ROOMS IN LEVEL: "+ numberOfRooms);
 /*
 ╔╦╗╔═╗╦╔═╔═╗  ╔═╗╔═╗╦═╗╦═╗╦╔╦╗╔═╗╦═╗╔═╗  ╔╗ ╔═╗╔╦╗╦ ╦╔═╗╔═╗╔╗╔  ╦═╗╔═╗╔═╗╔╦╗╔═╗
 ║║║╠═╣╠╩╗║╣   ║  ║ ║╠╦╝╠╦╝║ ║║║ ║╠╦╝╚═╗  ╠╩╗║╣  ║ ║║║║╣ ║╣ ║║║  ╠╦╝║ ║║ ║║║║╚═╗
