@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 7bd6d161ab572c2459fcb0374776a3fe
+guid: 9c88ed4e14f5f01498780fedb106cc84
 ModelImporter:
   serializedVersion: 16
   fileIDToRecycleName:
@@ -7,7 +7,7 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: polySurface1
+    4300000: polySurface15
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -28,11 +28,11 @@ ModelImporter:
   meshes:
     lODScreenPercentages: []
     globalScale: 1
-    meshCompression: 3
+    meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
     swapUVChannels: 0
-    generateSecondaryUV: 1
+    generateSecondaryUV: 0
     useFileUnits: 1
     optimizeMeshForGPU: 1
     weldVertices: 1

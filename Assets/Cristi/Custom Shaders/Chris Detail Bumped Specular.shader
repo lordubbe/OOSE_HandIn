@@ -1,7 +1,8 @@
-﻿Shader "Chris Detail Bumped Specular" {
+﻿ Shader "Chris Detail Bumped Specular" {
 Properties {
 _Color ("Main Color", Color) = (1,1,1,1)
 _SpecColor ("Specular Color", Color) = (0.5, 0.5, 0.5, 1)
+_BumpDetailPower ("Detail Bump Power", Range (1,10))=  1
 _Shininess ("Shininess", Range (0.03, 1)) = 0.078125
 //_BlendColor ("Blend Color", Range (0.03,1)) =  0.5
 //_IntBumpTex ("Bump Intensity Base", Range (0.03,1)) =  0.5
@@ -12,6 +13,7 @@ _MainTex ("Base (RGB) Gloss (A)", 2D) = "white" {}
 _BumpMap ("Normalmap", 2D) = "bump" {}
 _Detail ("Detail (RGB) Gloss (A)", 2D) = "gray" {}
 _BumpMapD ("Normalmap Detail",2D) = "bump"{}
+
  
 
 }
@@ -33,6 +35,7 @@ float _BlendColor;
 float _IntBumpTex;
 float _IntBumpD;
 float _BaseGlow;
+float _BumpDetailPower;
 
 
 
@@ -56,15 +59,15 @@ float3 f = UnpackNormal(tex2D(_BumpMapD, IN.uv_BumpMapD));
 
 
 
-c.rgb *= d.rgb*2;
+c.rgb *= d.rgb*3;
 o.Albedo = c.rgb; 
 //d.a=c.a*_GlowBlend;
 o.Gloss = d.a+c.a*_BaseGlow;    
 o.Specular = _Shininess;
 o.Alpha = c.a * _Color.a;    
 
-e.y += f.y;
-e.x += f.x;
+e.y += f.y/3;
+e.x += f.x/3;
 o.Normal = normalize(e);
 
 //norm1 = UnpackNormal(tex2D(_DetailNormal, IN.uv_DetailNormal));

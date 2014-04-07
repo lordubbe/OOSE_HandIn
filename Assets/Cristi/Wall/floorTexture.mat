@@ -17,45 +17,49 @@ Material:
         first:
           name: _MainTex
         second:
-          m_Texture: {fileID: 2800000, guid: ed25e0ebd8c275c49b858f631fe89afb, type: 3}
+          m_Texture: {fileID: 2800000, guid: b92228c1eabe2754ab42fe4b73925371, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
         first:
           name: _BumpMap
         second:
-          m_Texture: {fileID: 2800000, guid: 06c8799ba3456234a80712a09414165f, type: 3}
+          m_Texture: {fileID: 2800000, guid: a43c10b5d65b88547b9555f40cabd0ef, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
         first:
           name: _Detail
         second:
-          m_Texture: {fileID: 2800000, guid: f2b4a3fc7caf28a48bd9f2f5062835ba, type: 3}
-          m_Scale: {x: 1, y: 1}
+          m_Texture: {fileID: 2800000, guid: b1b258345a64b004a8d98ea7ceae0c52, type: 3}
+          m_Scale: {x: 2, y: 2}
           m_Offset: {x: 0, y: 0}
       data:
         first:
           name: _BumpMapD
         second:
-          m_Texture: {fileID: 2800000, guid: 844ac774dd21d524cb5a03649001e9e0, type: 3}
-          m_Scale: {x: 1, y: 1}
+          m_Texture: {fileID: 2800000, guid: 3654e748467a15f459d5c86d0b6b1205, type: 3}
+          m_Scale: {x: 2, y: 2}
           m_Offset: {x: 0, y: 0}
     m_Floats:
       data:
         first:
           name: _Shininess
-        second: .350782841
+        second: .234106183
       data:
         first:
           name: _BaseGlow
-        second: .469642907
+        second: 1.0376786
+      data:
+        first:
+          name: _BumpDetailPower
+        second: 1
     m_Colors:
       data:
         first:
           name: _Color
-        second: {r: .850912809, g: .845588207, b: 1, a: 1}
+        second: {r: .44766438, g: .450545877, b: .507352948, a: 1}
       data:
         first:
           name: _SpecColor
-        second: {r: .41522488, g: .449970156, b: .470588207, a: 1}
+        second: {r: .33088237, g: .33088237, b: .33088237, a: 1}
