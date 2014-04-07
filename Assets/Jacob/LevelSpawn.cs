@@ -164,6 +164,19 @@ public class LevelSpawn : MonoBehaviour {
 					//Transform stonePillarino = (Transform)Instantiate(stonePillar, new Vector3(x*tileWidth, 0, y*tileWidth), Quaternion.identity);
 					//stonePillarino.parent = levelMatrix[x,y].tileMesh.transform;
 					Transform wallCorner = (Transform)Instantiate(cornerWall, new Vector3(x*tileWidth, 0, y*tileWidth), rotateCornerCorrectly(levelMatrix[x,y], levelMatrix));
+					wallCorner.parent = levelMatrix[x,y].tileMesh.transform;
+				}
+			}
+		}
+
+		//ARCS
+		for(int x=0; x<MAX_LEVEL_WIDTH; x++){
+			for(int y=0; y<MAX_LEVEL_HEIGHT; y++){
+				if(levelMatrix[x,y] != null && levelMatrix[x,y].tileMesh.tag == "Path"){
+					if(isEntranceToCorridor(levelMatrix[x,y], levelMatrix)){
+						print ("LOL");
+					}
+					//print (x*tileWidth+","+y*tileHeight+": "+isEntranceToCorridor(levelMatrix[x,y], levelMatrix));
 				}
 			}
 		}
@@ -187,9 +200,10 @@ public class LevelSpawn : MonoBehaviour {
 						   && (upNeighbor != null && upNeighbor.tileMesh.tag != "Path")			//
 						   && (rightNeighbor != null && rightNeighbor.tileMesh.tag != "Path")	//
 						   && (downNeighbor != null && downNeighbor.tileMesh.tag != "Path")){	//
-						
+							if(!isWallPartOfCorner(levelMatrix[x,y], levelMatrix)){
 							Transform chest = Instantiate(chestObject, new Vector3(x*tileWidth, tileHeight, y*tileWidth), rotateTowardsNearestTileOfType(Tile.tileType.ground, x, y, levelMatrix)) as Transform;
 							chest.parent = levelMatrix[x,y].tileMesh.transform;
+							}
 						}
 					}
 				}
@@ -217,10 +231,6 @@ public class LevelSpawn : MonoBehaviour {
 				Transform crateStack = (Transform)Instantiate(cratesStacked, pillah.transform.position, Quaternion.Euler(0, Random.Range(0,360), 0));
 				crateStack.parent = levelMatrix[(int)pillah.transform.position.x/tileWidth, (int)pillah.transform.position.z/tileHeight].tileMesh.transform;
 			}
-			/*
-if( levelMatrix[(int)pillah.transform.position.x/tileWidth, (int)pillah.transform.position.z/tileHeight].tileMesh.childCount != null 
-			      && levelMatrix[(int)pillah.transform.position.x/tileWidth, (int)pillah.transform.position.z/tileHeight].tileMesh.childCount <1 ){}
-			*/
 		}
 
 		/*  PLACE SOME 
@@ -256,8 +266,10 @@ if( levelMatrix[(int)pillah.transform.position.x/tileWidth, (int)pillah.transfor
 					//	print (levelMatrix[x,y]+": "+levelMatrix[x,y].type+", "+levelMatrix[x,y].tileMesh.childCount);
 					//Make sure it's against a wall and that the particular wall tile in question doesn't already hold another item
 					if(levelMatrix[x,y]!=null && levelMatrix[x,y].type == Tile.tileType.wall && (levelMatrix[x,y].tileMesh.childCount != null && levelMatrix[x,y].tileMesh.childCount < 3)){
+						if(!isWallPartOfCorner(levelMatrix[x,y], levelMatrix)){
 						Transform deco = Instantiate(dec, new Vector3(x*tileWidth, tileHeight, y*tileWidth), rotateTowardsNearestTileOfType(Tile.tileType.ground, x, y, levelMatrix)) as Transform;
 						deco.parent = levelMatrix[x,y].tileMesh.transform;
+						}
 					}
 				}
 			}
@@ -632,6 +644,97 @@ if( levelMatrix[(int)pillah.transform.position.x/tileWidth, (int)pillah.transfor
 			isPartOfCorner = true;
 		}else{ isPartOfCorner = false; } */
 		return isPartOfCorner;
+	}
+
+	bool isEntranceToCorridor(Tile input, Tile[,] levelMatrix){
+		bool isEntrance = false;
+/*		if((getNeighbor("left", input, levelMatrix).type == Tile.tileType.wall && getNeighbor("right", input, levelMatrix).type == Tile.tileType.wall)||(getNeighbor("up", input, levelMatrix).type == Tile.tileType.wall && getNeighbor("down", input, levelMatrix).type == Tile.tileType.wall)){
+			isEntrance = true;
+		}else{isEntrance = false;}
+*/		
+		int[,] entranceKernelLeft = {	{1,1,0},
+										{0,0,0},
+										{1,1,0}};
+
+		int[,] entranceKernelUp = {		{1,0,1},
+										{1,0,1},
+										{0,0,0}};
+
+		int[,] entranceKernelRight = {	{0,1,1},
+										{0,0,0},
+										{0,1,1}};
+
+		int[,] entranceKernelDown = {	{0,0,0},
+										{1,0,1},
+										{1,0,1}};
+		////////////////////////////////////////////////////////
+		int[,] check = {				{0,0,0},
+										{0,0,0},
+										{0,0,0}}; //this will be checked
+
+		//Check and update the 'check' kernel
+		for(int x=input.x-1; x<=input.x+1; x++){
+			for(int y=input.y-1; y<=input.y+1; y++){
+				if(levelMatrix[x,y]!= null){
+					if(levelMatrix[x,y].type == Tile.tileType.wall){
+						check[2-(y-input.y+1), (x-input.x+1)] = 1;
+					}
+				}
+			}
+		}
+		/* //DEBUG STUFF
+		print(input.x*tileWidth+","+input.y*tileHeight);
+		if(levelMatrix[input.x-1, input.y-1] != null && levelMatrix[input.x+1, input.y-1] != null && levelMatrix[input.x-1, input.y+1] != null && levelMatrix[input.x+1, input.y+1] != null){
+		//	print (levelMatrix[input.x-1, input.y+1].type+","+levelMatrix[input.x, input.y+1].type+","+levelMatrix[input.x+1, input.y+1].type);
+		//	print (levelMatrix[input.x-1, input.y].type+","+levelMatrix[input.x, input.y].type+","+levelMatrix[input.x+1, input.y].type);
+		//	print (levelMatrix[input.x-1, input.y-1].type+","+levelMatrix[input.x, input.y-1].type+","+levelMatrix[input.x+1, input.y-1].type);
+			print (check[0,0]+","+check[0,1]+","+check[0,2]+"         "+entranceKernelDown[0,0]+","+entranceKernelDown[0,1]+","+entranceKernelDown[0,2]);
+			print (check[1,0]+","+check[1,1]+","+check[1,2]+"         "+entranceKernelDown[1,0]+","+entranceKernelDown[1,1]+","+entranceKernelDown[1,2]);
+			print (check[2,0]+","+check[2,1]+","+check[2,2]+"         "+entranceKernelDown[2,0]+","+entranceKernelDown[2,1]+","+entranceKernelDown[2,2]);
+		}
+		*/
+
+		int value = 0;
+	//Check if the 'check' kernel matches any of the entrance signatures
+		//left
+		for(int i=0; i<3; i++)
+			for(int j=0; j<3; j++)
+			if(check[i,j] == entranceKernelLeft[i,j]){
+				value++;
+			}
+		if(value==9)
+			print ("Left kernel match!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+		value = 0;
+		//up
+		for(int i=0; i<3; i++)
+			for(int j=0; j<3; j++)
+			if(check[i,j] == entranceKernelUp[i,j]){
+				value++;
+			}
+		if(value==9)
+			print ("Up kernel match!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+		value = 0;
+		//right
+		for(int i=0; i<3; i++)
+			for(int j=0; j<3; j++)
+			if(check[i,j] == entranceKernelRight[i,j]){
+				value++;
+			}
+		if(value==9)
+			print ("Right kernel match!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+		value = 0;
+		//down
+		for(int i=0; i<3; i++)
+			for(int j=0; j<3; j++)
+			if(check[i,j] == entranceKernelDown[i,j]){
+				value++;
+			}
+		if(value==9)
+			print ("Down kernel match!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+		value = 0;
+
+		return isEntrance;
+
 	}
 /*
  ███▄ ▄███▓ █     █░█    ██  ▄▄▄       ██░ ██  ▄▄▄       ██░ ██  ▄▄▄       ██░ ██  ▄▄▄       ▐██▌ 

@@ -5,6 +5,8 @@ TagManager:
   tags:
   - Creature
   - Dead
+  - Wall
+  - Path
   - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX
