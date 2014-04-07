@@ -27,9 +27,8 @@ public class LevelSpawn : MonoBehaviour {
 	public Transform emptyTile;
 	public Transform pathTile;
 	public Transform wallTile;
+	public Transform cornerWall;
 	public Transform stoneTile;
-	public Transform wallToRoofTile;
-	public Transform roofTile;
 	public Transform lavaTile;
 	public Transform trickTile;
 	public Transform torchTile;
@@ -38,6 +37,7 @@ public class LevelSpawn : MonoBehaviour {
 	public Transform[] decorations;
 	public Transform[] furniture;
 	public Transform pillar;
+	public Transform stonePillar;
 	public Transform cratesStacked;
 	//General level information
 	public int MAX_LEVEL_WIDTH = 50;
@@ -121,7 +121,7 @@ public class LevelSpawn : MonoBehaviour {
 			roomHolder.AddComponent<MeshMerger>();
 		}
 		*/
-//
+
 
 		/*  LIGHT THE PLACE UP WITH SOME 
 		╔╦╗╔═╗╦═╗╔═╗╦ ╦╔═╗╔═╗
@@ -142,11 +142,28 @@ public class LevelSpawn : MonoBehaviour {
 						torch.canSpawnEnemies = false;
 						torch.x = x;
 						torch.y = y;
-						Transform light = (Transform)Instantiate(torch.tileMesh, new Vector3(x*tileWidth, tileHeight, y*tileHeight), rotateTowardsNearestTileOfType(Tile.tileType.ground, torch.x,torch.y,levelMatrix));
-						light.parent = levelMatrix[x,y].tileMesh.transform; //Make it a parent of the wallblock
-						lights.Add(	torch.tileMesh.GetChild(0).GetChild(0)	);
-						lightCount++;
+						if(!isWallPartOfCorner(levelMatrix[x,y], levelMatrix)){
+							Transform light = (Transform)Instantiate(torch.tileMesh, new Vector3(x*tileWidth, tileHeight, y*tileHeight), rotateTowardsNearestTileOfType(Tile.tileType.ground, torch.x,torch.y,levelMatrix));
+							light.parent = levelMatrix[x,y].tileMesh.transform; //Make it a parent of the wallblock
+							lights.Add(	torch.tileMesh.GetChild(0).GetChild(0)	);
+							lightCount++;
+						}
 					}
+				}
+			}
+		}
+
+		/*  NOW LET'S
+		╦═╗╔═╗╦ ╦╔╗╔╔╦╗  ╔╦╗╦ ╦╔═╗  ╦ ╦╔═╗╦  ╦    ╔═╗╔═╗╦═╗╔╗╔╔═╗╦═╗╔═╗
+		╠╦╝║ ║║ ║║║║ ║║   ║ ╠═╣║╣   ║║║╠═╣║  ║    ║  ║ ║╠╦╝║║║║╣ ╠╦╝╚═╗
+		╩╚═╚═╝╚═╝╝╚╝═╩╝   ╩ ╩ ╩╚═╝  ╚╩╝╩ ╩╩═╝╩═╝  ╚═╝╚═╝╩╚═╝╚╝╚═╝╩╚═╚═╝
+		*/
+		for(int x=0; x<MAX_LEVEL_WIDTH; x++){
+			for(int y=0; y<MAX_LEVEL_HEIGHT; y++){
+				if(levelMatrix[x,y]!=null && isCornerOfRoom(levelMatrix[x,y], levelMatrix)){
+					//Transform stonePillarino = (Transform)Instantiate(stonePillar, new Vector3(x*tileWidth, 0, y*tileWidth), Quaternion.identity);
+					//stonePillarino.parent = levelMatrix[x,y].tileMesh.transform;
+					Transform wallCorner = (Transform)Instantiate(cornerWall, new Vector3(x*tileWidth, 0, y*tileWidth), rotateCornerCorrectly(levelMatrix[x,y], levelMatrix));
 				}
 			}
 		}
@@ -476,7 +493,6 @@ if( levelMatrix[(int)pillah.transform.position.x/tileWidth, (int)pillah.transfor
 	}
 
 	public Tile getNeighbor(string direction, Tile input, Tile[,] levelMatrix){
-		
 		switch(direction){
 		case "left":
 			//
@@ -491,7 +507,7 @@ if( levelMatrix[(int)pillah.transform.position.x/tileWidth, (int)pillah.transfor
 				return levelMatrix[(int)input.x, (int)input.y+1];
 			}else{
 				return null;
-			}
+			}	
 		case "down":
 			//
 			if(input.y > 0 && levelMatrix[(int)input.x, (int)input.y-1] != null){
@@ -554,6 +570,68 @@ if( levelMatrix[(int)pillah.transform.position.x/tileWidth, (int)pillah.transfor
 		}else{
 			return 8*num + getAmountOfNeighbors(num-1);
 		}
+	}
+
+	bool isCornerOfRoom(Tile input, Tile[,] levelMatrix){
+		bool isCorner = false;
+		//up/right
+		Tile left = getNeighbor("left", input, levelMatrix);
+		Tile up = getNeighbor("up", input, levelMatrix);
+		Tile right = getNeighbor("right", input, levelMatrix);
+		Tile down = getNeighbor("down", input, levelMatrix);
+
+		if(input.type == Tile.tileType.ground){
+			if(up.type == Tile.tileType.wall && right.type == Tile.tileType.wall){
+				isCorner = true;
+			}
+			else if(up.type == Tile.tileType.wall && left.type == Tile.tileType.wall){
+				isCorner = true;
+			}
+			else if(down.type == Tile.tileType.wall && right.type == Tile.tileType.wall){
+				isCorner = true;
+			}
+			else if(down.type == Tile.tileType.wall && left.type == Tile.tileType.wall){
+				isCorner = true;
+			}else{
+				isCorner = false;
+			}
+		}
+		return isCorner;
+	}
+
+	Quaternion rotateCornerCorrectly(Tile input, Tile[,] levelMatrix){
+		Quaternion dir = Quaternion.Euler(0, 0, 0);//default rotation
+		Tile left = getNeighbor("left", input, levelMatrix);
+		Tile up = getNeighbor("up", input, levelMatrix);
+		Tile right = getNeighbor("right", input, levelMatrix);
+		Tile down = getNeighbor("down", input, levelMatrix);
+		
+		if(input.type == Tile.tileType.ground){
+			if(up.type == Tile.tileType.wall && right.type == Tile.tileType.wall){
+				dir = Quaternion.Euler(0, 270, 0);
+			}
+			else if(up.type == Tile.tileType.wall && left.type == Tile.tileType.wall){
+				dir = Quaternion.Euler(0, 180, 0);
+			}
+			else if(down.type == Tile.tileType.wall && left.type == Tile.tileType.wall){
+				dir = Quaternion.Euler(0, 90, 0);
+			}
+			else if(down.type == Tile.tileType.wall && right.type == Tile.tileType.wall){
+				dir = Quaternion.Euler(0, 0, 0);
+			}else{
+				dir = Quaternion.Euler(0, 0, 0);//default rotation
+			}
+		}
+		return dir;
+	}
+
+	bool isWallPartOfCorner(Tile input, Tile[,] levelMatrix){
+		bool isPartOfCorner = false;/*
+		if(isCornerOfRoom(getNeighbor("left", input, levelMatrix), levelMatrix) || isCornerOfRoom(getNeighbor("up", input, levelMatrix), levelMatrix)
+		     || isCornerOfRoom(getNeighbor("right", input, levelMatrix), levelMatrix) || isCornerOfRoom(getNeighbor("down", input, levelMatrix), levelMatrix)){
+			isPartOfCorner = true;
+		}else{ isPartOfCorner = false; } */
+		return isPartOfCorner;
 	}
 /*
  ███▄ ▄███▓ █     █░█    ██  ▄▄▄       ██░ ██  ▄▄▄       ██░ ██  ▄▄▄       ██░ ██  ▄▄▄       ▐██▌ 
