@@ -34,6 +34,7 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController {
         up,left,down,right
     }
     private Direction lastDir;
+    
 	// Use this for initialization
 	void Awake () {
         canAtt = true;
@@ -90,7 +91,7 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController {
     {
         
         Performance.UpdateEvent += Refresh;
-       
+        
        
     }
     void putPlayerOnStart()
@@ -202,6 +203,7 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController {
             animation.CrossFade(attack1);
             Invoke("ResetCanAtt",(Time.time - attStart) * AttCullDown);
             canAtt = false;
+            
         }
     }
 

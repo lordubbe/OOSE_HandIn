@@ -2,18 +2,20 @@
 using System.Collections;
 
 public class hideMouse : MonoBehaviour {
-    public bool seeCursor;
+    public bool hideCursor;
 	// Use this for initialization
 	void Start () {
-        Screen.lockCursor = seeCursor;
+        Screen.lockCursor = hideCursor;
+        Screen.showCursor = !hideCursor;
 	}
 	
 	// Update is called once per frame
 	void Update () {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            seeCursor = !seeCursor;
-            Screen.lockCursor = seeCursor;
+            hideCursor = !hideCursor;
+            Screen.lockCursor = hideCursor;
+            Screen.showCursor = !hideCursor;
         }
 	}
 }
