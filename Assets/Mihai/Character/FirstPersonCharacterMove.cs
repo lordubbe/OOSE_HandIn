@@ -10,7 +10,7 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController {
 
     public float RotationSpeed;
     public float AttCullDown;
-
+    public float minAttCulldown = 0.2f, maxAttCulldown = .6f;
     public float gravity = 9.8f;
 
     public float runAnimationMultiplayer;
@@ -185,6 +185,7 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController {
             Vector3 upDir = new Vector3(0,(pow)* Time.deltaTime,0);
             charController.Move(upDir);
             pow -= Time.deltaTime * gravity;
+            if (pow < 5f) pow = 0;
             yield return new WaitForEndOfFrame();
         }
     }
@@ -201,7 +202,7 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController {
             Attack Att = att.GetComponent<Attack>();
             Att.SwordAttack(Time.time - attStart);
             animation.CrossFade(attack1);
-            Invoke("ResetCanAtt",(Time.time - attStart) * AttCullDown);
+            Invoke("ResetCanAtt",Mathf.Clamp((Time.time - attStart) * AttCullDown,minAttCulldown,maxAttCulldown));
             canAtt = false;
             
         }
@@ -216,7 +217,7 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController {
             Attack Att = att.GetComponent<Attack>();
             Att.SwordAttack(Time.time - attStart);
             animation.CrossFade(attack2);
-            Invoke("ResetCanAtt", (Time.time - attStart) * AttCullDown);
+            Invoke("ResetCanAtt",Mathf.Clamp((Time.time - attStart) * AttCullDown,minAttCulldown,maxAttCulldown));
             canAtt = false;
         }
     }
@@ -230,7 +231,7 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController {
             Attack Att = att.GetComponent<Attack>();
             Att.SwordAttack(Time.time - attStart);
             animation.CrossFade(attack3);
-            Invoke("ResetCanAtt", (Time.time - attStart) * AttCullDown);
+             Invoke("ResetCanAtt",Mathf.Clamp((Time.time - attStart) * AttCullDown,minAttCulldown,maxAttCulldown));
             canAtt = false;
         }
     }

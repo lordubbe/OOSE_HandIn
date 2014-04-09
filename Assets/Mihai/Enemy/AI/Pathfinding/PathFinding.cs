@@ -15,9 +15,10 @@ public class PathFinding  {
 	private Node end;
 	private float height;
 	private float error;
-	
+    
 	public PathFinding(Vector3 sPos,Vector3 fPos, pathF completeF, float error = 0, float height = 1){
-		buildNodeMap ();
+		
+        buildNodeMap ();
 		
 		objPos = sPos;
 		this.height = height;
@@ -40,6 +41,7 @@ public class PathFinding  {
 		openList.Add (start);
 		Performance.UpdateEvent+=distributedPathCalculator;
 		*/
+        
 	}
 	
 	

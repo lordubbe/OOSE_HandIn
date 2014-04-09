@@ -54,7 +54,9 @@ public class EnemyStateMachine : MonoBehaviour {
 	public  float timer;
 	private bool enemyInSight;
 	private bool start = false;
+    private float speedModifier = 1.0f;
 	Vector3 randomSpot;
+    private Vector3 lastKnownPosition;
 	// Use this for initialization
 	void Awake () {
 		state = State.idle;
@@ -190,13 +192,19 @@ public class EnemyStateMachine : MonoBehaviour {
 				iTween.Stop(this.gameObject);
 				animation.CrossFade("run");
 				Vector3 targetDestination = enemy.position - randomSpot  * attackDistance/2;
-				transform.position += new Vector3(Vector3.Normalize(targetDestination-transform.position).x,0,Vector3.Normalize(targetDestination-transform.position).z) * movement.ForwardSpeed * Time.deltaTime * Random.Range (0.8f,1.0f);
+                targetDestination = new Vector3(targetDestination.x,0,targetDestination.z);
+				transform.position += new Vector3(Vector3.Normalize(targetDestination-transform.position).x,0,Vector3.Normalize(targetDestination-transform.position).z) * movement.ForwardSpeed * Time.deltaTime;
 				transform.LookAt(new Vector3(enemy.position.x,transform.position.y,enemy.position.z));
+                lastKnownPosition = targetDestination;
 			}else if(enemyInSight){
-				if(timeP>3.0f){
-					Vector3 targetDestination = enemy.position - randomSpot  * attackDistance/2;
-					timeP = 0;
-					PathFinding p = new PathFinding(transform.position,targetDestination,movement.RunOnPath,0,1);
+                animation.CrossFade("walk");
+
+                transform.position += new Vector3(Vector3.Normalize(lastKnownPosition - transform.position).x, 0, Vector3.Normalize(lastKnownPosition - transform.position).z) * movement.ForwardSpeed * speedModifier * Time.deltaTime;
+                if (squareDistance(transform.position, lastKnownPosition) < 1) state = State.idle;
+                if(timeP>12.0f){
+                  //  Vector3 targetDestination = enemy.position - randomSpot * attackDistance / 2;
+					//timeP = 0;
+				//	PathFinding p = new PathFinding(transform.position,targetDestination,movement.RunOnPath,0,1);
 				}
 			}
 		}
@@ -209,10 +217,22 @@ public class EnemyStateMachine : MonoBehaviour {
 			Vector3 me = transform.position +new  Vector3(0,0.5f,0);
 			Vector3 en = enemy.position +new Vector3(0,0.5f,0);
 			if(Physics.Raycast(me,Vector3.Normalize(en-me),out hit,50)){
-				if(hit.collider.transform == enemy){
-					directPath = true;
-					
-				}else directPath = false;
+                if (hit.collider.transform == enemy)
+                {
+                    directPath = true;
+                    speedModifier = 1.0f;
+
+                }
+                else
+                {
+                    directPath = false;
+                    if (hit.collider.tag == transform.tag)
+                    {
+                        speedModifier = transform.GetComponent<EnemyStateMachine>().speedModifier - 0.03f;
+                        speedModifier -= 0.1f;
+                        speedModifier = Mathf.Clamp(speedModifier, 0.01f, 1.0f);
+                    }
+                }
 			}else{
 				directPath = true;
 				
