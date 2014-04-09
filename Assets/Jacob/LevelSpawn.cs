@@ -17,7 +17,7 @@ public class LevelSpawn : MonoBehaviour {
 
 	public bool seedBasedGeneration = false;
 	public int seed = 100;
-
+	public bool spawnEnemies = false;
 	public static int tileWidth = 2, tileHeight = 2;
 
 	public Transform levelParent;
@@ -269,7 +269,7 @@ public class LevelSpawn : MonoBehaviour {
 			for(int y=0; y<MAX_LEVEL_HEIGHT; y++){
 				Transform furn = furniture[Random.Range(0, furniture.Length)];
 				if(Random.Range (0, 100) < 30){
-					if(levelMatrix[x,y]!=null){
+					if(levelMatrix[x,y]!=null && levelMatrix[x,y].tileMesh.childCount < 1){
 						if(isSpaceAvailableWithinRange(1, levelMatrix[x,y], levelMatrix, false)){
 							Transform furnit = (Transform)Instantiate(furn, new Vector3(x*tileWidth, 0, y*tileWidth), Quaternion.Euler(0,Random.Range (0,360),0));
 							furnit.parent = levelMatrix[x,y].tileMesh.transform;
@@ -292,7 +292,7 @@ public class LevelSpawn : MonoBehaviour {
 					//if(levelMatrix[x,y]!=null && levelMatrix[x,y].tileMesh.childCount != null)
 					//	print (levelMatrix[x,y]+": "+levelMatrix[x,y].type+", "+levelMatrix[x,y].tileMesh.childCount);
 					//Make sure it's against a wall and that the particular wall tile in question doesn't already hold another item
-					if(levelMatrix[x,y]!=null && levelMatrix[x,y].type == Tile.tileType.wall && (levelMatrix[x,y].tileMesh.childCount != null && levelMatrix[x,y].tileMesh.childCount < 3)){
+					if(levelMatrix[x,y]!=null && levelMatrix[x,y].type == Tile.tileType.wall && (levelMatrix[x,y].tileMesh.childCount != null && levelMatrix[x,y].tileMesh.childCount < 5)){
 						if(!isWallPartOfCorner(levelMatrix[x,y], levelMatrix)){
 						Transform deco = Instantiate(dec, new Vector3(x*tileWidth, tileHeight, y*tileWidth), rotateTowardsNearestTileOfType(Tile.tileType.ground, x, y, levelMatrix)) as Transform;
 						deco.parent = levelMatrix[x,y].tileMesh.transform;
@@ -310,23 +310,24 @@ public class LevelSpawn : MonoBehaviour {
 		▐█ ▌▐▌▐█· ▄█▀▄ ▐█▐▐▌▄▀▀▀█▄ ▐█.▪▐▀▀▪▄▐▀▀▄ ▄▀▀▀█▄▐█·
 		██ ██▌▐█▌▐█▌.▐▌██▐█▌▐█▄▪▐█ ▐█▌·▐█▄▄▌▐█•█▌▐█▄▪▐█.▀ 
 		▀▀  █▪▀▀▀ ▀█▄▀▪▀▀ █▪ ▀▀▀▀  ▀▀▀  ▀▀▀ .▀  ▀ ▀▀▀▀  ▀ 
-*//*
+*/
 		int enemiesInLevel = 0;
-
-		for(int x=0; x<MAX_LEVEL_WIDTH; x++){
-			for(int y=0; y<MAX_LEVEL_HEIGHT; y++){
-				if(levelMatrix[x,y]!=null && levelMatrix[x,y].canSpawnEnemies && Random.Range(0,100)<enemySpawnFreq){
-					//SPAWN ENEMY
-					//Section modified by Mihai - Jacob please don't be mad
-					if(levelMatrix[x,y].tileMesh.childCount != null && levelMatrix[x,y].tileMesh.childCount<1){//only spawn enemy if there is not something else spawned there
-						Transform enemy = (Transform)Instantiate(enemyObject, new Vector3(x*tileWidth, 1, y*tileHeight), Quaternion.identity);
-						enemy.name = "lol a troll";//
-						enemiesInLevel++;
+		if(spawnEnemies){
+			for(int x=0; x<MAX_LEVEL_WIDTH; x++){
+				for(int y=0; y<MAX_LEVEL_HEIGHT; y++){
+					if(levelMatrix[x,y]!=null && levelMatrix[x,y].canSpawnEnemies && Random.Range(0,100)<enemySpawnFreq){
+						//SPAWN ENEMY
+						//Section modified by Mihai - Jacob please don't be mad
+						if(levelMatrix[x,y].tileMesh.childCount != null && levelMatrix[x,y].tileMesh.childCount<1){//only spawn enemy if there is not something else spawned there
+							Transform enemy = (Transform)Instantiate(enemyObject, new Vector3(x*tileWidth, 1, y*tileHeight), Quaternion.identity);
+							enemy.name = "lol a troll";//
+							enemiesInLevel++;
+						}
 					}
 				}
 			}
 		}
-		print ("TOTAL ENEMIES IN LEVEL: "+enemiesInLevel);*/
+		print ("TOTAL ENEMIES IN LEVEL: "+enemiesInLevel);
 		if(FinishGeneration!=null)FinishGeneration (); //trigger the event that anounces that the generation ended
 	}
 
@@ -532,39 +533,41 @@ public class LevelSpawn : MonoBehaviour {
 	}
 
 	public Tile getNeighbor(string direction, Tile input, Tile[,] levelMatrix){
-		switch(direction){
-		case "left":
-			//
-			if(input.x > 0 && levelMatrix[(int)input.x-1, (int)input.y] != null){
-				return levelMatrix[(int)input.x-1, (int)input.y];
-			}else{
-				return null;
-			}//
-		case "up":
-			//
-			if(input.y < MAX_LEVEL_HEIGHT-1 && levelMatrix[(int)input.x, (int)input.y+1] != null){
-				return levelMatrix[(int)input.x, (int)input.y+1];
-			}else{
-				return null;
-			}	
-		case "down":
-			//
-			if(input.y > 0 && levelMatrix[(int)input.x, (int)input.y-1] != null){
-				return levelMatrix[(int)input.x, (int)input.y-1];
-			}else{
+		if(input != null){
+			switch(direction){
+			case "left":
+				//
+				if(input.x > 0 && levelMatrix[(int)input.x-1, (int)input.y] != null){
+					return levelMatrix[(int)input.x-1, (int)input.y];
+				}else{
+					return null;
+				}//
+			case "up":
+				//
+				if(input.y < MAX_LEVEL_HEIGHT-1 && levelMatrix[(int)input.x, (int)input.y+1] != null){
+					return levelMatrix[(int)input.x, (int)input.y+1];
+				}else{
+					return null;
+				}	
+			case "down":
+				//
+				if(input.y > 0 && levelMatrix[(int)input.x, (int)input.y-1] != null){
+					return levelMatrix[(int)input.x, (int)input.y-1];
+				}else{
+					return null;
+				}
+			case "right":
+				//
+				if(input.x < MAX_LEVEL_WIDTH-1 && levelMatrix[(int)input.x+1, (int)input.y] != null){
+					return levelMatrix[(int)input.x+1, (int)input.y];
+				}else{
+					return null;
+				}
+			default:
+				//if some retarded string has been input
 				return null;
 			}
-		case "right":
-			//
-			if(input.x < MAX_LEVEL_WIDTH-1 && levelMatrix[(int)input.x+1, (int)input.y] != null){
-				return levelMatrix[(int)input.x+1, (int)input.y];
-			}else{
-				return null;
-			}
-		default:
-			//if some retarded string has been input
-			return null;
-		}
+		}else{return null;}
 	}
 
 	bool isSpaceAvailableWithinRange(int range, Tile inputTile, Tile[,] levelMatrix, bool debugColorOn){
@@ -618,21 +621,22 @@ public class LevelSpawn : MonoBehaviour {
 		Tile up = getNeighbor("up", input, levelMatrix);
 		Tile right = getNeighbor("right", input, levelMatrix);
 		Tile down = getNeighbor("down", input, levelMatrix);
-
-		if(input.type == Tile.tileType.ground){
-			if(up.type == Tile.tileType.wall && right.type == Tile.tileType.wall){
-				isCorner = true;
-			}
-			else if(up.type == Tile.tileType.wall && left.type == Tile.tileType.wall){
-				isCorner = true;
-			}
-			else if(down.type == Tile.tileType.wall && right.type == Tile.tileType.wall){
-				isCorner = true;
-			}
-			else if(down.type == Tile.tileType.wall && left.type == Tile.tileType.wall){
-				isCorner = true;
-			}else{
-				isCorner = false;
+		if(input!=null){
+			if(input.type == Tile.tileType.ground){
+				if(up.type == Tile.tileType.wall && right.type == Tile.tileType.wall){
+					isCorner = true;
+				}
+				else if(up.type == Tile.tileType.wall && left.type == Tile.tileType.wall){
+					isCorner = true;
+				}
+				else if(down.type == Tile.tileType.wall && right.type == Tile.tileType.wall){
+					isCorner = true;
+				}
+				else if(down.type == Tile.tileType.wall && left.type == Tile.tileType.wall){
+					isCorner = true;
+				}else{
+					isCorner = false;
+				}
 			}
 		}
 		return isCorner;
@@ -665,11 +669,11 @@ public class LevelSpawn : MonoBehaviour {
 	}
 
 	bool isWallPartOfCorner(Tile input, Tile[,] levelMatrix){
-		bool isPartOfCorner = false;/*
+		bool isPartOfCorner = false;
 		if(isCornerOfRoom(getNeighbor("left", input, levelMatrix), levelMatrix) || isCornerOfRoom(getNeighbor("up", input, levelMatrix), levelMatrix)
 		     || isCornerOfRoom(getNeighbor("right", input, levelMatrix), levelMatrix) || isCornerOfRoom(getNeighbor("down", input, levelMatrix), levelMatrix)){
 			isPartOfCorner = true;
-		}else{ isPartOfCorner = false; } */
+		}else{ isPartOfCorner = false; } 
 		return isPartOfCorner;
 	}
 
@@ -771,7 +775,7 @@ public class LevelSpawn : MonoBehaviour {
 ░ ▒░   ░  ░░ ▓░▒ ▒ ░▒▓▒ ▒ ▒  ▒▒   ▓▒█░ ▒ ░░▒░▒ ▒▒   ▓▒█░ ▒ ░░▒░▒ ▒▒   ▓▒█░ ▒ ░░▒░▒ ▒▒   ▓▒█░ ░▀▀▒ 
 ░  ░      ░  ▒ ░ ░ ░░▒░ ░ ░   ▒   ▒▒ ░ ▒ ░▒░ ░  ▒   ▒▒ ░ ▒ ░▒░ ░  ▒   ▒▒ ░ ▒ ░▒░ ░  ▒   ▒▒ ░ ░  ░ 
 ░      ░     ░   ░  ░░░ ░ ░   ░   ▒    ░  ░░ ░  ░   ▒    ░  ░░ ░  ░   ▒    ░  ░░ ░  ░   ▒       ░ 
-       ░       ░      ░           ░  ░ ░  ░  ░      ░  ░ ░  ░  ░      ░  ░ ░  ░  ░      ░  ░ ░    
+       ░       ░      ░           ░  ░ ░  ░  ░      ░  ░ ░  ░  ░      ░  ░ ░  ░  ░      ░  ░ ░   
 */
 
 }

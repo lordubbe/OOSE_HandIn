@@ -1940,6 +1940,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   seedBasedGeneration: 0
   seed: 1293129348
+  spawnEnemies: 0
   levelParent: {fileID: 850913288}
   Walls: {fileID: 424201274}
   emptyTile: {fileID: 400000, guid: ede89c57f0b204a189d04eb28f590208, type: 2}
@@ -1979,57 +1980,6 @@ MonoBehaviour:
   chestSpawnFreq: 5
   playerSpawn: {x: 0, y: 0, z: 0}
   lights: []
---- !u!1 &1827317391
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1827317393}
-  - 167: {fileID: 1827317392}
-  m_Layer: 0
-  m_Name: Reverb Zone
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!167 &1827317392
-AudioReverbZone:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1827317391}
-  m_Enabled: 1
-  m_MinDistance: 65
-  m_MaxDistance: 70
-  m_ReverbPreset: 27
-  m_Room: -1000
-  m_RoomHF: -100
-  m_DecayTime: 1.49000001
-  m_DecayHFRatio: .829999983
-  m_Reflections: -2602
-  m_ReflectionsDelay: .00700000022
-  m_Reverb: 200
-  m_ReverbDelay: .0109999999
-  m_HFReference: 5000
-  m_RoomRolloffFactor: 0
-  m_Diffusion: 100
-  m_Density: 100
-  m_LFReference: 250
-  m_RoomLF: 0
---- !u!4 &1827317393
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1827317391}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 55.5447502, y: 1.52218032, z: 41.8217163}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
 --- !u!1 &1848682458
 GameObject:
   m_ObjectHideFlags: 0
