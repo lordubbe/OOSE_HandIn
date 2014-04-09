@@ -18,12 +18,13 @@ public class EnemyMovement : MonoBehaviour,IAnimationController {
 	public bool debugRandomMovement = false;
 	public GameObject[] attacks;
 
-
+    public float gravity = 9.8f;
 
 	private float RunSpeed  = 5.0f;
 	internal Vector3[] path;
 	internal int nodeInPath;
 	private Vector3 prevPos;
+    private CharacterController cc;
 	// Use this for initialization
 	void Awake () {
 		
@@ -61,7 +62,7 @@ public class EnemyMovement : MonoBehaviour,IAnimationController {
 		
 	}
 	void Start(){
-		
+        cc = GetComponent<CharacterController>();
 	}
 	
 	public void RunOnPath(Vector3[] path){
@@ -93,7 +94,8 @@ public class EnemyMovement : MonoBehaviour,IAnimationController {
 	public void walkTo(Vector3 position, string onComplete=""){
 		//uses iTween to move the object towards position and play walk animation. When it is done it calls the onComplete function
 		animation.CrossFade("walk");
-		Hashtable ht = new Hashtable();
+		/*
+        Hashtable ht = new Hashtable();
 		ht.Add("looktarget",position);
 		ht.Add ("lookahed",.8f);
 		ht.Add ("speed",WalkSpeed);
@@ -102,11 +104,14 @@ public class EnemyMovement : MonoBehaviour,IAnimationController {
 		if(onComplete!="") ht.Add ("oncomplete",onComplete);
 		ht.Add ("name","walk");
 		iTween.MoveTo(this.gameObject,ht);
+         */
+        mTween.moveTo(transform.gameObject, WalkSpeed, position, cc);
 	}
 	public void walkToLockTarget(Vector3 position, Vector3 target){
 		//uses iTween to move the object towards position and play walk animation. When it is done it calls the onComplete function
 		animation.CrossFade("walk");
-		Hashtable ht = new Hashtable();
+		/*
+        Hashtable ht = new Hashtable();
 		ht.Add("looktarget",target);
 		
 		ht.Add ("speed",WalkSpeed);
@@ -115,6 +120,8 @@ public class EnemyMovement : MonoBehaviour,IAnimationController {
 		
 		ht.Add ("name","walk");
 		iTween.MoveTo(this.gameObject,ht);
+         */
+        mTween.moveTo(transform.gameObject, WalkSpeed, position, cc);
 	}
 	private void walkOnPath(){
 		//moves object on a path using walk animation
@@ -130,6 +137,7 @@ public class EnemyMovement : MonoBehaviour,IAnimationController {
 	public void runTo(Vector3 position, string onComplete=""){
 	 //moves object to position using run animation. Calls on complete when finished
 		animation.CrossFade("run");
+        /*
 		Hashtable ht = new Hashtable();
 		ht.Add("looktarget",position);
 		ht.Add ("lookahed",.8f);
@@ -139,6 +147,8 @@ public class EnemyMovement : MonoBehaviour,IAnimationController {
 		if(onComplete!="")ht.Add ("oncomplete",onComplete);
 		ht.Add ("name","run");
 		iTween.MoveTo(this.gameObject,ht);
+         */
+        mTween.moveTo(transform.gameObject, RunSpeed, position, cc);
 	}
 	private void runOnPath(){
 		//moves object on path using run animation
@@ -151,6 +161,7 @@ public class EnemyMovement : MonoBehaviour,IAnimationController {
 	}
 	public void runTo(Transform t,string onComplete=""){
 		animation.CrossFade("run");
+        /*
 		Hashtable ht = new Hashtable();
 		ht.Add("looktarget",t);
 		ht.Add ("lookahed",.8f);
@@ -160,16 +171,18 @@ public class EnemyMovement : MonoBehaviour,IAnimationController {
 		if(onComplete!="")ht.Add ("oncomplete",onComplete);
 		ht.Add ("name","run");
 		iTween.MoveTo(this.gameObject,ht);
+         */
+        mTween.moveTo(transform.gameObject, RunSpeed, t.position, cc);
 	}
 	
 	
 	public void setIdle(){
-		iTween.Stop (this.gameObject);
+		mTween.Stop (this.gameObject);
 		animation.CrossFade("idle");
 	}
 	
 	public void Attack1(){
-		iTween.Stop (this.gameObject);
+        mTween.Stop(this.gameObject);
 		animation.CrossFade("idle");
 		animation.CrossFade("attack1");
 		GameObject go = Instantiate(attacks[0],transform.position,transform.rotation) as GameObject;
@@ -177,7 +190,7 @@ public class EnemyMovement : MonoBehaviour,IAnimationController {
 		go.transform.parent = transform;
 	}
 	public void Attack2(){
-		iTween.Stop (this.gameObject);
+        mTween.Stop(this.gameObject);
 		animation.CrossFade("idle");
 		animation.CrossFade("attack2");
 
@@ -186,7 +199,7 @@ public class EnemyMovement : MonoBehaviour,IAnimationController {
 		go.transform.parent = transform;
 	}
 	public void Attack3(){
-		iTween.Stop (this.gameObject);
+        mTween.Stop(this.gameObject);
 		animation.CrossFade("idle");
 		animation.CrossFade("attack3");
         
@@ -195,13 +208,13 @@ public class EnemyMovement : MonoBehaviour,IAnimationController {
 		go.transform.parent = transform;
 	}
 	public void Hit(){
-		iTween.Stop (this.gameObject);
+        mTween.Stop(this.gameObject);
 		
 		animation.CrossFade("hit");
 	}
 	public void Die(){
 
-		iTween.Stop (this.gameObject);
+        mTween.Stop(this.gameObject);
 		animation.CrossFade("die");
 	}
 	public void BlockUp(){
@@ -213,6 +226,7 @@ public class EnemyMovement : MonoBehaviour,IAnimationController {
 	
 	private void Update(){
 		prevPos = transform.position;
+       
 		
 	}
 	

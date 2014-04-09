@@ -17,6 +17,7 @@ public class DoDamage : MonoBehaviour {
 	void Start(){
 		if(inheritValuesFromParent){
 			cs = transform.parent.parent.GetComponent<CharacterStats>();
+            
 			damage = transform.parent.GetComponent<Attack>().damage;
 			affectedTags = transform.parent.GetComponent<Attack>().affectedTags;
 		}
