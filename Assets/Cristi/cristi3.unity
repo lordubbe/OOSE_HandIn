@@ -1012,7 +1012,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &897061992
 Transform:
   m_ObjectHideFlags: 0
@@ -1730,9 +1730,8 @@ MonoBehaviour:
   emptyTile: {fileID: 400000, guid: ede89c57f0b204a189d04eb28f590208, type: 2}
   pathTile: {fileID: 400000, guid: 0d0717df871336d4d90e4a5b6020b41d, type: 2}
   wallTile: {fileID: 0}
+  cornerWall: {fileID: 0}
   stoneTile: {fileID: 400000, guid: 0d0717df871336d4d90e4a5b6020b41d, type: 2}
-  wallToRoofTile: {fileID: 400002, guid: 4e962fc0af51a4f4c953a6e144edf0fa, type: 2}
-  roofTile: {fileID: 400000, guid: 06e0b75625a11449ca4f35e19a6478f1, type: 2}
   lavaTile: {fileID: 400000, guid: 14245e767ae9746a1934199fffff4a18, type: 2}
   trickTile: {fileID: 400000, guid: eeeb63d6ba9c347f4853ce3031a3d9f1, type: 2}
   torchTile: {fileID: 400004, guid: 8647e3cbec697412aa525f5c8108a5a3, type: 2}
@@ -1748,6 +1747,7 @@ MonoBehaviour:
   - {fileID: 400022, guid: 1f7ff9326beaa4d4a842ebe2029fa0f5, type: 2}
   - {fileID: 400000, guid: df5780b28890b46daaecc8a3e1d54d14, type: 2}
   pillar: {fileID: 400026, guid: b67e4f2eb9b674dc483f1b7901e3604f, type: 2}
+  stonePillar: {fileID: 0}
   cratesStacked: {fileID: 400000, guid: 4bdde7ae224ae414e8f14ec93c113f9d, type: 2}
   MAX_LEVEL_WIDTH: 50
   MAX_LEVEL_HEIGHT: 50
