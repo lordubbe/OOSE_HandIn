@@ -24,32 +24,32 @@ Material:
         first:
           name: _BumpMap
         second:
-          m_Texture: {fileID: 0}
+          m_Texture: {fileID: 2800000, guid: e23b616b5aca0b348bfab40f48ba45b1, type: 3}
           m_Scale: {x: 1, y: 1}
           m_Offset: {x: 0, y: 0}
       data:
         first:
           name: _Detail
         second:
-          m_Texture: {fileID: 0}
-          m_Scale: {x: 1, y: 1}
+          m_Texture: {fileID: 2800000, guid: b1b258345a64b004a8d98ea7ceae0c52, type: 3}
+          m_Scale: {x: 10, y: 10}
           m_Offset: {x: 0, y: 0}
       data:
         first:
           name: _BumpMapD
         second:
-          m_Texture: {fileID: 0}
-          m_Scale: {x: 1, y: 1}
+          m_Texture: {fileID: 2800000, guid: 3654e748467a15f459d5c86d0b6b1205, type: 3}
+          m_Scale: {x: 10, y: 10}
           m_Offset: {x: 0, y: 0}
     m_Floats:
       data:
         first:
           name: _Shininess
-        second: .296143591
+        second: .234106094
       data:
         first:
           name: _BaseGlow
-        second: 1
+        second: .454285681
       data:
         first:
           name: _BumpDetailPower
@@ -58,8 +58,8 @@ Material:
       data:
         first:
           name: _Color
-        second: {r: 1, g: 1, b: 1, a: 1}
+        second: {r: .783953249, g: .787283659, b: .852941155, a: 1}
       data:
         first:
           name: _SpecColor
-        second: {r: .470588207, g: .470588207, b: .470588207, a: 1}
+        second: {r: 1, g: 1, b: 1, a: 1}
