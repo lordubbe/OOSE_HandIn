@@ -28,6 +28,7 @@ public class LevelSpawn : MonoBehaviour {
 	public Transform pathTile;
 	public Transform wallTile;
 	public Transform cornerWall;
+	public Transform roundedWallOut;
 	public Transform stoneTile;
 	public Transform lavaTile;
 	public Transform trickTile;
@@ -39,6 +40,7 @@ public class LevelSpawn : MonoBehaviour {
 	public Transform pillar;
 	public Transform stonePillar;
 	public Transform cratesStacked;
+	public Transform arch;
 	//General level information
 	public int MAX_LEVEL_WIDTH = 50;
 	public int MAX_LEVEL_HEIGHT = 50;
@@ -163,20 +165,45 @@ public class LevelSpawn : MonoBehaviour {
 				if(levelMatrix[x,y]!=null && isCornerOfRoom(levelMatrix[x,y], levelMatrix)){
 					//Transform stonePillarino = (Transform)Instantiate(stonePillar, new Vector3(x*tileWidth, 0, y*tileWidth), Quaternion.identity);
 					//stonePillarino.parent = levelMatrix[x,y].tileMesh.transform;
-					Transform wallCorner = (Transform)Instantiate(cornerWall, new Vector3(x*tileWidth, 0, y*tileWidth), rotateCornerCorrectly(levelMatrix[x,y], levelMatrix));
+					Transform wallCorner = (Transform)Instantiate(cornerWall, new Vector3(x*tileWidth, 0, y*tileHeight), rotateCornerCorrectly(levelMatrix[x,y], levelMatrix));
 					wallCorner.parent = levelMatrix[x,y].tileMesh.transform;
 				}
 			}
 		}
-
-		//ARCS
+		/* NOW SPAWN SOME
+		╔═╗╦═╗╔═╗╦ ╦╔═╗╔═╗
+		╠═╣╠╦╝║  ╠═╣║╣ ╚═╗
+		╩ ╩╩╚═╚═╝╩ ╩╚═╝╚═╝ OVER THE ENTRANCES TO THE CORRIDORS
+		*/
 		for(int x=0; x<MAX_LEVEL_WIDTH; x++){
 			for(int y=0; y<MAX_LEVEL_HEIGHT; y++){
 				if(levelMatrix[x,y] != null && levelMatrix[x,y].tileMesh.tag == "Path"){
-					if(isEntranceToCorridor(levelMatrix[x,y], levelMatrix)){
-						print ("LOL");
+
+					switch(isEntranceToCorridor(levelMatrix[x,y], levelMatrix)){
+					case "left":
+						//
+						Transform archOverEntrance = (Transform)Instantiate(arch, new Vector3(x*tileWidth, 0, y*tileHeight), rotateTowardsNearestTileOfType(Tile.tileType.ground, x, y, levelMatrix));
+						archOverEntrance.parent = levelMatrix[x,y].tileMesh.transform;
+						break;
+					case "up":
+						//
+						Transform archOverEntranc3e = (Transform)Instantiate(arch, new Vector3(x*tileWidth, 0, y*tileHeight), rotateTowardsNearestTileOfType(Tile.tileType.ground, x, y, levelMatrix));
+						archOverEntranc3e.parent = levelMatrix[x,y].tileMesh.transform;
+						break;
+					case "right":
+						//
+						Transform archOverEn124trance = (Transform)Instantiate(arch, new Vector3(x*tileWidth, 0, y*tileHeight), rotateTowardsNearestTileOfType(Tile.tileType.ground, x, y, levelMatrix));
+						archOverEn124trance.parent = levelMatrix[x,y].tileMesh.transform;
+						break;
+					case "down":
+						//
+						Transform archOverEntra142nce = (Transform)Instantiate(arch, new Vector3(x*tileWidth, 0, y*tileHeight), rotateTowardsNearestTileOfType(Tile.tileType.ground, x, y, levelMatrix));
+						archOverEntra142nce.parent = levelMatrix[x,y].tileMesh.transform;
+						break;
+					default:
+						//
+						break;
 					}
-					//print (x*tileWidth+","+y*tileHeight+": "+isEntranceToCorridor(levelMatrix[x,y], levelMatrix));
 				}
 			}
 		}
@@ -646,8 +673,8 @@ public class LevelSpawn : MonoBehaviour {
 		return isPartOfCorner;
 	}
 
-	bool isEntranceToCorridor(Tile input, Tile[,] levelMatrix){
-		bool isEntrance = false;
+	string isEntranceToCorridor(Tile input, Tile[,] levelMatrix){
+		string isEntrance = "none";
 /*		if((getNeighbor("left", input, levelMatrix).type == Tile.tileType.wall && getNeighbor("right", input, levelMatrix).type == Tile.tileType.wall)||(getNeighbor("up", input, levelMatrix).type == Tile.tileType.wall && getNeighbor("down", input, levelMatrix).type == Tile.tileType.wall)){
 			isEntrance = true;
 		}else{isEntrance = false;}
@@ -692,46 +719,45 @@ public class LevelSpawn : MonoBehaviour {
 			print (check[1,0]+","+check[1,1]+","+check[1,2]+"         "+entranceKernelDown[1,0]+","+entranceKernelDown[1,1]+","+entranceKernelDown[1,2]);
 			print (check[2,0]+","+check[2,1]+","+check[2,2]+"         "+entranceKernelDown[2,0]+","+entranceKernelDown[2,1]+","+entranceKernelDown[2,2]);
 		}
-		*/
+		*///print (input.x+","+input.y);
 
 		int value = 0;
 	//Check if the 'check' kernel matches any of the entrance signatures
-		//left
+		//left//////////////////////////////////////////////////////////////////////////////////////////
 		for(int i=0; i<3; i++)
 			for(int j=0; j<3; j++)
 			if(check[i,j] == entranceKernelLeft[i,j]){
 				value++;
 			}
 		if(value==9)
-			print ("Left kernel match!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+			isEntrance = "left";
 		value = 0;
-		//up
+		//up//////////////////////////////////////////////////////////////////////////////////////////
 		for(int i=0; i<3; i++)
 			for(int j=0; j<3; j++)
 			if(check[i,j] == entranceKernelUp[i,j]){
 				value++;
 			}
 		if(value==9)
-			print ("Up kernel match!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+			isEntrance = "up";
 		value = 0;
-		//right
+		//right//////////////////////////////////////////////////////////////////////////////////////////
 		for(int i=0; i<3; i++)
 			for(int j=0; j<3; j++)
 			if(check[i,j] == entranceKernelRight[i,j]){
 				value++;
 			}
 		if(value==9)
-			print ("Right kernel match!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+			isEntrance = "right";
 		value = 0;
-		//down
+		//down//////////////////////////////////////////////////////////////////////////////////////////
 		for(int i=0; i<3; i++)
 			for(int j=0; j<3; j++)
 			if(check[i,j] == entranceKernelDown[i,j]){
 				value++;
 			}
 		if(value==9)
-			print ("Down kernel match!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-		value = 0;
+			isEntrance = "down";
 
 		return isEntrance;
 
