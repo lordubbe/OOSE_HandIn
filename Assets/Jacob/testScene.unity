@@ -1945,7 +1945,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   seedBasedGeneration: 1
-  seed: 234234
+  seed: -48730362
   spawnEnemies: 0
   levelParent: {fileID: 850913288}
   Walls: {fileID: 424201274}
@@ -1954,6 +1954,7 @@ MonoBehaviour:
   wallTile: {fileID: 400000, guid: 2acda7c6a1289468991e078721d922ec, type: 2}
   cornerWall: {fileID: 400002, guid: 0f766e07c82ac4c09a21542085aa4bf4, type: 2}
   roundedWallOut: {fileID: 400002, guid: abee42fd9ff8344078556705a72c32a7, type: 2}
+  doubleRoundedWallOut: {fileID: 400000, guid: 158921c1fc81a4b098b6206cdd33251b, type: 2}
   stoneTile: {fileID: 400000, guid: 1cb71ef7b9ab84bccb10912ae9ad64d5, type: 2}
   lavaTile: {fileID: 400000, guid: 14245e767ae9746a1934199fffff4a18, type: 2}
   trickTile: {fileID: 400000, guid: eeeb63d6ba9c347f4853ce3031a3d9f1, type: 2}
@@ -1966,9 +1967,9 @@ MonoBehaviour:
   - {fileID: 400004, guid: 3ba8547cd5fce4a1d95a5c5bae3144ea, type: 2}
   furniture:
   - {fileID: 400024, guid: 99846ffde933e48068025cb10c494d54, type: 2}
-  - {fileID: 400000, guid: f0b6b4665b1a54b95ab5470888eb6310, type: 2}
-  - {fileID: 400022, guid: 1f7ff9326beaa4d4a842ebe2029fa0f5, type: 2}
   - {fileID: 400000, guid: df5780b28890b46daaecc8a3e1d54d14, type: 2}
+  - {fileID: 400022, guid: 1f7ff9326beaa4d4a842ebe2029fa0f5, type: 2}
+  - {fileID: 400000, guid: f0b6b4665b1a54b95ab5470888eb6310, type: 2}
   pillar: {fileID: 400026, guid: b67e4f2eb9b674dc483f1b7901e3604f, type: 2}
   stonePillar: {fileID: 400000, guid: 4ed4f8014fe5f47958ccfc72d1cce997, type: 2}
   cratesStacked: {fileID: 400000, guid: 4bdde7ae224ae414e8f14ec93c113f9d, type: 2}
@@ -1981,7 +1982,7 @@ MonoBehaviour:
   minRoomHeight: 5
   maxRoomWidth: 10
   maxRoomHeight: 10
-  torchFrequency: 5
+  torchFrequency: 15
   enemySpawnFreq: 10
   chestSpawnFreq: 5
   playerSpawn: {x: 0, y: 0, z: 0}
