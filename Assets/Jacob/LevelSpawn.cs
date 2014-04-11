@@ -102,6 +102,27 @@ public class LevelSpawn : MonoBehaviour {
 				}
 			}
 		}
+		
+		/*  NOW LET'S
+		╦═╗╔═╗╦ ╦╔╗╔╔╦╗  ╔╦╗╦ ╦╔═╗  ╦ ╦╔═╗╦  ╦    ╔═╗╔═╗╦═╗╔╗╔╔═╗╦═╗╔═╗
+		╠╦╝║ ║║ ║║║║ ║║   ║ ╠═╣║╣   ║║║╠═╣║  ║    ║  ║ ║╠╦╝║║║║╣ ╠╦╝╚═╗
+		╩╚═╚═╝╚═╝╝╚╝═╩╝   ╩ ╩ ╩╚═╝  ╚╩╝╩ ╩╩═╝╩═╝  ╚═╝╚═╝╩╚═╝╚╝╚═╝╩╚═╚═╝
+		*/
+		for(int x=0; x<MAX_LEVEL_WIDTH; x++){
+			for(int y=0; y<MAX_LEVEL_HEIGHT; y++){
+				if(levelMatrix[x,y]!=null && isCornerOfRoom(levelMatrix[x,y], levelMatrix)){
+					//Transform stonePillarino = (Transform)Instantiate(stonePillar, new Vector3(x*tileWidth, 0, y*tileWidth), Quaternion.identity);
+					//stonePillarino.parent = levelMatrix[x,y].tileMesh.transform;
+					Transform wallCorner = (Transform)Instantiate(cornerWall, new Vector3(x*tileWidth, 0, y*tileHeight), rotateCornerCorrectly("in", levelMatrix[x,y], levelMatrix));
+					wallCorner.parent = levelMatrix[x,y].tileMesh.transform;
+				}else if(levelMatrix[x,y]!=null && isOutCornerOfRoom(levelMatrix[x,y], levelMatrix)){
+					Transform wallCorner2 = (Transform)Instantiate(roundedWallOut, new Vector3(x*tileWidth, 0, y*tileHeight), rotateCornerCorrectly("out", levelMatrix[x,y], levelMatrix));
+					wallCorner2.parent = levelParent.transform;
+					Destroy(levelMatrix[x,y].tileMesh.gameObject);
+					levelMatrix[x,y].tileMesh = (Transform)Instantiate(stoneTile, new Vector3(x*tileWidth, 0, y*tileHeight), Quaternion.identity);
+				}
+			}
+		}
 /*
 		╔═╗╔═╗╔╦╗╔╗ ╦╔╗╔╔═╗  ╔╦╗╔═╗╔═╗╦ ╦╔═╗╔═╗
 		║  ║ ║║║║╠╩╗║║║║║╣   ║║║║╣ ╚═╗╠═╣║╣ ╚═╗
@@ -151,22 +172,6 @@ public class LevelSpawn : MonoBehaviour {
 							lightCount++;
 						}
 					}
-				}
-			}
-		}
-
-		/*  NOW LET'S
-		╦═╗╔═╗╦ ╦╔╗╔╔╦╗  ╔╦╗╦ ╦╔═╗  ╦ ╦╔═╗╦  ╦    ╔═╗╔═╗╦═╗╔╗╔╔═╗╦═╗╔═╗
-		╠╦╝║ ║║ ║║║║ ║║   ║ ╠═╣║╣   ║║║╠═╣║  ║    ║  ║ ║╠╦╝║║║║╣ ╠╦╝╚═╗
-		╩╚═╚═╝╚═╝╝╚╝═╩╝   ╩ ╩ ╩╚═╝  ╚╩╝╩ ╩╩═╝╩═╝  ╚═╝╚═╝╩╚═╝╚╝╚═╝╩╚═╚═╝
-		*/
-		for(int x=0; x<MAX_LEVEL_WIDTH; x++){
-			for(int y=0; y<MAX_LEVEL_HEIGHT; y++){
-				if(levelMatrix[x,y]!=null && isCornerOfRoom(levelMatrix[x,y], levelMatrix)){
-					//Transform stonePillarino = (Transform)Instantiate(stonePillar, new Vector3(x*tileWidth, 0, y*tileWidth), Quaternion.identity);
-					//stonePillarino.parent = levelMatrix[x,y].tileMesh.transform;
-					Transform wallCorner = (Transform)Instantiate(cornerWall, new Vector3(x*tileWidth, 0, y*tileHeight), rotateCornerCorrectly(levelMatrix[x,y], levelMatrix));
-					wallCorner.parent = levelMatrix[x,y].tileMesh.transform;
 				}
 			}
 		}
@@ -302,6 +307,19 @@ public class LevelSpawn : MonoBehaviour {
 			}
 		}
 
+		/*  CREATE SOME 
+		╦═╗╔═╗╦  ╦╔═╗╦═╗╔╗   ╔═╗╔═╗╔╗╔╔═╗╔═╗
+		╠╦╝║╣ ╚╗╔╝║╣ ╠╦╝╠╩╗  ╔═╝║ ║║║║║╣ ╚═╗
+		╩╚═╚═╝ ╚╝ ╚═╝╩╚═╚═╝  ╚═╝╚═╝╝╚╝╚═╝╚═╝
+		*//*
+		for(int i = 0; i<roomsInLevel.Length; i++){
+			AudioReverbZone revZone = new AudioReverbZone();
+			Instantiate(revZone, roomsInLevel[i].center, Quaternion.identity);
+			revZone.transform.position = roomsInLevel[i].center;
+			revZone.minDistance = 20;
+			revZone.minDistance = 20;
+			revZone.reverb = 3000;
+		}*/
 
 
 /*					SPAWN SOME 
@@ -642,14 +660,60 @@ public class LevelSpawn : MonoBehaviour {
 		return isCorner;
 	}
 
-	Quaternion rotateCornerCorrectly(Tile input, Tile[,] levelMatrix){
+	bool isOutCornerOfRoom(Tile input, Tile[,] levelMatrix){
+		bool isCorner = false;
+		//up/right
+		Tile left = getNeighbor("left", input, levelMatrix);
+		Tile up = getNeighbor("up", input, levelMatrix);
+		Tile right = getNeighbor("right", input, levelMatrix);
+		Tile down = getNeighbor("down", input, levelMatrix);
+		if(up!=null && left!=null && right!=null && down!=null){
+			if(input!=null){
+				if(input.type == Tile.tileType.wall){
+					if(up.type == Tile.tileType.wall && right.type == Tile.tileType.wall){
+						isCorner = true;
+					}
+					else if(up.type == Tile.tileType.wall && left.type == Tile.tileType.wall){
+						isCorner = true;
+					}
+					else if(down.type == Tile.tileType.wall && right.type == Tile.tileType.wall){
+						isCorner = true;
+					}
+					else if(down.type == Tile.tileType.wall && left.type == Tile.tileType.wall){
+						isCorner = true;
+					}else{
+						isCorner = false;
+					}
+				}
+			}
+		}
+		return isCorner;
+	}
+
+	Quaternion rotateCornerCorrectly(string type, Tile input, Tile[,] levelMatrix){
 		Quaternion dir = Quaternion.Euler(0, 0, 0);//default rotation
 		Tile left = getNeighbor("left", input, levelMatrix);
 		Tile up = getNeighbor("up", input, levelMatrix);
 		Tile right = getNeighbor("right", input, levelMatrix);
 		Tile down = getNeighbor("down", input, levelMatrix);
-		
-		if(input.type == Tile.tileType.ground){
+		if(type == "in"){
+			if(input.type == Tile.tileType.ground){
+				if(up.type == Tile.tileType.wall && right.type == Tile.tileType.wall){
+					dir = Quaternion.Euler(0, 270, 0);
+				}
+				else if(up.type == Tile.tileType.wall && left.type == Tile.tileType.wall){
+					dir = Quaternion.Euler(0, 180, 0);
+				}
+				else if(down.type == Tile.tileType.wall && left.type == Tile.tileType.wall){
+					dir = Quaternion.Euler(0, 90, 0);
+				}
+				else if(down.type == Tile.tileType.wall && right.type == Tile.tileType.wall){
+					dir = Quaternion.Euler(0, 0, 0);
+				}else{
+					dir = Quaternion.Euler(0, 0, 0);//default rotation
+				}
+			}
+		}else if(type == "out"){
 			if(up.type == Tile.tileType.wall && right.type == Tile.tileType.wall){
 				dir = Quaternion.Euler(0, 270, 0);
 			}
@@ -664,7 +728,7 @@ public class LevelSpawn : MonoBehaviour {
 			}else{
 				dir = Quaternion.Euler(0, 0, 0);//default rotation
 			}
-		}
+		}else{Debug.LogError("INVALID TYPE OF CORNER INPUT!");}
 		return dir;
 	}
 

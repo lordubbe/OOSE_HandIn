@@ -516,6 +516,10 @@ Prefab:
       propertyPath: m_audioClip
       value: 
       objectReference: {fileID: 8300000, guid: 1f5ca2b7b198a4b96a91c423ee3d0a34, type: 3}
+    - target: {fileID: 8100002, guid: 8e3aa5d39283d4b5e9ab7acaac92fe10, type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8200000, guid: 8e3aa5d39283d4b5e9ab7acaac92fe10, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 8e3aa5d39283d4b5e9ab7acaac92fe10, type: 2}
@@ -1697,6 +1701,8 @@ MonoBehaviour:
   JumpForce: 13
   RotationSpeed: 180
   AttCullDown: .5
+  minAttCulldown: .200000003
+  maxAttCulldown: .600000024
   gravity: 9.80000019
   runAnimationMultiplayer: .100000001
   mixTransform: {fileID: 632709156}
@@ -1938,8 +1944,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54344d4ec0c4b4734a13ec69325511d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seedBasedGeneration: 0
-  seed: 1293129348
+  seedBasedGeneration: 1
+  seed: 234234
   spawnEnemies: 0
   levelParent: {fileID: 850913288}
   Walls: {fileID: 424201274}
@@ -1947,7 +1953,7 @@ MonoBehaviour:
   pathTile: {fileID: 400000, guid: 8d060eab766eb4adebf854a9142d04cf, type: 2}
   wallTile: {fileID: 400000, guid: 2acda7c6a1289468991e078721d922ec, type: 2}
   cornerWall: {fileID: 400002, guid: 0f766e07c82ac4c09a21542085aa4bf4, type: 2}
-  roundedWallOut: {fileID: 400000, guid: 4b1b7a8ceabc446bf994ad36af41a881, type: 2}
+  roundedWallOut: {fileID: 400002, guid: abee42fd9ff8344078556705a72c32a7, type: 2}
   stoneTile: {fileID: 400000, guid: 1cb71ef7b9ab84bccb10912ae9ad64d5, type: 2}
   lavaTile: {fileID: 400000, guid: 14245e767ae9746a1934199fffff4a18, type: 2}
   trickTile: {fileID: 400000, guid: eeeb63d6ba9c347f4853ce3031a3d9f1, type: 2}

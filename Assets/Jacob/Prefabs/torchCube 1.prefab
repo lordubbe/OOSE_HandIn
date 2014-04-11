@@ -145,7 +145,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 400016}
   - 82: {fileID: 8200000}
-  - 114: {fileID: 11400002}
+  - 114: {fileID: 11400004}
   m_Layer: 0
   m_Name: Sound
   m_TagString: Untagged
@@ -160,7 +160,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: -1, z: 0, w: -4.37113883e-08}
-  m_LocalPosition: {x: .498961389, y: .262065649, z: -0}
+  m_LocalPosition: {x: .498960495, y: .0750274658, z: -4.36205134e-08}
   m_LocalScale: {x: -.824422598, y: .824422598, z: .824422598}
   m_Children:
   - {fileID: 400002}
@@ -183,7 +183,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100004}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: -4.37113883e-08}
-  m_LocalPosition: {x: 55.629055, y: 69.8344574, z: 29.7457371}
+  m_LocalPosition: {x: -62.9962311, y: 56.9166565, z: -3.89936638}
   m_LocalScale: {x: -2, y: 2, z: 2}
   m_Children:
   - {fileID: 400012}
@@ -230,7 +230,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100012}
   m_LocalRotation: {x: 0, y: -1, z: 0, w: -4.37113883e-08}
-  m_LocalPosition: {x: .711456418, y: .0452775955, z: -0}
+  m_LocalPosition: {x: .711456299, y: -.14176178, z: -6.21974863e-08}
   m_LocalScale: {x: -.5, y: .5, z: .5}
   m_Children:
   - {fileID: 400010}
@@ -256,7 +256,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100016}
   m_LocalRotation: {x: 0, y: -1, z: 0, w: -4.37113883e-08}
-  m_LocalPosition: {x: .65854919, y: .414140224, z: -0}
+  m_LocalPosition: {x: .658548355, y: .22710228, z: -5.75721266e-08}
   m_LocalScale: {x: -.5, y: .5, z: .5}
   m_Children: []
   m_Father: {fileID: 400004}
@@ -567,20 +567,20 @@ AudioSource:
   m_GameObject: {fileID: 100016}
   m_Enabled: 1
   serializedVersion: 3
-  m_audioClip: {fileID: 8300000, guid: 52c71dd7df4f54b53a5ac2b5de0a6917, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: .340000004
-  m_Pitch: -3
+  m_audioClip: {fileID: 8300000, guid: ac1ea6a589e894dccb1cf4585a0acb56, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
   Loop: 1
   Mute: 0
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 20
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
-  BypassListenerEffects: 1
+  BypassListenerEffects: 0
   BypassReverbZones: 0
   rolloffCustomCurve:
     serializedVersion: 2
@@ -714,7 +714,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minIntensity: 2.5
   maxIntensity: 3
---- !u!114 &11400002
+--- !u!114 &11400004
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
