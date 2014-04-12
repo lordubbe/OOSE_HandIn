@@ -29,6 +29,7 @@ public class LevelSpawn : MonoBehaviour {
 	public Transform wallTile;
 	public Transform cornerWall;
 	public Transform roundedWallOut;
+	public Transform doubleRoundedWallOut;
 	public Transform stoneTile;
 	public Transform lavaTile;
 	public Transform trickTile;
@@ -81,7 +82,7 @@ public class LevelSpawn : MonoBehaviour {
 	void Start () {
 		if(seedBasedGeneration){
 			Random.seed=seed;//set the seed of the level
-		}
+		}else{print ("Seed for this generation: "+Random.seed);}
 		levelMatrix = generateRooms(MAX_LEVEL_WIDTH, MAX_LEVEL_HEIGHT);//generate level
 
 /*
@@ -102,6 +103,69 @@ public class LevelSpawn : MonoBehaviour {
 				}
 			}
 		}
+		
+		/*  NOW LET'S
+		╦═╗╔═╗╦ ╦╔╗╔╔╦╗  ╔╦╗╦ ╦╔═╗  ╦ ╦╔═╗╦  ╦    ╔═╗╔═╗╦═╗╔╗╔╔═╗╦═╗╔═╗
+		╠╦╝║ ║║ ║║║║ ║║   ║ ╠═╣║╣   ║║║╠═╣║  ║    ║  ║ ║╠╦╝║║║║╣ ╠╦╝╚═╗
+		╩╚═╚═╝╚═╝╝╚╝═╩╝   ╩ ╩ ╩╚═╝  ╚╩╝╩ ╩╩═╝╩═╝  ╚═╝╚═╝╩╚═╝╚╝╚═╝╩╚═╚═╝
+		*/
+		for(int x=0; x<MAX_LEVEL_WIDTH; x++){
+			for(int y=0; y<MAX_LEVEL_HEIGHT; y++){
+				if(levelMatrix[x,y]!=null){
+					if(isCornerOfRoom("in", levelMatrix[x,y], levelMatrix)){
+						//Transform stonePillarino = (Transform)Instantiate(stonePillar, new Vector3(x*tileWidth, 0, y*tileWidth), Quaternion.identity);
+						//stonePillarino.parent = levelMatrix[x,y].tileMesh.transform;
+						Transform wallCorner = (Transform)Instantiate(cornerWall, new Vector3(x*tileWidth, 0, y*tileHeight), rotateCornerCorrectly("in", levelMatrix[x,y], levelMatrix));
+						wallCorner.parent = levelMatrix[x,y].tileMesh.transform;
+					}else if(isCornerOfRoom("out", levelMatrix[x,y], levelMatrix)){
+						Transform wallCorner2 = (Transform)Instantiate(roundedWallOut, new Vector3(x*tileWidth, 0, y*tileHeight), rotateCornerCorrectly("out", levelMatrix[x,y], levelMatrix));
+						wallCorner2.parent = levelParent.transform;
+						Destroy(levelMatrix[x,y].tileMesh.gameObject);
+						levelMatrix[x,y].tileMesh = (Transform)Instantiate(stoneTile, new Vector3(x*tileWidth, 0, y*tileHeight), Quaternion.identity);
+						levelMatrix[x,y].tileMesh.transform.parent = levelParent.transform;
+					}
+				}
+			}
+		}
+		int[,] singleWallKernel = {	{0,0,0},
+									{1,1,0},
+									{0,0,0}};
+		for(int x=0; x<MAX_LEVEL_WIDTH; x++){
+			for(int y=0; y<MAX_LEVEL_HEIGHT; y++){
+				if(levelMatrix[x,y]!=null && levelMatrix[x,y].type == Tile.tileType.wall){
+					switch(checkForMatchWithKernel(singleWallKernel, levelMatrix[x,y], levelMatrix)){
+					case "left":
+						//
+						Transform doubleRounded = (Transform)Instantiate(doubleRoundedWallOut, new Vector3(x*tileWidth, 0, y*tileHeight), rotateCornerCorrectly("doubleRound",levelMatrix[x,y], levelMatrix));
+						doubleRounded.parent = levelParent.transform;
+						Destroy(levelMatrix[x,y].tileMesh.gameObject);
+						break;
+					case "up":
+						//
+						Transform doubleRounded2 = (Transform)Instantiate(doubleRoundedWallOut, new Vector3(x*tileWidth, 0, y*tileHeight), rotateCornerCorrectly("doubleRound",levelMatrix[x,y], levelMatrix));
+						doubleRounded2.parent = levelParent.transform;
+						Destroy(levelMatrix[x,y].tileMesh.gameObject);
+						break;
+					case "right":
+						//
+						Transform doubleRounded3 = (Transform)Instantiate(doubleRoundedWallOut, new Vector3(x*tileWidth, 0, y*tileHeight), rotateCornerCorrectly("doubleRound",levelMatrix[x,y], levelMatrix));
+						doubleRounded3.parent = levelParent.transform;
+						Destroy(levelMatrix[x,y].tileMesh.gameObject);
+						break;
+					case "down":
+						//
+						Transform doubleRounded4 = (Transform)Instantiate(doubleRoundedWallOut, new Vector3(x*tileWidth, 0, y*tileHeight), rotateCornerCorrectly("doubleRound",levelMatrix[x,y], levelMatrix));
+						doubleRounded4.parent = levelParent.transform;
+						Destroy(levelMatrix[x,y].tileMesh.gameObject);
+						break;
+					default:
+						//
+						break;
+					}
+				}
+			}
+		}
+
 /*
 		╔═╗╔═╗╔╦╗╔╗ ╦╔╗╔╔═╗  ╔╦╗╔═╗╔═╗╦ ╦╔═╗╔═╗
 		║  ║ ║║║║╠╩╗║║║║║╣   ║║║║╣ ╚═╗╠═╣║╣ ╚═╗
@@ -154,32 +218,20 @@ public class LevelSpawn : MonoBehaviour {
 				}
 			}
 		}
-
-		/*  NOW LET'S
-		╦═╗╔═╗╦ ╦╔╗╔╔╦╗  ╔╦╗╦ ╦╔═╗  ╦ ╦╔═╗╦  ╦    ╔═╗╔═╗╦═╗╔╗╔╔═╗╦═╗╔═╗
-		╠╦╝║ ║║ ║║║║ ║║   ║ ╠═╣║╣   ║║║╠═╣║  ║    ║  ║ ║╠╦╝║║║║╣ ╠╦╝╚═╗
-		╩╚═╚═╝╚═╝╝╚╝═╩╝   ╩ ╩ ╩╚═╝  ╚╩╝╩ ╩╩═╝╩═╝  ╚═╝╚═╝╩╚═╝╚╝╚═╝╩╚═╚═╝
-		*/
-		for(int x=0; x<MAX_LEVEL_WIDTH; x++){
-			for(int y=0; y<MAX_LEVEL_HEIGHT; y++){
-				if(levelMatrix[x,y]!=null && isCornerOfRoom(levelMatrix[x,y], levelMatrix)){
-					//Transform stonePillarino = (Transform)Instantiate(stonePillar, new Vector3(x*tileWidth, 0, y*tileWidth), Quaternion.identity);
-					//stonePillarino.parent = levelMatrix[x,y].tileMesh.transform;
-					Transform wallCorner = (Transform)Instantiate(cornerWall, new Vector3(x*tileWidth, 0, y*tileHeight), rotateCornerCorrectly(levelMatrix[x,y], levelMatrix));
-					wallCorner.parent = levelMatrix[x,y].tileMesh.transform;
-				}
-			}
-		}
 		/* NOW SPAWN SOME
 		╔═╗╦═╗╔═╗╦ ╦╔═╗╔═╗
 		╠═╣╠╦╝║  ╠═╣║╣ ╚═╗
 		╩ ╩╩╚═╚═╝╩ ╩╚═╝╚═╝ OVER THE ENTRANCES TO THE CORRIDORS
 		*/
+		int[,] entranceKernel = {	{1,1,0},
+									{0,0,0},
+									{1,1,0}};
+
 		for(int x=0; x<MAX_LEVEL_WIDTH; x++){
 			for(int y=0; y<MAX_LEVEL_HEIGHT; y++){
 				if(levelMatrix[x,y] != null && levelMatrix[x,y].tileMesh.tag == "Path"){
 
-					switch(isEntranceToCorridor(levelMatrix[x,y], levelMatrix)){
+					switch(checkForMatchWithKernel(entranceKernel, levelMatrix[x,y], levelMatrix)){
 					case "left":
 						//
 						Transform archOverEntrance = (Transform)Instantiate(arch, new Vector3(x*tileWidth, 0, y*tileHeight), rotateTowardsNearestTileOfType(Tile.tileType.ground, x, y, levelMatrix));
@@ -279,7 +331,6 @@ public class LevelSpawn : MonoBehaviour {
 			}
 		}
 
-
 		/*  SPAWN SOME 
 		╔╦╗╔═╗╔═╗╔═╗╦═╗╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
 		 ║║║╣ ║  ║ ║╠╦╝╠═╣ ║ ║║ ║║║║╚═╗
@@ -302,6 +353,19 @@ public class LevelSpawn : MonoBehaviour {
 			}
 		}
 
+		/*  CREATE SOME 
+		╦═╗╔═╗╦  ╦╔═╗╦═╗╔╗   ╔═╗╔═╗╔╗╔╔═╗╔═╗
+		╠╦╝║╣ ╚╗╔╝║╣ ╠╦╝╠╩╗  ╔═╝║ ║║║║║╣ ╚═╗
+		╩╚═╚═╝ ╚╝ ╚═╝╩╚═╚═╝  ╚═╝╚═╝╝╚╝╚═╝╚═╝
+		*//*
+		for(int i = 0; i<roomsInLevel.Length; i++){
+			AudioReverbZone revZone = new AudioReverbZone();
+			Instantiate(revZone, roomsInLevel[i].center, Quaternion.identity);
+			revZone.transform.position = roomsInLevel[i].center;
+			revZone.minDistance = 20;
+			revZone.minDistance = 20;
+			revZone.reverb = 3000;
+		}*/
 
 
 /*					SPAWN SOME 
@@ -437,7 +501,6 @@ public class LevelSpawn : MonoBehaviour {
 					for(int x=x_; x>targetX; x--){//x path
 						Tile path = new Tile(x, y_, 1, 0, true, true);
 						path.tileMesh = pathTile;
-						path.tileMesh.name = "pathTile";
 						path.type = Tile.tileType.ground;
 						level[x, y_] = path;
 					}
@@ -445,7 +508,6 @@ public class LevelSpawn : MonoBehaviour {
 					for(int x=x_; x<targetX; x++){//x path
 						Tile path = new Tile(x, y_, 1, 0, true, true);
 						path.tileMesh = pathTile;
-						path.tileMesh.name = "pathTile";
 						path.type = Tile.tileType.ground;
 						level[x, y_] = path;
 					}
@@ -454,7 +516,6 @@ public class LevelSpawn : MonoBehaviour {
 					for(int y=y_; y>targetY; y--){//y path
 						Tile path = new Tile(targetX, y, 1, 0, true, true);
 						path.tileMesh = pathTile;
-						path.tileMesh.name = "pathTile";
 						path.type = Tile.tileType.ground;
 						level[targetX, y] = path;
 					}
@@ -462,7 +523,6 @@ public class LevelSpawn : MonoBehaviour {
 					for(int y=y_; y<targetY; y++){//y path
 						Tile path = new Tile(targetX, y, 1, 0, true, true);
 						path.tileMesh = pathTile;
-						path.tileMesh.name = "pathTile";
 						path.type = Tile.tileType.ground;
 						level[targetX, y] = path;
 					}
@@ -614,42 +674,80 @@ public class LevelSpawn : MonoBehaviour {
 		}
 	}
 
-	bool isCornerOfRoom(Tile input, Tile[,] levelMatrix){
+	bool isCornerOfRoom(string type, Tile input, Tile[,] levelMatrix){
 		bool isCorner = false;
 		//up/right
 		Tile left = getNeighbor("left", input, levelMatrix);
 		Tile up = getNeighbor("up", input, levelMatrix);
 		Tile right = getNeighbor("right", input, levelMatrix);
 		Tile down = getNeighbor("down", input, levelMatrix);
-		if(input!=null){
-			if(input.type == Tile.tileType.ground){
-				if(up.type == Tile.tileType.wall && right.type == Tile.tileType.wall){
-					isCorner = true;
-				}
-				else if(up.type == Tile.tileType.wall && left.type == Tile.tileType.wall){
-					isCorner = true;
-				}
-				else if(down.type == Tile.tileType.wall && right.type == Tile.tileType.wall){
-					isCorner = true;
-				}
-				else if(down.type == Tile.tileType.wall && left.type == Tile.tileType.wall){
-					isCorner = true;
-				}else{
-					isCorner = false;
+		if(type == "in"){
+			if(input!=null){
+				if(input.type == Tile.tileType.ground){
+					if(up.type == Tile.tileType.wall && right.type == Tile.tileType.wall){
+						isCorner = true;
+					}
+					else if(up.type == Tile.tileType.wall && left.type == Tile.tileType.wall){
+						isCorner = true;
+					}
+					else if(down.type == Tile.tileType.wall && right.type == Tile.tileType.wall){
+						isCorner = true;
+					}
+					else if(down.type == Tile.tileType.wall && left.type == Tile.tileType.wall){
+						isCorner = true;
+					}else{
+						isCorner = false;
+					}
 				}
 			}
-		}
+		}else if(type == "out"){
+			if(up!=null && left!=null && right!=null && down!=null){
+				if(input!=null){
+					if(input.type == Tile.tileType.wall){
+						if(up.type == Tile.tileType.wall && right.type == Tile.tileType.wall && left.type!=Tile.tileType.wall && down.type!=Tile.tileType.wall){
+							isCorner = true;
+						}
+						else if(up.type == Tile.tileType.wall && left.type == Tile.tileType.wall && right.type!=Tile.tileType.wall && down.type!=Tile.tileType.wall){
+							isCorner = true;
+						}
+						else if(down.type == Tile.tileType.wall && right.type == Tile.tileType.wall && up.type!=Tile.tileType.wall && left.type!=Tile.tileType.wall){
+							isCorner = true;
+						}
+						else if(down.type == Tile.tileType.wall && left.type == Tile.tileType.wall && right.type!=Tile.tileType.wall && up.type!=Tile.tileType.wall){
+							isCorner = true;
+						}else{
+							isCorner = false;
+						}
+					}
+				}
+			}
+		}else{Debug.LogError("INVALID TYPE!!!");}
 		return isCorner;
 	}
-
-	Quaternion rotateCornerCorrectly(Tile input, Tile[,] levelMatrix){
+	Quaternion rotateCornerCorrectly(string type, Tile input, Tile[,] levelMatrix){
 		Quaternion dir = Quaternion.Euler(0, 0, 0);//default rotation
 		Tile left = getNeighbor("left", input, levelMatrix);
 		Tile up = getNeighbor("up", input, levelMatrix);
 		Tile right = getNeighbor("right", input, levelMatrix);
 		Tile down = getNeighbor("down", input, levelMatrix);
-		
-		if(input.type == Tile.tileType.ground){
+		if(type == "in"){
+			if(input.type == Tile.tileType.ground){
+				if(up.type == Tile.tileType.wall && right.type == Tile.tileType.wall){
+					dir = Quaternion.Euler(0, 270, 0);
+				}
+				else if(up.type == Tile.tileType.wall && left.type == Tile.tileType.wall){
+					dir = Quaternion.Euler(0, 180, 0);
+				}
+				else if(down.type == Tile.tileType.wall && left.type == Tile.tileType.wall){
+					dir = Quaternion.Euler(0, 90, 0);
+				}
+				else if(down.type == Tile.tileType.wall && right.type == Tile.tileType.wall){
+					dir = Quaternion.Euler(0, 0, 0);
+				}else{
+					dir = Quaternion.Euler(0, 0, 0);//default rotation
+				}
+			}
+		}else if(type == "out"){
 			if(up.type == Tile.tileType.wall && right.type == Tile.tileType.wall){
 				dir = Quaternion.Euler(0, 270, 0);
 			}
@@ -664,107 +762,111 @@ public class LevelSpawn : MonoBehaviour {
 			}else{
 				dir = Quaternion.Euler(0, 0, 0);//default rotation
 			}
-		}
+		}else if(type == "doubleRound"){
+			if(right.type == Tile.tileType.wall){
+				dir = Quaternion.Euler(0,270,0);
+			}else if(up.type == Tile.tileType.wall){
+				dir = Quaternion.Euler(0,180,0);
+			}else if(left.type == Tile.tileType.wall){
+				dir = Quaternion.Euler(0,90,0);
+			}else if(right.type == Tile.tileType.wall){
+				dir = Quaternion.Euler(0,0,0);
+			}else{dir = Quaternion.Euler(0,0,0);
+			}
+		}else{Debug.LogError("INVALID TYPE OF CORNER INPUT!");}
 		return dir;
 	}
 
 	bool isWallPartOfCorner(Tile input, Tile[,] levelMatrix){
 		bool isPartOfCorner = false;
-		if(isCornerOfRoom(getNeighbor("left", input, levelMatrix), levelMatrix) || isCornerOfRoom(getNeighbor("up", input, levelMatrix), levelMatrix)
-		     || isCornerOfRoom(getNeighbor("right", input, levelMatrix), levelMatrix) || isCornerOfRoom(getNeighbor("down", input, levelMatrix), levelMatrix)){
+		if(isCornerOfRoom("in", getNeighbor("left", input, levelMatrix), levelMatrix) || isCornerOfRoom("in", getNeighbor("up", input, levelMatrix), levelMatrix)
+		   || isCornerOfRoom("in", getNeighbor("right", input, levelMatrix), levelMatrix) || isCornerOfRoom("in", getNeighbor("down", input, levelMatrix), levelMatrix)){
 			isPartOfCorner = true;
 		}else{ isPartOfCorner = false; } 
 		return isPartOfCorner;
 	}
 
-	string isEntranceToCorridor(Tile input, Tile[,] levelMatrix){
-		string isEntrance = "none";
-/*		if((getNeighbor("left", input, levelMatrix).type == Tile.tileType.wall && getNeighbor("right", input, levelMatrix).type == Tile.tileType.wall)||(getNeighbor("up", input, levelMatrix).type == Tile.tileType.wall && getNeighbor("down", input, levelMatrix).type == Tile.tileType.wall)){
-			isEntrance = true;
-		}else{isEntrance = false;}
-*/		
-		int[,] entranceKernelLeft = {	{1,1,0},
-										{0,0,0},
-										{1,1,0}};
+	string checkForMatchWithKernel(int[,] kernel, Tile input, Tile[,] levelMatrix){
+		string match = "none";
 
-		int[,] entranceKernelUp = {		{1,0,1},
-										{1,0,1},
-										{0,0,0}};
+		int[,] kernelLeft 	= kernel;
+		int[,] kernelUp 	= flip2dArray(kernelLeft);
+		int[,] kernelRight 	= flip2dArray(kernelUp);
+		int[,] kernelDown 	= flip2dArray(kernelRight);
 
-		int[,] entranceKernelRight = {	{0,1,1},
-										{0,0,0},
-										{0,1,1}};
-
-		int[,] entranceKernelDown = {	{0,0,0},
-										{1,0,1},
-										{1,0,1}};
+		int matchValue = kernel.GetLength(0)*kernel.GetLength(1);
 		////////////////////////////////////////////////////////
-		int[,] check = {				{0,0,0},
-										{0,0,0},
-										{0,0,0}}; //this will be checked
+		int[,] check = new int[kernel.GetLength(0),kernel.GetLength(1)]; //this is the 2D array to check against the kernel
+		//run through the check array and initialize as 0
+		for(int i=0; i<kernel.GetLength(0); i++){
+			for(int j=0; j<kernel.GetLength(1); j++){
+				check[i,j]=0;
+			}
+		}
 
 		//Check and update the 'check' kernel
-		for(int x=input.x-1; x<=input.x+1; x++){
-			for(int y=input.y-1; y<=input.y+1; y++){
-				if(levelMatrix[x,y]!= null){
-					if(levelMatrix[x,y].type == Tile.tileType.wall){
-						check[2-(y-input.y+1), (x-input.x+1)] = 1;
+		if(input.y-1>=0 && input.x-1>=0 && input.y+1 < MAX_LEVEL_HEIGHT && input.x+1 < MAX_LEVEL_WIDTH){
+			for(int x=input.x-1; x<=input.x+1; x++){
+				for(int y=input.y-1; y<=input.y+1; y++){
+					if(levelMatrix[x,y]!= null){
+						if(levelMatrix[x,y].type == Tile.tileType.wall){
+							check[(kernel.GetLength(0)-1)-(y-input.y+1), (x-input.x+1)] = 1;
+						}
 					}
 				}
 			}
 		}
-		/* //DEBUG STUFF
-		print(input.x*tileWidth+","+input.y*tileHeight);
-		if(levelMatrix[input.x-1, input.y-1] != null && levelMatrix[input.x+1, input.y-1] != null && levelMatrix[input.x-1, input.y+1] != null && levelMatrix[input.x+1, input.y+1] != null){
-		//	print (levelMatrix[input.x-1, input.y+1].type+","+levelMatrix[input.x, input.y+1].type+","+levelMatrix[input.x+1, input.y+1].type);
-		//	print (levelMatrix[input.x-1, input.y].type+","+levelMatrix[input.x, input.y].type+","+levelMatrix[input.x+1, input.y].type);
-		//	print (levelMatrix[input.x-1, input.y-1].type+","+levelMatrix[input.x, input.y-1].type+","+levelMatrix[input.x+1, input.y-1].type);
-			print (check[0,0]+","+check[0,1]+","+check[0,2]+"         "+entranceKernelDown[0,0]+","+entranceKernelDown[0,1]+","+entranceKernelDown[0,2]);
-			print (check[1,0]+","+check[1,1]+","+check[1,2]+"         "+entranceKernelDown[1,0]+","+entranceKernelDown[1,1]+","+entranceKernelDown[1,2]);
-			print (check[2,0]+","+check[2,1]+","+check[2,2]+"         "+entranceKernelDown[2,0]+","+entranceKernelDown[2,1]+","+entranceKernelDown[2,2]);
-		}
-		*///print (input.x+","+input.y);
-
-		int value = 0;
 	//Check if the 'check' kernel matches any of the entrance signatures
+		int value = 0;
 		//left//////////////////////////////////////////////////////////////////////////////////////////
-		for(int i=0; i<3; i++)
-			for(int j=0; j<3; j++)
-			if(check[i,j] == entranceKernelLeft[i,j]){
-				value++;
-			}
-		if(value==9)
-			isEntrance = "left";
+		for(int i=0; i<kernel.GetLength(0); i++)
+			for(int j=0; j<kernel.GetLength(1); j++)
+				if(check[i,j] == kernelLeft[i,j]){
+					value++;
+				}
+		if(value==matchValue)
+			match = "left";
 		value = 0;
 		//up//////////////////////////////////////////////////////////////////////////////////////////
-		for(int i=0; i<3; i++)
-			for(int j=0; j<3; j++)
-			if(check[i,j] == entranceKernelUp[i,j]){
-				value++;
-			}
-		if(value==9)
-			isEntrance = "up";
+		for(int i=0; i<kernel.GetLength(0); i++)
+			for(int j=0; j<kernel.GetLength(1); j++)
+				if(check[i,j] == kernelUp[i,j]){
+					value++;
+				}
+		if(value==matchValue)
+			match = "up";
 		value = 0;
 		//right//////////////////////////////////////////////////////////////////////////////////////////
-		for(int i=0; i<3; i++)
-			for(int j=0; j<3; j++)
-			if(check[i,j] == entranceKernelRight[i,j]){
-				value++;
-			}
-		if(value==9)
-			isEntrance = "right";
+		for(int i=0; i<kernel.GetLength(0); i++)
+			for(int j=0; j<kernel.GetLength(1); j++)
+				if(check[i,j] == kernelRight[i,j]){
+					value++;
+				}
+		if(value==matchValue)
+			match = "right";
 		value = 0;
 		//down//////////////////////////////////////////////////////////////////////////////////////////
-		for(int i=0; i<3; i++)
-			for(int j=0; j<3; j++)
-			if(check[i,j] == entranceKernelDown[i,j]){
-				value++;
+		for(int i=0; i<kernel.GetLength(0); i++)
+			for(int j=0; j<kernel.GetLength(1); j++)
+				if(check[i,j] == kernelDown[i,j]){
+					value++;
+				}
+		if(value==matchValue)
+			match = "down";
+
+		return match;
+
+	}
+
+	int[,] flip2dArray(int[,] array){
+		int[,] flippedArray = new int[array.GetLength(0),array.GetLength(1)];
+
+		for(int i=array.GetLength(0)-1; i>=0; i--){
+			for(int j=0; j<=array.GetLength(1)-1; j++){
+				flippedArray[j,(array.GetLength(0)-1)-i] = array[i,j];
 			}
-		if(value==9)
-			isEntrance = "down";
-
-		return isEntrance;
-
+		}
+		return flippedArray;
 	}
 /*
  ███▄ ▄███▓ █     █░█    ██  ▄▄▄       ██░ ██  ▄▄▄       ██░ ██  ▄▄▄       ██░ ██  ▄▄▄       ▐██▌ 
