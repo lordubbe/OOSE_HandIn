@@ -9,6 +9,7 @@ ModelImporter:
     3300000: //RootNode
     4300000: polySurface32
     4300002: polySurface41
+    4300004: polySurface50
     9500000: //RootNode
   materials:
     importMaterials: 1
