@@ -39,6 +39,10 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController {
     
 	// Use this for initialization
 	void Awake () {
+		//ADDED BY JACOB, MIHAI PLS DON'T BE MAD
+		DontDestroyOnLoad(this.gameObject);
+		//
+
         canAtt = true;
         charController = gameObject.GetComponent<CharacterController>();
         cs = gameObject.GetComponent<CharacterStats>();
@@ -87,7 +91,7 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController {
         animation[attack3].speed = AttackSpeed;
 
         animation.Stop();
-        LevelSpawn.FinishGeneration += putPlayerOnStart;
+       	LevelSpawn.FinishGeneration += putPlayerOnStart;
 	}
     void Start()
     {
@@ -97,10 +101,10 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController {
        
     }
     void putPlayerOnStart()
-    {
-        
+    { 
         ls = GameObject.Find("levelSpawner").GetComponent<LevelSpawn>();
-        transform.position = ls.playerSpawn;
+		if(ls != null)
+        	transform.position = ls.playerSpawn;
         
 
     }

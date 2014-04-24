@@ -119,7 +119,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &100016
 GameObject:
   m_ObjectHideFlags: 1
@@ -641,7 +641,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &100084
 GameObject:
   m_ObjectHideFlags: 1
@@ -826,7 +826,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100026}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 3.32650447, y: -1.86214685, z: 83.3801575}
   m_LocalScale: {x: .5, y: .5, z: .5}
   m_Children:
   - {fileID: 400014}
@@ -1171,7 +1171,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: .235294104, g: .117647052, b: .117647052, a: .0196078438}
+  m_BackGroundColor: {r: .227450982, g: .127550945, b: .127550945, a: 1}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -1549,12 +1549,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f75a416b8cb03745a532e7918982882, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  snare: {fileID: 8300000, guid: 775cdfd62053544e58e0f80473a3e2fb, type: 3}
   ForwardSpeed: 4
   SideSpeed: 3
   AttackSpeed: 1
   JumpForce: 13
   RotationSpeed: 180
   AttCullDown: .5
+  minAttCulldown: .200000003
+  maxAttCulldown: .600000024
   gravity: 9.80000019
   runAnimationMultiplayer: .100000001
   mixTransform: {fileID: 400028}

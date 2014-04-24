@@ -11,8 +11,8 @@ GameObject:
   - 33: {fileID: 3300000}
   - 65: {fileID: 6500000}
   - 23: {fileID: 2300000}
-  - 114: {fileID: 11400000}
   - 54: {fileID: 5400000}
+  - 114: {fileID: 11400000}
   m_Layer: 0
   m_Name: exitObj
   m_TagString: Untagged
@@ -43,7 +43,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 97.8606339, y: 6.22290897, z: 44.4999695}
+  m_LocalPosition: {x: 58.2014961, y: 8.96537685, z: 28.4011135}
   m_LocalScale: {x: 2, y: .356987089, z: 2}
   m_Children:
   - {fileID: 400002}
@@ -124,7 +124,7 @@ Light:
   serializedVersion: 3
   m_Type: 2
   m_Color: {r: .698529422, g: 1, b: .762981713, a: 1}
-  m_Intensity: 1
+  m_Intensity: 2
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -139,7 +139,7 @@ Light:
   m_DrawHalo: 0
   m_ActuallyLightmapped: 0
   m_Flare: {fileID: 0}
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
