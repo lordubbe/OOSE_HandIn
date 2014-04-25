@@ -4268,6 +4268,8 @@ MonoBehaviour:
   enemySpawnFreq: 10
   chestSpawnFreq: 100
   playerSpawn: {x: 0, y: 0, z: 0}
+  meshFilters: []
+  material: {fileID: 0}
   lights: []
 --- !u!1 &1733374031
 GameObject:
@@ -5230,6 +5232,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f75a416b8cb03745a532e7918982882, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  snare: {fileID: 0}
   ForwardSpeed: 4
   SideSpeed: 3
   AttackSpeed: 1
