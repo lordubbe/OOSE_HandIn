@@ -14,15 +14,15 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class LevelSpawn : MonoBehaviour {
-
+	
 	public bool seedBasedGeneration = false;
 	public int seed = 100;
 	public bool spawnEnemies = false;
 	public static int tileWidth = 2, tileHeight = 2;
-
+	
 	public Transform levelParent;
 	public Transform Walls;
-
+	
 	//The actual tiles to be spawned
 	public Transform emptyTile;
 	public Transform pathTile;
@@ -42,6 +42,8 @@ public class LevelSpawn : MonoBehaviour {
 	public Transform stonePillar;
 	public Transform cratesStacked;
 	public Transform arch;
+	public Transform exitObject;
+	
 	//General level information
 	public int MAX_LEVEL_WIDTH = 50;
 	public int MAX_LEVEL_HEIGHT = 50;
@@ -55,37 +57,46 @@ public class LevelSpawn : MonoBehaviour {
 	public int maxRoomHeight = 10;
 	
 	public int torchFrequency = 15;//in percent
-
+	
+	public Vector3 exitCoords;
+	
 	//Enemies
 	public int enemySpawnFreq = 10;
-
+	
 	//Goodies
 	public int chestSpawnFreq = 5;
-
+	
 	//Player
 	public Vector3 playerSpawn;
-
+	
 	//for mesh merging
 	private MeshFilter[] meshFilters;
 	private Material material;
-
+	
 	public List<Transform> lights;
-
+	
 	public static Tile[,] levelMatrix;//holds the level
 	private Room[] roomsInLevel;
-
+	
+	private bool exitPlaced = false;
+	public bool generationDone = false;
+	
 	public delegate void FINISH_GENERATION();
 	public static event FINISH_GENERATION FinishGeneration; 
-
-
+	
+	
+	
 	// Use this for initialization
 	void Start () {
+		generationDone = false;
+		print ("BEGINNING LEVEL GENERATION!");
+		
 		if(seedBasedGeneration){
 			Random.seed=seed;//set the seed of the level
 		}else{print ("Seed for this generation: "+Random.seed);}
 		levelMatrix = generateRooms(MAX_LEVEL_WIDTH, MAX_LEVEL_HEIGHT);//generate level
-
-/*
+		
+		/*
 ╔═╗╔═╗╔═╗╦ ╦╔╗╔  ╔╦╗╦ ╦╔═╗  ╔╦╗╔═╗╔═╗
 ╚═╗╠═╝╠═╣║║║║║║   ║ ╠═╣║╣   ║║║╠═╣╠═╝
 ╚═╝╩  ╩ ╩╚╩╝╝╚╝   ╩ ╩ ╩╚═╝  ╩ ╩╩ ╩╩  
@@ -109,6 +120,7 @@ public class LevelSpawn : MonoBehaviour {
 		╠╦╝║ ║║ ║║║║ ║║   ║ ╠═╣║╣   ║║║╠═╣║  ║    ║  ║ ║╠╦╝║║║║╣ ╠╦╝╚═╗
 		╩╚═╚═╝╚═╝╝╚╝═╩╝   ╩ ╩ ╩╚═╝  ╚╩╝╩ ╩╩═╝╩═╝  ╚═╝╚═╝╩╚═╝╚╝╚═╝╩╚═╚═╝
 		*/
+		print ("beginning to make corners!");
 		for(int x=0; x<MAX_LEVEL_WIDTH; x++){
 			for(int y=0; y<MAX_LEVEL_HEIGHT; y++){
 				if(levelMatrix[x,y]!=null){
@@ -118,18 +130,19 @@ public class LevelSpawn : MonoBehaviour {
 						Transform wallCorner = (Transform)Instantiate(cornerWall, new Vector3(x*tileWidth, 0, y*tileHeight), rotateCornerCorrectly("in", levelMatrix[x,y], levelMatrix));
 						wallCorner.parent = levelMatrix[x,y].tileMesh.transform;
 					}else if(isCornerOfRoom("out", levelMatrix[x,y], levelMatrix)){
+						print ("making corner wall");
 						Transform wallCorner2 = (Transform)Instantiate(roundedWallOut, new Vector3(x*tileWidth, 0, y*tileHeight), rotateCornerCorrectly("out", levelMatrix[x,y], levelMatrix));
 						wallCorner2.parent = levelParent.transform;
-						Destroy(levelMatrix[x,y].tileMesh.gameObject);
-						levelMatrix[x,y].tileMesh = (Transform)Instantiate(stoneTile, new Vector3(x*tileWidth, 0, y*tileHeight), Quaternion.identity);
+						Destroy(levelMatrix[x,y].tileMesh.gameObject);//destroy current wall
+						levelMatrix[x,y].tileMesh = (Transform)Instantiate(stoneTile, new Vector3(x*tileWidth, 0, y*tileHeight), Quaternion.identity);//Also spawn a ground tile below
 						levelMatrix[x,y].tileMesh.transform.parent = levelParent.transform;
 					}
 				}
 			}
 		}
 		int[,] singleWallKernel = {	{0,0,0},
-									{1,1,0},
-									{0,0,0}};
+			{1,1,0},
+			{0,0,0}};
 		for(int x=0; x<MAX_LEVEL_WIDTH; x++){
 			for(int y=0; y<MAX_LEVEL_HEIGHT; y++){
 				if(levelMatrix[x,y]!=null && levelMatrix[x,y].type == Tile.tileType.wall){
@@ -165,8 +178,8 @@ public class LevelSpawn : MonoBehaviour {
 				}
 			}
 		}
-
-/*
+		
+		/*
 		╔═╗╔═╗╔╦╗╔╗ ╦╔╗╔╔═╗  ╔╦╗╔═╗╔═╗╦ ╦╔═╗╔═╗
 		║  ║ ║║║║╠╩╗║║║║║╣   ║║║║╣ ╚═╗╠═╣║╣ ╚═╗
 		╚═╝╚═╝╩ ╩╚═╝╩╝╚╝╚═╝  ╩ ╩╚═╝╚═╝╩ ╩╚═╝╚═╝ (DE-IMPLEMENTED - SAVED FOR LATER)
@@ -181,14 +194,52 @@ public class LevelSpawn : MonoBehaviour {
 						Transform tr = (Transform)Instantiate(roomsInLevel[roomCount].tiles[i,j].tileMesh, new Vector3(roomsInLevel[roomCount].tiles[i,j].x*tileWidth, tileHeight*2, roomsInLevel[roomCount].tiles[i,j].y*tileHeight), Quaternion.identity);
 						tr.transform.parent = roomHolder.transform;
 					}
-
+					
 				}
 			}
 			roomHolder.AddComponent<MeshMerger>();
 		}
 		*/
+			/*
+		╔═╗╦  ╔═╗╔═╗╔═╗  ╔═╗═╗ ╦╦╔╦╗
+		╠═╝║  ╠═╣║  ║╣   ║╣ ╔╩╦╝║ ║ 
+		╩  ╩═╝╩ ╩╚═╝╚═╝  ╚═╝╩ ╚═╩ ╩, my man!
+*/		
+			Tile exitSpot = new Tile(0, 0, 1, 0, true, false);
+		exitSpot.tileMesh = exitObject;
+		exitSpot.tileMesh.name = "Exit";
+		//place the exit in the map
+		//	int a = 0;
+		//	int b = 0;
+		int a;
+		int b;
+		//for(int a=0; a<MAX_LEVEL_WIDTH && !exitPlaced; a++){
+		//	for(int b=0; b<MAX_LEVEL_HEIGHT && !exitPlaced; b++){
+		while(!exitPlaced){
+			a = Random.Range(1, MAX_LEVEL_WIDTH);
+			b = Random.Range(1, MAX_LEVEL_WIDTH);
 
+			if(levelMatrix[a,b] != null && levelMatrix[a,b].type == Tile.tileType.ground && levelMatrix[a,b].tileMesh.childCount < 1 &&isSpaceAvailableWithinRange(2, levelMatrix[a,b], levelMatrix, false)){
+					Destroy(levelMatrix[a,b].tileMesh.gameObject);
+					exitCoords = new Vector3(a, 0, b);
+					levelMatrix[a,b].tileMesh = (Transform)Instantiate(exitObject, exitCoords*tileWidth, Quaternion.identity);
+					exitPlaced = true;
+				}
+		}
+		//	}
+		//}
+		/*
+		while(!exitPlaced){
+			//place the damn exit lol
+			if(a<MAX_LEVEL_WIDTH && b<MAX_LEVEL_HEIGHT){
 
+				if(b==MAX_LEVEL_HEIGHT-1)
+					a++;
+				b++;
+			}
+		}
+*/
+		
 		/*  LIGHT THE PLACE UP WITH SOME 
 		╔╦╗╔═╗╦═╗╔═╗╦ ╦╔═╗╔═╗
 		 ║ ║ ║╠╦╝║  ╠═╣║╣ ╚═╗
@@ -224,13 +275,13 @@ public class LevelSpawn : MonoBehaviour {
 		╩ ╩╩╚═╚═╝╩ ╩╚═╝╚═╝ OVER THE ENTRANCES TO THE CORRIDORS
 		*/
 		int[,] entranceKernel = {	{1,1,0},
-									{0,0,0},
-									{1,1,0}};
-
+			{0,0,0},
+			{1,1,0}};
+		
 		for(int x=0; x<MAX_LEVEL_WIDTH; x++){
 			for(int y=0; y<MAX_LEVEL_HEIGHT; y++){
 				if(levelMatrix[x,y] != null && levelMatrix[x,y].tileMesh.tag == "Path"){
-
+					
 					switch(checkForMatchWithKernel(entranceKernel, levelMatrix[x,y], levelMatrix)){
 					case "left":
 						//
@@ -259,7 +310,7 @@ public class LevelSpawn : MonoBehaviour {
 				}
 			}
 		}
-
+		
 		/*  PLACE SOME 
 		╔═╗╦ ╦╔═╗╔═╗╔╦╗╔═╗
 		║  ╠═╣║╣ ╚═╗ ║ ╚═╗
@@ -274,21 +325,21 @@ public class LevelSpawn : MonoBehaviour {
 						Tile upNeighbor = getNeighbor("up", levelMatrix[x,y], levelMatrix);
 						Tile rightNeighbor = getNeighbor("right", levelMatrix[x,y], levelMatrix);
 						Tile downNeighbor = getNeighbor("down", levelMatrix[x,y], levelMatrix);
-
+						
 						if((leftNeighbor != null && leftNeighbor.tileMesh.tag != "Path")		//Make sure it doesn't spawn by pathTiles	
 						   && (upNeighbor != null && upNeighbor.tileMesh.tag != "Path")			//
 						   && (rightNeighbor != null && rightNeighbor.tileMesh.tag != "Path")	//
 						   && (downNeighbor != null && downNeighbor.tileMesh.tag != "Path")){	//
 							if(!isWallPartOfCorner(levelMatrix[x,y], levelMatrix)){
-							Transform chest = Instantiate(chestObject, new Vector3(x*tileWidth, tileHeight, y*tileWidth), rotateTowardsNearestTileOfType(Tile.tileType.ground, x, y, levelMatrix)) as Transform;
-							chest.parent = levelMatrix[x,y].tileMesh.transform;
+								Transform chest = Instantiate(chestObject, new Vector3(x*tileWidth, tileHeight, y*tileWidth), rotateTowardsNearestTileOfType(Tile.tileType.ground, x, y, levelMatrix)) as Transform;
+								chest.parent = levelMatrix[x,y].tileMesh.transform;
 							}
 						}
 					}
 				}
 			}
 		}
-
+		
 		/* PLACE DOWN SOME
 		╔═╗╦╦  ╦  ╔═╗╦═╗╔═╗
 		╠═╝║║  ║  ╠═╣╠╦╝╚═╗
@@ -311,7 +362,7 @@ public class LevelSpawn : MonoBehaviour {
 				crateStack.parent = levelMatrix[(int)pillah.transform.position.x/tileWidth, (int)pillah.transform.position.z/tileHeight].tileMesh.transform;
 			}
 		}
-
+		
 		/*  PLACE SOME 
 		╔═╗╦ ╦╦═╗╔╗╔╦╔╦╗╦ ╦╦═╗╔═╗
 		╠╣ ║ ║╠╦╝║║║║ ║ ║ ║╠╦╝║╣ 
@@ -330,7 +381,7 @@ public class LevelSpawn : MonoBehaviour {
 				}
 			}
 		}
-
+		
 		/*  SPAWN SOME 
 		╔╦╗╔═╗╔═╗╔═╗╦═╗╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
 		 ║║║╣ ║  ║ ║╠╦╝╠═╣ ║ ║║ ║║║║╚═╗
@@ -343,32 +394,45 @@ public class LevelSpawn : MonoBehaviour {
 					//if(levelMatrix[x,y]!=null && levelMatrix[x,y].tileMesh.childCount != null)
 					//	print (levelMatrix[x,y]+": "+levelMatrix[x,y].type+", "+levelMatrix[x,y].tileMesh.childCount);
 					//Make sure it's against a wall and that the particular wall tile in question doesn't already hold another item
-					if(levelMatrix[x,y]!=null && levelMatrix[x,y].type == Tile.tileType.wall && (levelMatrix[x,y].tileMesh.childCount != null && levelMatrix[x,y].tileMesh.childCount < 5)){
+					if(levelMatrix[x,y]!=null && levelMatrix[x,y].type == Tile.tileType.wall && (levelMatrix[x,y].tileMesh.childCount != null && levelMatrix[x,y].tileMesh.childCount < 6)){
 						if(!isWallPartOfCorner(levelMatrix[x,y], levelMatrix)){
-						Transform deco = Instantiate(dec, new Vector3(x*tileWidth, tileHeight, y*tileWidth), rotateTowardsNearestTileOfType(Tile.tileType.ground, x, y, levelMatrix)) as Transform;
-						deco.parent = levelMatrix[x,y].tileMesh.transform;
+							Transform deco = Instantiate(dec, new Vector3(x*tileWidth, tileHeight, y*tileWidth), rotateTowardsNearestTileOfType(Tile.tileType.ground, x, y, levelMatrix)) as Transform;
+							deco.parent = levelMatrix[x,y].tileMesh.transform;
 						}
 					}
 				}
 			}
 		}
-
+		
 		/*  CREATE SOME 
 		╦═╗╔═╗╦  ╦╔═╗╦═╗╔╗   ╔═╗╔═╗╔╗╔╔═╗╔═╗
 		╠╦╝║╣ ╚╗╔╝║╣ ╠╦╝╠╩╗  ╔═╝║ ║║║║║╣ ╚═╗
 		╩╚═╚═╝ ╚╝ ╚═╝╩╚═╚═╝  ╚═╝╚═╝╝╚╝╚═╝╚═╝
-		*//*
+		*/
+		Transform roomCenter;
 		for(int i = 0; i<roomsInLevel.Length; i++){
-			AudioReverbZone revZone = new AudioReverbZone();
-			Instantiate(revZone, roomsInLevel[i].center, Quaternion.identity);
-			revZone.transform.position = roomsInLevel[i].center;
-			revZone.minDistance = 20;
-			revZone.minDistance = 20;
-			revZone.reverb = 3000;
-		}*/
-
-
-/*					SPAWN SOME 
+			roomCenter = levelMatrix[(int)roomsInLevel[i].center.x, (int)roomsInLevel[i].center.z].tileMesh;
+			levelMatrix[(int)roomsInLevel[i].center.x, (int)roomsInLevel[i].center.z].tileMesh.transform.parent = Walls.transform;
+			
+			if(roomCenter.GetComponent<AudioReverbZone>()==null){
+				print ("applying ARZ");
+				roomCenter.gameObject.AddComponent<AudioReverbZone>();//if it doesn't already have an ARZ
+			}
+			int temp = roomsInLevel[i].width;
+			if(roomsInLevel[i].height < temp){//make sure temp is the smallest of the two (so ARZ doesn't overlap into other rooms)
+				temp = roomsInLevel[i].height;
+			}
+			roomCenter.GetComponent<AudioReverbZone>().reverbPreset = AudioReverbPreset.Arena;
+			roomCenter.GetComponent<AudioReverbZone>().minDistance = temp;
+			roomCenter.GetComponent<AudioReverbZone>().reverb = 2000;
+			roomCenter.GetComponent<AudioReverbZone>().room = 0;
+			roomCenter.GetComponent<AudioReverbZone>().reflections = 1000;
+			roomCenter.GetComponent<AudioReverbZone>().decayTime = 20;
+			roomCenter.GetComponent<AudioReverbZone>().reverbDelay = 0.1f;
+			roomCenter.GetComponent<AudioReverbZone>().reflectionsDelay = 3;
+		}
+		
+		/*					SPAWN SOME 
 		• ▌ ▄ ·.        ▐ ▄ .▄▄ · ▄▄▄▄▄▄▄▄ .▄▄▄  .▄▄ · ▄▄ 
 		·██ ▐███▪▪     •█▌▐█▐█ ▀. •██  ▀▄.▀·▀▄ █·▐█ ▀. ██▌
 		▐█ ▌▐▌▐█· ▄█▀▄ ▐█▐▐▌▄▀▀▀█▄ ▐█.▪▐▀▀▪▄▐▀▀▄ ▄▀▀▀█▄▐█·
@@ -382,6 +446,7 @@ public class LevelSpawn : MonoBehaviour {
 					if(levelMatrix[x,y]!=null && levelMatrix[x,y].canSpawnEnemies && Random.Range(0,100)<enemySpawnFreq){
 						//SPAWN ENEMY
 						//Section modified by Mihai - Jacob please don't be mad
+						//Jacob says: "GRRRRRR!!!"
 						if(levelMatrix[x,y].tileMesh.childCount != null && levelMatrix[x,y].tileMesh.childCount<1){//only spawn enemy if there is not something else spawned there
 							Transform enemy = (Transform)Instantiate(enemyObject, new Vector3(x*tileWidth, 1, y*tileHeight), Quaternion.identity);
 							enemy.name = "lol a troll";//
@@ -391,16 +456,19 @@ public class LevelSpawn : MonoBehaviour {
 				}
 			}
 		}
-		print ("TOTAL ENEMIES IN LEVEL: "+enemiesInLevel);
+		//print ("TOTAL ENEMIES IN LEVEL: "+enemiesInLevel);
 		if(FinishGeneration!=null)FinishGeneration (); //trigger the event that anounces that the generation ended
+		generationDone = true;
+		print ("Level generation has completed!");
 	}
-
+	
+	
 	//----------------------------------------------------------------------------------------------------------------------------------------------------LEVEL SPAWN ALGORITHM BEGIN
 	Tile[,] generateRooms(int MAX_LEVEL_WIDTH, int MAX_LEVEL_HEIGHT){
 		
 		Tile[,] level = new Tile[MAX_LEVEL_WIDTH, MAX_LEVEL_HEIGHT];
-
-/*
+		
+		/*
 		 ██████╗ ███████╗███╗   ██╗███████╗██████╗  █████╗ ████████╗███████╗        ██████╗  ██████╗  ██████╗ ███╗   ███╗███████╗ (WARNING: 
 		██╔════╝ ██╔════╝████╗  ██║██╔════╝██╔══██╗██╔══██╗╚══██╔══╝██╔════╝        ██╔══██╗██╔═══██╗██╔═══██╗████╗ ████║██╔════╝  Possibly the coolest shit you've seen all day)
 		██║  ███╗█████╗  ██╔██╗ ██║█████╗  ██████╔╝███████║   ██║   █████╗          ██████╔╝██║   ██║██║   ██║██╔████╔██║███████╗
@@ -416,7 +484,7 @@ public class LevelSpawn : MonoBehaviour {
 		}	
 		
 		int numberOfRooms = Random.Range(minRooms, maxRooms+1);//Decide number of rooms
-
+		
 		int[] roomArray = new int[numberOfRooms*2];//Will hold spawn coordinates (bottom left coordinate of room)
 		int[] roomSizeArray = new int[numberOfRooms*2];//Will hold the room dimensions 
 		
@@ -428,7 +496,7 @@ public class LevelSpawn : MonoBehaviour {
 			roomArray[i+1]=Random.Range(0, MAX_LEVEL_HEIGHT);//y value of room
 			roomSizeArray[i] = Random.Range(minRoomWidth, maxRoomWidth);//save width of room
 			roomSizeArray[i+1] = Random.Range(minRoomHeight, maxRoomHeight);//save height of room
-
+			
 			if(roomArray[i]+roomSizeArray[i]>MAX_LEVEL_WIDTH){//if the x coordinate + the room width exceeds the level width (Out Of Bounds [OOB])
 				int overflowX = (roomArray[i]+roomSizeArray[i])-MAX_LEVEL_WIDTH;//How many tiles does the room width go out of bounds?
 				//print ("OUT OF BOUNDS WIDTH");
@@ -445,11 +513,11 @@ public class LevelSpawn : MonoBehaviour {
 			roomCenterArray[i] = roomArray[i]+(roomSizeArray[i]/2);
 			roomCenterArray[i+1] = roomArray[i+1]+(roomSizeArray[i+1]/2);
 			//print ("Room center: "+roomCenterArray[i]+","+roomCenterArray[i+1]);
-			
 		}
-
+		
 		//SET PLAYER SPAWN *QUICKLY - NOT OPTIMAL*
 		playerSpawn = new Vector3(roomCenterArray[0]*tileWidth, tileHeight, roomCenterArray[1]*tileHeight);
+		
 		
 		roomsInLevel = new Room[numberOfRooms];
 		//Now actually make the rooms
@@ -458,7 +526,7 @@ public class LevelSpawn : MonoBehaviour {
 			//set the type of the room to the default/normal room
 			Room room = new Room(Room.roomType.normal, roomSizeArray[k], roomSizeArray[k+1], new Vector3(roomCenterArray[k], 0, roomCenterArray[k+1]));//create new room
 			room.tiles = new Tile[roomSizeArray[k], roomSizeArray[k+1]];//set size of the room tiles array
-
+			
 			for(int l=roomArray[k]; l<roomArray[k]+roomSizeArray[k]; l++){//width of room spawned from the x position 
 				for(int m=roomArray[k+1]; m<roomArray[k+1]+roomSizeArray[k+1]; m++){//height –––||–––
 					if(level[l,m] == null){
@@ -479,8 +547,8 @@ public class LevelSpawn : MonoBehaviour {
 			}*/
 			roomCount++;
 		}
-	//	print ("TOTAL ROOMS IN LEVEL: "+ numberOfRooms);
-/*
+		//	print ("TOTAL ROOMS IN LEVEL: "+ numberOfRooms);
+		/*
 ╔╦╗╔═╗╦╔═╔═╗  ╔═╗╔═╗╦═╗╦═╗╦╔╦╗╔═╗╦═╗╔═╗  ╔╗ ╔═╗╔╦╗╦ ╦╔═╗╔═╗╔╗╔  ╦═╗╔═╗╔═╗╔╦╗╔═╗
 ║║║╠═╣╠╩╗║╣   ║  ║ ║╠╦╝╠╦╝║ ║║║ ║╠╦╝╚═╗  ╠╩╗║╣  ║ ║║║║╣ ║╣ ║║║  ╠╦╝║ ║║ ║║║║╚═╗
 ╩ ╩╩ ╩╩ ╩╚═╝  ╚═╝╚═╝╩╚═╩╚═╩═╩╝╚═╝╩╚═╚═╝  ╚═╝╚═╝ ╩ ╚╩╝╚═╝╚═╝╝╚╝  ╩╚═╚═╝╚═╝╩ ╩╚═╝
@@ -489,14 +557,14 @@ public class LevelSpawn : MonoBehaviour {
 		int y_;
 		int targetX;
 		int targetY;
-
+		
 		for(int roomNo=0; roomNo<roomsInLevel.Length; roomNo++){
 			if(roomNo < roomsInLevel.Length-1){//if its not the last room
 				x_ = (int)roomsInLevel[roomNo].center.x;
 				y_ = (int)roomsInLevel[roomNo].center.z;
 				targetX = (int)roomsInLevel[roomNo+1].center.x;
 				targetY = (int)roomsInLevel[roomNo+1].center.z;
-
+				
 				if(x_-targetX >0){
 					for(int x=x_; x>targetX; x--){//x path
 						Tile path = new Tile(x, y_, 1, 0, true, true);
@@ -529,7 +597,7 @@ public class LevelSpawn : MonoBehaviour {
 				}
 			}
 		}
-/*
+		/*
 ╔╗ ╦ ╦╦╦  ╔╦╗  ╦ ╦╔═╗╦  ╦  ╔═╗  ╦  ╦╦╔═╔═╗  ╔═╗  ╔╗ ╔═╗╔═╗╔═╗
 ╠╩╗║ ║║║   ║║  ║║║╠═╣║  ║  ╚═╗  ║  ║╠╩╗║╣   ╠═╣  ╠╩╗║ ║╚═╗╚═╗
 ╚═╝╚═╝╩╩═╝═╩╝  ╚╩╝╩ ╩╩═╝╩═╝╚═╝  ╩═╝╩╩ ╩╚═╝  ╩ ╩  ╚═╝╚═╝╚═╝╚═╝
@@ -545,7 +613,7 @@ public class LevelSpawn : MonoBehaviour {
 				wall.x = x;
 				wall.y = y;
 				wall.type = Tile.tileType.wall;
-
+				
 				//EDGE OF MAP CASES. To take care of the rooms that are at the map boundaries
 				if((x==MAX_LEVEL_WIDTH-1 || x==0) && level[x,y] != null){//since the level array goes from 0-MAX_LEVEL_WIDTH-1, so will this.
 					level[x,y] = wall;
@@ -574,7 +642,7 @@ public class LevelSpawn : MonoBehaviour {
 	}
 	//----------------------------------------------------------------------------------------------------------------------------------------------------LEVEL SPAWN ALGORITHM END
 	
-
+	
 	public Quaternion rotateTowardsNearestTileOfType(Tile.tileType type, int x, int y, Tile[,] levelMatrix){//will return what a given positions neighbors are
 		Quaternion dir = Quaternion.Euler(0, 0, 0);
 		if(getNeighbor("left", levelMatrix[x,y], levelMatrix)!=null && getNeighbor("left", levelMatrix[x,y], levelMatrix).type == type){
@@ -591,7 +659,7 @@ public class LevelSpawn : MonoBehaviour {
 		}
 		return dir;
 	}
-
+	
 	public Tile getNeighbor(string direction, Tile input, Tile[,] levelMatrix){
 		if(input != null){
 			switch(direction){
@@ -629,11 +697,11 @@ public class LevelSpawn : MonoBehaviour {
 			}
 		}else{return null;}
 	}
-
+	
 	bool isSpaceAvailableWithinRange(int range, Tile inputTile, Tile[,] levelMatrix, bool debugColorOn){
 		bool isAvailable = false;
 		int blockedByTile = 0;
-
+		
 		if(inputTile != null){
 			if(inputTile.x - range > 0 && inputTile.x + range < MAX_LEVEL_WIDTH && inputTile.y - range > 0 && inputTile.y + range < MAX_LEVEL_HEIGHT){// out of bounds check
 				for(int x=inputTile.x-range; x<=inputTile.x+range; x++){
@@ -641,6 +709,7 @@ public class LevelSpawn : MonoBehaviour {
 						if(levelMatrix[x,y]!=null){	
 							if(levelMatrix[x,y].type == Tile.tileType.ground || levelMatrix[x,y].type == Tile.tileType.path){
 								if(debugColorOn){
+									print ("CHANGING COLOR!");
 									levelMatrix[x,y].tileMesh.renderer.material.color = Color.green;
 								}
 							}else{
@@ -654,7 +723,7 @@ public class LevelSpawn : MonoBehaviour {
 				}
 			}
 		}
-
+		
 		if(blockedByTile > 0){
 			isAvailable = false;
 		}else{
@@ -673,7 +742,7 @@ public class LevelSpawn : MonoBehaviour {
 			return 8*num + getAmountOfNeighbors(num-1);
 		}
 	}
-
+	
 	bool isCornerOfRoom(string type, Tile input, Tile[,] levelMatrix){
 		bool isCorner = false;
 		//up/right
@@ -682,21 +751,23 @@ public class LevelSpawn : MonoBehaviour {
 		Tile right = getNeighbor("right", input, levelMatrix);
 		Tile down = getNeighbor("down", input, levelMatrix);
 		if(type == "in"){
-			if(input!=null){
-				if(input.type == Tile.tileType.ground){
-					if(up.type == Tile.tileType.wall && right.type == Tile.tileType.wall){
-						isCorner = true;
-					}
-					else if(up.type == Tile.tileType.wall && left.type == Tile.tileType.wall){
-						isCorner = true;
-					}
-					else if(down.type == Tile.tileType.wall && right.type == Tile.tileType.wall){
-						isCorner = true;
-					}
-					else if(down.type == Tile.tileType.wall && left.type == Tile.tileType.wall){
-						isCorner = true;
-					}else{
-						isCorner = false;
+			if(up!=null && left!=null && right!=null && down!=null){
+				if(input!=null){
+					if(input.type == Tile.tileType.ground){
+						if(up.type == Tile.tileType.wall && right.type == Tile.tileType.wall){
+							isCorner = true;
+						}
+						else if(up.type == Tile.tileType.wall && left.type == Tile.tileType.wall){
+							isCorner = true;
+						}
+						else if(down.type == Tile.tileType.wall && right.type == Tile.tileType.wall){
+							isCorner = true;
+						}
+						else if(down.type == Tile.tileType.wall && left.type == Tile.tileType.wall){
+							isCorner = true;
+						}else{
+							isCorner = false;
+						}
 					}
 				}
 			}
@@ -776,7 +847,7 @@ public class LevelSpawn : MonoBehaviour {
 		}else{Debug.LogError("INVALID TYPE OF CORNER INPUT!");}
 		return dir;
 	}
-
+	
 	bool isWallPartOfCorner(Tile input, Tile[,] levelMatrix){
 		bool isPartOfCorner = false;
 		if(isCornerOfRoom("in", getNeighbor("left", input, levelMatrix), levelMatrix) || isCornerOfRoom("in", getNeighbor("up", input, levelMatrix), levelMatrix)
@@ -785,15 +856,15 @@ public class LevelSpawn : MonoBehaviour {
 		}else{ isPartOfCorner = false; } 
 		return isPartOfCorner;
 	}
-
+	
 	string checkForMatchWithKernel(int[,] kernel, Tile input, Tile[,] levelMatrix){
 		string match = "none";
-
+		
 		int[,] kernelLeft 	= kernel;
 		int[,] kernelUp 	= flip2dArray(kernelLeft);
 		int[,] kernelRight 	= flip2dArray(kernelUp);
 		int[,] kernelDown 	= flip2dArray(kernelRight);
-
+		
 		int matchValue = kernel.GetLength(0)*kernel.GetLength(1);
 		////////////////////////////////////////////////////////
 		int[,] check = new int[kernel.GetLength(0),kernel.GetLength(1)]; //this is the 2D array to check against the kernel
@@ -803,7 +874,7 @@ public class LevelSpawn : MonoBehaviour {
 				check[i,j]=0;
 			}
 		}
-
+		
 		//Check and update the 'check' kernel
 		if(input.y-1>=0 && input.x-1>=0 && input.y+1 < MAX_LEVEL_HEIGHT && input.x+1 < MAX_LEVEL_WIDTH){
 			for(int x=input.x-1; x<=input.x+1; x++){
@@ -816,51 +887,51 @@ public class LevelSpawn : MonoBehaviour {
 				}
 			}
 		}
-	//Check if the 'check' kernel matches any of the entrance signatures
+		//Check if the 'check' kernel matches any of the entrance signatures
 		int value = 0;
 		//left//////////////////////////////////////////////////////////////////////////////////////////
 		for(int i=0; i<kernel.GetLength(0); i++)
 			for(int j=0; j<kernel.GetLength(1); j++)
-				if(check[i,j] == kernelLeft[i,j]){
-					value++;
-				}
+			if(check[i,j] == kernelLeft[i,j]){
+				value++;
+			}
 		if(value==matchValue)
 			match = "left";
 		value = 0;
 		//up//////////////////////////////////////////////////////////////////////////////////////////
 		for(int i=0; i<kernel.GetLength(0); i++)
 			for(int j=0; j<kernel.GetLength(1); j++)
-				if(check[i,j] == kernelUp[i,j]){
-					value++;
-				}
+			if(check[i,j] == kernelUp[i,j]){
+				value++;
+			}
 		if(value==matchValue)
 			match = "up";
 		value = 0;
 		//right//////////////////////////////////////////////////////////////////////////////////////////
 		for(int i=0; i<kernel.GetLength(0); i++)
 			for(int j=0; j<kernel.GetLength(1); j++)
-				if(check[i,j] == kernelRight[i,j]){
-					value++;
-				}
+			if(check[i,j] == kernelRight[i,j]){
+				value++;
+			}
 		if(value==matchValue)
 			match = "right";
 		value = 0;
 		//down//////////////////////////////////////////////////////////////////////////////////////////
 		for(int i=0; i<kernel.GetLength(0); i++)
 			for(int j=0; j<kernel.GetLength(1); j++)
-				if(check[i,j] == kernelDown[i,j]){
-					value++;
-				}
+			if(check[i,j] == kernelDown[i,j]){
+				value++;
+			}
 		if(value==matchValue)
 			match = "down";
-
+		
 		return match;
-
+		
 	}
-
+	
 	int[,] flip2dArray(int[,] array){
 		int[,] flippedArray = new int[array.GetLength(0),array.GetLength(1)];
-
+		
 		for(int i=array.GetLength(0)-1; i>=0; i--){
 			for(int j=0; j<=array.GetLength(1)-1; j++){
 				flippedArray[j,(array.GetLength(0)-1)-i] = array[i,j];
@@ -868,7 +939,7 @@ public class LevelSpawn : MonoBehaviour {
 		}
 		return flippedArray;
 	}
-/*
+	/*
  ███▄ ▄███▓ █     █░█    ██  ▄▄▄       ██░ ██  ▄▄▄       ██░ ██  ▄▄▄       ██░ ██  ▄▄▄       ▐██▌ 
 ▓██▒▀█▀ ██▒▓█░ █ ░█░██  ▓██▒▒████▄    ▓██░ ██▒▒████▄    ▓██░ ██▒▒████▄    ▓██░ ██▒▒████▄     ▐██▌ 
 ▓██    ▓██░▒█░ █ ░█▓██  ▒██░▒██  ▀█▄  ▒██▀▀██░▒██  ▀█▄  ▒██▀▀██░▒██  ▀█▄  ▒██▀▀██░▒██  ▀█▄   ▐██▌ 
@@ -880,4 +951,5 @@ public class LevelSpawn : MonoBehaviour {
        ░       ░      ░           ░  ░ ░  ░  ░      ░  ░ ░  ░  ░      ░  ░ ░  ░  ░      ░  ░ ░   
 */
 
+	
 }
