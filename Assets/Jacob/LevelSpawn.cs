@@ -89,8 +89,7 @@ public class LevelSpawn : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		generationDone = false;
-		print ("BEGINNING LEVEL GENERATION!");
-		
+
 		if(seedBasedGeneration){
 			Random.seed=seed;//set the seed of the level
 		}else{print ("Seed for this generation: "+Random.seed);}
@@ -120,7 +119,6 @@ public class LevelSpawn : MonoBehaviour {
 		╠╦╝║ ║║ ║║║║ ║║   ║ ╠═╣║╣   ║║║╠═╣║  ║    ║  ║ ║╠╦╝║║║║╣ ╠╦╝╚═╗
 		╩╚═╚═╝╚═╝╝╚╝═╩╝   ╩ ╩ ╩╚═╝  ╚╩╝╩ ╩╩═╝╩═╝  ╚═╝╚═╝╩╚═╝╚╝╚═╝╩╚═╚═╝
 		*/
-		print ("beginning to make corners!");
 		for(int x=0; x<MAX_LEVEL_WIDTH; x++){
 			for(int y=0; y<MAX_LEVEL_HEIGHT; y++){
 				if(levelMatrix[x,y]!=null){
@@ -130,7 +128,6 @@ public class LevelSpawn : MonoBehaviour {
 						Transform wallCorner = (Transform)Instantiate(cornerWall, new Vector3(x*tileWidth, 0, y*tileHeight), rotateCornerCorrectly("in", levelMatrix[x,y], levelMatrix));
 						wallCorner.parent = levelMatrix[x,y].tileMesh.transform;
 					}else if(isCornerOfRoom("out", levelMatrix[x,y], levelMatrix)){
-						print ("making corner wall");
 						Transform wallCorner2 = (Transform)Instantiate(roundedWallOut, new Vector3(x*tileWidth, 0, y*tileHeight), rotateCornerCorrectly("out", levelMatrix[x,y], levelMatrix));
 						wallCorner2.parent = levelParent.transform;
 						Destroy(levelMatrix[x,y].tileMesh.gameObject);//destroy current wall
@@ -219,7 +216,7 @@ public class LevelSpawn : MonoBehaviour {
 			a = Random.Range(1, MAX_LEVEL_WIDTH);
 			b = Random.Range(1, MAX_LEVEL_WIDTH);
 
-			if(levelMatrix[a,b] != null && levelMatrix[a,b].type == Tile.tileType.ground && levelMatrix[a,b].tileMesh.childCount < 1 &&isSpaceAvailableWithinRange(2, levelMatrix[a,b], levelMatrix, false)){
+			if(levelMatrix[a,b] != null && levelMatrix[a,b].type == Tile.tileType.ground && levelMatrix[a,b].tileMesh.childCount == 0 && isSpaceAvailableWithinRange(1, levelMatrix[a,b], levelMatrix, true)){
 					Destroy(levelMatrix[a,b].tileMesh.gameObject);
 					exitCoords = new Vector3(a, 0, b);
 					levelMatrix[a,b].tileMesh = (Transform)Instantiate(exitObject, exitCoords*tileWidth, Quaternion.identity);
@@ -345,14 +342,16 @@ public class LevelSpawn : MonoBehaviour {
 		╠═╝║║  ║  ╠═╣╠╦╝╚═╗
 		╩  ╩╩═╝╩═╝╩ ╩╩╚═╚═╝
 		*/// TO PROVIDE SOME MAD SUPPORT FO DA ROOF!
-		
-		//to be written...................
 		for(int roomCount=0; roomCount<roomsInLevel.Length; roomCount++){//loop through rooms
 			Transform pillah = (Transform)Instantiate(pillar, roomsInLevel[roomCount].center*tileWidth, Quaternion.identity);
 			int[] moveOptions = {-1, 1};
 			//Make sure it doesn't stand right on a path
-			while(levelMatrix[(int)pillah.transform.position.x/tileWidth, (int)pillah.transform.position.z/tileHeight].tileMesh.tag == "Path"){
-				pillah.transform.position+= new Vector3(moveOptions[Random.Range(0,moveOptions.Length)]*tileWidth, 0, moveOptions[Random.Range(0,moveOptions.Length)]*tileHeight);
+			int tryCount = 0;
+			//make sure it doesn't spawn on a path tile or the exit
+			while(levelMatrix[(int)pillah.transform.position.x/tileWidth, (int)pillah.transform.position.z/tileHeight].tileMesh.tag == "Path" || levelMatrix[(int)pillah.transform.position.x/tileWidth, (int)pillah.transform.position.z/tileHeight].tileMesh.tag == "Exit"){
+				int rand1 = Random.Range(0,moveOptions.Length);
+				int rand2 = Random.Range(0,moveOptions.Length);
+				pillah.transform.position+= new Vector3((float)rand1*tileWidth, 0, (float)rand2*tileHeight);
 			}
 			pillah.parent = levelMatrix[(int)pillah.transform.position.x/tileWidth, (int)pillah.transform.position.z/tileHeight].tileMesh.transform;
 			//Maybe spawn some crates around it?
@@ -394,7 +393,7 @@ public class LevelSpawn : MonoBehaviour {
 					//if(levelMatrix[x,y]!=null && levelMatrix[x,y].tileMesh.childCount != null)
 					//	print (levelMatrix[x,y]+": "+levelMatrix[x,y].type+", "+levelMatrix[x,y].tileMesh.childCount);
 					//Make sure it's against a wall and that the particular wall tile in question doesn't already hold another item
-					if(levelMatrix[x,y]!=null && levelMatrix[x,y].type == Tile.tileType.wall && (levelMatrix[x,y].tileMesh.childCount != null && levelMatrix[x,y].tileMesh.childCount < 6)){
+					if(levelMatrix[x,y]!=null && levelMatrix[x,y].type == Tile.tileType.wall && (levelMatrix[x,y].tileMesh.childCount != null && levelMatrix[x,y].tileMesh.childCount < 3)){
 						if(!isWallPartOfCorner(levelMatrix[x,y], levelMatrix)){
 							Transform deco = Instantiate(dec, new Vector3(x*tileWidth, tileHeight, y*tileWidth), rotateTowardsNearestTileOfType(Tile.tileType.ground, x, y, levelMatrix)) as Transform;
 							deco.parent = levelMatrix[x,y].tileMesh.transform;
@@ -415,21 +414,23 @@ public class LevelSpawn : MonoBehaviour {
 			levelMatrix[(int)roomsInLevel[i].center.x, (int)roomsInLevel[i].center.z].tileMesh.transform.parent = Walls.transform;
 			
 			if(roomCenter.GetComponent<AudioReverbZone>()==null){
-				print ("applying ARZ");
-				roomCenter.gameObject.AddComponent<AudioReverbZone>();//if it doesn't already have an ARZ
+				roomCenter.gameObject.AddComponent<AudioReverbZone>();//if it doesn't already have an ARZ, apply one
 			}
 			int temp = roomsInLevel[i].width;
-			if(roomsInLevel[i].height < temp){//make sure temp is the smallest of the two (so ARZ doesn't overlap into other rooms)
+			if(roomsInLevel[i].height > temp){//make sure temp is the highest of the two
 				temp = roomsInLevel[i].height;
 			}
-			roomCenter.GetComponent<AudioReverbZone>().reverbPreset = AudioReverbPreset.Arena;
-			roomCenter.GetComponent<AudioReverbZone>().minDistance = temp;
-			roomCenter.GetComponent<AudioReverbZone>().reverb = 2000;
-			roomCenter.GetComponent<AudioReverbZone>().room = 0;
-			roomCenter.GetComponent<AudioReverbZone>().reflections = 1000;
-			roomCenter.GetComponent<AudioReverbZone>().decayTime = 20;
-			roomCenter.GetComponent<AudioReverbZone>().reverbDelay = 0.1f;
-			roomCenter.GetComponent<AudioReverbZone>().reflectionsDelay = 3;
+			AudioReverbZone arz = roomCenter.GetComponent<AudioReverbZone>();
+			arz.reverbPreset = AudioReverbPreset.User;
+			arz.minDistance = temp;
+			arz.minDistance = temp+2;
+			arz.reverb = 1;
+			arz.room = 0-temp*temp*temp;
+			arz.reflections = 1;
+			arz.reflectionsDelay = 0;
+			arz.decayTime = 0.1f;
+			arz.reverbDelay = 0.1f;
+			arz.reflectionsDelay = 3;
 		}
 		
 		/*					SPAWN SOME 
@@ -459,7 +460,6 @@ public class LevelSpawn : MonoBehaviour {
 		//print ("TOTAL ENEMIES IN LEVEL: "+enemiesInLevel);
 		if(FinishGeneration!=null)FinishGeneration (); //trigger the event that anounces that the generation ended
 		generationDone = true;
-		print ("Level generation has completed!");
 	}
 	
 	
@@ -491,7 +491,7 @@ public class LevelSpawn : MonoBehaviour {
 		int[] roomCenterArray = new int[numberOfRooms*2];//Will hold the center of the room (for corridor spawning);
 		
 		//Fill the roomArray with spawn coordinates for each room (Pattern: [0]=x1, [1]=y1, [2]=x2, [3]=y2, ... ), and fill up the corresponding size array
-		for(int i=0; i< numberOfRooms*2; i+=2){
+		for(int i=0; i<numberOfRooms*2; i+=2){
 			roomArray[i]=Random.Range(0, MAX_LEVEL_WIDTH);//x value of room
 			roomArray[i+1]=Random.Range(0, MAX_LEVEL_HEIGHT);//y value of room
 			roomSizeArray[i] = Random.Range(minRoomWidth, maxRoomWidth);//save width of room
@@ -517,7 +517,10 @@ public class LevelSpawn : MonoBehaviour {
 		
 		//SET PLAYER SPAWN *QUICKLY - NOT OPTIMAL*
 		playerSpawn = new Vector3(roomCenterArray[0]*tileWidth, tileHeight, roomCenterArray[1]*tileHeight);
-		
+		//spawn the entrance, and decrease range 
+		Transform enter = (Transform)Instantiate(exitObject, new Vector3(playerSpawn.x, 7.15f, playerSpawn.z), Quaternion.identity);
+		enter.GetComponentInChildren<Light>().range = 4;
+		enter.name = "entrance";
 		
 		roomsInLevel = new Room[numberOfRooms];
 		//Now actually make the rooms
