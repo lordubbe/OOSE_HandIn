@@ -28,7 +28,7 @@ GameObject:
   - 33: {fileID: 3300000}
   - 23: {fileID: 2300000}
   m_Layer: 0
-  m_Name: polySurface75
+  m_Name: polySurface86
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -69,7 +69,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: 29bee7aefc11a51418ac75a958aa5bee, type: 2}
+  - {fileID: 2100000, guid: dd087f206072305429638c2967cc12a8, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -84,7 +84,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100002}
-  m_Mesh: {fileID: 4300004, guid: f9871ab47c803e94abdcad3b70eb5af5, type: 3}
+  m_Mesh: {fileID: 4300006, guid: f9871ab47c803e94abdcad3b70eb5af5, type: 3}
 --- !u!64 &6400000
 MeshCollider:
   m_ObjectHideFlags: 0

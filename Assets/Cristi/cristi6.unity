@@ -240,7 +240,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce3392ea6fe4b446a80cba196c1b8624, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelSpawner: {fileID: 0}
   player: {fileID: 400026, guid: e2470e9bae5e85b44946f21c5684440a, type: 2}
 --- !u!1 &424201273
 GameObject:
