@@ -14,7 +14,7 @@ GameObject:
   - 54: {fileID: 5400000}
   - 114: {fileID: 11400000}
   m_Layer: 0
-  m_Name: Exit
+  m_Name: exitObj
   m_TagString: Exit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -788,15 +788,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100008}
-<<<<<<< HEAD
   m_LocalRotation: {x: 0, y: -0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -.000154611189, z: .0190054588}
   m_LocalScale: {x: 1, y: 1, z: 1}
-=======
-  m_LocalRotation: {x: 0, y: 0, z: .707106888, w: .707106769}
-  m_LocalPosition: {x: 0, y: -2.11214209, z: 0}
-  m_LocalScale: {x: 15.3051424, y: .0020374856, z: .5}
->>>>>>> FETCH_HEAD
   m_Children: []
   m_Father: {fileID: 400010}
 --- !u!4 &400010
@@ -805,19 +799,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100010}
-<<<<<<< HEAD
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 2.84039736, z: -.872603178}
   m_LocalScale: {x: 45.8744698, y: 257.009125, z: 45.8744698}
   m_Children:
   - {fileID: 400008}
   - {fileID: 400006}
-=======
-  m_LocalRotation: {x: 0, y: 0, z: .707106888, w: .707106769}
-  m_LocalPosition: {x: -0, y: 12.2776012, z: 0}
-  m_LocalScale: {x: 15.3051424, y: .0020374856, z: .5}
-  m_Children: []
->>>>>>> FETCH_HEAD
   m_Father: {fileID: 400000}
 --- !u!4 &400012
 Transform:
