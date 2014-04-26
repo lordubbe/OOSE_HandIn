@@ -216,7 +216,7 @@ public class LevelSpawn : MonoBehaviour {
 			a = Random.Range(1, MAX_LEVEL_WIDTH);
 			b = Random.Range(1, MAX_LEVEL_WIDTH);
 
-			if(levelMatrix[a,b] != null && levelMatrix[a,b].type == Tile.tileType.ground && levelMatrix[a,b].tileMesh.childCount == 0 && isSpaceAvailableWithinRange(1, levelMatrix[a,b], levelMatrix, true)){
+			if(levelMatrix[a,b] != null && levelMatrix[a,b].type == Tile.tileType.ground && levelMatrix[a,b].tileMesh.childCount == 0 && isSpaceAvailableWithinRange(1, levelMatrix[a,b], levelMatrix, false) && levelMatrix[a,b].tileMesh.transform.position != playerSpawn){
 					Destroy(levelMatrix[a,b].tileMesh.gameObject);
 					exitCoords = new Vector3(a, 0, b);
 					levelMatrix[a,b].tileMesh = (Transform)Instantiate(exitObject, exitCoords*tileWidth, Quaternion.identity);
