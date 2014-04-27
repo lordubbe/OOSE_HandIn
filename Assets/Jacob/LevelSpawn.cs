@@ -216,12 +216,15 @@ public class LevelSpawn : MonoBehaviour {
 			a = Random.Range(1, MAX_LEVEL_WIDTH);
 			b = Random.Range(1, MAX_LEVEL_WIDTH);
 
-			if(levelMatrix[a,b] != null && levelMatrix[a,b].type == Tile.tileType.ground && levelMatrix[a,b].tileMesh.childCount == 0 && isSpaceAvailableWithinRange(1, levelMatrix[a,b], levelMatrix, false) && levelMatrix[a,b].tileMesh.transform.position != playerSpawn){
-					Destroy(levelMatrix[a,b].tileMesh.gameObject);
-					exitCoords = new Vector3(a, 0, b);
-					levelMatrix[a,b].tileMesh = (Transform)Instantiate(exitObject, exitCoords*tileWidth, Quaternion.identity);
-					exitPlaced = true;
-				}
+			//make sure the exit only spawns on regular ground tiles that doesn't already have children (pillar, etc.), and that it doesn't spawn at playerspawn
+			if(levelMatrix[a,b] != null && levelMatrix[a,b].type == Tile.tileType.ground && levelMatrix[a,b].tileMesh.childCount == 0 
+			   && isSpaceAvailableWithinRange(1, levelMatrix[a,b], levelMatrix, false) && 
+			   (levelMatrix[a,b].tileMesh.transform.position.x != playerSpawn.x && levelMatrix[a,b].tileMesh.transform.position.z != playerSpawn.z)){
+				Destroy(levelMatrix[a,b].tileMesh.gameObject);
+				exitCoords = new Vector3(a, 0, b);
+				levelMatrix[a,b].tileMesh = (Transform)Instantiate(exitObject, exitCoords*tileWidth, Quaternion.identity);
+				exitPlaced = true;
+			}
 		}
 		//	}
 		//}
@@ -317,13 +320,13 @@ public class LevelSpawn : MonoBehaviour {
 		for(int x=0; x<MAX_LEVEL_WIDTH; x++){
 			for(int y=0; y<MAX_LEVEL_HEIGHT; y++){
 				if(Random.Range (0, 100) < chestSpawnFreq){
-					if(levelMatrix[x,y]!=null && levelMatrix[x,y].type == Tile.tileType.wall){
+					if(levelMatrix[x,y]!=null && levelMatrix[x,y].type == Tile.tileType.wall){//spawn by a wall
 						Tile leftNeighbor = getNeighbor("left", levelMatrix[x,y], levelMatrix);
 						Tile upNeighbor = getNeighbor("up", levelMatrix[x,y], levelMatrix);
 						Tile rightNeighbor = getNeighbor("right", levelMatrix[x,y], levelMatrix);
 						Tile downNeighbor = getNeighbor("down", levelMatrix[x,y], levelMatrix);
 						
-						if((leftNeighbor != null && leftNeighbor.tileMesh.tag != "Path")		//Make sure it doesn't spawn by pathTiles	
+						if((leftNeighbor != null && leftNeighbor.tileMesh.tag != "Path")		//Make sure it doesn't spawn on pathTiles	
 						   && (upNeighbor != null && upNeighbor.tileMesh.tag != "Path")			//
 						   && (rightNeighbor != null && rightNeighbor.tileMesh.tag != "Path")	//
 						   && (downNeighbor != null && downNeighbor.tileMesh.tag != "Path")){	//
