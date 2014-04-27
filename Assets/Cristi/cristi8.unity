@@ -681,7 +681,7 @@ MonoBehaviour:
   Walls: {fileID: 424201274}
   emptyTile: {fileID: 400000, guid: ede89c57f0b204a189d04eb28f590208, type: 2}
   pathTile: {fileID: 400000, guid: 8d060eab766eb4adebf854a9142d04cf, type: 2}
-  wallTile: {fileID: 400000, guid: ad70aa225be7643e1b54527ea0fb6be3, type: 2}
+  wallTile: {fileID: 400000, guid: 6b5b957de31d721489f181634eb2c72a, type: 2}
   cornerWall: {fileID: 400002, guid: 0f766e07c82ac4c09a21542085aa4bf4, type: 2}
   roundedWallOut: {fileID: 400002, guid: abee42fd9ff8344078556705a72c32a7, type: 2}
   doubleRoundedWallOut: {fileID: 400000, guid: 158921c1fc81a4b098b6206cdd33251b, type: 2}
