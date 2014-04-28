@@ -4,6 +4,9 @@ using System.Collections;
 public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController {
 
 	public AudioClip snare;
+	public AudioClip runningLoop;
+	public AudioClip jumpSound;
+	public AudioClip landSound;
 
     public float ForwardSpeed;
     public float SideSpeed;
@@ -31,6 +34,9 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController {
     private float attStart;
     private bool canAtt;
     
+	//added by Jacob
+	private bool hasJustLanded = false;
+
     private enum Direction
     {
         up,left,down,right
@@ -122,35 +128,58 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController {
             float mxAxis = Input.GetAxis("Mouse X");
             transform.Rotate(new Vector3(0, mxAxis * RotationSpeed, 0) * Time.deltaTime);
             forwardDirection = new Vector3(0, 0, 0);
+			/*
+			//-----
+			if (charController.isGrounded) {
+				if (!hasJustLanded) {
+					hasJustLanded = true;
+					GetComponent<AudioSource>().audio.PlayOneShot(landSound);
+				} 
+			} else{
+				hasJustLanded = false;
+			}*/
+			//SOUND
+			if(vAxis != 0 || hAxis != 0){//if player is moving
+				if(!GetComponent<AudioSource>().audio.isPlaying && charController.isGrounded){
+					GetComponent<AudioSource>().audio.Play();
+				
+				}
+			}else{ if(!hasJustLanded && charController.isGrounded){GetComponent<AudioSource>().audio.Stop(); }}
 
-
-            if (vAxis != 0)
+            if (vAxis != 0)//fwd/bckwds
             {
                 animation.CrossFade(runForward);
                 forwardDirection += transform.forward * ForwardSpeed * Time.deltaTime * vAxis;
                 lastDir = Direction.up;
-            }
+			}
 
-            if (hAxis > 0)
+            if (hAxis > 0)//right
             {
                 forwardDirection += transform.right * SideSpeed * Time.deltaTime * hAxis;
                 animation.CrossFade(runRight);
                 lastDir = Direction.right;
             }
-            if (hAxis < 0)
+            if (hAxis < 0)//left
             {
                 forwardDirection += transform.right * SideSpeed * Time.deltaTime * hAxis;
                 animation.CrossFade(runLeft);
                 lastDir = Direction.left;
             }
-            if (Input.GetAxis("Jump") > 0 && charController.isGrounded)
+            if (Input.GetAxis("Jump") > 0 && charController.isGrounded)//jumping
             {
-                //forwardDirection += new Vector3(0,JumpForce,0);
+				if(GetComponent<AudioSource>().audio.isPlaying){
+					GetComponent<AudioSource>().audio.Stop();
+				}
+
+				GetComponent<AudioSource>().audio.PlayOneShot(jumpSound);
+				//forwardDirection += new Vector3(0,JumpForce,0);
                 StartCoroutine("onJump");
 
                 animation.CrossFade(jump);
             }
-            if (Input.GetMouseButtonDown(1))
+			
+			
+			if (Input.GetMouseButtonDown(1))
             {
                 BlockUp();
 
@@ -204,13 +233,21 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController {
 	}
     private IEnumerator onJump()
     {
+		bool playedLanding = false;
         float pow = JumpForce;
         while (pow > 0)
         {
             Vector3 upDir = new Vector3(0,(pow)* Time.deltaTime,0);
             charController.Move(upDir);
             pow -= Time.deltaTime * gravity;
-            if (pow < 5f) pow = 0;
+           	if(pow<6f && !playedLanding){
+				GetComponent<AudioSource>().audio.PlayOneShot(landSound);
+				playedLanding = true;
+			}
+			if (pow < 5f){
+				pow = 0;
+
+			}
             yield return new WaitForEndOfFrame();
         }
     }

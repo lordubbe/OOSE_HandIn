@@ -213,6 +213,7 @@ GameObject:
   - 114: {fileID: 11400010}
   - 81: {fileID: 8100004}
   - 114: {fileID: 11400014}
+  - 82: {fileID: 8200000}
   m_Layer: 0
   m_Name: Hero First Person 1
   m_TagString: Player
@@ -894,7 +895,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100026}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.68132544, y: -1.46858859, z: -12.1763554}
+  m_LocalPosition: {x: -.93216598, y: .67494154, z: .121933937}
   m_LocalScale: {x: .5, y: .5, z: .5}
   m_Children:
   - {fileID: 400014}
@@ -1520,6 +1521,64 @@ AudioListener:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100026}
   m_Enabled: 1
+--- !u!82 &8200000
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100026}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_audioClip: {fileID: 8300000, guid: 50861a50199e34d49b74705f6e3e0e4d, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
 --- !u!92 &9200000
 Behaviour:
   m_ObjectHideFlags: 1
@@ -1796,6 +1855,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   snare: {fileID: 8300000, guid: 775cdfd62053544e58e0f80473a3e2fb, type: 3}
+  runningLoop: {fileID: 8300000, guid: 50861a50199e34d49b74705f6e3e0e4d, type: 3}
+  jumpSound: {fileID: 8300000, guid: 0288e75ccf489494982788776f7e7902, type: 3}
+  landSound: {fileID: 8300000, guid: 3c88ca8636a394d6f96812de7e8a1071, type: 3}
   ForwardSpeed: 4
   SideSpeed: 3
   AttackSpeed: 1
