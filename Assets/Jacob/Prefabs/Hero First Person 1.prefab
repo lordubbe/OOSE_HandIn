@@ -212,6 +212,7 @@ GameObject:
   - 114: {fileID: 11400012}
   - 114: {fileID: 11400010}
   - 81: {fileID: 8100004}
+  - 114: {fileID: 11400014}
   m_Layer: 0
   m_Name: Hero First Person 1
   m_TagString: Player
@@ -893,7 +894,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100026}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 31.6481285, y: 1.14384866, z: 28.6097927}
+  m_LocalPosition: {x: -2.68132544, y: -1.46858859, z: -12.1763554}
   m_LocalScale: {x: .5, y: .5, z: .5}
   m_Children:
   - {fileID: 400014}
@@ -1410,7 +1411,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 10100, guid: 0000000000000000e000000000000000, type: 0}
+  - {fileID: 2100000, guid: 902af311fb11245ef84cf4d9149ca849, type: 3}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -1431,7 +1432,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 10100, guid: 0000000000000000e000000000000000, type: 0}
+  - {fileID: 2100000, guid: 8dc4f5152663f4307940b876105ddd11, type: 3}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -1550,7 +1551,7 @@ TextMesh:
   m_FontSize: 1000
   m_FontStyle: 0
   m_RichText: 1
-  m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Font: {fileID: 12800000, guid: 902af311fb11245ef84cf4d9149ca849, type: 3}
   m_Color:
     serializedVersion: 2
     rgba: 4294967295
@@ -1571,7 +1572,7 @@ TextMesh:
   m_FontSize: 1000
   m_FontStyle: 0
   m_RichText: 1
-  m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Font: {fileID: 12800000, guid: 8dc4f5152663f4307940b876105ddd11, type: 3}
   m_Color:
     serializedVersion: 2
     rgba: 4294967295
@@ -1620,8 +1621,8 @@ Light:
   serializedVersion: 3
   m_Type: 2
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1
-  m_Range: 10
+  m_Intensity: .800000012
+  m_Range: 6
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -1827,6 +1828,17 @@ MonoBehaviour:
   - {fileID: 100000, guid: 55324c1eb98f8cd45820ff5fc557b582, type: 2}
   - {fileID: 100000, guid: 93ffec51b981e204288a61287eda52ba, type: 2}
   cam: {fileID: 400078}
+--- !u!114 &11400014
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b37aefc3bed344343835262b93ecb58f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!124 &12400000
 Behaviour:
   m_ObjectHideFlags: 1

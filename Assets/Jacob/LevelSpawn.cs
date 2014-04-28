@@ -65,6 +65,7 @@ public class LevelSpawn : MonoBehaviour {
 	
 	//Goodies
 	public int chestSpawnFreq = 5;
+	public int minAmountOfChests = 1;
 	
 	//Player
 	public Vector3 playerSpawn;
@@ -85,7 +86,7 @@ public class LevelSpawn : MonoBehaviour {
 	public static event FINISH_GENERATION FinishGeneration; 
 	
 	
-	
+
 	// Use this for initialization
 	void Start () {
 		generationDone = false;
@@ -234,6 +235,7 @@ public class LevelSpawn : MonoBehaviour {
 				Destroy(levelMatrix[a,b].tileMesh.gameObject);
 				exitCoords = new Vector3(a, 0, b);
 				levelMatrix[a,b].tileMesh = (Transform)Instantiate(exitObject, exitCoords*tileWidth, Quaternion.identity);
+				levelMatrix[a,b].isWalkable = false;
 				exitPlaced = true;
 			}
 		}
@@ -328,29 +330,40 @@ public class LevelSpawn : MonoBehaviour {
 		╚═╝╩ ╩╚═╝╚═╝ ╩ ╚═╝
 		*/
 		//Place some goodies! Chests incominnnggg!
+		int tries = 0;
+		int chestsPlaced = 0;
+		while(chestsPlaced < minAmountOfChests && tries < 20){
+			int x = Random.Range(0,MAX_LEVEL_WIDTH);
+			int y = Random.Range(0,MAX_LEVEL_HEIGHT);
 
-		for(int x=0; x<MAX_LEVEL_WIDTH; x++){
-			for(int y=0; y<MAX_LEVEL_HEIGHT; y++){
-				if(Random.Range (0, 100) < chestSpawnFreq){
-					if(levelMatrix[x,y]!=null && levelMatrix[x,y].type == Tile.tileType.wall){//spawn by a wall
-						Tile leftNeighbor = getNeighbor("left", levelMatrix[x,y], levelMatrix);
-						Tile upNeighbor = getNeighbor("up", levelMatrix[x,y], levelMatrix);
-						Tile rightNeighbor = getNeighbor("right", levelMatrix[x,y], levelMatrix);
-						Tile downNeighbor = getNeighbor("down", levelMatrix[x,y], levelMatrix);
-						
-						if((leftNeighbor != null && leftNeighbor.tileMesh.tag != "Path")		//Make sure it doesn't spawn on pathTiles	
-						   && (upNeighbor != null && upNeighbor.tileMesh.tag != "Path")			//
-						   && (rightNeighbor != null && rightNeighbor.tileMesh.tag != "Path")	//
-						   && (downNeighbor != null && downNeighbor.tileMesh.tag != "Path")){	//
-							if(!isWallPartOfCorner(levelMatrix[x,y], levelMatrix)){
-								Transform chest = Instantiate(chestObject, new Vector3(x*tileWidth, tileHeight, y*tileWidth), rotateTowardsNearestTileOfType(Tile.tileType.ground, x, y, levelMatrix)) as Transform;
-								chest.parent = levelMatrix[x,y].tileMesh.transform;
-							}
-						}
-					}
-				}
+			if(levelMatrix[x, y] != null && levelMatrix[x, y].type == Tile.tileType.wall){
+			//for(int x=0; x<MAX_LEVEL_WIDTH; x++){
+			//	for(int y=0; y<MAX_LEVEL_HEIGHT; y++){
+			//		if(Random.Range (0, 100) < chestSpawnFreq){
+						//if(levelMatrix[x,y]!=null && levelMatrix[x,y].type == Tile.tileType.wall){//spawn by a wall
+							Tile leftNeighbor = getNeighbor("left", levelMatrix[x,y], levelMatrix);
+							Tile upNeighbor = getNeighbor("up", levelMatrix[x,y], levelMatrix);
+							Tile rightNeighbor = getNeighbor("right", levelMatrix[x,y], levelMatrix);
+							Tile downNeighbor = getNeighbor("down", levelMatrix[x,y], levelMatrix);
+							
+						/*	if((leftNeighbor != null && leftNeighbor.tileMesh.tag != "Path")		//Make sure it doesn't spawn on pathTiles	
+							   && (upNeighbor != null && upNeighbor.tileMesh.tag != "Path")			//
+							   && (rightNeighbor != null && rightNeighbor.tileMesh.tag != "Path")	//
+							   && (downNeighbor != null && downNeighbor.tileMesh.tag != "Path")){*/	//
+							//	if(!isWallPartOfCorner(levelMatrix[x,y], levelMatrix)){
+									Transform chest = Instantiate(chestObject, new Vector3(x*tileWidth, tileHeight, y*tileWidth), rotateTowardsNearestTileOfType(Tile.tileType.ground, x, y, levelMatrix)) as Transform;
+									chest.parent = levelMatrix[x,y].tileMesh.transform;
+									chestsPlaced++;
+							//	}
+							//}
+						//}
+					//}
+				//}
+			//}
 			}
+			tries++;
 		}
+		print ("Chests placed: "+chestsPlaced);
 		
 		/* PLACE DOWN SOME
 		╔═╗╦╦  ╦  ╔═╗╦═╗╔═╗
@@ -442,13 +455,14 @@ public class LevelSpawn : MonoBehaviour {
 			arz.reverbPreset = AudioReverbPreset.User;
 			arz.minDistance = temp;
 			arz.minDistance = temp+2;
-			arz.reverb = 1;
-			arz.room = 0-temp*temp*temp;
-			arz.reflections = 1;
+			arz.reverb = 100;
+			arz.room = -100;//0-temp*temp*temp;
+			arz.reflections = 10;
 			arz.reflectionsDelay = 0;
-			arz.decayTime = 0.1f;
+			arz.decayTime = temp/2;
 			arz.reverbDelay = 0.1f;
-			arz.reflectionsDelay = 3;
+			arz.reflectionsDelay = 0;
+			arz.density = 100;
 		}
 		
 		/*					SPAWN SOME 
