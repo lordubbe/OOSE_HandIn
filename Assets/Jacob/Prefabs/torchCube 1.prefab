@@ -182,8 +182,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100004}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.77827263, y: 2.55516529, z: 2.55320454}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: -4.37113883e-08}
+  m_LocalPosition: {x: -62.9962311, y: 56.9166565, z: -3.89936638}
   m_LocalScale: {x: -2, y: 2, z: 2}
   m_Children:
   - {fileID: 400012}
@@ -578,42 +578,22 @@ AudioSource:
   MinDistance: 1
   MaxDistance: 20
   Pan2D: 0
-  rolloffMode: 2
+  rolloffMode: 0
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
   rolloffCustomCurve:
     serializedVersion: 2
     m_Curve:
-    - time: .0500000007
+    - time: 0
       value: 1
-      inSlope: -20.007967
-      outSlope: -20.007967
-      tangentMode: 0
-    - time: .100000001
-      value: .5
-      inSlope: -5.00199175
-      outSlope: -5.00199175
-      tangentMode: 0
-    - time: .200000003
-      value: .25
-      inSlope: -1.25049794
-      outSlope: -1.25049794
-      tangentMode: 0
-    - time: .400000006
-      value: .125
-      inSlope: -.312624484
-      outSlope: -.312624484
-      tangentMode: 0
-    - time: .800000012
-      value: .0339285731
-      inSlope: -.0781561211
-      outSlope: -.0781561211
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
     - time: 1
       value: 0
-      inSlope: -.0500199609
-      outSlope: -.0500199609
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -711,7 +691,7 @@ Light:
   m_DrawHalo: 0
   m_ActuallyLightmapped: 0
   m_Flare: {fileID: 0}
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
