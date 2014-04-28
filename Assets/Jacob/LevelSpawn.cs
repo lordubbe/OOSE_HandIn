@@ -138,8 +138,8 @@ public class LevelSpawn : MonoBehaviour {
 			}
 		}
 		int[,] singleWallKernel = {	{0,0,0},
-			{1,1,0},
-			{0,0,0}};
+									{1,1,0},
+									{0,0,0}};
 		for(int x=0; x<MAX_LEVEL_WIDTH; x++){
 			for(int y=0; y<MAX_LEVEL_HEIGHT; y++){
 				if(levelMatrix[x,y]!=null && levelMatrix[x,y].type == Tile.tileType.wall){
@@ -351,7 +351,9 @@ public class LevelSpawn : MonoBehaviour {
 			//Make sure it doesn't stand right on a path
 			int tryCount = 0;
 			//make sure it doesn't spawn on a path tile or the exit
-			while(levelMatrix[(int)pillah.transform.position.x/tileWidth, (int)pillah.transform.position.z/tileHeight].tileMesh.tag == "Path" || levelMatrix[(int)pillah.transform.position.x/tileWidth, (int)pillah.transform.position.z/tileHeight].tileMesh.tag == "Exit"){
+			while(levelMatrix[(int)pillah.transform.position.x/tileWidth, (int)pillah.transform.position.z/tileHeight].tileMesh.tag == "Path" 
+			      || levelMatrix[(int)pillah.transform.position.x/tileWidth, (int)pillah.transform.position.z/tileHeight].tileMesh.tag == "Exit" 
+			      || (pillah.transform.position.x == playerSpawn.x && pillah.transform.position.z == playerSpawn.z)){
 				int rand1 = Random.Range(0,moveOptions.Length);
 				int rand2 = Random.Range(0,moveOptions.Length);
 				pillah.transform.position+= new Vector3((float)rand1*tileWidth, 0, (float)rand2*tileHeight);
@@ -396,7 +398,7 @@ public class LevelSpawn : MonoBehaviour {
 					//if(levelMatrix[x,y]!=null && levelMatrix[x,y].tileMesh.childCount != null)
 					//	print (levelMatrix[x,y]+": "+levelMatrix[x,y].type+", "+levelMatrix[x,y].tileMesh.childCount);
 					//Make sure it's against a wall and that the particular wall tile in question doesn't already hold another item
-					if(levelMatrix[x,y]!=null && levelMatrix[x,y].type == Tile.tileType.wall && (levelMatrix[x,y].tileMesh.childCount != null && levelMatrix[x,y].tileMesh.childCount < 3)){
+					if(levelMatrix[x,y]!=null && levelMatrix[x,y].type == Tile.tileType.wall && (levelMatrix[x,y].tileMesh.childCount != null && levelMatrix[x,y].tileMesh.childCount < 2)){
 						if(!isWallPartOfCorner(levelMatrix[x,y], levelMatrix)){
 							Transform deco = Instantiate(dec, new Vector3(x*tileWidth, tileHeight, y*tileWidth), rotateTowardsNearestTileOfType(Tile.tileType.ground, x, y, levelMatrix)) as Transform;
 							deco.parent = levelMatrix[x,y].tileMesh.transform;
