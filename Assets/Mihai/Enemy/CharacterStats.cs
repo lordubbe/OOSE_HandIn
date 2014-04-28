@@ -4,7 +4,7 @@ using System.Collections;
 public class CharacterStats : MonoBehaviour {
 
 	public float maxHealth;
-	public Transform deadScreen;
+
 	
 
 	public float Health {
@@ -65,13 +65,14 @@ public class CharacterStats : MonoBehaviour {
         }else return null;
 	}
 	public void Die(){
-		GameObject.Find("GUICamera").GetComponent<GUIManager>().kills ++; 
+		GameObject.Find("GUICamera").GetComponent<GUIManager>().kills ++;
 		anim.Die ();
 		dead = true;
 		Collider col = gameObject.GetComponent<Collider>();
 		Destroy (col);
 		gameObject.tag = "Dead";
 		Invoke("DeleteGO",10.0f);
+		
 	}
 	private void DeleteGO(){
 		Destroy (gameObject);
