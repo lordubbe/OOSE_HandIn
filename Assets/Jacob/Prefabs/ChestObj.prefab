@@ -124,6 +124,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 400014}
   - 65: {fileID: 6500000}
+  - 114: {fileID: 11400000}
+  - 82: {fileID: 8200000}
   m_Layer: 0
   m_Name: ChestObj
   m_TagString: Chest
@@ -237,7 +239,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100014}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -.606818914, y: .28665781, z: -1.25984669}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400012}
@@ -251,8 +253,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100016}
   m_LocalRotation: {x: -.707106829, y: 0, z: 0, w: .707106829}
-  m_LocalPosition: {x: -1.74165154, y: -1.11569726, z: 1.33001464e-07}
-  m_LocalScale: {x: .230262414, y: .427437007, z: .218245476}
+  m_LocalPosition: {x: -1.75755918, y: -.866178036, z: 1.03256454e-07}
+  m_LocalScale: {x: .174861133, y: .376380414, z: .218245476}
   m_Children: []
   m_Father: {fileID: 400014}
 --- !u!23 &2300000
@@ -377,6 +379,64 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: .449999988, y: .620000005, z: .850000024}
   m_Center: {x: -1.75, y: -.689999998, z: 0}
+--- !u!82 &8200000
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100014}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_audioClip: {fileID: 8300000, guid: 8e562aee9fbcf411ba6b3cec8e5780dc, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
 --- !u!108 &10800000
 Light:
   m_ObjectHideFlags: 1
@@ -427,17 +487,29 @@ Animation:
   m_PlayAutomatically: 0
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3901c3bcd67164f5a9f5f87cb321898e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hasBeenOpened: 0
 --- !u!198 &19800000
 ParticleSystem:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100016}
-  lengthInSec: 5
-  startDelay: 0
+  lengthInSec: 2
+  startDelay: 1
   speed: 1
   randomSeed: 0
-  looping: 1
+  looping: 0
   prewarm: 0
   playOnAwake: 0
   moveWithTransform: 1
@@ -689,7 +761,7 @@ ParticleSystem:
     enabled: 1
     m_Type: 0
     rate:
-      scalar: 59
+      scalar: 446.369995
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -737,13 +809,13 @@ ParticleSystem:
       maxCurve:
         serializedVersion: 2
         m_Curve:
-        - time: .0390243903
-          value: .787356317
+        - time: 0
+          value: .150992513
           inSlope: 0
           outSlope: 0
           tangentMode: 0
-        - time: 1
-          value: .1264368
+        - time: .975609779
+          value: .0681818277
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -1309,9 +1381,9 @@ ParticleSystem:
       minMaxState: 1
     range: {x: 0, y: 1}
   RotationBySpeedModule:
-    enabled: 0
+    enabled: 1
     curve:
-      scalar: .785398185
+      scalar: 1.884781
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -1343,7 +1415,7 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
       minMaxState: 0
-    range: {x: 0, y: 1}
+    range: {x: 0, y: 142.800003}
   ColorBySpeedModule:
     enabled: 0
     gradient:
