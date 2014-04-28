@@ -135,6 +135,17 @@ public class LevelSpawn : MonoBehaviour {
 						levelMatrix[x,y].tileMesh.transform.parent = levelParent.transform;
 					}
 				}
+				int[,] cornerVar = {{1,1,0},
+									{0,0,1},
+									{0,0,0}};
+				if(levelMatrix[x,y] != null && checkForMatchWithKernel(cornerVar, levelMatrix[x,y], levelMatrix) != "none"){
+					Transform wallCorner3 = (Transform)Instantiate (roundedWallOut, new Vector3(x*tileWidth, 0, y*tileHeight), rotateCornerCorrectly("out", levelMatrix[x,y],levelMatrix));
+					wallCorner3.parent = levelParent.transform;
+					Destroy (levelMatrix[x,y].tileMesh.gameObject);
+					levelMatrix[x,y].tileMesh = (Transform)Instantiate(stoneTile, new Vector3(x*tileWidth, 0, y*tileHeight), Quaternion.identity);//Also spawn a ground tile below
+					levelMatrix[x,y].tileMesh.transform.parent = levelParent.transform;
+					levelMatrix[x,y].type = Tile.tileType.wall;
+				}
 			}
 		}
 		int[,] singleWallKernel = {	{0,0,0},
