@@ -12,7 +12,7 @@ SceneSettings:
     backfaceThreshold: 100
 --- !u!104 &2
 RenderSettings:
-  m_Fog: 0
+  m_Fog: 1
   m_FogColor: {r: .227941155, g: .127378881, b: .127378881, a: 1}
   m_FogMode: 3
   m_FogDensity: .0700000003
@@ -342,7 +342,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 149b1ac25de764c03bfd0e285e78aa14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seedBasedGeneration: 1
+  seedBasedGeneration: 0
   seed: 123123123
   spawnEnemies: 0
   levelParent: {fileID: 850913288}

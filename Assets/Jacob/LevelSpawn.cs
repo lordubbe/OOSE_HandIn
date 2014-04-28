@@ -375,6 +375,7 @@ public class LevelSpawn : MonoBehaviour {
 			if(lol>0){//50% chance as of now
 				Transform crateStack = (Transform)Instantiate(cratesStacked, pillah.transform.position, Quaternion.Euler(0, Random.Range(0,360), 0));
 				crateStack.parent = levelMatrix[(int)pillah.transform.position.x/tileWidth, (int)pillah.transform.position.z/tileHeight].tileMesh.transform;
+				crateStack.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
 			}
 		}
 		
