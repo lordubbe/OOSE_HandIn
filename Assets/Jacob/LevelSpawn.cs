@@ -65,6 +65,7 @@ public class LevelSpawn : MonoBehaviour {
 	
 	//Goodies
 	public int chestSpawnFreq = 5;
+	public int minAmountOfChests = 1;
 	
 	//Player
 	public Vector3 playerSpawn;
@@ -85,7 +86,7 @@ public class LevelSpawn : MonoBehaviour {
 	public static event FINISH_GENERATION FinishGeneration; 
 	
 	
-	
+
 	// Use this for initialization
 	void Start () {
 		generationDone = false;
@@ -135,11 +136,22 @@ public class LevelSpawn : MonoBehaviour {
 						levelMatrix[x,y].tileMesh.transform.parent = levelParent.transform;
 					}
 				}
+				int[,] cornerVar = {{1,1,0},
+									{0,0,1},
+									{0,0,0}};
+				if(levelMatrix[x,y] != null && checkForMatchWithKernel(cornerVar, levelMatrix[x,y], levelMatrix) != "none"){
+					Transform wallCorner3 = (Transform)Instantiate (roundedWallOut, new Vector3(x*tileWidth, 0, y*tileHeight), rotateCornerCorrectly("out", levelMatrix[x,y],levelMatrix));
+					wallCorner3.parent = levelParent.transform;
+					Destroy (levelMatrix[x,y].tileMesh.gameObject);
+					levelMatrix[x,y].tileMesh = (Transform)Instantiate(stoneTile, new Vector3(x*tileWidth, 0, y*tileHeight), Quaternion.identity);//Also spawn a ground tile below
+					levelMatrix[x,y].tileMesh.transform.parent = levelParent.transform;
+					levelMatrix[x,y].type = Tile.tileType.wall;
+				}
 			}
 		}
 		int[,] singleWallKernel = {	{0,0,0},
-			{1,1,0},
-			{0,0,0}};
+									{1,1,0},
+									{0,0,0}};
 		for(int x=0; x<MAX_LEVEL_WIDTH; x++){
 			for(int y=0; y<MAX_LEVEL_HEIGHT; y++){
 				if(levelMatrix[x,y]!=null && levelMatrix[x,y].type == Tile.tileType.wall){
@@ -223,6 +235,7 @@ public class LevelSpawn : MonoBehaviour {
 				Destroy(levelMatrix[a,b].tileMesh.gameObject);
 				exitCoords = new Vector3(a, 0, b);
 				levelMatrix[a,b].tileMesh = (Transform)Instantiate(exitObject, exitCoords*tileWidth, Quaternion.identity);
+				levelMatrix[a,b].isWalkable = false;
 				exitPlaced = true;
 			}
 		}
@@ -317,28 +330,40 @@ public class LevelSpawn : MonoBehaviour {
 		╚═╝╩ ╩╚═╝╚═╝ ╩ ╚═╝
 		*/
 		//Place some goodies! Chests incominnnggg!
-		for(int x=0; x<MAX_LEVEL_WIDTH; x++){
-			for(int y=0; y<MAX_LEVEL_HEIGHT; y++){
-				if(Random.Range (0, 100) < chestSpawnFreq){
-					if(levelMatrix[x,y]!=null && levelMatrix[x,y].type == Tile.tileType.wall){//spawn by a wall
-						Tile leftNeighbor = getNeighbor("left", levelMatrix[x,y], levelMatrix);
-						Tile upNeighbor = getNeighbor("up", levelMatrix[x,y], levelMatrix);
-						Tile rightNeighbor = getNeighbor("right", levelMatrix[x,y], levelMatrix);
-						Tile downNeighbor = getNeighbor("down", levelMatrix[x,y], levelMatrix);
-						
-						if((leftNeighbor != null && leftNeighbor.tileMesh.tag != "Path")		//Make sure it doesn't spawn on pathTiles	
-						   && (upNeighbor != null && upNeighbor.tileMesh.tag != "Path")			//
-						   && (rightNeighbor != null && rightNeighbor.tileMesh.tag != "Path")	//
-						   && (downNeighbor != null && downNeighbor.tileMesh.tag != "Path")){	//
-							if(!isWallPartOfCorner(levelMatrix[x,y], levelMatrix)){
-								Transform chest = Instantiate(chestObject, new Vector3(x*tileWidth, tileHeight, y*tileWidth), rotateTowardsNearestTileOfType(Tile.tileType.ground, x, y, levelMatrix)) as Transform;
-								chest.parent = levelMatrix[x,y].tileMesh.transform;
-							}
-						}
-					}
-				}
+		int tries = 0;
+		int chestsPlaced = 0;
+		while(chestsPlaced < minAmountOfChests && tries < 20){
+			int x = Random.Range(0,MAX_LEVEL_WIDTH);
+			int y = Random.Range(0,MAX_LEVEL_HEIGHT);
+
+			if(levelMatrix[x, y] != null && levelMatrix[x, y].type == Tile.tileType.wall){
+			//for(int x=0; x<MAX_LEVEL_WIDTH; x++){
+			//	for(int y=0; y<MAX_LEVEL_HEIGHT; y++){
+			//		if(Random.Range (0, 100) < chestSpawnFreq){
+						//if(levelMatrix[x,y]!=null && levelMatrix[x,y].type == Tile.tileType.wall){//spawn by a wall
+							Tile leftNeighbor = getNeighbor("left", levelMatrix[x,y], levelMatrix);
+							Tile upNeighbor = getNeighbor("up", levelMatrix[x,y], levelMatrix);
+							Tile rightNeighbor = getNeighbor("right", levelMatrix[x,y], levelMatrix);
+							Tile downNeighbor = getNeighbor("down", levelMatrix[x,y], levelMatrix);
+							
+						/*	if((leftNeighbor != null && leftNeighbor.tileMesh.tag != "Path")		//Make sure it doesn't spawn on pathTiles	
+							   && (upNeighbor != null && upNeighbor.tileMesh.tag != "Path")			//
+							   && (rightNeighbor != null && rightNeighbor.tileMesh.tag != "Path")	//
+							   && (downNeighbor != null && downNeighbor.tileMesh.tag != "Path")){*/	//
+							//	if(!isWallPartOfCorner(levelMatrix[x,y], levelMatrix)){
+									Transform chest = Instantiate(chestObject, new Vector3(x*tileWidth, tileHeight, y*tileWidth), rotateTowardsNearestTileOfType(Tile.tileType.ground, x, y, levelMatrix)) as Transform;
+									chest.parent = levelMatrix[x,y].tileMesh.transform;
+									chestsPlaced++;
+							//	}
+							//}
+						//}
+					//}
+				//}
+			//}
 			}
+			tries++;
 		}
+		print ("Chests placed: "+chestsPlaced);
 		
 		/* PLACE DOWN SOME
 		╔═╗╦╦  ╦  ╔═╗╦═╗╔═╗
@@ -351,7 +376,9 @@ public class LevelSpawn : MonoBehaviour {
 			//Make sure it doesn't stand right on a path
 			int tryCount = 0;
 			//make sure it doesn't spawn on a path tile or the exit
-			while(levelMatrix[(int)pillah.transform.position.x/tileWidth, (int)pillah.transform.position.z/tileHeight].tileMesh.tag == "Path" || levelMatrix[(int)pillah.transform.position.x/tileWidth, (int)pillah.transform.position.z/tileHeight].tileMesh.tag == "Exit"){
+			while(levelMatrix[(int)pillah.transform.position.x/tileWidth, (int)pillah.transform.position.z/tileHeight].tileMesh.tag == "Path" 
+			      || levelMatrix[(int)pillah.transform.position.x/tileWidth, (int)pillah.transform.position.z/tileHeight].tileMesh.tag == "Exit" 
+			      || (pillah.transform.position.x == playerSpawn.x && pillah.transform.position.z == playerSpawn.z)){
 				int rand1 = Random.Range(0,moveOptions.Length);
 				int rand2 = Random.Range(0,moveOptions.Length);
 				pillah.transform.position+= new Vector3((float)rand1*tileWidth, 0, (float)rand2*tileHeight);
@@ -362,6 +389,7 @@ public class LevelSpawn : MonoBehaviour {
 			if(lol>0){//50% chance as of now
 				Transform crateStack = (Transform)Instantiate(cratesStacked, pillah.transform.position, Quaternion.Euler(0, Random.Range(0,360), 0));
 				crateStack.parent = levelMatrix[(int)pillah.transform.position.x/tileWidth, (int)pillah.transform.position.z/tileHeight].tileMesh.transform;
+				crateStack.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
 			}
 		}
 		
@@ -396,7 +424,7 @@ public class LevelSpawn : MonoBehaviour {
 					//if(levelMatrix[x,y]!=null && levelMatrix[x,y].tileMesh.childCount != null)
 					//	print (levelMatrix[x,y]+": "+levelMatrix[x,y].type+", "+levelMatrix[x,y].tileMesh.childCount);
 					//Make sure it's against a wall and that the particular wall tile in question doesn't already hold another item
-					if(levelMatrix[x,y]!=null && levelMatrix[x,y].type == Tile.tileType.wall && (levelMatrix[x,y].tileMesh.childCount != null && levelMatrix[x,y].tileMesh.childCount < 3)){
+					if(levelMatrix[x,y]!=null && levelMatrix[x,y].type == Tile.tileType.wall && (levelMatrix[x,y].tileMesh.childCount != null && levelMatrix[x,y].tileMesh.childCount < 2)){
 						if(!isWallPartOfCorner(levelMatrix[x,y], levelMatrix)){
 							Transform deco = Instantiate(dec, new Vector3(x*tileWidth, tileHeight, y*tileWidth), rotateTowardsNearestTileOfType(Tile.tileType.ground, x, y, levelMatrix)) as Transform;
 							deco.parent = levelMatrix[x,y].tileMesh.transform;
@@ -427,13 +455,14 @@ public class LevelSpawn : MonoBehaviour {
 			arz.reverbPreset = AudioReverbPreset.User;
 			arz.minDistance = temp;
 			arz.minDistance = temp+2;
-			arz.reverb = 1;
-			arz.room = 0-temp*temp*temp;
-			arz.reflections = 1;
+			arz.reverb = 100;
+			arz.room = -100;//0-temp*temp*temp;
+			arz.reflections = 10;
 			arz.reflectionsDelay = 0;
-			arz.decayTime = 0.1f;
+			arz.decayTime = temp/2;
 			arz.reverbDelay = 0.1f;
-			arz.reflectionsDelay = 3;
+			arz.reflectionsDelay = 0;
+			arz.density = 100;
 		}
 		
 		/*					SPAWN SOME 

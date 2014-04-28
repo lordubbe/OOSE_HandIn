@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 4a0dac7a5efa18b4ba259ab93e389be2
 ModelImporter:
-  serializedVersion: 16
+  serializedVersion: 15
   fileIDToRecycleName:
     100000: //RootNode
     100002: polySurface10
@@ -124,7 +124,7 @@ ModelImporter:
       takeName: Take 001
       firstFrame: 1
       lastFrame: 100
-      wrapMode: 4
+      wrapMode: 1
       orientationOffsetY: 0
       level: 0
       cycleOffset: 2
@@ -193,5 +193,4 @@ ModelImporter:
     rootMotionBoneName: 
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 1
-  additionalBone: 0
   userData: 
