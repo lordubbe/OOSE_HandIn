@@ -43,6 +43,35 @@ public class PathFinding  {
 		*/
         
 	}
+
+    public PathFinding(Vector3 sPos, Vector3 fPos, out Vector3[] returnPath, float error = 0, float height = 1)
+    {
+
+        buildNodeMap();
+
+        objPos = sPos;
+        this.height = height;
+        sPos = new Vector3(Mathf.Clamp(sPos.x, 0, LevelSpawn.levelMatrix.GetLength(0) * LevelSpawn.tileWidth), sPos.y, Mathf.Clamp(sPos.z, 0, LevelSpawn.levelMatrix.GetLength(1) * LevelSpawn.tileHeight));
+        fPos = new Vector3(Mathf.Clamp(fPos.x, 0, LevelSpawn.levelMatrix.GetLength(0) * LevelSpawn.tileWidth), fPos.y, Mathf.Clamp(fPos.z, 0, LevelSpawn.levelMatrix.GetLength(1) * LevelSpawn.tileHeight));
+        start = nodeMap[(int)(sPos.x / LevelSpawn.tileWidth), (int)(sPos.z / LevelSpawn.tileHeight)];
+        end = nodeMap[(int)(fPos.x / LevelSpawn.tileWidth), (int)(fPos.z / LevelSpawn.tileHeight)];
+
+        end.finish = true;
+        start.start = true;
+
+
+        calculatePath();
+        returnPath = path;
+        /*
+        p = completeF;
+        openList = new List<Node>();
+        closedList = new List<Node>();
+		
+        openList.Add (start);
+        Performance.UpdateEvent+=distributedPathCalculator;
+        */
+
+    }
 	
 	
 	private void buildNodeMap(){
