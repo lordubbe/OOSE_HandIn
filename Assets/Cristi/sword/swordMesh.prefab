@@ -10,9 +10,9 @@ GameObject:
   - 4: {fileID: 400000}
   - 33: {fileID: 3300000}
   - 23: {fileID: 2300000}
-  - 95: {fileID: 9500000}
+  - 111: {fileID: 11100000}
   m_Layer: 0
-  m_Name: wallBlock
+  m_Name: swordMesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24,9 +24,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 10, y: 2, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: .5, y: .5, z: .5, w: .5}
+  m_LocalPosition: {x: 1.69287145, y: -.00791809615, z: -4.62209082}
+  m_LocalScale: {x: 6.1371603, y: 10.7532692, z: 6.1371603}
   m_Children: []
   m_Father: {fileID: 0}
 --- !u!23 &2300000
@@ -41,7 +41,8 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: 6b19217ec8b094a30958b9b86d881832, type: 2}
+  - {fileID: 2100000, guid: 66101879b442e1b4e8dc7078ad57c970, type: 2}
+  - {fileID: 2100000, guid: ede6318a162e7d0409c71b6528f8c2b7, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -56,21 +57,22 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
-  m_Mesh: {fileID: 4300002, guid: e50bd905677cfd147a38b88eb1bef4e4, type: 3}
---- !u!95 &9500000
-Animator:
-  serializedVersion: 2
+  m_Mesh: {fileID: 4300000, guid: b3f747a2ac9864345ac371ee1977b00a, type: 3}
+--- !u!111 &11100000
+Animation:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: e50bd905677cfd147a38b88eb1bef4e4, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_ApplyRootMotion: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: ebc4369aeea1d5a469ec39782f427b27, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: ebc4369aeea1d5a469ec39782f427b27, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
   m_AnimatePhysics: 0
-  m_HasTransformHierarchy: 1
+  m_CullingType: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

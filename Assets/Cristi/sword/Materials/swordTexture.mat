@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: swordTexture
-  m_Shader: {fileID: 2, guid: 0000000000000000f000000000000000, type: 0}
+  m_Shader: {fileID: 4, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: []
   m_CustomRenderQueue: -1
   m_SavedProperties:
@@ -52,15 +52,15 @@ Material:
       data:
         first:
           name: _Shininess
-        second: .391484201
+        second: .234106287
       data:
         first:
           name: _BaseGlow
-        second: .310535729
+        second: .787857175
       data:
         first:
           name: _BumpDetailPower
-        second: 1
+        second: 3.41071439
     m_Colors:
       data:
         first:
@@ -69,7 +69,7 @@ Material:
       data:
         first:
           name: _SpecColor
-        second: {r: .764705896, g: .764705896, b: .764705896, a: 1}
+        second: {r: 1, g: 1, b: 1, a: 1}
       data:
         first:
           name: _ReflectColor
