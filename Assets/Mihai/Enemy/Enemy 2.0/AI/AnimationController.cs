@@ -2,14 +2,21 @@
 using System.Collections;
 
 public class AnimationController : MonoBehaviour {
+
+
+    public Transform DieParticles;
+
     Animator animator;
     StateMachine sm;
     float GRAVITY =9.8F;
-    float DIST = .4F;
+    float DIST = .2F;
     GameObject target;
-
+    
+    
+    float force = 0;
     private void Start()
     {
+       
         target = GameObject.FindWithTag("Player");
         sm = GetComponent<StateMachine>();
         animator = GetComponent<Animator>();
@@ -29,13 +36,16 @@ public class AnimationController : MonoBehaviour {
         sm.START_ATTACK += startAttack;
         sm.STOP_ATTACK  += stopAttack;
 
+        sm.START_DIE += Die;
+
     }
-    private void FixedUpdate()
+    private void Update()
     {
+       
         RaycastHit[] hits;
-        if (animator.GetBool("Attack"))
+        if (animator.GetBool("Attack") == true)
         {
-            hits = Physics.RaycastAll(transform.position+new Vector3(0,0.3f,0), new Vector3(0, -1, 0), .3f+ DIST*5);
+            hits = Physics.RaycastAll(transform.position+new Vector3(0,0.3f,0), new Vector3(0, -1, 0), .3f+ DIST*1);
         }
         else
         {
@@ -44,12 +54,19 @@ public class AnimationController : MonoBehaviour {
         bool fall = true;
         foreach (RaycastHit hit in hits)
         {
-            if (hit.collider.tag != collider.tag) fall = false;
+            if (hit.collider != collider) fall = false;
         }
         if (fall)
         {
-            transform.position -= new Vector3(0, 1, 0) * GRAVITY * Time.deltaTime;
+            force += GRAVITY * Time.deltaTime;
+            
+            transform.position -= new Vector3(0, force, 0) * Time.deltaTime;
         }
+        else force = 0;
+      
+        //if (!cc.isGrounded) cc.Move (-new Vector3(0, 1, 0) * GRAVITY * Time.deltaTime);
+       
+        
     }
 
     private float sqrDistance(Vector3 a, Vector3 b)
@@ -114,7 +131,8 @@ public class AnimationController : MonoBehaviour {
         else if (ok == 1)
         {
             animator.SetBool("Walk", false);
-            animator.SetBool("Idle", true);
+            sm.atDestination = true;
+           
         } 
 
     }
@@ -140,6 +158,7 @@ public class AnimationController : MonoBehaviour {
     private void startIdle()
     {
         animator.SetBool("Idle", true);
+       
       
     }
     private void stopIdle()
@@ -148,8 +167,12 @@ public class AnimationController : MonoBehaviour {
     }
     private void startRun()
     {
+        Vector3[] path;
+        index = 0;
+        PathFinding pf = new PathFinding(transform.position, target.transform.position, out path, 0.7f, 1);
+        StartCoroutine("WalkTo", path);
         animator.SetBool("Run", true);
-        StartCoroutine("RUN");
+        //StartCoroutine("RUN");
     }
     private void stopRun()
     {
@@ -175,18 +198,21 @@ public class AnimationController : MonoBehaviour {
         transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
         animator.SetBool("Attack", true);
         animator.SetBool("Alert",false);
-        Invoke("delayAtt", 1.8f);
+        Invoke("delayAtt", 2.54f);
     }
     private void delayAtt()
     {
         stopAttack();
         animator.SetBool("Alert", true);
-        Invoke("startAttack", 1f);
+        Invoke("startAttack", 0.6f);
     }
     private void stopAttack()
     {
        
         animator.SetBool("Attack", false);
     }
-  
+    private void Die()
+    {
+        Instantiate(DieParticles, transform.position, Quaternion.identity);
+    }
 }
