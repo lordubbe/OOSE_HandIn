@@ -5,7 +5,7 @@ public class AnimationController : MonoBehaviour {
 
 
     public Transform DieParticles;
-
+    public float attackPause = 0.5f;
     Animator animator;
     StateMachine sm;
     float GRAVITY =9.8F;
@@ -13,7 +13,7 @@ public class AnimationController : MonoBehaviour {
     GameObject target;
     
     
-    float force = 0;
+    internal float force = 0;
     private void Start()
     {
        
@@ -98,7 +98,7 @@ public class AnimationController : MonoBehaviour {
         Vector3 randomDestination = new Vector3(rX * LevelSpawn.tileWidth, transform.position.y, rZ * LevelSpawn.tileHeight);
         Vector3[] path;
         index = 0;
-        PathFinding pf = new PathFinding(transform.position, randomDestination, out path, 0.7f, 1);
+        PathFinding pf = new PathFinding(transform.position, randomDestination, out path,0, 1);
         StartCoroutine("WalkTo",path);
     }
     private void stopWalk()
@@ -204,7 +204,7 @@ public class AnimationController : MonoBehaviour {
     {
         stopAttack();
         animator.SetBool("Alert", true);
-        Invoke("startAttack", 0.6f);
+        Invoke("startAttack", attackPause);
     }
     private void stopAttack()
     {
@@ -214,5 +214,6 @@ public class AnimationController : MonoBehaviour {
     private void Die()
     {
         Instantiate(DieParticles, transform.position, Quaternion.identity);
+        Destroy(this.gameObject);
     }
 }

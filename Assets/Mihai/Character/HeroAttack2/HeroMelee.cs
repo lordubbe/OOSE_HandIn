@@ -20,14 +20,14 @@ public class HeroMelee : MonoBehaviour {
     private void Update()
     {
 
-        if (Input.GetMouseButtonDown(1) && Time.time - prevAttack > attackDelay)
+        if (Input.GetMouseButtonDown(1) )
         {
             Attack();
         }
         else
         {
             animator.SetBool("Attack", false);
-            if (attackTime > Time.time - prevAttack)
+            if (attackTime < Time.time - prevAttack)
             {
                 isAttacking = false;
             }
@@ -37,6 +37,7 @@ public class HeroMelee : MonoBehaviour {
     {
         animator.SetBool("Attack", true);
         isAttacking = true;
+        prevAttack = Time.time;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -53,7 +54,7 @@ public class HeroMelee : MonoBehaviour {
         }
         else if (other.tag == "Creature")
         {
-           
+            if(other.GetComponent<AnimationController>().force>0.3f)
             heroStats.Health -= other.gameObject.GetComponent<CharacterStats>().damage;
         }
     }
