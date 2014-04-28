@@ -328,6 +328,7 @@ public class LevelSpawn : MonoBehaviour {
 		╚═╝╩ ╩╚═╝╚═╝ ╩ ╚═╝
 		*/
 		//Place some goodies! Chests incominnnggg!
+
 		for(int x=0; x<MAX_LEVEL_WIDTH; x++){
 			for(int y=0; y<MAX_LEVEL_HEIGHT; y++){
 				if(Random.Range (0, 100) < chestSpawnFreq){

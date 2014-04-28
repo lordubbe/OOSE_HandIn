@@ -344,7 +344,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   seedBasedGeneration: 0
   seed: 123123123
-  spawnEnemies: 0
+  spawnEnemies: 1
   levelParent: {fileID: 850913288}
   Walls: {fileID: 424201274}
   emptyTile: {fileID: 400000, guid: ede89c57f0b204a189d04eb28f590208, type: 2}
