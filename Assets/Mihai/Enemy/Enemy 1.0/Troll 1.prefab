@@ -1467,6 +1467,7 @@ MonoBehaviour:
   - {fileID: 100000, guid: efc75e70ba4b3cd4d88eab3054dcf59c, type: 2}
   - {fileID: 100000, guid: 815bfd1c45eb39749a93d0f4d6823a90, type: 2}
   - {fileID: 100000, guid: d8456b4fd027f8043bde4fc927854475, type: 2}
+  gravity: 9.80000019
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1479,6 +1480,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 150
+  deadScreen: {fileID: 0}
   regenPerSecond: .5
   shieldUp: 0
   damage: 5

@@ -4,7 +4,7 @@ using System.Collections;
 public class CharacterStats : MonoBehaviour {
 
 	public float maxHealth;
-	public Transform deadScreen;
+
 	
 
 	public float Health {
