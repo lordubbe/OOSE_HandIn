@@ -721,6 +721,7 @@ GameObject:
   - 81: {fileID: 8100004}
   - 114: {fileID: 11400010}
   - 114: {fileID: 11400020}
+  - 82: {fileID: 8200002}
   m_Layer: 0
   m_Name: Hero First Person2
   m_TagString: Player
@@ -952,7 +953,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100028}
-  m_LocalRotation: {x: .339256287, y: .00562796788, z: -.00936743245, w: .940630496}
+  m_LocalRotation: {x: .339256316, y: .00562796835, z: -.00936743338, w: .940630555}
   m_LocalPosition: {x: -11.3028641, y: -.0319185257, z: -.0487060547}
   m_LocalScale: {x: 1.00000012, y: 1, z: 1.00000012}
   m_Children:
@@ -1194,7 +1195,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100068}
-  m_LocalRotation: {x: -.0903899148, y: .314770669, z: -.612356365, w: .719561636}
+  m_LocalRotation: {x: -.0903899074, y: .314770639, z: -.612356305, w: .719561577}
   m_LocalPosition: {x: -.129370168, y: -5.76120377, z: -.932963312}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1264,7 +1265,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100080}
-  m_LocalRotation: {x: .00959572196, y: .358497798, z: -.0249769781, w: .933147132}
+  m_LocalRotation: {x: .00959572103, y: .358497769, z: -.0249769744, w: .933147013}
   m_LocalPosition: {x: -14.5102129, y: -1.49849143e-07, z: 1.8505024e-07}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1739,6 +1740,64 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
+--- !u!82 &8200002
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100090}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_audioClip: {fileID: 8300000, guid: 50861a50199e34d49b74705f6e3e0e4d, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
 --- !u!92 &9200000
 Behaviour:
   m_ObjectHideFlags: 1
@@ -2039,6 +2098,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   snare: {fileID: 8300000, guid: 775cdfd62053544e58e0f80473a3e2fb, type: 3}
+  jumpSound: {fileID: 8300000, guid: 0288e75ccf489494982788776f7e7902, type: 3}
+  landSound: {fileID: 8300000, guid: 1fb468b4a1f424c738107e6e5f475e59, type: 3}
   ForwardSpeed: 4
   SideSpeed: 3
   AttackSpeed: 1
@@ -2048,7 +2109,7 @@ MonoBehaviour:
   minAttCulldown: .200000003
   maxAttCulldown: .600000024
   gravity: 9.80000019
-  runAnimationMultiplayer: .100000001
+  runAnimationMultiplayer: .319999993
   mixTransform: {fileID: 400066}
   idle: 1h_idle
   runForward: 1h_run

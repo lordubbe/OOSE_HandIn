@@ -4,6 +4,8 @@ using System.Collections;
 public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController {
 
 	public AudioClip snare;
+	public AudioClip jumpSound;
+	public AudioClip landSound;
 
     public float ForwardSpeed;
     public float SideSpeed;
@@ -30,7 +32,9 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController {
 
     private float attStart;
     private bool canAtt;
-    
+	//added by Jacob
+	private bool hasJustLanded = false;
+
     private enum Direction
     {
         up,left,down,right
@@ -123,6 +127,13 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController {
             transform.Rotate(new Vector3(0, mxAxis * RotationSpeed, 0) * Time.deltaTime);
             forwardDirection = new Vector3(0, 0, 0);
 
+			//SOUND
+			if(vAxis != 0 || hAxis != 0){//if player is moving
+				if(!GetComponent<AudioSource>().audio.isPlaying && charController.isGrounded){
+					GetComponent<AudioSource>().audio.Play();					
+				}
+			}else{ if(!hasJustLanded && charController.isGrounded){GetComponent<AudioSource>().audio.Stop(); }}
+
 
             if (vAxis != 0)
             {
@@ -145,7 +156,10 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController {
             }
             if (Input.GetAxis("Jump") > 0 && charController.isGrounded)
             {
-                //forwardDirection += new Vector3(0,JumpForce,0);
+				if(GetComponent<AudioSource>().audio.isPlaying){
+					GetComponent<AudioSource>().audio.Stop();
+				}
+				GetComponent<AudioSource>().audio.PlayOneShot(jumpSound);
                 StartCoroutine("onJump");
 
                 animation.CrossFade(jump);
@@ -204,15 +218,23 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController {
 	}
     private IEnumerator onJump()
     {
-        float pow = JumpForce;
-        while (pow > 0)
-        {
-            Vector3 upDir = new Vector3(0,(pow)* Time.deltaTime,0);
-            charController.Move(upDir);
-            pow -= Time.deltaTime * gravity;
-            if (pow < 5f) pow = 0;
-            yield return new WaitForEndOfFrame();
-        }
+		bool playedLanding = false;
+		float pow = JumpForce;
+		while (pow > 0)
+		{
+			Vector3 upDir = new Vector3(0,(pow)* Time.deltaTime,0);
+			charController.Move(upDir);
+			pow -= Time.deltaTime * gravity;
+			if(pow<6f && !playedLanding){
+				GetComponent<AudioSource>().audio.PlayOneShot(landSound);
+				playedLanding = true;
+			}
+			if (pow < 5f){
+				pow = 0;
+				
+			}
+			yield return new WaitForEndOfFrame();
+		}
     }
     public void setIdle()
     {
