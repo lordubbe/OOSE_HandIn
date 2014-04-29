@@ -20,6 +20,8 @@ public class CheckForInteractions : MonoBehaviour {
 						hit.transform.gameObject.GetComponent<ChestStats>().hasBeenOpened = true;
 						hit.transform.gameObject.GetComponentInChildren<ParticleSystem>().Play ();
 						hit.transform.gameObject.GetComponent<AudioSource>().audio.Play();
+                        CharacterStats player =  GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterStats>();
+                        player.Health = player.maxHealth;
 					}
 				}
 			}else{
