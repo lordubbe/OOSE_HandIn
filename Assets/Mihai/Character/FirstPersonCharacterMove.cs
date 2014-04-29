@@ -172,7 +172,7 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController {
 				// LOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLO
 				// LOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLO
 				// LOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLO
-				AudioSource.PlayClipAtPoint(snare, transform.position);//SORRY MIHAI I WROTE THIS TO HELP TEST ZE AUDIO REVERB ZONES
+				//AudioSource.PlayClipAtPoint(snare, transform.position);//SORRY MIHAI I WROTE THIS TO HELP TEST ZE AUDIO REVERB ZONES
 				// LOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLO
 				// LOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLO
 				// LOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLO
@@ -221,6 +221,7 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController {
 
     public void Attack1()
     {
+        /*
         if(canAtt){
             GameObject att = Instantiate(attacks[0], transform.position, transform.rotation) as GameObject;
             att.transform.parent = transform;
@@ -231,10 +232,12 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController {
             canAtt = false;
             
         }
+         * */
     }
 
     public void Attack2()
     {
+        /*
         if (canAtt)
         {
             GameObject att = Instantiate(attacks[1], transform.position, transform.rotation) as GameObject;
@@ -245,10 +248,12 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController {
             Invoke("ResetCanAtt",Mathf.Clamp((Time.time - attStart) * AttCullDown,minAttCulldown,maxAttCulldown));
             canAtt = false;
         }
+         * */
     }
 
     public void Attack3()
     {
+        /*
         if (canAtt)
         {
             GameObject att = Instantiate(attacks[2], transform.position, transform.rotation) as GameObject;
@@ -259,30 +264,32 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController {
              Invoke("ResetCanAtt",Mathf.Clamp((Time.time - attStart) * AttCullDown,minAttCulldown,maxAttCulldown));
             canAtt = false;
         }
+         * */
     }
 
     public void BlockUp()
     {
-        cs.shieldUp = true;
-        animation.CrossFade(shieldUp);
+       // cs.shieldUp = true;
+        //animation.CrossFade(shieldUp);
     }
 
     public void BlockDown()
     {
-        cs.shieldUp = false;
+       // cs.shieldUp = false;
 
        
-        animation.Stop(shieldUp);  
+       // animation.Stop(shieldUp);  
         
     }
 
     public void Hit()
     {
-        if (hit.Length > 0)
+       /* if (hit.Length > 0)
         {
             int r = Random.Range(0, hit.Length);
             animation.CrossFade(hit[r]);
         }
+        * */
     }
 
     public void Die()

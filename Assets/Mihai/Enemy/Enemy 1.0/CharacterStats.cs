@@ -13,7 +13,7 @@ public class CharacterStats : MonoBehaviour {
 		}
 		set {
 			if(value<_health){
-                if (value < 0) dead = true;
+                if (value < 0) Die();
 			if(!dead){
 				anim.Hit();
 				//Debug.Log ("aaauch only "+value+" health left");
@@ -66,13 +66,13 @@ public class CharacterStats : MonoBehaviour {
         }else return null;
 	}
 	public void Die(){
-		GameObject.Find("GUICamera").GetComponent<GUIManager>().kills ++; 
-		anim.Die ();
+		if(gameObject.tag!="Player")GameObject.Find("GUICamera").GetComponent<GUIManager>().kills ++; 
+		if(anim!=null)anim.Die ();
 		dead = true;
-		Collider col = gameObject.GetComponent<Collider>();
-		Destroy (col);
-		gameObject.tag = "Dead";
-		Invoke("DeleteGO",10.0f);
+		//Collider col = gameObject.GetComponent<Collider>();
+		//Destroy (col);
+		//gameObject.tag = "Dead";
+		//Invoke("DeleteGO",10.0f);
 	}
 	private void DeleteGO(){
 		Destroy (gameObject);
