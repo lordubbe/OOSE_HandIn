@@ -112,8 +112,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce3392ea6fe4b446a80cba196c1b8624, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelSpawner: {fileID: 1723601082}
-  player: {fileID: 400090, guid: a16d6706fc360f248bb1ee11de2fbca5, type: 2}
+  levelSpawner: {fileID: 0}
+  player: {fileID: 400026, guid: 64966e52ffd404ceb85f0fec0ab27076, type: 2}
 --- !u!1 &424201273
 GameObject:
   m_ObjectHideFlags: 0
@@ -445,7 +445,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   seedBasedGeneration: 1
   seed: 1657628617
-  spawnEnemies: 1
+  spawnEnemies: 0
   levelParent: {fileID: 850913288}
   Walls: {fileID: 424201274}
   emptyTile: {fileID: 400000, guid: ede89c57f0b204a189d04eb28f590208, type: 2}

@@ -22,7 +22,6 @@ public class GUIManager : MonoBehaviour {
 		maxLife = cs.maxHealth;
 		_life = cs.Health;
 		healthBar.text = "Health: "+((int)Mathf.Clamp (_life/maxLife * 100,0,100)).ToString();
-		GameObject.Find("healthCylinder").transform.localScale = new Vector3(Mathf.Clamp (_life/maxLife * 100,0,100)/100, 7f, 1f);
 		monstersKilled.text = "Kills: " + kills;
 	}
 }

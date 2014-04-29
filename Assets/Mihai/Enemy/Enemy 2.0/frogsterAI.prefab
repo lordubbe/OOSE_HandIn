@@ -694,7 +694,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f545b90e38c97c74cafd4bb32ea103f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DieParticles: {fileID: 400000, guid: 1d4068028ddd8f94e901286c14cfa08e, type: 2}
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -725,10 +724,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
-  seeDistance: 6
-  alertDistance: 5
-  attackDistance: 2
-  runIdleTime: 1
+  seeDistance: 10
+  alertDistance: 8
+  attackDistance: 2.5
+  runIdleTime: 3
   enemy: {fileID: 0}
 --- !u!136 &13600000
 CapsuleCollider:
