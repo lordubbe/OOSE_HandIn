@@ -14,7 +14,6 @@ public class CheckForInteractions : MonoBehaviour {
 			if(hit.transform.gameObject.tag == "Chest" && !hit.transform.gameObject.GetComponent<ChestStats>().hasBeenOpened){//if player hovers over chest and it hasn't already been opened
 				GameObject.Find("ChestInteraction").GetComponent<GUIText>().enabled = true;
 				if(Input.GetKeyDown(KeyCode.E)){
-					print ("chestOpen!");
 					if(!hit.transform.gameObject.GetComponent<ChestStats>().hasBeenOpened && hit.transform.gameObject.GetComponentInChildren<Animation>() != null && !hit.transform.gameObject.GetComponentInChildren<Animation>().isPlaying){	
 						hit.transform.gameObject.GetComponentInChildren<Animation>().Play();//play the animation!
 						hit.transform.gameObject.GetComponent<ChestStats>().hasBeenOpened = true;
