@@ -454,6 +454,7 @@ public class LevelSpawn : MonoBehaviour
                         {
                             Transform furnit = (Transform)Instantiate(furn, new Vector3(x * tileWidth, 0, y * tileWidth), Quaternion.Euler(0, Random.Range(0, 360), 0));
                             furnit.parent = levelMatrix[x, y].tileMesh.transform;
+							furnit.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
                         }
                     }
                 }
@@ -475,7 +476,7 @@ public class LevelSpawn : MonoBehaviour
                     //if(levelMatrix[x,y]!=null && levelMatrix[x,y].tileMesh.childCount != null)
                     //	print (levelMatrix[x,y]+": "+levelMatrix[x,y].type+", "+levelMatrix[x,y].tileMesh.childCount);
                     //Make sure it's against a wall and that the particular wall tile in question doesn't already hold another item
-                    if (levelMatrix[x, y] != null && levelMatrix[x, y].type == Tile.tileType.wall && (levelMatrix[x, y].tileMesh.childCount != null && levelMatrix[x, y].tileMesh.childCount < 2))
+                    if (levelMatrix[x, y] != null && levelMatrix[x, y].type == Tile.tileType.wall && (levelMatrix[x, y].tileMesh.childCount != null && levelMatrix[x, y].tileMesh.childCount < 5))
                     {
                         if (!isWallPartOfCorner(levelMatrix[x, y], levelMatrix))
                         {

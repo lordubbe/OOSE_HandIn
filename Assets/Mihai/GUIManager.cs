@@ -23,5 +23,8 @@ public class GUIManager : MonoBehaviour {
 		_life = cs.Health;
 		healthBar.text = "Health: "+((int)Mathf.Clamp (_life/maxLife * 100,0,100)).ToString();
 		monstersKilled.text = "Score: " + score;
+
+		GameObject lifeCylinder = GameObject.Find("lifeCylinder");
+		lifeCylinder.transform.localScale = new Vector3(Mathf.Clamp (_life/maxLife,0,1), lifeCylinder.transform.localScale.y, lifeCylinder.transform.localScale.z);
 	}
 }

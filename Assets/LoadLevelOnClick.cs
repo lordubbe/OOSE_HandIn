@@ -24,7 +24,7 @@ public class LoadLevelOnClick : MonoBehaviour {
 
 	IEnumerator waitForSeconds(float seconds) {
 		yield return new WaitForSeconds(seconds);
-		Application.LoadLevel("testScene 1");
+		Application.LoadLevel("testScene");
 
 	}
 }
