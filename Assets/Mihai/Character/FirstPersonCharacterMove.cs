@@ -334,4 +334,109 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController {
 	{
 		canAtt = true;
 	}
+<<<<<<< HEAD
+=======
+    private IEnumerator onJump()
+    {
+        float pow = JumpForce;
+        while (pow > 0)
+        {
+            Vector3 upDir = new Vector3(0,(pow)* Time.deltaTime,0);
+            charController.Move(upDir);
+            pow -= Time.deltaTime * gravity;
+            if (pow < 5f) pow = 0;
+            yield return new WaitForEndOfFrame();
+        }
+    }
+    public void setIdle()
+    {
+        animation.CrossFade(idle);
+    }
+
+    public void Attack1()
+    {
+        /*
+        if(canAtt){
+            GameObject att = Instantiate(attacks[0], transform.position, transform.rotation) as GameObject;
+            att.transform.parent = transform;
+            Attack Att = att.GetComponent<Attack>();
+            Att.SwordAttack(Time.time - attStart);
+            animation.CrossFade(attack1);
+            Invoke("ResetCanAtt",Mathf.Clamp((Time.time - attStart) * AttCullDown,minAttCulldown,maxAttCulldown));
+            canAtt = false;
+            
+        }
+         * */
+    }
+
+    public void Attack2()
+    {
+        /*
+        if (canAtt)
+        {
+            GameObject att = Instantiate(attacks[1], transform.position, transform.rotation) as GameObject;
+            att.transform.parent = transform;
+            Attack Att = att.GetComponent<Attack>();
+            Att.SwordAttack(Time.time - attStart);
+            animation.CrossFade(attack2);
+            Invoke("ResetCanAtt",Mathf.Clamp((Time.time - attStart) * AttCullDown,minAttCulldown,maxAttCulldown));
+            canAtt = false;
+        }
+         * */
+    }
+
+    public void Attack3()
+    {
+        /*
+        if (canAtt)
+        {
+            GameObject att = Instantiate(attacks[2], transform.position, transform.rotation) as GameObject;
+            att.transform.parent = transform;
+            Attack Att = att.GetComponent<Attack>();
+            Att.SwordAttack(Time.time - attStart);
+            animation.CrossFade(attack3);
+             Invoke("ResetCanAtt",Mathf.Clamp((Time.time - attStart) * AttCullDown,minAttCulldown,maxAttCulldown));
+            canAtt = false;
+        }
+         * */
+    }
+
+    public void BlockUp()
+    {
+       // cs.shieldUp = true;
+        //animation.CrossFade(shieldUp);
+    }
+
+    public void BlockDown()
+    {
+       // cs.shieldUp = false;
+
+       
+       // animation.Stop(shieldUp);  
+        
+    }
+
+    public void Hit()
+    {
+       /* if (hit.Length > 0)
+        {
+            int r = Random.Range(0, hit.Length);
+            animation.CrossFade(hit[r]);
+        }
+        * */
+    }
+
+    public void Die()
+    {
+        if (die.Length > 0)
+        {
+            int r = Random.Range(0, die.Length);
+            animation.CrossFade(die[r]);
+        }
+    }
+    private void ResetCanAtt()
+    {
+        canAtt = true;
+    }
+>>>>>>> FETCH_HEAD
 }

@@ -1767,8 +1767,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.03476214, y: .0387475044, z: .163371682}
-  m_Center: {x: .388189316, y: -.00228803325, z: 0}
+  m_Size: {x: 1.48000002, y: .159999996, z: .289999992}
+  m_Center: {x: .569999993, y: -.00228803325, z: 0}
 --- !u!81 &8100000
 AudioListener:
   m_ObjectHideFlags: 1
@@ -1872,7 +1872,7 @@ Animator:
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: df586a78e29339f438b9fb5742f5bd66, type: 3}
   m_Controller: {fileID: 9100000, guid: 8b5536b5c8b0bd249a4a5f245d8defcb, type: 2}
-  m_CullingMode: 0
+  m_CullingMode: 1
   m_ApplyRootMotion: 1
   m_AnimatePhysics: 0
   m_HasTransformHierarchy: 1
@@ -2194,7 +2194,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d72023f58eed2f340963ff21050a2528, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDelay: .5
+  attackDelay: .300000012
   swordDamage: 10
   heroStats: {fileID: 11400012}
 --- !u!124 &12400000
