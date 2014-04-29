@@ -696,7 +696,7 @@ MonoBehaviour:
   maxHealth: 2
   regenPerSecond: 0
   shieldUp: 0
-  damage: 25
+  damage: 10
   defence: 0
   dead: 0
   _health: 2

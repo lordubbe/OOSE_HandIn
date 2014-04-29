@@ -6,6 +6,7 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController {
 	public AudioClip snare;
 	public AudioClip jumpSound;
 	public AudioClip landSound;
+    public AudioClip[] hits;
 
     public float ForwardSpeed;
     public float SideSpeed;
@@ -306,12 +307,18 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController {
 
     public void Hit()
     {
-       /* if (hit.Length > 0)
+        if (hit.Length > 0)
         {
             int r = Random.Range(0, hit.Length);
             animation.CrossFade(hit[r]);
         }
-        * */
+
+        if (hits.Length > 0)
+        {
+            AudioClip clip = hits[Random.Range(0, hits.Length)];
+            AudioSource.PlayClipAtPoint(clip, transform.position);
+        }
+        
     }
 
     public void Die()

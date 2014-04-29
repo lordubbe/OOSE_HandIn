@@ -16,8 +16,9 @@ public class HeroMelee : MonoBehaviour {
     public AudioClip[] hitFrog;
     public AudioClip[] hitOther;
     private AudioSource audioSource;
-
+    
     private void Start(){
+       
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
     }
@@ -40,8 +41,8 @@ public class HeroMelee : MonoBehaviour {
     private void Attack()
     {
         animator.SetBool("Attack", true);
-       
-       
+
+        
         prevAttack = Time.time;
     }
     private void playSwingSound(){
@@ -49,7 +50,9 @@ public class HeroMelee : MonoBehaviour {
         {
             audioSource.clip = misses[Random.Range(0, misses.Length)];
             audioSource.Play();
+            GameStats.swings++;
             isAttacking = true;
+           
         }
     }
     private void stopSwing()

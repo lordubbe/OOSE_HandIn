@@ -2,7 +2,13 @@
 using System.Collections;
 
 public class CheckForInteractions : MonoBehaviour {
-	
+    GameStats gs;
+
+    void Start()
+    {
+      
+    }
+
 	// Update is called once per frame
 	void Update () {
 		GameObject.Find("ChestInteraction").GetComponent<GUIText>().enabled = false;
@@ -21,7 +27,17 @@ public class CheckForInteractions : MonoBehaviour {
 						hit.transform.gameObject.GetComponentInChildren<ParticleSystem>().Play ();
 						hit.transform.gameObject.GetComponent<AudioSource>().audio.Play();
                         CharacterStats player =  GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterStats>();
+
+                        int addedScore = (int)(player.Health * 10 * GameObject.Find("levelSpawner").GetComponent<LevelSpawn>().enemyStrength);
+
+                        GameObject.Find("GUICamera").GetComponent<GUIManager>().score += addedScore;
+                        GameStats.scoreFromChests += addedScore;
+                        GameStats.score += addedScore;
+                        GameStats.healing += (int)(player.maxHealth - player.Health);
                         player.Health = player.maxHealth;
+                        GameStats.chests++;
+                        
+                        
 					}
 				}
 			}else{

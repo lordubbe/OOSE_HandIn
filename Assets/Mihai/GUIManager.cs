@@ -5,7 +5,7 @@ public class GUIManager : MonoBehaviour {
 
 	private float maxLife;
 	private float _life;
-	internal int kills = 0;
+	internal int score = 0;
 
     public CharacterStats cs;	
 	
@@ -22,6 +22,6 @@ public class GUIManager : MonoBehaviour {
 		maxLife = cs.maxHealth;
 		_life = cs.Health;
 		healthBar.text = "Health: "+((int)Mathf.Clamp (_life/maxLife * 100,0,100)).ToString();
-		monstersKilled.text = "Kills: " + kills;
+		monstersKilled.text = "Score: " + score;
 	}
 }

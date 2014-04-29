@@ -4,7 +4,7 @@ using System.Collections;
 public class CharacterStats : MonoBehaviour {
 
 	public float maxHealth;
-
+    public GameObject[] objectsToDeleteOnDeath;
 	
 
 	public float Health {
@@ -19,6 +19,7 @@ public class CharacterStats : MonoBehaviour {
 				//Debug.Log ("aaauch only "+value+" health left");
 				}
 			}
+            
 			_health = value;
 		}
 	}
@@ -34,7 +35,7 @@ public class CharacterStats : MonoBehaviour {
 	public IAnimationController anim;
 	
 	public float _health;
-	
+   
 	private void Awake(){
 		_health = maxHealth;
 		
@@ -43,6 +44,7 @@ public class CharacterStats : MonoBehaviour {
 	} 
 	private void Start(){
 		anim = getAnim();
+       
 	}
 	
 	void Update(){
@@ -66,10 +68,21 @@ public class CharacterStats : MonoBehaviour {
         }else return null;
 	}
 	public void Die(){
-		if(gameObject.tag!="Player")GameObject.Find("GUICamera").GetComponent<GUIManager>().kills ++; 
+        if (gameObject.tag != "Player")
+        {
+            int score = (int)(damage * GameObject.Find("levelSpawner").GetComponent<LevelSpawn>().enemyStrength * 3);
+            GameObject.Find("GUICamera").GetComponent<GUIManager>().score += score;
+            GameStats.kills++;
+            GameStats.scoreFromMonsters += score;
+            GameStats.score += score;
+        }
 		if(anim!=null)anim.Die ();
 		dead = true;
-		//Collider col = gameObject.GetComponent<Collider>();
+		Collider col = gameObject.GetComponent<Collider>();
+        foreach (GameObject go in objectsToDeleteOnDeath)
+        {
+            if (go != null) Destroy(go);
+        }
 		//Destroy (col);
 		//gameObject.tag = "Dead";
 		//Invoke("DeleteGO",10.0f);

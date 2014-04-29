@@ -10,13 +10,14 @@ public class GameHandler : MonoBehaviour
     public static bool playerSpawned = false;
 
     public static int levelNo = 0;
-
+    
     // Use this for initialization
     void Start()
     {
         levelSpawner = GameObject.Find("levelSpawner");
 
         levelNo++;
+        GameStats.level = levelNo;
         print("LEVEL: " + levelNo);
         //DontDestroyOnLoad(this.gameObject);
         //GameObject.Find("levelSpawner").GetComponent<LevelSpawn>().

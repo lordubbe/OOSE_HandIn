@@ -16,6 +16,8 @@ public class hideMouse : MonoBehaviour {
             hideCursor = !hideCursor;
             Screen.lockCursor = hideCursor;
             Screen.showCursor = !hideCursor;
+            
         }
+        Debug.Log(GameStats.healing);
 	}
 }
