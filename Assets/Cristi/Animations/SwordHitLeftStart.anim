@@ -1917,4 +1917,18 @@ AnimationClip:
     path: 
     classID: 4
     script: {fileID: 0}
-  m_Events: []
+  m_Events:
+  - time: .25
+    functionName: playSwingSound
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: .683333337
+    functionName: stopSwing
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0

@@ -1,0 +1,437 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="CheckForInteractions" Collapsed="true">
+    <Position X="8.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAA=</HashCode>
+      <FileName>Assets\CheckForInteractions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChestStats" Collapsed="true">
+    <Position X="10.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\ChestStats.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="buttons" Collapsed="true">
+    <Position X="8.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Cristi\GUI\Menu\buttons.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TemporarySwordAnimations" Collapsed="true">
+    <Position X="5.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQCAAAAKCAAAAAAABAAAFAAAAAAAIQABQAAAAAEAQA=</HashCode>
+      <FileName>Assets\Cristi\Scripts\TemporarySwordAnimations.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DisplayOnlyCloseLightSources" Collapsed="true">
+    <Position X="12.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAEAAAASAAAAAAAAAgAAAAAEAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\DisplayOnlyCloseLightSources.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="enterNextLevelOnPlayerCollision" Collapsed="true">
+    <Position X="7" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Assets\enterNextLevelOnPlayerCollision.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ExitApplicationOnClick" Collapsed="true">
+    <Position X="8.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\ExitApplicationOnClick.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameHandler" Collapsed="true">
+    <Position X="14" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAAAAAFQgAAAAAAAAA=</HashCode>
+      <FileName>Assets\GameHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GoToInstructionsScreenOnClick" Collapsed="true">
+    <Position X="5.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AARAAAAAACAAAAAAAAAACAAAAAAEAAAAAAQAAAAIAAA=</HashCode>
+      <FileName>Assets\GoToInstructionsScreenOnClick.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iTween" Collapsed="true">
+    <Position X="12.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>0QWpuFSJxrrrL29pRXNGpw+DYp3p1M6MpupDFX/571c=</HashCode>
+      <FileName>Assets\iTween\Plugins\iTween.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MoveSample" Collapsed="true">
+    <Position X="12.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\iTween\Sample\MoveSample.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RotateSample" Collapsed="true">
+    <Position X="10.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\iTween\Sample\RotateSample.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SampleInfo" Collapsed="true">
+    <Position X="12.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAA=</HashCode>
+      <FileName>Assets\iTween\Sample\SampleInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FallOnPlayerCollision" Collapsed="true">
+    <Position X="10.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAQAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Jacob\FallOnPlayerCollision.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LevelSpawn">
+    <Position X="14" Y="3.5" Width="6.25" />
+    <NestedTypes>
+      <Delegate Name="LevelSpawn.FINISH_GENERATION" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Jacob\LevelSpawn.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>EjCAEmBgwGAiRiAAhCgCCgkAQCOoAQAQwAoEBADiApU=</HashCode>
+      <FileName>Assets\Jacob\LevelSpawn.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MeshMerger" Collapsed="true">
+    <Position X="8.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAIAAAAAAAAAABAAAA=</HashCode>
+      <FileName>Assets\Jacob\MeshMerger.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RandomizeLightIntensity" Collapsed="true">
+    <Position X="7" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAQAIAAAAAg=</HashCode>
+      <FileName>Assets\Jacob\RandomizeLightIntensity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Room" Collapsed="true">
+    <Position X="8.75" Y="5.5" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="Room.roomType" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Jacob\Room.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAgAAAAAAAAAAAQAQAAAAAAAAgABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Jacob\Room.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StartSoundFromRandomTime" Collapsed="true">
+    <Position X="15.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Jacob\StartSoundFromRandomTime.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tile" Collapsed="true">
+    <Position X="7" Y="6.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Enum Name="Tile.tileType" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Jacob\Tile.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAgAACAAAAAAAAAAABAQAAABBgAAAAAAA=</HashCode>
+      <FileName>Assets\Jacob\Tile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LoadLevelOnClick" Collapsed="true">
+    <Position X="17.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAIAAEAA=</HashCode>
+      <FileName>Assets\LoadLevelOnClick.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CameraFollow" Collapsed="true">
+    <Position X="10.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAACAACBAEAAAAAMAAAAAAAAQAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Assets\Mihai\Camera\CameraFollow.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CameraForward" Collapsed="true">
+    <Position X="12.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAEDAACIAEACAAFMAAAAAAAAAABAAAAAgAAAgAAA=</HashCode>
+      <FileName>Assets\Mihai\Camera\CameraForward.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CameraMovements" Collapsed="true">
+    <Position X="14" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Mihai\Camera\CameraMovements.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CameraUpDown" Collapsed="true">
+    <Position X="15.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAEAAAAAAQAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Mihai\Camera\CameraUpDown.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="hideMouse" Collapsed="true">
+    <Position X="10.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Mihai\Camera\hideMouse.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MakeTransparentWalls" Collapsed="true">
+    <Position X="5.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAQAAAAAgAAAAAgBAAAAAA=</HashCode>
+      <FileName>Assets\Mihai\Camera\MakeTransparentWalls.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SeeThroughWall" Collapsed="true">
+    <Position X="14" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYADEAAACIAAAAAAAAAAAAAAAAAAAACAAgAAAAAAAA=</HashCode>
+      <FileName>Assets\Mihai\Camera\SeeThroughWall.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TransparentWall" Collapsed="true">
+    <Position X="8.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAACACAAAAAABAAAAAEAAEAAAAAAAwAAAAAAA=</HashCode>
+      <FileName>Assets\Mihai\Camera\TransparentWall.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CharacterMove" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="17.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAhAAyBACAEgBAIAAGRAAABACRIQCBBEAAABAEA=</HashCode>
+      <FileName>Assets\Mihai\Character\CharacterMove.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="FirstPersonCharacterMove" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="12.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAADZQhEAyBAQgGgBAsAAEBBCwQABbIQCBJAghAAUEA=</HashCode>
+      <FileName>Assets\Mihai\Character\FirstPersonCharacterMove.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="GetDamage" Collapsed="true">
+    <Position X="17.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAEAAAAAAQAAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Mihai\Character\GetDamage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HeroMelee" Collapsed="true">
+    <Position X="8.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAwAAQAAACAAAAgIAIAAAAAAAMxAEQAAwAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Mihai\Character\HeroAttack2\HeroMelee.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MeleeAttack" Collapsed="true">
+    <Position X="7" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>Assets\Mihai\Character\MeleeAttack.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CharacterTween" Collapsed="true">
+    <Position X="7" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQEEAgAAAAgAAAAAACCAAAEAAAIAYAAIoAACAAAAAA=</HashCode>
+      <FileName>Assets\Mihai\CharacterTween\CharacterTween.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="mTween" Collapsed="true">
+    <Position X="14" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Mihai\CharacterTween\TweenManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EnemyFighting" Collapsed="true">
+    <Position X="15.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAhAAQAAAAEIACACCAAACQAAAAAAAAMAECAAAAAAEI=</HashCode>
+      <FileName>Assets\Mihai\Enemy\Enemy 1.0\AI\EnemyFighting.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EnemyStateMachine" Collapsed="true">
+    <Position X="5.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AJQBCARQCABFAQAgAAEAKCAIAAAhACgGAAABQQDSAEI=</HashCode>
+      <FileName>Assets\Mihai\Enemy\Enemy 1.0\AI\EnemyStateMachine.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LineOfSight" Collapsed="true">
+    <Position X="15.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACBAAAAAACAEAAAAEAAAAAAAAAAAAABAABAAAAAAEg=</HashCode>
+      <FileName>Assets\Mihai\Enemy\Enemy 1.0\AI\LineOfSight.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Node" Collapsed="true">
+    <Position X="15.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAAABkAAAAAgAAAAAAAQAAAIBgCAAIAAE=</HashCode>
+      <FileName>Assets\Mihai\Enemy\Enemy 1.0\AI\Pathfinding\Node.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PathFinding" Collapsed="true">
+    <Position X="17.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABCAAAEAAQhQAEDgAAAAAMAAAAAAEAAQAAAAAI=</HashCode>
+      <FileName>Assets\Mihai\Enemy\Enemy 1.0\AI\Pathfinding\PathFinding.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AvoidPassThroughWall" Collapsed="true">
+    <Position X="5.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABBAAAAAAAACAIAAAAAAAAgAAAAAQAAAAAAAAIAAEA=</HashCode>
+      <FileName>Assets\Mihai\Enemy\Enemy 1.0\AvoidPassThroughWall.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AvoidWalkThrough" Collapsed="true">
+    <Position X="7" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAQAACAAAAAAAEAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Mihai\Enemy\Enemy 1.0\AvoidWalkThrough.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CharacterStats" Collapsed="true">
+    <Position X="5.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAQAKAAMACEAgAAgAAAACAAQAAAAAAAIAQAAAAAAAEI=</HashCode>
+      <FileName>Assets\Mihai\Enemy\Enemy 1.0\CharacterStats.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EnemyMovement" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="17.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ARQIEAhAC2AADAEgBAIKAEBIAIAAARIACAJEAAAZAEA=</HashCode>
+      <FileName>Assets\Mihai\Enemy\Enemy 1.0\EnemyMovement.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="StateMachine" Collapsed="true">
+    <Position X="17.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>FKwQBABQDCAAAAFAICgACCIRAkBAQAIEAAIEBAaIEEI=</HashCode>
+      <FileName>Assets\Mihai\Enemy\Enemy 2.0\AI\StateMachine.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameStats" Collapsed="true">
+    <Position X="15.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACQAAABAACAIAQgAAAEIAAEAAAEAAAAAAEQAgAAAAAA=</HashCode>
+      <FileName>Assets\Mihai\GameStats.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GUIManager" Collapsed="true">
+    <Position X="7" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAEAAAAAAAAEIAAAAAAAAAAAAARAAQAAQAEA=</HashCode>
+      <FileName>Assets\Mihai\GUIManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PathFindingJob" Collapsed="true">
+    <Position X="0.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABCAAAEAAQhQAEDgAAAAIMACAAAAEAAQAAgAAI=</HashCode>
+      <FileName>Assets\Mihai\Multithreading\PathFindingJob.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ThreadedJob" Collapsed="true">
+    <Position X="0.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAACAAACAAACAQAAAAAEAAAAAACAAAAAAAAAggAAI=</HashCode>
+      <FileName>Assets\Mihai\Multithreading\ThreadedJob.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Performance">
+    <Position X="5.25" Y="5.5" Width="3" />
+    <NestedTypes>
+      <Delegate Name="Performance.D" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Mihai\Performance.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAQAAAEAAABgAAAAAAAAAAgCBAgAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>Assets\Mihai\Performance.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Attack" Collapsed="true">
+    <Position X="1.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAARAAAAACAAoAAAAIAAAAACAABBABACARAAAAAAAAA=</HashCode>
+      <FileName>Assets\Mihai\Weapons\Melee\Attack.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AttackForward" Collapsed="true">
+    <Position X="0.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAEABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Mihai\Weapons\Melee\AttackForward.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DoDamage" Collapsed="true">
+    <Position X="14" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAgQAAAAABAAAIAAAAABAAQBAAAAAAAAA=</HashCode>
+      <FileName>Assets\Mihai\Weapons\Melee\DoDamage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SwingAttack" Collapsed="true">
+    <Position X="2.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Mihai\Weapons\Melee\SwingAttack.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="moveMenuMarker" Collapsed="true">
+    <Position X="10.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\moveMenuMarker.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="IAnimationController" Collapsed="true">
+    <Position X="5.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAwAAAAAgBAIAAABAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Mihai\Interfaces\IAnimationController.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
