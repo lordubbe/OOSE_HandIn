@@ -485,6 +485,7 @@ MonoBehaviour:
   torchFrequency: 10
   exitCoords: {x: 0, y: 0, z: 0}
   enemySpawnFreq: 10
+  enemyStrength: 1
   chestSpawnFreq: 5
   minAmountOfChests: 1
   playerSpawn: {x: 0, y: 0, z: 0}

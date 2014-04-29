@@ -454,6 +454,7 @@ public class LevelSpawn : MonoBehaviour
                         {
                             Transform furnit = (Transform)Instantiate(furn, new Vector3(x * tileWidth, 0, y * tileWidth), Quaternion.Euler(0, Random.Range(0, 360), 0));
                             furnit.parent = levelMatrix[x, y].tileMesh.transform;
+							furnit.localScale = new Vector3(0.5f,0.5f,0.5f);
                         }
                     }
                 }
