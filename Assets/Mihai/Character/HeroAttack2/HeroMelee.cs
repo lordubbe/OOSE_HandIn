@@ -8,26 +8,30 @@ public class HeroMelee : MonoBehaviour {
 
     public CharacterStats heroStats;
 
-    private float attackTime = 1.0f;
-    private bool isAttacking = false;
-    float prevAttack = 0;
+    private float attackTime = .8f;
+    internal bool isAttacking = false;
+    internal float prevAttack = 0;
     Animator animator;
-    
+    public AudioClip[] misses;
+    public AudioClip[] hitFrog;
+    public AudioClip[] hitOther;
+    private AudioSource audioSource;
 
     private void Start(){
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
     }
     private void Update()
     {
 
-        if (Input.GetMouseButtonDown(1) && Time.time - prevAttack > attackDelay)
+        if (Input.GetMouseButtonDown(0) )
         {
             Attack();
         }
         else
         {
             animator.SetBool("Attack", false);
-            if (attackTime > Time.time - prevAttack)
+            if (attackTime < Time.time - prevAttack)
             {
                 isAttacking = false;
             }
@@ -36,7 +40,21 @@ public class HeroMelee : MonoBehaviour {
     private void Attack()
     {
         animator.SetBool("Attack", true);
-        isAttacking = true;
+       
+       
+        prevAttack = Time.time;
+    }
+    private void playSwingSound(){
+         if (misses.Length > 0)
+        {
+            audioSource.clip = misses[Random.Range(0, misses.Length)];
+            audioSource.Play();
+            isAttacking = true;
+        }
+    }
+    private void stopSwing()
+    {
+        isAttacking = false;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -47,15 +65,24 @@ public class HeroMelee : MonoBehaviour {
             {
                 
                 other.gameObject.GetComponent<CharacterStats>().Health -= swordDamage + heroStats.damage;
-                Debug.Log(other.gameObject.GetComponent<CharacterStats>().Health);
-               
+                if (hitFrog.Length > 0)
+                {
+                    audioSource.clip = hitFrog[Random.Range(0, hitFrog.Length)];
+                    audioSource.Play();
+                }
+
             }
+            else if(other.tag == "Untagged")
+            {
+                if (hitOther.Length > 0)
+                {
+                    audioSource.clip = hitOther[Random.Range(0, hitOther.Length)];
+                    audioSource.Play();
+                }
+            }
+            
         }
-        else if (other.tag == "Creature")
-        {
-           
-            heroStats.Health -= other.gameObject.GetComponent<CharacterStats>().damage;
-        }
+       
     }
 
 }

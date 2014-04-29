@@ -9,7 +9,39 @@ public class StateMachine : MonoBehaviour {
 
     }
 
-    public State state;
+    public State _state;
+
+    public State state
+    {
+        set
+        {
+            if (value != _state)
+            {
+                switch (_state)
+                {
+                    case State.alert: STOP_ALERT(); break;
+                    case State.attack: STOP_ATTACK(); break;
+                    case State.idle: STOP_IDLE(); break;
+                    case State.run: STOP_RUN(); break;
+                    case State.walk: STOP_WALK(); break;
+                }
+                switch (value)
+                {
+                    case State.alert: START_ALERT(); break;
+                    case State.attack: START_ATTACK(); break;
+                    case State.idle: START_IDLE(); break;
+                    case State.run: START_RUN(); break;
+                    case State.walk: START_WALK(); break;
+                    case State.die: START_DIE(); break;
+                }
+                _state = value;
+            }
+        }
+        get
+        {
+            return _state;
+        }
+    }
 
     public delegate void f();
     public event f START_IDLE, START_WALK, START_ALERT, START_RUN, START_ATTACK, START_DIE;
@@ -19,15 +51,17 @@ public class StateMachine : MonoBehaviour {
     public float alertDistance;
     public float attackDistance;
     public float runIdleTime;
-    
+    public GameObject die;
     public GameObject enemy;
     internal bool atDestination;
     private CharacterStats stats;
     private float prevTime = 0;
-
+    internal float force = 0;
+    private Animator animator;
     public void Start()
     {
         atDestination = false;
+        animator = GetComponent<Animator>();
         stats = GetComponent<CharacterStats>();
         InvokeRepeating("CheckState", Random.value,0.1f+Random.value*0.2f);
         enemy = GameObject.FindGameObjectWithTag("Player");
@@ -43,6 +77,7 @@ public class StateMachine : MonoBehaviour {
        STOP_ALERT  += postAlert;
        STOP_RUN    += postRun;
        STOP_ATTACK += postAttack;
+       state = State.idle;
 
 
     }
@@ -58,28 +93,51 @@ public class StateMachine : MonoBehaviour {
                 
         }
     }
+    private void Update()
+    {
+        if(state!=State.idle && state!=State.walk){
+            transform.LookAt(enemy.transform.position);
+
+        }
+        else
+        {
+            transform.Rotate(new Vector3(0,Random.Range(-1.0f,1.0f),0));
+        }
+        RaycastHit[] hits = Physics.RaycastAll(transform.position + new Vector3(0,0.2f,0),Vector3.down,0.25f);
+        bool fall = true;
+        foreach (RaycastHit hit in hits)
+        {
+            if (hit.collider != collider) fall = false;
+        }
+        if (fall)
+        {
+            force += 9.8f * Time.deltaTime;
+            transform.position -= new Vector3(0, force, 0) * Time.deltaTime;
+        }
+        else
+        {
+            force = 0;
+        }
+    }
     private void idleTransitions()
     {
         if(enemy!=null){
             if (stats._health < 0)
             {
-                STOP_IDLE();
-                START_DIE();
+                state = State.die;
             }else
             if(sqrDistance(transform.position,enemy.transform.position)<Mathf.Pow(seeDistance,2))
             {
-                STOP_IDLE();
-                START_ALERT();
+                state = State.alert;
             }else if(Time.time-prevTime>runIdleTime)
             {
-                STOP_IDLE();
-                START_WALK();
+                state = State.walk;
+
             }
         }else{
             if(Time.time-prevTime>runIdleTime)
             {
-                STOP_IDLE();
-                START_WALK();
+                state = State.walk;
             }
         }
     }
@@ -89,27 +147,23 @@ public class StateMachine : MonoBehaviour {
         {
             if (stats._health < 0)
             {
-                STOP_WALK();
-                START_DIE();
+                state = State.die;
             }
             else
                 if (sqrDistance(transform.position, enemy.transform.position) < Mathf.Pow(seeDistance, 2))
                 {
-                    STOP_WALK();
-                    START_ALERT();
+                    state = State.alert;
                 }
                 else if (Time.time - prevTime > runIdleTime || atDestination)
                 {
-                    STOP_WALK();
-                    START_IDLE();
+                    state = State.idle;
                 }
         }
         else
         {
             if (Time.time - prevTime > runIdleTime)
             {
-                STOP_WALK();
-                START_IDLE();
+                state = State.idle;
             }
         }
     }
@@ -119,26 +173,22 @@ public class StateMachine : MonoBehaviour {
         {
             if (stats._health < 0)
             {
-                STOP_ALERT();
-                START_DIE();
+                state = State.die;
             }
             else
                 if (sqrDistance(transform.position, enemy.transform.position) > Mathf.Pow(seeDistance, 2))
                 {
-                    STOP_ALERT();
-                    START_IDLE();
+                    state = State.idle;
                 }
                 else if (sqrDistance(transform.position, enemy.transform.position) < Mathf.Pow(alertDistance, 2))
                 {
-                    STOP_ALERT();
-                    START_RUN();
+                   state = State.run;
                 }
                
         }
         else
         {
-            STOP_ALERT();
-            START_IDLE();
+            state = State.idle;
         }
     }
     private void runTransitions()
@@ -147,26 +197,22 @@ public class StateMachine : MonoBehaviour {
         {
             if (stats._health < 0)
             {
-                STOP_RUN();
-                START_DIE();
+                state = State.die;
             }
             else
                 if (sqrDistance(transform.position, enemy.transform.position) > Mathf.Pow(alertDistance, 2))
                 {
-                    STOP_RUN();
-                    START_IDLE();
+                    state = State.alert;
                 }
                 else if (sqrDistance(transform.position, enemy.transform.position) < Mathf.Pow(attackDistance, 2))
                 {
-                    STOP_RUN();
-                    START_ATTACK();
+                    state = State.attack;
                 }
 
         }
         else
         {
-            STOP_RUN();
-            START_IDLE();
+            state = State.idle;
         }
     }
     private void attackTransitions()
@@ -175,22 +221,19 @@ public class StateMachine : MonoBehaviour {
         {
             if (stats._health < 0)
             {
-                STOP_ATTACK();
-                START_DIE();
+                state = State.die;
             }
             else
                
                 if (sqrDistance(transform.position, enemy.transform.position) > Mathf.Pow(attackDistance, 2))
                 {
-                    STOP_ATTACK();
-                    START_IDLE();
+                    state = State.idle;
                 }
 
         }
         else
         {
-            STOP_ATTACK();
-            START_IDLE();
+            state = State.idle;
         }
     }
 
@@ -198,50 +241,55 @@ public class StateMachine : MonoBehaviour {
     {
         atDestination = false;
         prevTime = Time.time;
-        state = State.idle;
+        animator.SetBool("Idle", true);
+       
     }
     private void prepareWalk()
     {
         atDestination = false;
         prevTime = Time.time;
-        state = State.walk;
+        animator.SetBool("Walk", true);
+        
     }
     private void prepareAlert()
     {
-        state = State.alert;
+        animator.SetBool("Alert", true);
     }
     private void prepareRun()
     {
-        state = State.run;
+        animator.SetBool("Run", true);
 
     }
     private void prepareAttack()
     {
-        state = State.attack;
+        animator.SetBool("Attack", true);
     }
     private void prepareDie()
     {
-        state = State.die;
+        Instantiate(die,transform.position,Quaternion.identity);
+        Destroy(this.gameObject);
     }
     private void postIdle()
     {
         prevTime = 0;
+        animator.SetBool("Idle", false);
     }
     private void postWalk()
     {
         prevTime = 0;
+        animator.SetBool("Walk", false);
     }
     private void postAlert()
     {
-
+        animator.SetBool("Alert", false);
     }
     private void postRun()
     {
-
+        animator.SetBool("Run", false);
     }
     private void postAttack()
     {
-
+        animator.SetBool("Attack", false);
     }
 
 
