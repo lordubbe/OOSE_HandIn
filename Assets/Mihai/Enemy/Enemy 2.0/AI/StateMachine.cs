@@ -21,11 +21,13 @@ public class StateMachine : MonoBehaviour {
     public float runIdleTime;
     
     public GameObject enemy;
+    internal bool atDestination;
     private CharacterStats stats;
     private float prevTime = 0;
 
     public void Start()
     {
+        atDestination = false;
         stats = GetComponent<CharacterStats>();
         InvokeRepeating("CheckState", Random.value,0.1f+Random.value*0.2f);
         enemy = GameObject.FindGameObjectWithTag("Player");
@@ -96,7 +98,7 @@ public class StateMachine : MonoBehaviour {
                     STOP_WALK();
                     START_ALERT();
                 }
-                else if (Time.time - prevTime > runIdleTime)
+                else if (Time.time - prevTime > runIdleTime || atDestination)
                 {
                     STOP_WALK();
                     START_IDLE();
@@ -194,11 +196,13 @@ public class StateMachine : MonoBehaviour {
 
     private void prepareIdle()
     {
+        atDestination = false;
         prevTime = Time.time;
         state = State.idle;
     }
     private void prepareWalk()
     {
+        atDestination = false;
         prevTime = Time.time;
         state = State.walk;
     }

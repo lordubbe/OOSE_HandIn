@@ -13,6 +13,7 @@ public class CharacterStats : MonoBehaviour {
 		}
 		set {
 			if(value<_health){
+                if (value < 0) dead = true;
 			if(!dead){
 				anim.Hit();
 				//Debug.Log ("aaauch only "+value+" health left");
