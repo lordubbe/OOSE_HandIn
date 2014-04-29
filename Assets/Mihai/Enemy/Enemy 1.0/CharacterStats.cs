@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ﻿using UnityEngine;
 using System.Collections;
 
@@ -79,7 +78,6 @@ public class CharacterStats : MonoBehaviour {
 		Destroy (gameObject);
 	}
 }
-=======
 ﻿using UnityEngine;
 using System.Collections;
 

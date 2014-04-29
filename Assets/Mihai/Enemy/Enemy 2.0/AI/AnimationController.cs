@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ﻿using UnityEngine;
 using System.Collections;
 
@@ -217,7 +216,6 @@ public class AnimationController : MonoBehaviour {
         Instantiate(DieParticles, transform.position, Quaternion.identity);
     }
 }
-=======
 ﻿using UnityEngine;
 using System.Collections;
 

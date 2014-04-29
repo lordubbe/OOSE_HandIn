@@ -334,8 +334,7 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController {
 	{
 		canAtt = true;
 	}
-<<<<<<< HEAD
-=======
+
     private IEnumerator onJump()
     {
         float pow = JumpForce;
@@ -438,5 +437,5 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController {
     {
         canAtt = true;
     }
->>>>>>> FETCH_HEAD
+
 }
