@@ -229,20 +229,15 @@ public class LevelSpawn : MonoBehaviour {
 			b = Random.Range(1, MAX_LEVEL_WIDTH);
 
 			//make sure the exit only spawns on regular ground tiles that doesn't already have children (pillar, etc.), and that it doesn't spawn at playerspawn
-//			print ("trying to place exit at: "+a*tileWidth+","+b*tileHeight);
 			if(levelMatrix[a,b] != null && levelMatrix[a,b].type == Tile.tileType.ground && levelMatrix[a,b].tileMesh.childCount == 0 
 			   && isSpaceAvailableWithinRange(1, levelMatrix[a,b], levelMatrix, false) && 
-			   (levelMatrix[a,b].tileMesh.transform.position.x != playerSpawn.x && levelMatrix[a,b].tileMesh.transform.position.z != playerSpawn.z) 
-			   && getNeighbor("down", levelMatrix[a,b], levelMatrix).type != Tile.tileType.wall && getNeighbor("up", levelMatrix[a,b], levelMatrix).type != Tile.tileType.wall
-			   && getNeighbor("left", levelMatrix[a,b], levelMatrix).type != Tile.tileType.wall && getNeighbor("down", levelMatrix[a,b], levelMatrix).type != Tile.tileType.wall){
-//				print ("isSpac.. is true, so now I'll spawn the exit!");
-				print (getNeighbor("down", levelMatrix[a,b], levelMatrix).type);
+			   (levelMatrix[a,b].tileMesh.transform.position.x != playerSpawn.x && levelMatrix[a,b].tileMesh.transform.position.z != playerSpawn.z)){
 				Destroy(levelMatrix[a,b].tileMesh.gameObject);
 				exitCoords = new Vector3(a, 0, b);
 				levelMatrix[a,b].tileMesh = (Transform)Instantiate(exitObject, exitCoords*tileWidth, Quaternion.identity);
 				levelMatrix[a,b].isWalkable = false;
 				exitPlaced = true;
-			}//else{print ("nope... not there i gues...");}
+			}
 		}
 		//	}
 		//}
@@ -411,7 +406,6 @@ public class LevelSpawn : MonoBehaviour {
 						if(isSpaceAvailableWithinRange(1, levelMatrix[x,y], levelMatrix, false)){
 							Transform furnit = (Transform)Instantiate(furn, new Vector3(x*tileWidth, 0, y*tileWidth), Quaternion.Euler(0,Random.Range (0,360),0));
 							furnit.parent = levelMatrix[x,y].tileMesh.transform;
-							furnit.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
 						}
 					}
 				}
@@ -430,7 +424,7 @@ public class LevelSpawn : MonoBehaviour {
 					//if(levelMatrix[x,y]!=null && levelMatrix[x,y].tileMesh.childCount != null)
 					//	print (levelMatrix[x,y]+": "+levelMatrix[x,y].type+", "+levelMatrix[x,y].tileMesh.childCount);
 					//Make sure it's against a wall and that the particular wall tile in question doesn't already hold another item
-					if(levelMatrix[x,y]!=null && levelMatrix[x,y].type == Tile.tileType.wall && (levelMatrix[x,y].tileMesh.childCount != null && levelMatrix[x,y].tileMesh.childCount < 5)){
+					if(levelMatrix[x,y]!=null && levelMatrix[x,y].type == Tile.tileType.wall && (levelMatrix[x,y].tileMesh.childCount != null && levelMatrix[x,y].tileMesh.childCount < 2)){
 						if(!isWallPartOfCorner(levelMatrix[x,y], levelMatrix)){
 							Transform deco = Instantiate(dec, new Vector3(x*tileWidth, tileHeight, y*tileWidth), rotateTowardsNearestTileOfType(Tile.tileType.ground, x, y, levelMatrix)) as Transform;
 							deco.parent = levelMatrix[x,y].tileMesh.transform;
@@ -750,10 +744,9 @@ public class LevelSpawn : MonoBehaviour {
 						if(levelMatrix[x,y]!=null){	
 							if(levelMatrix[x,y].type == Tile.tileType.ground || levelMatrix[x,y].type == Tile.tileType.path){
 								if(debugColorOn){
+									print ("CHANGING COLOR!");
 									levelMatrix[x,y].tileMesh.renderer.material.color = Color.green;
 								}
-							}else if(levelMatrix[x,y].type == Tile.tileType.wall){
-								blockedByTile++;
 							}else{
 								if(debugColorOn){
 									levelMatrix[x,y].tileMesh.renderer.material.color = Color.red;
@@ -764,7 +757,8 @@ public class LevelSpawn : MonoBehaviour {
 					}
 				}
 			}
-		}	
+		}
+		
 		if(blockedByTile > 0){
 			isAvailable = false;
 		}else{

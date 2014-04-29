@@ -83,8 +83,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 91239114}
   - 65: {fileID: 91239115}
-  - 114: {fileID: 91239117}
-  - 82: {fileID: 91239116}
   m_Layer: 0
   m_Name: ChestObj
   m_TagString: Chest
@@ -119,78 +117,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: .449999988, y: .620000005, z: .850000024}
   m_Center: {x: -1.75, y: -.689999998, z: 0}
---- !u!82 &91239116
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 8200000, guid: a3109aaf975a04216abe06919ddf4044,
-    type: 2}
-  m_PrefabInternal: {fileID: 319070506}
-  m_GameObject: {fileID: 91239113}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_audioClip: {fileID: 8300000, guid: 8e562aee9fbcf411ba6b3cec8e5780dc, type: 3}
-  m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    - time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
---- !u!114 &91239117
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 11400000, guid: a3109aaf975a04216abe06919ddf4044,
-    type: 2}
-  m_PrefabInternal: {fileID: 319070506}
-  m_GameObject: {fileID: 91239113}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3901c3bcd67164f5a9f5f87cb321898e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hasBeenOpened: 0
 --- !u!1 &116973619
 GameObject:
   m_ObjectHideFlags: 0
@@ -230,7 +156,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelSpawner: {fileID: 0}
-  player: {fileID: 400090, guid: a16d6706fc360f248bb1ee11de2fbca5, type: 2}
+  player: {fileID: 400026, guid: 64966e52ffd404ceb85f0fec0ab27076, type: 2}
 --- !u!1 &195461517
 GameObject:
   m_ObjectHideFlags: 0
@@ -784,8 +710,8 @@ Transform:
   m_PrefabInternal: {fileID: 319070506}
   m_GameObject: {fileID: 1498161059}
   m_LocalRotation: {x: -.707106829, y: 0, z: 0, w: .707106829}
-  m_LocalPosition: {x: -1.75755918, y: -.866178036, z: 1.03256454e-07}
-  m_LocalScale: {x: .174861133, y: .376380414, z: .218245476}
+  m_LocalPosition: {x: -1.74165154, y: -1.11569726, z: 1.33001464e-07}
+  m_LocalScale: {x: .230262414, y: .427437007, z: .218245476}
   m_Children: []
   m_Father: {fileID: 91239114}
 --- !u!199 &1498161061
@@ -829,11 +755,11 @@ ParticleSystem:
     type: 2}
   m_PrefabInternal: {fileID: 319070506}
   m_GameObject: {fileID: 1498161059}
-  lengthInSec: 2
-  startDelay: 1
+  lengthInSec: 5
+  startDelay: 0
   speed: 1
   randomSeed: 0
-  looping: 0
+  looping: 1
   prewarm: 0
   playOnAwake: 0
   moveWithTransform: 1
@@ -1085,7 +1011,7 @@ ParticleSystem:
     enabled: 1
     m_Type: 0
     rate:
-      scalar: 446.369995
+      scalar: 59
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -1133,13 +1059,13 @@ ParticleSystem:
       maxCurve:
         serializedVersion: 2
         m_Curve:
-        - time: 0
-          value: .150992513
+        - time: .0390243903
+          value: .787356317
           inSlope: 0
           outSlope: 0
           tangentMode: 0
-        - time: .975609779
-          value: .0681818277
+        - time: 1
+          value: .1264368
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -1705,9 +1631,9 @@ ParticleSystem:
       minMaxState: 1
     range: {x: 0, y: 1}
   RotationBySpeedModule:
-    enabled: 1
+    enabled: 0
     curve:
-      scalar: 1.884781
+      scalar: .785398185
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -1739,7 +1665,7 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
       minMaxState: 0
-    range: {x: 0, y: 142.800003}
+    range: {x: 0, y: 1}
   ColorBySpeedModule:
     enabled: 0
     gradient:
@@ -1908,7 +1834,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   seedBasedGeneration: 0
   seed: 123123123
-  spawnEnemies: 1
+  spawnEnemies: 0
   levelParent: {fileID: 850913288}
   Walls: {fileID: 424201274}
   emptyTile: {fileID: 400000, guid: ede89c57f0b204a189d04eb28f590208, type: 2}
@@ -1922,7 +1848,7 @@ MonoBehaviour:
   trickTile: {fileID: 400000, guid: eeeb63d6ba9c347f4853ce3031a3d9f1, type: 2}
   torchTile: {fileID: 400004, guid: 8647e3cbec697412aa525f5c8108a5a3, type: 2}
   chestObject: {fileID: 400014, guid: a3109aaf975a04216abe06919ddf4044, type: 2}
-  enemyObject: {fileID: 400046, guid: 7a0575ec53cc4ac4b972b4b0d30d2918, type: 2}
+  enemyObject: {fileID: 400098, guid: 826a41427cb729744a8cc6bbc3099fa4, type: 2}
   decorations:
   - {fileID: 400000, guid: aaaed593b169d451083c4ffbe004c9b4, type: 2}
   - {fileID: 400002, guid: 33322e6254bd34c838c747d85dec0aab, type: 2}
