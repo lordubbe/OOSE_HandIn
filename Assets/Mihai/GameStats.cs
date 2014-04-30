@@ -42,7 +42,7 @@ public class GameStats{
     private static int _kills;//
     private static int _swings;//
 
-	void resetAllStats(){
+	public static void resetAllStats(){
 		score = 0;
 		chests = 0;
 		accuracy = 0;
