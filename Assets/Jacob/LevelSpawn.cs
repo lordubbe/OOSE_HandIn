@@ -552,7 +552,7 @@ public class LevelSpawn : MonoBehaviour
                             float strMulti = (enemyStrength + Random.Range(-0.2f, 0.1f));
                             if (enemyStats != null)
                             {
-                                enemyStats.damage *= strMulti;
+                                enemyStats.SetCreatureBasedOnStrength(strMulti);
                             }
                             if (sm != null)
                             {
@@ -560,7 +560,7 @@ public class LevelSpawn : MonoBehaviour
                                 sm.attackDistance *= strMulti;
                                 sm.seeDistance *= strMulti;
                             }
-                            enemy.transform.localScale *= strMulti;
+                            
                             enemiesInLevel++;
                         }
                     }
