@@ -13,3 +13,5 @@ EditorBuildSettings:
     path: Assets/Jacob/menuScreenWorking.unity
   - enabled: 1
     path: Assets/Jacob/testScene.unity
+  - enabled: 1
+    path: Assets/Jacob/end menu.unity
