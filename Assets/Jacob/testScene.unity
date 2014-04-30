@@ -2821,7 +2821,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 149b1ac25de764c03bfd0e285e78aa14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seedBasedGeneration: 1
+  seedBasedGeneration: 0
   seed: 1657628617
   spawnEnemies: 1
   levelParent: {fileID: 850913288}
