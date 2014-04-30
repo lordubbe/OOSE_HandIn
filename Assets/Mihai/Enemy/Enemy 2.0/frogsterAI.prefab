@@ -720,6 +720,7 @@ MonoBehaviour:
   runIdleTime: 3
   die: {fileID: 100000, guid: 1d4068028ddd8f94e901286c14cfa08e, type: 2}
   enemy: {fileID: 0}
+  attackAnimation: {fileID: 7400000, guid: 71a213dc576b52048b456f2f86640777, type: 3}
 --- !u!136 &13600000
 CapsuleCollider:
   m_ObjectHideFlags: 1

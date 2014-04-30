@@ -11,13 +11,14 @@ GameObject:
   - 33: {fileID: 3300000}
   - 65: {fileID: 6500000}
   - 23: {fileID: 2300000}
+  - 114: {fileID: 11400020}
   m_Layer: 10
   m_Name: ' Pain'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &100002
 GameObject:
   m_ObjectHideFlags: 1
@@ -1455,7 +1456,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100096}
   m_LocalRotation: {x: 0, y: -.199037924, z: 0, w: .979991794}
-  m_LocalPosition: {x: -2.95163774, y: 6.11379337, z: -6.06536674}
+  m_LocalPosition: {x: 1.33643818, y: 6.56089497, z: 9.38568497}
   m_LocalScale: {x: .5, y: .5, z: .5}
   m_Children:
   - {fileID: 400094}
@@ -2389,7 +2390,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 396490e9e690edd42b429f1c21653ff9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hideCursor: 0
 --- !u!114 &11400008
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2414,7 +2414,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 396490e9e690edd42b429f1c21653ff9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hideCursor: 1
 --- !u!114 &11400012
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2440,6 +2439,7 @@ MonoBehaviour:
   maxHealth: 100
   objectsToDeleteOnDeath:
   - {fileID: 100100}
+  meshToRandomizeColor: {fileID: 0}
   regenPerSecond: .5
   shieldUp: 0
   damage: 10
@@ -2496,6 +2496,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 0edf585c749944a939c3c0096a996327, type: 3}
   - {fileID: 8300000, guid: f54b1ae9ad61e4c189006d9d1c7fd944, type: 3}
   - {fileID: 8300000, guid: 6435d4fad4b114072a8e73a6c6b37620, type: 3}
+  painOverlay: {fileID: 11400020}
 --- !u!114 &11400018
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2523,6 +2524,17 @@ MonoBehaviour:
   hitOther:
   - {fileID: 8300000, guid: 871673d70a012451aa930487975b0b32, type: 3}
   - {fileID: 8300000, guid: 2e45d805cb8bf4e259950afecebc5a6c, type: 3}
+--- !u!114 &11400020
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dceee6150e7c44d4d95361f0934cda0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!124 &12400000
 Behaviour:
   m_ObjectHideFlags: 1
