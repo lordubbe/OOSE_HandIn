@@ -18,7 +18,7 @@ public class GUIEnd : MonoBehaviour {
 		
         accuracy.text = "SWORD ACCURACY: " + GameStats.accuracy;
         chests.text = "CHESTS OPENED: " + GameStats.chests;
-        healing.text = "LIFE REGENERATED: " + GameStats.healing;
+        healing.text = "LIFE EARNED: " + GameStats.healing;
         kills.text = "ENEMIES KILLED: " + GameStats.kills;
         level.text = "LEVEL: " + GameStats.level;
         totalScore.text = "SCORE: " + GameStats.score;
