@@ -1,12 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GameStats : MonoBehaviour {
+public class GameStats{
 
     internal static int kills{
         set{
             _kills = value;
-            accuracy = _kills/_swings * 100;
+            if(swings != 0){
+				accuracy = _kills/_swings * 100;
+			}
         }   
         get{
             return _kills;
@@ -16,7 +18,9 @@ public class GameStats : MonoBehaviour {
     {
         set{
             _swings = value;
-            accuracy = _kills/_swings * 100;
+			if(swings != 0){
+				accuracy = _kills/_swings * 100;
+			}
         }   
         get{
             return _swings;
@@ -38,13 +42,16 @@ public class GameStats : MonoBehaviour {
     private static int _kills;//
     private static int _swings;//
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        
+	void resetAllStats(){
+		score = 0;
+		chests = 0;
+		accuracy = 0;
+		scoreFromChests = 0;
+		scoreFromMonsters = 0;
+		healing = 0;
+		level = 0;
+		averageHealth = 0;
+		_kills = 0;
+		_swings = 0;
 	}
 }
