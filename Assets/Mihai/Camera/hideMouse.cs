@@ -2,9 +2,10 @@
 using System.Collections;
 
 public class hideMouse : MonoBehaviour {
-    public bool hideCursor;
+    private bool hideCursor;
 	// Use this for initialization
 	void Start () {
+        hideCursor = true;
         Screen.lockCursor = hideCursor;
         Screen.showCursor = !hideCursor;
 	}
