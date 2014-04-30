@@ -35,7 +35,7 @@ Material:
       data:
         first:
           name: _Shininess
-        second: .281278282
+        second: .281278402
       data:
         first:
           name: _EmissionLM
@@ -52,4 +52,4 @@ Material:
       data:
         first:
           name: _Emission
-        second: {r: .198529422, g: .159508124, b: .124080889, a: 0}
+        second: {r: .132352948, g: .0629817322, b: 0, a: 0}
