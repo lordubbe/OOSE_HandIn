@@ -104,15 +104,14 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController
 		void putPlayerOnStart ()
 		{ 
 				ls = GameObject.Find ("levelSpawner").GetComponent<LevelSpawn> ();
-				if (ls != null)
+				if (ls.playerSpawn != null)
 						transform.position = ls.playerSpawn;
-        
-
 		}
 
 		void OnDestroy ()
 		{
 				Performance.UpdateEvent -= Refresh;
+		LevelSpawn.FinishGeneration -= putPlayerOnStart;
 		}
 	
 		void Refresh ()
@@ -317,10 +316,17 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController
 
 		public void Die ()
 		{
-				if (die.Length > 0) {
-						int r = Random.Range (0, die.Length);
-						animation.CrossFade (die [r]);
-				}
+			if (die.Length > 0) {
+				int r = Random.Range (0, die.Length);
+				animation.CrossFade (die [r]);
+				Invoke("goToEndScreen", 3f);
+			}
+		}
+		private void goToEndScreen(){
+			Destroy(this.gameObject);
+		GameHandler.playerSpawned = false;
+		GameHandler.levelNo = 0;
+			Application.LoadLevel("endMenuJacob");
 		}
 
 		private void ResetCanAtt ()
