@@ -3,7 +3,7 @@ using System.Collections;
 
 public class GameStats{
 
-    internal static int kills{
+    internal static float kills{
         set{
             _kills = value;
             if(swings != 0){
@@ -14,7 +14,7 @@ public class GameStats{
             return _kills;
         }
     } //
-    internal static int swings
+    internal static float swings
     {
         set{
             _swings = value;
@@ -39,8 +39,8 @@ public class GameStats{
 
     internal static float averageHealth;
 
-    private static int _kills;//
-    private static int _swings;//
+    private static float _kills;//
+    private static float _swings;//
 
 	public static void resetAllStats(){
 		score = 0;
@@ -51,7 +51,7 @@ public class GameStats{
 		healing = 0;
 		level = 0;
 		averageHealth = 0;
-		_kills = 0;
-		_swings = 0;
+		kills = 0;
+		swings = 0;
 	}
 }
