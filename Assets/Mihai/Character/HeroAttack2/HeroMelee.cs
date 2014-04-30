@@ -16,9 +16,11 @@ public class HeroMelee : MonoBehaviour {
     public AudioClip[] hitFrog;
     public AudioClip[] hitOther;
     private AudioSource audioSource;
+
+	private bool isVisible = false;
     
     private void Start(){
-       
+		isVisible = false;
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
     }
@@ -75,7 +77,7 @@ public class HeroMelee : MonoBehaviour {
                 }
 
             }
-            else if(other.tag == "Untagged")
+            else if(other.tag == "Untagged" && isVisible)
             {
                 if (hitOther.Length > 0)
                 {
@@ -87,5 +89,11 @@ public class HeroMelee : MonoBehaviour {
         }
        
     }
+	private void makeVisible(){
+		isVisible = true;
+	}
+	private void makeInvisible(){
+		isVisible = false;
+	}
 
 }

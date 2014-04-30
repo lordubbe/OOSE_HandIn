@@ -1925,8 +1925,22 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
+  - time: .433333337
+    functionName: makeVisible
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: .683333337
     functionName: stopSwing
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: .833333313
+    functionName: makeInvisible
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
