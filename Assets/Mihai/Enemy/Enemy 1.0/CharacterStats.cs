@@ -5,8 +5,8 @@ public class CharacterStats : MonoBehaviour {
 
 	public float maxHealth;
     public GameObject[] objectsToDeleteOnDeath;
-	
 
+    public Transform meshToRandomizeColor;
 	public float Health {
 		get {
 			return _health;
@@ -90,4 +90,11 @@ public class CharacterStats : MonoBehaviour {
 	private void DeleteGO(){
 		Destroy (gameObject);
 	}
+
+    public void SetCreatureBasedOnStrength(float str)
+    {
+        damage = damage * str;
+        transform.localScale *= str;
+        meshToRandomizeColor.renderer.material.color = new Color(Random.value, Random.value, Random.value);
+    }
 }
