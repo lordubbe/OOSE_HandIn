@@ -320,6 +320,20 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController
        
 		}
 
+        public void Hit(Vector3 position)
+        {
+            if (hit.Length > 0)
+            {
+                int r = Random.Range(0, hit.Length);
+                animation.CrossFade(hit[r]);
+            }
+            if (hits.Length > 0)
+            {
+                int r = Random.Range(0, hit.Length);
+                AudioSource.PlayClipAtPoint(hits[r], position);
+            }
+        }
+
 		public void Die ()
 		{
 			if (die.Length > 0) {

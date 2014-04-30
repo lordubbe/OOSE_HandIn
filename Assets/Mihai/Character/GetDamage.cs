@@ -23,6 +23,7 @@ public class GetDamage : MonoBehaviour {
             if (other.collider.GetComponent<StateMachine>().isAttacking && !sword.isAttacking && !heroStats.dead)
             {
                 heroStats.Health -= other.gameObject.GetComponent<CharacterStats>().damage;
+                heroStats.hitPosition = other.transform.position;
                 sword.prevAttack = Time.time;
                 other.collider.GetComponent<StateMachine>().isAttacking = false;
                // other.gameObject.GetComponent<CharacterStats>().Health = -10;

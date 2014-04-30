@@ -153,6 +153,10 @@ public class CharacterMove : MonoBehaviour,IAnimationController {
 	public void Hit(){
 		animation.CrossFade("2h_hit");
 	}
+    public void Hit(Vector3 position)
+    {
+
+    }
 	public void Die(){
 		Debug.Log ("dead");
 		int r = (int)(Random.value *3);
