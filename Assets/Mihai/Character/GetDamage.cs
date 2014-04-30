@@ -20,11 +20,11 @@ public class GetDamage : MonoBehaviour {
        if (other.collider.tag == "Creature")
         {
             
-            if (other.collider.GetComponent<StateMachine>().force > 0.1f && !sword.isAttacking && !heroStats.dead)
+            if (other.collider.GetComponent<StateMachine>().isAttacking && !sword.isAttacking && !heroStats.dead)
             {
                 heroStats.Health -= other.gameObject.GetComponent<CharacterStats>().damage;
                 sword.prevAttack = Time.time;
-                
+                other.collider.GetComponent<StateMachine>().isAttacking = false;
                // other.gameObject.GetComponent<CharacterStats>().Health = -10;
                
             }

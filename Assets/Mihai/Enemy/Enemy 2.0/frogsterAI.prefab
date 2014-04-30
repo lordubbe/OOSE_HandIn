@@ -647,7 +647,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100046}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 17.6960697, y: 14.037755, z: 22.6972656}
+  m_LocalPosition: {x: -.530104637, y: 6.15017128, z: -1.87955952}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400044}
@@ -694,6 +694,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 2
+  objectsToDeleteOnDeath: []
+  meshToRandomizeColor: {fileID: 400042}
   regenPerSecond: 0
   shieldUp: 0
   damage: 10
