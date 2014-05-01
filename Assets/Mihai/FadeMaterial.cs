@@ -3,7 +3,9 @@ using System.Collections;
 
 public class FadeMaterial : MonoBehaviour {
 
-
+	private void Start(){
+		FadeOut (0);
+	}
     public void FadeOut(float time) {
  
         iTween.ValueTo(gameObject, iTween.Hash(

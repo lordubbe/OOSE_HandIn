@@ -13,7 +13,7 @@ GameObject:
   - 23: {fileID: 2300000}
   - 114: {fileID: 11400020}
   m_Layer: 10
-  m_Name: ' Pain'
+  m_Name: Pain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2403,6 +2403,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   heroStats: {fileID: 11400014}
   sword: {fileID: 11400018}
+  fadePain: {fileID: 11400020}
 --- !u!114 &11400010
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2496,7 +2497,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 0edf585c749944a939c3c0096a996327, type: 3}
   - {fileID: 8300000, guid: f54b1ae9ad61e4c189006d9d1c7fd944, type: 3}
   - {fileID: 8300000, guid: 6435d4fad4b114072a8e73a6c6b37620, type: 3}
-  painOverlay: {fileID: 11400020}
 --- !u!114 &11400018
 MonoBehaviour:
   m_ObjectHideFlags: 1

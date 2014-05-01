@@ -81,8 +81,7 @@ public class StateMachine : MonoBehaviour {
        STOP_ATTACK += postAttack;
        state = State.idle;
 
-       addAnimationEvents.addAnimationEvent(attackAnimation, "attackStart",0.14f);
-       addAnimationEvents.addAnimationEvent(attackAnimation, "attackEnd",1.2f);
+       
 
     }
     public void CheckState()
