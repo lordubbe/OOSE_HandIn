@@ -82,7 +82,7 @@ public class HeroMelee : MonoBehaviour {
                 }
 
             }
-            else if(isVisible)
+			else if(isVisible && swordHitEffects.Length >0)
             {
 
                 foreach(SwordHitEffect shf in swordHitEffects){
