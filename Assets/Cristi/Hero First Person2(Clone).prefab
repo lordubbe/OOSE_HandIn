@@ -782,7 +782,7 @@ GameObject:
   - 82: {fileID: 8200000}
   m_Layer: 0
   m_Name: Hero First Person2(Clone)
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -801,7 +801,6 @@ GameObject:
   - 114: {fileID: 11400018}
   - 65: {fileID: 6500006}
   - 82: {fileID: 8200002}
-  - 54: {fileID: 5400004}
   m_Layer: 11
   m_Name: sword
   m_TagString: Untagged
@@ -1906,21 +1905,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!54 &5400004
-Rigidbody:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100098}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: .0500000007
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!64 &6400000
 MeshCollider:
   m_ObjectHideFlags: 1
@@ -1968,7 +1952,7 @@ BoxCollider:
   m_GameObject: {fileID: 100000}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -2003,7 +1987,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100098}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: .920000017, y: .100000001, z: .170000002}
@@ -2537,12 +2521,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: b2b7d58b42c8a4fa097719e3bd3ec429, type: 3}
   - {fileID: 8300000, guid: 646ccfe5a96f84e7db52c12e25aa851e, type: 3}
   - {fileID: 8300000, guid: f06d128fb26314fb68166bb891b9d755, type: 3}
-  hitOther: {fileID: 8300000, guid: 0edf585c749944a939c3c0096a996327, type: 3}
-  hitStone: {fileID: 8300000, guid: 8e562aee9fbcf411ba6b3cec8e5780dc, type: 3}
-  hitWood: {fileID: 8300000, guid: 1f5ca2b7b198a4b96a91c423ee3d0a34, type: 3}
-  otherParticle: {fileID: 100002, guid: 6685bd0f54c5e08408aeb03f0b528f5b, type: 3}
-  woodParticle: {fileID: 100000, guid: 5f3a2f7e8b52a344180b277b4d68ac59, type: 3}
-  stoneParticle: {fileID: 100002, guid: 50e6ab299dd6f004a80ece5e68aaaa50, type: 3}
+  hitOther:
+  - {fileID: 8300000, guid: 871673d70a012451aa930487975b0b32, type: 3}
+  - {fileID: 8300000, guid: 2e45d805cb8bf4e259950afecebc5a6c, type: 3}
 --- !u!114 &11400020
 MonoBehaviour:
   m_ObjectHideFlags: 1
