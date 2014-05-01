@@ -14,7 +14,7 @@ public class HeroMelee : MonoBehaviour {
     Animator animator;
     public AudioClip[] misses;
     public AudioClip[] hitFrog;
-    
+    public SwordHitEffect[] swordHitEffects;
     private AudioSource audioSource;
 
 	private bool isVisible = false;
@@ -67,7 +67,7 @@ public class HeroMelee : MonoBehaviour {
 		Collider other = col.collider;
         if (isAttacking)
         {
-            if (other.tag == "Creature")
+            if (other.tag == "Creature" && isVisible)
             {
                 
                 other.gameObject.GetComponent<CharacterStats>().Health -= swordDamage + heroStats.damage;
@@ -80,7 +80,18 @@ public class HeroMelee : MonoBehaviour {
             }
             else if(isVisible)
             {
-                
+            Debug.Log (other.tag);
+                foreach(SwordHitEffect shf in swordHitEffects){
+					if(shf.tag == other.tag || shf.layerNumber == other.gameObject.layer){
+						foreach(ContactPoint cp in col.contacts){
+							GameObject go = Instantiate (shf.particles,cp.point,Quaternion.identity) as GameObject;
+							Destroy(go,0.2f);
+							
+							
+						}
+						AudioSource.PlayClipAtPoint(shf.audio,col.contacts[0].point);
+					}
+                }
             }
             
         }
@@ -93,4 +104,14 @@ public class HeroMelee : MonoBehaviour {
 		isVisible = false;
 	}
 
+}
+[System.Serializable]
+public class SwordHitEffect{
+	
+	
+	public AudioClip audio;
+	public int layerNumber = -1;
+	public string tag = "Untagged"; 
+	public GameObject particles;
+	
 }
