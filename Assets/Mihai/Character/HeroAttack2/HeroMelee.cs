@@ -14,7 +14,11 @@ public class HeroMelee : MonoBehaviour {
     Animator animator;
     public AudioClip[] misses;
     public AudioClip[] hitFrog;
-    public AudioClip[] hitOther;
+
+    public SwordHitEffect[] swordHitEffects;
+
+    
+
     private AudioSource audioSource;
 
 	private bool isVisible = false;
@@ -62,11 +66,12 @@ public class HeroMelee : MonoBehaviour {
         isAttacking = false;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision col)
     {
+		Collider other = col.collider;
         if (isAttacking)
         {
-            if (other.tag == "Creature")
+            if (other.tag == "Creature" && isVisible)
             {
                 
                 other.gameObject.GetComponent<CharacterStats>().Health -= swordDamage + heroStats.damage;
@@ -77,17 +82,28 @@ public class HeroMelee : MonoBehaviour {
                 }
 
             }
-            else if(other.tag == "Untagged" && isVisible)
+			else if(isVisible && swordHitEffects.Length >0)
             {
-                if (hitOther.Length > 0)
-                {
-                    audioSource.clip = hitOther[Random.Range(0, hitOther.Length)];
-                    audioSource.Play();
-                }
+
+                foreach(SwordHitEffect shf in swordHitEffects){
+					if(shf.tag == other.tag || shf.layerNumber == other.gameObject.layer)
+					{
+						foreach(ContactPoint cp in col.contacts)
+						{
+							GameObject go = Instantiate (shf.particles,cp.point,Quaternion.identity) as GameObject;
+							Destroy(go,0.2f);
+							
+							
+						}
+						AudioSource.PlayClipAtPoint(shf.audio,col.contacts[0].point);
+					}
+
+              
             }
             
         }
        
+    }
     }
 	private void makeVisible(){
 		isVisible = true;
@@ -96,4 +112,14 @@ public class HeroMelee : MonoBehaviour {
 		isVisible = false;
 	}
 
+}
+[System.Serializable]
+public class SwordHitEffect{
+	
+	
+	public AudioClip audio;
+	public int layerNumber = -1;
+	public string tag = "Untagged"; 
+	public GameObject particles;
+	
 }

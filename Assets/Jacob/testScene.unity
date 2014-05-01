@@ -112,7 +112,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce3392ea6fe4b446a80cba196c1b8624, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< HEAD
   testMode: 1
+=======
+  testMode: 0
+>>>>>>> FETCH_HEAD
   levelSpawner: {fileID: 1723601082}
   player: {fileID: 400096, guid: 30b62256d4cb97540b14bc606f248b95, type: 2}
 --- !u!1 &424201273

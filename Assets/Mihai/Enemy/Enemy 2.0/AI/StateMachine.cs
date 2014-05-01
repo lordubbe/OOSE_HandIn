@@ -58,6 +58,8 @@ public class StateMachine : MonoBehaviour {
     private float prevTime = 0;
     internal float force = 0;
     private Animator animator;
+
+    public AnimationClip attackAnimation;
     public void Start()
     {
         atDestination = false;
@@ -79,6 +81,7 @@ public class StateMachine : MonoBehaviour {
        STOP_ATTACK += postAttack;
        state = State.idle;
 
+       
 
     }
     public void CheckState()
@@ -97,7 +100,7 @@ public class StateMachine : MonoBehaviour {
     {
         if(state!=State.idle && state!=State.walk){
             transform.LookAt(enemy.transform.position);
-
+			transform.rotation = Quaternion.Euler (0,transform.rotation.eulerAngles.y,0);
         }
         else
         {
@@ -297,6 +300,15 @@ public class StateMachine : MonoBehaviour {
     private float sqrDistance(Vector3 a, Vector3 b)
     {
         return Mathf.Pow(a.x - b.x, 2) + Mathf.Pow(a.y - b.y, 2) + Mathf.Pow(a.z - b.z, 2);
+    }
+
+    internal bool isAttacking = false;
+    private void attackStart()
+    {
+        isAttacking = true;
+    }
+    private void attackEnd(){
+        isAttacking = false;
     }
     
 }

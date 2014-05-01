@@ -212,6 +212,10 @@ public class EnemyMovement : MonoBehaviour,IAnimationController {
 		
 		animation.CrossFade("hit");
 	}
+    public void Hit(Vector3 position)
+    {
+
+    }
 	public void Die(){
 
         mTween.Stop(this.gameObject);

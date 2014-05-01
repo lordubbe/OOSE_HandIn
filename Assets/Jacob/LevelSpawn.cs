@@ -517,15 +517,21 @@ public class LevelSpawn : MonoBehaviour
                             CharacterStats enemyStats = enemy.GetComponent<CharacterStats>();
                             StateMachine sm = enemy.GetComponent<StateMachine>();
                             float strMulti = (enemyStrength + Random.Range(-0.2f, 0.1f));
+<<<<<<< HEAD
                             if (enemyStats != null){
                                 enemyStats.damage *= strMulti;
+=======
+                            if (enemyStats != null)
+                            {
+                                enemyStats.SetCreatureBasedOnStrength(strMulti);
+>>>>>>> FETCH_HEAD
                             }
                             if (sm != null){
                                 sm.alertDistance *= strMulti;
                                 sm.attackDistance *= strMulti;
                                 sm.seeDistance *= strMulti;
                             }
-                            enemy.transform.localScale *= strMulti;
+                            
                             enemiesInLevel++;
                         }
                     }
