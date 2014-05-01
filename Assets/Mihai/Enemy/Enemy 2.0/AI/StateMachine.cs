@@ -100,7 +100,7 @@ public class StateMachine : MonoBehaviour {
     {
         if(state!=State.idle && state!=State.walk){
             transform.LookAt(enemy.transform.position);
-
+			transform.rotation = Quaternion.Euler (0,transform.rotation.eulerAngles.y,0);
         }
         else
         {
