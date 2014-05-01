@@ -2003,7 +2003,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100098}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: .920000017, y: .100000001, z: .170000002}
@@ -2537,6 +2537,11 @@ MonoBehaviour:
   - {fileID: 8300000, guid: b2b7d58b42c8a4fa097719e3bd3ec429, type: 3}
   - {fileID: 8300000, guid: 646ccfe5a96f84e7db52c12e25aa851e, type: 3}
   - {fileID: 8300000, guid: f06d128fb26314fb68166bb891b9d755, type: 3}
+  swordHitEffects:
+  - audio: {fileID: 8300000, guid: 871673d70a012451aa930487975b0b32, type: 3}
+    layerNumber: 0
+    tag: Wood
+    particles: {fileID: 100000, guid: 4669aedac2bdf7441924a9ce4c28588b, type: 3}
 --- !u!114 &11400020
 MonoBehaviour:
   m_ObjectHideFlags: 1
