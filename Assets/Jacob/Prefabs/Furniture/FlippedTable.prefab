@@ -27,7 +27,6 @@ GameObject:
   - 23: {fileID: 2300000}
   - 95: {fileID: 9500000}
   - 64: {fileID: 6400006}
-  - 54: {fileID: 5400002}
   m_Layer: 0
   m_Name: chair1Mesh 1
   m_TagString: Wood
@@ -47,7 +46,6 @@ GameObject:
   - 23: {fileID: 2300002}
   - 95: {fileID: 9500002}
   - 64: {fileID: 6400004}
-  - 54: {fileID: 5400004}
   m_Layer: 0
   m_Name: chair1Mesh 1
   m_TagString: Wood
@@ -67,7 +65,6 @@ GameObject:
   - 23: {fileID: 2300004}
   - 95: {fileID: 9500004}
   - 64: {fileID: 6400002}
-  - 54: {fileID: 5400006}
   m_Layer: 0
   m_Name: chair1Mesh 1
   m_TagString: Wood
@@ -87,7 +84,6 @@ GameObject:
   - 23: {fileID: 2300006}
   - 95: {fileID: 9500006}
   - 64: {fileID: 6400000}
-  - 54: {fileID: 5400008}
   m_Layer: 0
   m_Name: chair1Mesh 1
   m_TagString: Wood
@@ -107,7 +103,6 @@ GameObject:
   - 23: {fileID: 2300008}
   - 95: {fileID: 9500008}
   - 64: {fileID: 6400008}
-  - 54: {fileID: 5400000}
   m_Layer: 0
   m_Name: longTableMesh
   m_TagString: Wood
@@ -326,81 +321,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100010}
   m_Mesh: {fileID: 4300000, guid: 337f2fb6f2d844501939cd7314fa7f58, type: 3}
---- !u!54 &5400000
-Rigidbody:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100010}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: .0500000007
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!54 &5400002
-Rigidbody:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100002}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: .0500000007
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!54 &5400004
-Rigidbody:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100004}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: .0500000007
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!54 &5400006
-Rigidbody:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100006}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: .0500000007
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!54 &5400008
-Rigidbody:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100008}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: .0500000007
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!64 &6400000
 MeshCollider:
   m_ObjectHideFlags: 1

@@ -37,7 +37,7 @@ Material:
       data:
         first:
           name: _Color
-        second: {r: .588235259, g: .552738309, b: .514705837, a: 1}
+        second: {r: .41911763, g: .395313799, b: .369809687, a: 1}
       data:
         first:
           name: _SpecColor
@@ -45,7 +45,7 @@ Material:
       data:
         first:
           name: _Emission
-        second: {r: .345588207, g: .345588207, b: .345588207, a: 0}
+        second: {r: .235294104, g: .238754317, b: .238754317, a: 0}
       data:
         first:
           name: _TintColor
