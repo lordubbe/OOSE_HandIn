@@ -90,8 +90,8 @@ public class HeroMelee : MonoBehaviour {
 					{
 						foreach(ContactPoint cp in col.contacts)
 						{
-							GameObject go = Instantiate (shf.particles,cp.point,Quaternion.identity) as GameObject;
-							Destroy(go,0.2f);
+							GameObject go = Instantiate (shf.particles,cp.point ,Quaternion.identity) as GameObject;
+							Destroy(go,0.4f);
 							
 							
 						}
@@ -118,8 +118,11 @@ public class SwordHitEffect{
 	
 	
 	public AudioClip audio;
-	public int layerNumber = -1;
-	public string tag = "Untagged"; 
+	public int layerNumber ;
+	public string tag ;
 	public GameObject particles;
-	
+	public SwordHitEffect(){
+		layerNumber = -1;
+		tag = "Untagged";
+	}
 }
