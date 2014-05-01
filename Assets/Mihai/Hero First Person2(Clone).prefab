@@ -801,6 +801,7 @@ GameObject:
   - 114: {fileID: 11400018}
   - 65: {fileID: 6500006}
   - 82: {fileID: 8200002}
+  - 54: {fileID: 5400004}
   m_Layer: 11
   m_Name: sword
   m_TagString: Untagged
@@ -1456,7 +1457,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100096}
   m_LocalRotation: {x: 0, y: -.199037924, z: 0, w: .979991794}
-  m_LocalPosition: {x: 1.33643818, y: 6.56089497, z: 9.38568497}
+  m_LocalPosition: {x: 13.2375641, y: -4.19007111, z: 10.3912258}
   m_LocalScale: {x: .5, y: .5, z: .5}
   m_Children:
   - {fileID: 400094}
@@ -1905,6 +1906,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!54 &5400004
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100098}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!64 &6400000
 MeshCollider:
   m_ObjectHideFlags: 1
@@ -1926,7 +1942,7 @@ MeshCollider:
   m_GameObject: {fileID: 100002}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_SmoothSphereCollisions: 0
   m_Convex: 0
@@ -1939,7 +1955,7 @@ MeshCollider:
   m_GameObject: {fileID: 100006}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_SmoothSphereCollisions: 0
   m_Convex: 0
@@ -1987,7 +2003,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100098}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: .920000017, y: .100000001, z: .170000002}
