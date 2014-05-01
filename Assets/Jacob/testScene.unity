@@ -112,6 +112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce3392ea6fe4b446a80cba196c1b8624, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  testMode: 1
   levelSpawner: {fileID: 1723601082}
   player: {fileID: 400096, guid: 30b62256d4cb97540b14bc606f248b95, type: 2}
 --- !u!1 &424201273
@@ -140,57 +141,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1723601083}
---- !u!1 &448706733
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 448706735}
-  - 167: {fileID: 448706734}
-  m_Layer: 0
-  m_Name: Reverb Zone
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!167 &448706734
-AudioReverbZone:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 448706733}
-  m_Enabled: 1
-  m_MinDistance: 10
-  m_MaxDistance: 15
-  m_ReverbPreset: 27
-  m_Room: -1000
-  m_RoomHF: -100
-  m_DecayTime: 1.49000001
-  m_DecayHFRatio: .829999983
-  m_Reflections: -2602
-  m_ReflectionsDelay: .00700000022
-  m_Reverb: 200
-  m_ReverbDelay: .0109999999
-  m_HFReference: 5000
-  m_RoomRolloffFactor: 0
-  m_Diffusion: 100
-  m_Density: 100
-  m_LFReference: 250
-  m_RoomLF: 0
---- !u!4 &448706735
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 448706733}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.00384941697, y: -46.7626038, z: -.349180281}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
 --- !u!1 &520068659
 GameObject:
   m_ObjectHideFlags: 0
@@ -445,7 +395,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   seedBasedGeneration: 0
   seed: 1657628617
-  spawnEnemies: 1
+  spawnEnemies: 0
   levelParent: {fileID: 850913288}
   Walls: {fileID: 424201274}
   emptyTile: {fileID: 400000, guid: ede89c57f0b204a189d04eb28f590208, type: 2}
@@ -474,10 +424,10 @@ MonoBehaviour:
   cratesStacked: {fileID: 400000, guid: 4bdde7ae224ae414e8f14ec93c113f9d, type: 2}
   arch: {fileID: 400000, guid: e4d7c6fd419cc4bd99c21be2b146c0ce, type: 2}
   exitObject: {fileID: 400000, guid: 23439fa21ab534609a67278506aa9d44, type: 2}
-  MAX_LEVEL_WIDTH: 50
-  MAX_LEVEL_HEIGHT: 50
-  minRooms: 20
-  maxRooms: 40
+  MAX_LEVEL_WIDTH: 30
+  MAX_LEVEL_HEIGHT: 30
+  minRooms: 10
+  maxRooms: 20
   minRoomWidth: 5
   minRoomHeight: 5
   maxRoomWidth: 5
