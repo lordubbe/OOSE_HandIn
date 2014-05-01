@@ -14,12 +14,6 @@ public class HeroMelee : MonoBehaviour {
     Animator animator;
     public AudioClip[] misses;
     public AudioClip[] hitFrog;
-    public AudioClip hitOther;
-    public AudioClip hitStone;
-    public AudioClip hitWood;
-    public GameObject otherParticle;
-    public GameObject woodParticle;
-    public GameObject stoneParticle;
     
     private AudioSource audioSource;
 
@@ -86,25 +80,7 @@ public class HeroMelee : MonoBehaviour {
             }
             else if(isVisible)
             {
-               if(other.tag == "Stone" || other.tag== "Wall"){
-					foreach(ContactPoint hitPoint in col.contacts){
-						GameObject go = Instantiate (stoneParticle, hitPoint.point,Quaternion.identity) as GameObject;
-						Destroy(go,0.2f);
-					}
-					AudioSource.PlayClipAtPoint(hitStone,col.contacts[0].point);
-               }else if(other.tag == "Wood" || other.tag =="Chest"){
-					foreach(ContactPoint hitPoint in col.contacts){
-						GameObject go = Instantiate (woodParticle, hitPoint.point,Quaternion.identity) as GameObject;
-						Destroy(go,0.2f);
-					}
-					AudioSource.PlayClipAtPoint(hitWood,col.contacts[0].point);
-				}else{
-					foreach(ContactPoint hitPoint in col.contacts){
-						GameObject go = Instantiate (otherParticle, hitPoint.point,Quaternion.identity) as GameObject;
-						Destroy(go,0.2f);
-					}
-					AudioSource.PlayClipAtPoint(hitOther,col.contacts[0].point);
-               }
+                
             }
             
         }
