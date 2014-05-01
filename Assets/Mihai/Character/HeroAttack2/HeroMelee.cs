@@ -14,7 +14,13 @@ public class HeroMelee : MonoBehaviour {
     Animator animator;
     public AudioClip[] misses;
     public AudioClip[] hitFrog;
-    public AudioClip[] hitOther;
+    public AudioClip hitOther;
+    public AudioClip hitStone;
+    public AudioClip hitWood;
+    public GameObject otherParticle;
+    public GameObject woodParticle;
+    public GameObject stoneParticle;
+    
     private AudioSource audioSource;
 
 	private bool isVisible = false;
@@ -62,8 +68,9 @@ public class HeroMelee : MonoBehaviour {
         isAttacking = false;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision col)
     {
+		Collider other = col.collider;
         if (isAttacking)
         {
             if (other.tag == "Creature")
@@ -77,13 +84,27 @@ public class HeroMelee : MonoBehaviour {
                 }
 
             }
-            else if(other.tag == "Untagged" && isVisible)
+            else if(isVisible)
             {
-                if (hitOther.Length > 0)
-                {
-                    audioSource.clip = hitOther[Random.Range(0, hitOther.Length)];
-                    audioSource.Play();
-                }
+               if(other.tag == "Stone" || other.tag== "Wall"){
+					foreach(ContactPoint hitPoint in col.contacts){
+						GameObject go = Instantiate (stoneParticle, hitPoint.point,Quaternion.identity) as GameObject;
+						Destroy(go,0.2f);
+					}
+					AudioSource.PlayClipAtPoint(hitStone,col.contacts[0].point);
+               }else if(other.tag == "Wood" || other.tag =="Chest"){
+					foreach(ContactPoint hitPoint in col.contacts){
+						GameObject go = Instantiate (woodParticle, hitPoint.point,Quaternion.identity) as GameObject;
+						Destroy(go,0.2f);
+					}
+					AudioSource.PlayClipAtPoint(hitWood,col.contacts[0].point);
+				}else{
+					foreach(ContactPoint hitPoint in col.contacts){
+						GameObject go = Instantiate (otherParticle, hitPoint.point,Quaternion.identity) as GameObject;
+						Destroy(go,0.2f);
+					}
+					AudioSource.PlayClipAtPoint(hitOther,col.contacts[0].point);
+               }
             }
             
         }

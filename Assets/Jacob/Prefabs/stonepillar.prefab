@@ -8,9 +8,10 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 400000}
+  - 54: {fileID: 5400000}
   m_Layer: 0
   m_Name: stonepillar
-  m_TagString: Untagged
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25,7 +26,7 @@ GameObject:
   - 4: {fileID: 400002}
   m_Layer: 0
   m_Name: StonePillar
-  m_TagString: Untagged
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -154,7 +155,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100004}
-  m_LocalRotation: {x: .707106829, y: -1.15202297e-07, z: .707106709, w: 3.45606963e-07}
+  m_LocalRotation: {x: .707106888, y: -1.15202305e-07, z: .707106769, w: 3.45606992e-07}
   m_LocalPosition: {x: 0, y: 6.5640316, z: 0}
   m_LocalScale: {x: 1.19000006, y: .438086122, z: 1.19000006}
   m_Children: []
@@ -165,7 +166,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100006}
-  m_LocalRotation: {x: .707106829, y: -1.15202297e-07, z: .707106709, w: 3.45606963e-07}
+  m_LocalRotation: {x: .707106888, y: -1.15202305e-07, z: .707106769, w: 3.45606992e-07}
   m_LocalPosition: {x: 0, y: 6.80406713, z: 0}
   m_LocalScale: {x: 1.41610003, y: .521322429, z: 1.41610003}
   m_Children: []
@@ -176,7 +177,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100008}
-  m_LocalRotation: {x: .707106829, y: -1.15202297e-07, z: .707106709, w: 3.45606963e-07}
+  m_LocalRotation: {x: .707106888, y: -1.15202305e-07, z: .707106769, w: 3.45606992e-07}
   m_LocalPosition: {x: 0, y: -.895503998, z: 0}
   m_LocalScale: {x: 1.41610003, y: .521322429, z: 1.41610003}
   m_Children: []
@@ -187,7 +188,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100010}
-  m_LocalRotation: {x: .707106829, y: -1.15202297e-07, z: .707106709, w: 3.45606963e-07}
+  m_LocalRotation: {x: .707106888, y: -1.15202305e-07, z: .707106769, w: 3.45606992e-07}
   m_LocalPosition: {x: 0, y: -.655467987, z: 0}
   m_LocalScale: {x: 1.19000006, y: .438086122, z: 1.19000006}
   m_Children: []
@@ -198,7 +199,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100012}
-  m_LocalRotation: {x: .707106829, y: -1.15202297e-07, z: .707106709, w: 3.45606963e-07}
+  m_LocalRotation: {x: .707106888, y: -1.15202305e-07, z: .707106769, w: 3.45606992e-07}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 4, z: 1}
   m_Children: []
@@ -343,6 +344,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100012}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &5400000
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100000}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!136 &13600000
 CapsuleCollider:
   m_ObjectHideFlags: 1
