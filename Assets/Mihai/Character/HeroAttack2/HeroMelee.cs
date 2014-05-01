@@ -14,7 +14,7 @@ public class HeroMelee : MonoBehaviour {
     Animator animator;
     public AudioClip[] misses;
     public AudioClip[] hitFrog;
-    
+    public AudioClip[] hitOther;
     private AudioSource audioSource;
 
 	private bool isVisible = false;
@@ -62,9 +62,8 @@ public class HeroMelee : MonoBehaviour {
         isAttacking = false;
     }
 
-    private void OnCollisionEnter(Collision col)
+    private void OnTriggerEnter(Collider other)
     {
-		Collider other = col.collider;
         if (isAttacking)
         {
             if (other.tag == "Creature")
@@ -78,9 +77,13 @@ public class HeroMelee : MonoBehaviour {
                 }
 
             }
-            else if(isVisible)
+            else if(other.tag == "Untagged" && isVisible)
             {
-                
+                if (hitOther.Length > 0)
+                {
+                    audioSource.clip = hitOther[Random.Range(0, hitOther.Length)];
+                    audioSource.Play();
+                }
             }
             
         }
