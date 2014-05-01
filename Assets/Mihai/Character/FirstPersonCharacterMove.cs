@@ -193,7 +193,7 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController
 								// LOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLO
 						}
 						if (Input.GetMouseButtonUp (0)) {
-								//ForwardSpeed *= 2;
+								//dForwardSpeed *= 2;
 								switch (lastDir) {
 								case Direction.left:
 										Attack2 ();
