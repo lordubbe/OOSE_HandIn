@@ -14,7 +14,11 @@ public class HeroMelee : MonoBehaviour {
     Animator animator;
     public AudioClip[] misses;
     public AudioClip[] hitFrog;
+<<<<<<< HEAD
     public SwordHitEffect[] swordHitEffects;
+=======
+    public AudioClip[] hitOther;
+>>>>>>> 992024dff172427dcc4505fb482022f40e1d8707
     private AudioSource audioSource;
 
 	private bool isVisible = false;
@@ -62,9 +66,8 @@ public class HeroMelee : MonoBehaviour {
         isAttacking = false;
     }
 
-    private void OnCollisionEnter(Collision col)
+    private void OnTriggerEnter(Collider other)
     {
-		Collider other = col.collider;
         if (isAttacking)
         {
             if (other.tag == "Creature" && isVisible)
@@ -78,8 +81,9 @@ public class HeroMelee : MonoBehaviour {
                 }
 
             }
-            else if(isVisible)
+            else if(other.tag == "Untagged" && isVisible)
             {
+<<<<<<< HEAD
             Debug.Log (other.tag);
                 foreach(SwordHitEffect shf in swordHitEffects){
 					if(shf.tag == other.tag || shf.layerNumber == other.gameObject.layer){
@@ -91,6 +95,12 @@ public class HeroMelee : MonoBehaviour {
 						}
 						AudioSource.PlayClipAtPoint(shf.audio,col.contacts[0].point);
 					}
+=======
+                if (hitOther.Length > 0)
+                {
+                    audioSource.clip = hitOther[Random.Range(0, hitOther.Length)];
+                    audioSource.Play();
+>>>>>>> 992024dff172427dcc4505fb482022f40e1d8707
                 }
             }
             
