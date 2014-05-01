@@ -1929,7 +1929,7 @@ MeshCollider:
   m_GameObject: {fileID: 100010}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_SmoothSphereCollisions: 0
   m_Convex: 0
@@ -2537,7 +2537,15 @@ MonoBehaviour:
   - {fileID: 8300000, guid: b2b7d58b42c8a4fa097719e3bd3ec429, type: 3}
   - {fileID: 8300000, guid: 646ccfe5a96f84e7db52c12e25aa851e, type: 3}
   - {fileID: 8300000, guid: f06d128fb26314fb68166bb891b9d755, type: 3}
-  swordHitEffects: []
+  swordHitEffects:
+  - audio: {fileID: 8300000, guid: 871673d70a012451aa930487975b0b32, type: 3}
+    layerNumber: -1
+    tag: Stone
+    particles: {fileID: 100000, guid: 29a904e5532268c4a90c264692813a08, type: 2}
+  - audio: {fileID: 8300000, guid: 2ec96aef14368417681abb265582e588, type: 3}
+    layerNumber: -1
+    tag: Wood
+    particles: {fileID: 100000, guid: 4934ec963e2cc00429e6b6906cdfb8e2, type: 2}
 --- !u!114 &11400020
 MonoBehaviour:
   m_ObjectHideFlags: 1
