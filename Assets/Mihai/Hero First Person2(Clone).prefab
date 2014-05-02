@@ -209,7 +209,7 @@ GameObject:
   - 23: {fileID: 2300008}
   - 114: {fileID: 11400008}
   - 54: {fileID: 5400000}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Capsule
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -780,7 +780,7 @@ GameObject:
   - 114: {fileID: 11400012}
   - 114: {fileID: 11400010}
   - 82: {fileID: 8200000}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Hero First Person2(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -802,6 +802,7 @@ GameObject:
   - 65: {fileID: 6500006}
   - 82: {fileID: 8200002}
   - 54: {fileID: 5400004}
+  - 114: {fileID: 11400022}
   m_Layer: 11
   m_Name: sword
   m_TagString: Untagged
@@ -990,7 +991,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100018}
   m_LocalRotation: {x: -.183712855, y: 5.14714088e-07, z: 5.36178888e-08, w: .982980013}
-  m_LocalPosition: {x: .0705128238, y: .424574852, z: .115717754}
+  m_LocalPosition: {x: -.105851151, y: .424574852, z: -.300547808}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400014}
@@ -1901,7 +1902,7 @@ Rigidbody:
   m_Mass: 10
   m_Drag: 0
   m_AngularDrag: .0500000007
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 126
@@ -1919,7 +1920,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 126
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!64 &6400000
 MeshCollider:
@@ -2353,7 +2354,7 @@ Animation:
   - {fileID: 7400000, guid: 20bdeb803f5e495438e374c7ac23cecc, type: 3}
   m_WrapMode: 2
   m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
+  m_AnimatePhysics: 1
   m_CullingType: 1
 --- !u!114 &11400000
 MonoBehaviour:
@@ -2542,7 +2543,7 @@ MonoBehaviour:
     layerNumber: -1
     tag: Stone
     particles: {fileID: 100000, guid: 29a904e5532268c4a90c264692813a08, type: 2}
-  - audio: {fileID: 8300000, guid: 2ec96aef14368417681abb265582e588, type: 3}
+  - audio: {fileID: 8300000, guid: f40f1882645f045edab614705c4c96c1, type: 3}
     layerNumber: -1
     tag: Wood
     particles: {fileID: 100000, guid: 4934ec963e2cc00429e6b6906cdfb8e2, type: 2}
@@ -2555,6 +2556,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dceee6150e7c44d4d95361f0934cda0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &11400022
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4429d8d0f4bc8724fa6b5b774e65389b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!124 &12400000
@@ -2654,13 +2666,13 @@ CharacterController:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100096}
   serializedVersion: 2
-  m_Height: 2
-  m_Radius: .5
+  m_Height: 2.13000011
+  m_Radius: .680000007
   m_SlopeLimit: 45
   m_StepOffset: .300000012
   m_SkinWidth: .0799999982
   m_MinMoveDistance: 0
-  m_Center: {x: 0, y: 1.04999995, z: 0}
+  m_Center: {x: 0, y: .980000019, z: .430000007}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

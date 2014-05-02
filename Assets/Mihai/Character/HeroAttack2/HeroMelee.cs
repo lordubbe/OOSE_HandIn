@@ -45,9 +45,9 @@ public class HeroMelee : MonoBehaviour {
         }
     }
     private void Attack()
-    {
+    { 
         animator.SetBool("Attack", true);
-
+        animator.SetBool("StopAttack", false);
         
         prevAttack = Time.time;
     }
@@ -97,6 +97,7 @@ public class HeroMelee : MonoBehaviour {
 						}
 						AudioSource.PlayClipAtPoint(shf.audio,col.contacts[0].point);
 					}
+                    animator.SetBool("StopAttack",true);
 
               
             }

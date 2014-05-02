@@ -252,7 +252,7 @@ Transition:
   - m_ConditionMode: 5
     m_ConditionEvent: 
     m_EventTreshold: 0
-    m_ExitTime: .899999976
+    m_ExitTime: .5
   - m_ConditionMode: 1
     m_ConditionEvent: Alert
     m_EventTreshold: 0
@@ -364,15 +364,6 @@ StateMachine:
       - {fileID: 110102975}
       - {fileID: 110109926}
     data:
-      first: {fileID: 110201014}
-      second:
-      - {fileID: 110140577}
-    data:
-      first: {fileID: 110218201}
-      second:
-      - {fileID: 110170134}
-      - {fileID: 110152532}
-    data:
       first: {fileID: 110246234}
       second:
       - {fileID: 110173373}
@@ -381,6 +372,15 @@ StateMachine:
       second:
       - {fileID: 110159267}
       - {fileID: 110100382}
+    data:
+      first: {fileID: 110218201}
+      second:
+      - {fileID: 110170134}
+      - {fileID: 110152532}
+    data:
+      first: {fileID: 110201014}
+      second:
+      - {fileID: 110140577}
   m_MotionSetCount: 1
   m_AnyStatePosition: {x: 228, y: -24, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
