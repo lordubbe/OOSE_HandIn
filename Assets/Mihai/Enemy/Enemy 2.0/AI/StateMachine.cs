@@ -58,13 +58,6 @@ public class StateMachine : MonoBehaviour {
     private float prevTime = 0;
     internal float force = 0;
     private Animator animator;
-
-
-    public AudioClip smallJumpSound;
-    public AudioClip largeJumpSound;
-    public AudioClip runSound;
-    
-    
     public void Start()
     {
         atDestination = false;
@@ -86,7 +79,6 @@ public class StateMachine : MonoBehaviour {
        STOP_ATTACK += postAttack;
        state = State.idle;
 
-       
 
     }
     public void CheckState()
@@ -103,9 +95,9 @@ public class StateMachine : MonoBehaviour {
     }
     private void Update()
     {
-        if(state!=State.idle && state!=State.walk && (!isAttacking || state == State.run)){
+        if(state!=State.idle && state!=State.walk){
             transform.LookAt(enemy.transform.position);
-			transform.rotation = Quaternion.Euler (0,transform.rotation.eulerAngles.y,0);
+
         }
         else
         {
@@ -305,25 +297,6 @@ public class StateMachine : MonoBehaviour {
     private float sqrDistance(Vector3 a, Vector3 b)
     {
         return Mathf.Pow(a.x - b.x, 2) + Mathf.Pow(a.y - b.y, 2) + Mathf.Pow(a.z - b.z, 2);
-    }
-
-    internal bool isAttacking = false;
-    private void attackStart()
-    {
-        isAttacking = true;
-        AudioSource.PlayClipAtPoint(largeJumpSound, transform.position);
-    }
-    private void attackEnd(){
-        isAttacking = false;
-       
-    }
-    private void playSmallJumpSound()
-    {
-        AudioSource.PlayClipAtPoint(smallJumpSound, transform.position);
-    }
-    private void playRunSound()
-    {
-        AudioSource.PlayClipAtPoint(runSound, transform.position);
     }
     
 }

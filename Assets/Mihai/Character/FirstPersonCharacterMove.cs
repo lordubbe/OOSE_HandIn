@@ -21,7 +21,6 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController
 		public string[] hit, die;
 		public GameObject[] attacks;
 		public Transform cam;
-        public AudioClip[] hits;
 		private CharacterController charController;
 		private CharacterStats cs;
 		private Vector3 forwardDirection;
@@ -31,7 +30,6 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController
 		//added by Jacob
 		private bool hasJustLanded = false;
 
-        public bool useCheats = true;
 		private enum Direction
 		{
 				up,
@@ -118,11 +116,6 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController
 	
 		void Refresh ()
 		{
-            if (useCheats)
-            {
-
-                if (Input.GetKey(KeyCode.E)) cs.Health = cs.maxHealth = 10000000;
-            }
 				if (!cs.dead) {
 						float hAxis = Input.GetAxis ("Horizontal");
 						float vAxis = Input.GetAxis ("Vertical");
@@ -177,7 +170,7 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController
 						}
 						if (Input.GetMouseButtonDown (0)) {
 								attStart = Time.time;
-								//ForwardSpeed /= 2;
+								ForwardSpeed /= 2;
 								// LOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLO
 								// LOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLO
 								// LOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLO
@@ -199,7 +192,7 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController
 								// LOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLO
 						}
 						if (Input.GetMouseButtonUp (0)) {
-								//dForwardSpeed *= 2;
+								ForwardSpeed *= 2;
 								switch (lastDir) {
 								case Direction.left:
 										Attack2 ();
@@ -313,32 +306,13 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController
 
 		public void Hit ()
 		{
-			 if (hit.Length > 0)
-            {
-                int r = Random.Range(0, hit.Length);
-                animation.CrossFade(hit[r]);
-            }
-             if (hits.Length > 0)
-             {
-                 int r = Random.Range(0, hit.Length);
-                 AudioSource.PlayClipAtPoint(hits[r], transform.position);
-             }
-       
-		}
-
-        public void Hit(Vector3 position)
+				/* if (hit.Length > 0)
         {
-            if (hit.Length > 0)
-            {
-                int r = Random.Range(0, hit.Length);
-                animation.CrossFade(hit[r]);
-            }
-            if (hits.Length > 0)
-            {
-                int r = Random.Range(0, hit.Length);
-                AudioSource.PlayClipAtPoint(hits[r], position);
-            }
+            int r = Random.Range(0, hit.Length);
+            animation.CrossFade(hit[r]);
         }
+        * */
+		}
 
 		public void Die ()
 		{
@@ -352,11 +326,6 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController
 			Destroy(this.gameObject);
 		GameHandler.playerSpawned = false;
 		GameHandler.levelNo = 0;
-        
-            Screen.lockCursor = false;
-            Screen.showCursor = true;
-
-       
 			Application.LoadLevel("endMenuJacob");
 		}
 

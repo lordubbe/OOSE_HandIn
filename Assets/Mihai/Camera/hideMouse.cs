@@ -2,10 +2,9 @@
 using System.Collections;
 
 public class hideMouse : MonoBehaviour {
-    private bool hideCursor;
+    public bool hideCursor;
 	// Use this for initialization
 	void Start () {
-        hideCursor = true;
         Screen.lockCursor = hideCursor;
         Screen.showCursor = !hideCursor;
 	}
@@ -19,5 +18,6 @@ public class hideMouse : MonoBehaviour {
             Screen.showCursor = !hideCursor;
             
         }
+        Debug.Log(GameStats.healing);
 	}
 }

@@ -17,8 +17,7 @@ public class LoadLevelOnClick : MonoBehaviour {
 		//GameObject.Find("orangeLight").AddComponent<Rigidbody>();
 		Destroy (GameObject.Find("marker").gameObject);
 		StartCoroutine(waitForSeconds(startGameSound.length));
-        Screen.lockCursor = true;
-        Screen.showCursor = false;
+
 
 
 	}

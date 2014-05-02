@@ -359,7 +359,6 @@ GameObject:
   - 114: {fileID: 11400004}
   - 114: {fileID: 11400002}
   - 54: {fileID: 5400000}
-  - 82: {fileID: 8200000}
   m_Layer: 0
   m_Name: frogsterAI
   m_TagString: Creature
@@ -396,7 +395,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100004}
-  m_LocalRotation: {x: -.014704234, y: .00727136526, z: .528694332, w: .848653853}
+  m_LocalRotation: {x: -.014704233, y: .0072713648, z: .528694272, w: .848653793}
   m_LocalPosition: {x: .0130906273, y: -.0306546092, z: -.00114636275}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -632,7 +631,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100042}
-  m_LocalRotation: {x: -.78657335, y: .0150922174, z: .0192396995, w: .61701262}
+  m_LocalRotation: {x: -.786573291, y: .0150922164, z: .0192396976, w: .61701256}
   m_LocalPosition: {x: .00605041394, y: .285202354, z: .123605035}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -648,7 +647,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100046}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.5229216, y: 2.81574249, z: 54.5819168}
+  m_LocalPosition: {x: 17.6960697, y: 14.037755, z: 22.6972656}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400044}
@@ -669,64 +668,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!82 &8200000
-AudioSource:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100046}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_audioClip: {fileID: 8300000, guid: fdbafdc2c9cbd474fb8549ee920a9eb1, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 1
-  Mute: 0
-  Priority: 6
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 25
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    - time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
 --- !u!95 &9500000
 Animator:
   serializedVersion: 2
@@ -753,8 +694,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 2
-  objectsToDeleteOnDeath: []
-  meshToRandomizeColor: {fileID: 400042}
   regenPerSecond: 0
   shieldUp: 0
   damage: 10
@@ -779,13 +718,6 @@ MonoBehaviour:
   runIdleTime: 3
   die: {fileID: 100000, guid: 1d4068028ddd8f94e901286c14cfa08e, type: 2}
   enemy: {fileID: 0}
-<<<<<<< HEAD
-  attackAnimation: {fileID: 0}
-=======
-  smallJumpSound: {fileID: 8300000, guid: e869f343e3b4a4cc6ae0bf3c42050e44, type: 3}
-  largeJumpSound: {fileID: 8300000, guid: da816aab6aa334a51bad1a2d78649104, type: 3}
-  runSound: {fileID: 8300000, guid: 1fb468b4a1f424c738107e6e5f475e59, type: 3}
->>>>>>> FETCH_HEAD
 --- !u!136 &13600000
 CapsuleCollider:
   m_ObjectHideFlags: 1
