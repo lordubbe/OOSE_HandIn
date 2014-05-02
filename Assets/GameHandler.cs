@@ -17,7 +17,6 @@ public class GameHandler : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-<<<<<<< HEAD
 		levelSpawner = GameObject.Find("levelSpawner");
 		if (!playerSpawned){
 			Instantiate(player, levelSpawner.GetComponent<LevelSpawn>().playerSpawn, Quaternion.identity);
@@ -53,7 +52,6 @@ public class GameHandler : MonoBehaviour
 	        levelSpawner.GetComponent<LevelSpawn>().enemyStrength = 1 + levelNo * 0.05f;
 	        levelSpawner.GetComponent<LevelSpawn>().enemySpawnFreq = (int)(10 + levelNo * 0.5f);
 		}
-=======
         levelSpawner = GameObject.Find("levelSpawner");
 
         levelNo++;
@@ -98,6 +96,5 @@ public class GameHandler : MonoBehaviour
     void Update()
     {
 
->>>>>>> FETCH_HEAD
     }
 }
