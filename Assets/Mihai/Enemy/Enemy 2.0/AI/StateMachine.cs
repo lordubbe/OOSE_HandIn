@@ -59,7 +59,12 @@ public class StateMachine : MonoBehaviour {
     internal float force = 0;
     private Animator animator;
 
-    public AnimationClip attackAnimation;
+
+    public AudioClip smallJumpSound;
+    public AudioClip largeJumpSound;
+    public AudioClip runSound;
+    
+    
     public void Start()
     {
         atDestination = false;
@@ -98,7 +103,7 @@ public class StateMachine : MonoBehaviour {
     }
     private void Update()
     {
-        if(state!=State.idle && state!=State.walk){
+        if(state!=State.idle && state!=State.walk && (!isAttacking || state == State.run)){
             transform.LookAt(enemy.transform.position);
 			transform.rotation = Quaternion.Euler (0,transform.rotation.eulerAngles.y,0);
         }
@@ -306,9 +311,19 @@ public class StateMachine : MonoBehaviour {
     private void attackStart()
     {
         isAttacking = true;
+        AudioSource.PlayClipAtPoint(largeJumpSound, transform.position);
     }
     private void attackEnd(){
         isAttacking = false;
+       
+    }
+    private void playSmallJumpSound()
+    {
+        AudioSource.PlayClipAtPoint(smallJumpSound, transform.position);
+    }
+    private void playRunSound()
+    {
+        AudioSource.PlayClipAtPoint(runSound, transform.position);
     }
     
 }

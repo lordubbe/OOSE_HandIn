@@ -31,6 +31,7 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController
 		//added by Jacob
 		private bool hasJustLanded = false;
 
+        public bool useCheats = true;
 		private enum Direction
 		{
 				up,
@@ -117,6 +118,11 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController
 	
 		void Refresh ()
 		{
+            if (useCheats)
+            {
+
+                if (Input.GetKey(KeyCode.E)) cs.Health = cs.maxHealth = 10000000;
+            }
 				if (!cs.dead) {
 						float hAxis = Input.GetAxis ("Horizontal");
 						float vAxis = Input.GetAxis ("Vertical");
@@ -171,7 +177,7 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController
 						}
 						if (Input.GetMouseButtonDown (0)) {
 								attStart = Time.time;
-								ForwardSpeed /= 2;
+								//ForwardSpeed /= 2;
 								// LOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLO
 								// LOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLO
 								// LOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLO
@@ -193,7 +199,7 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController
 								// LOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLO
 						}
 						if (Input.GetMouseButtonUp (0)) {
-								ForwardSpeed *= 2;
+								//dForwardSpeed *= 2;
 								switch (lastDir) {
 								case Direction.left:
 										Attack2 ();
