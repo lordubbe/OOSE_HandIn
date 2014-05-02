@@ -14,6 +14,8 @@ public class TriggerZoneForRigidBody : MonoBehaviour {
     public bool useGravity = true;
     public bool isKinematic = false;
 
+
+
     public RigidbodyConstraints constraints;
     void Awake()
     {

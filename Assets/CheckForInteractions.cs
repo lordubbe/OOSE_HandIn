@@ -2,16 +2,17 @@
 using System.Collections;
 
 public class CheckForInteractions : MonoBehaviour {
-    GameStats gs;
+    CharacterStats player;
 
     void Start()
     {
-      
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterStats>();
     }
 
 	// Update is called once per frame
 	void Update () {
 		GameObject.Find("ChestInteraction").GetComponent<GUIText>().enabled = false;
+        
 		RaycastHit hit;
 		//CharacterController charCtrl = GetComponent<CharacterController>();
         Vector3 p1 = transform.position;
@@ -37,7 +38,7 @@ public class CheckForInteractions : MonoBehaviour {
 						hit.transform.gameObject.GetComponent<ChestStats>().hasBeenOpened = true;
 						hit.transform.gameObject.GetComponentInChildren<ParticleSystem>().Play ();
 						hit.transform.gameObject.GetComponent<AudioSource>().audio.Play();
-                        CharacterStats player =  GetComponent<CharacterStats>();
+                        
 						
                         int addedScore = (int)(player.Health * 10 * GameObject.Find("levelSpawner").GetComponent<LevelSpawn>().enemyStrength);
 

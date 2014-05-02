@@ -98,7 +98,7 @@ public class StateMachine : MonoBehaviour {
     }
     private void Update()
     {
-        if(state!=State.idle && state!=State.walk && !isAttacking){
+        if(state!=State.idle && state!=State.walk && (!isAttacking || state == State.run)){
             transform.LookAt(enemy.transform.position);
 			transform.rotation = Quaternion.Euler (0,transform.rotation.eulerAngles.y,0);
         }
