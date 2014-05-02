@@ -782,7 +782,7 @@ GameObject:
   - 82: {fileID: 8200000}
   m_Layer: 13
   m_Name: Hero First Person2(Clone)
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
