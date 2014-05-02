@@ -27,12 +27,7 @@ public class GameHandler : MonoBehaviour
 	        levelNo++;
 	        GameStats.level = levelNo;
 	        print("LEVEL: " + levelNo);
-	        //DontDestroyOnLoad(this.gameObject);
-	        //GameObject.Find("levelSpawner").GetComponent<LevelSpawn>().
-	        if (!playerSpawned){
-	            Instantiate(player, levelSpawner.GetComponent<LevelSpawn>().playerSpawn, Quaternion.identity);
-	            playerSpawned = true;
-	        }
+
 	        //algorithm for increasing levelSize
 	        int levelSize = (int)(5 * (levelNo / 2));
 	        if (levelSize < 10){

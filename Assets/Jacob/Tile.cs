@@ -19,6 +19,8 @@ public class Tile{
 	public int x;//This will hold the x position of the tile
 	public int y;//This will hold the y position of the tile
 
+	public bool hasBeenCheckedInGrassFire = false;
+
 	/// <summary>
 	/// Initializes a new instance of the <see cref="Tile"/> class.
 	/// </summary>

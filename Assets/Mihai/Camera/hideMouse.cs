@@ -19,9 +19,5 @@ public class hideMouse : MonoBehaviour {
             Screen.showCursor = !hideCursor;
             
         }
-<<<<<<< HEAD
-=======
-        
->>>>>>> FETCH_HEAD
 	}
 }

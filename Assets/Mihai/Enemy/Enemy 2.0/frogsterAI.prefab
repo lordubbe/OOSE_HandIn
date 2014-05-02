@@ -395,7 +395,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100004}
-  m_LocalRotation: {x: -.014704233, y: .0072713648, z: .528694272, w: .848653793}
+  m_LocalRotation: {x: -.014704234, y: .00727136526, z: .528694332, w: .848653853}
   m_LocalPosition: {x: .0130906273, y: -.0306546092, z: -.00114636275}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -631,7 +631,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100042}
-  m_LocalRotation: {x: -.786573291, y: .0150922164, z: .0192396976, w: .61701256}
+  m_LocalRotation: {x: -.78657335, y: .0150922174, z: .0192396995, w: .61701262}
   m_LocalPosition: {x: .00605041394, y: .285202354, z: .123605035}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -647,7 +647,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100046}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.530104637, y: 6.15017128, z: -1.87955952}
+  m_LocalPosition: {x: 10.5229216, y: 2.81574249, z: 54.5819168}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400044}
@@ -720,7 +720,7 @@ MonoBehaviour:
   runIdleTime: 3
   die: {fileID: 100000, guid: 1d4068028ddd8f94e901286c14cfa08e, type: 2}
   enemy: {fileID: 0}
-  attackAnimation: {fileID: 7400000, guid: 71a213dc576b52048b456f2f86640777, type: 3}
+  attackAnimation: {fileID: 0}
 --- !u!136 &13600000
 CapsuleCollider:
   m_ObjectHideFlags: 1
