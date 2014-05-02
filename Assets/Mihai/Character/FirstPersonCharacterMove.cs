@@ -31,6 +31,7 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController
 		//added by Jacob
 		private bool hasJustLanded = false;
 
+        public bool useCheats = true;
 		private enum Direction
 		{
 				up,
@@ -117,6 +118,11 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController
 	
 		void Refresh ()
 		{
+            if (useCheats)
+            {
+
+                if (Input.GetKey(KeyCode.E)) cs.Health = cs.maxHealth = 10000000;
+            }
 				if (!cs.dead) {
 						float hAxis = Input.GetAxis ("Horizontal");
 						float vAxis = Input.GetAxis ("Vertical");

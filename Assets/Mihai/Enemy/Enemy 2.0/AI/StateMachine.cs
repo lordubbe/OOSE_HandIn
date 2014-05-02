@@ -59,7 +59,12 @@ public class StateMachine : MonoBehaviour {
     internal float force = 0;
     private Animator animator;
 
-    public AnimationClip attackAnimation;
+
+    public AudioClip smallJumpSound;
+    public AudioClip largeJumpSound;
+    public AudioClip runSound;
+    
+    
     public void Start()
     {
         atDestination = false;
@@ -306,9 +311,19 @@ public class StateMachine : MonoBehaviour {
     private void attackStart()
     {
         isAttacking = true;
+        AudioSource.PlayClipAtPoint(largeJumpSound, transform.position);
     }
     private void attackEnd(){
         isAttacking = false;
+       
+    }
+    private void playSmallJumpSound()
+    {
+        AudioSource.PlayClipAtPoint(smallJumpSound, transform.position);
+    }
+    private void playRunSound()
+    {
+        AudioSource.PlayClipAtPoint(runSound, transform.position);
     }
     
 }

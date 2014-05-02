@@ -782,7 +782,7 @@ GameObject:
   - 82: {fileID: 8200000}
   m_Layer: 13
   m_Name: Hero First Person2(Clone)
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2007,8 +2007,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: .920000017, y: .100000001, z: .170000002}
-  m_Center: {x: .600000024, y: -.00228803325, z: 0}
+  m_Size: {x: .720000029, y: .00999999978, z: .0799999982}
+  m_Center: {x: .560000002, y: -.00228803325, z: 0}
 --- !u!81 &8100000
 AudioListener:
   m_ObjectHideFlags: 1

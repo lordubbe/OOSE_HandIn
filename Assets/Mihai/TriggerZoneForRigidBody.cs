@@ -25,7 +25,7 @@ public class TriggerZoneForRigidBody : MonoBehaviour {
         {
             if (sp.isTrigger)
             {
-                sp.radius = 10;
+                sp.radius = 5;
             }
         }
     }

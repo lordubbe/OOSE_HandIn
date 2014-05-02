@@ -7,6 +7,8 @@ public class GameHandler : MonoBehaviour
     public GameObject levelSpawner;
 
     public Transform player;
+
+
     public static bool playerSpawned = false;
 
     public static int levelNo = 0;
@@ -27,6 +29,7 @@ public class GameHandler : MonoBehaviour
             playerSpawned = true;
         }
         //algorithm for increasing levelSize
+        /*
         int levelSize = (int)(5 * (levelNo / 2));
         if (levelSize < 10)
         {
@@ -48,7 +51,7 @@ public class GameHandler : MonoBehaviour
         levelSpawner.GetComponent<LevelSpawn>().maxRoomHeight = num;
         levelSpawner.GetComponent<LevelSpawn>().enemyStrength = 1 + levelNo * 0.05f;
         levelSpawner.GetComponent<LevelSpawn>().enemySpawnFreq = (int)(10 + levelNo * 0.5f);
-
+        */
 
 
     }
