@@ -173,6 +173,7 @@ GameObject:
   - 114: {fileID: 11400006}
   - 114: {fileID: 11400004}
   - 114: {fileID: 11400002}
+  - 114: {fileID: 11400012}
   m_Layer: 0
   m_Name: FirstPersonCamera
   m_TagString: Untagged
@@ -777,7 +778,6 @@ GameObject:
   - 114: {fileID: 11400016}
   - 114: {fileID: 11400014}
   - 81: {fileID: 8100006}
-  - 114: {fileID: 11400012}
   - 114: {fileID: 11400010}
   - 82: {fileID: 8200000}
   m_Layer: 13
@@ -2437,7 +2437,7 @@ MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100096}
+  m_GameObject: {fileID: 100018}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b37aefc3bed344343835262b93ecb58f, type: 3}
