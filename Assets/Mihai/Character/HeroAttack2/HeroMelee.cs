@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class HeroMelee : MonoBehaviour {
-   
+public class HeroMelee : MonoBehaviour
+{
+
     public float attackDelay = .5f;
     public float swordDamage = 10;
 
@@ -18,22 +19,23 @@ public class HeroMelee : MonoBehaviour {
     public SwordHitEffect[] swordHitEffects;
 
     private float soundMod = 1;
-    
+
 
     private AudioSource audioSource;
 
-	private bool isVisible = false;
+    private bool isVisible = false;
     private float prevPitch;
-    
-    private void Start(){
-		isVisible = false;
+
+    private void Start()
+    {
+        isVisible = false;
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
     }
     private void Update()
     {
 
-        if (Input.GetMouseButtonDown(0) )
+        if (Input.GetMouseButtonDown(0))
         {
             Attack();
         }
@@ -48,22 +50,27 @@ public class HeroMelee : MonoBehaviour {
     }
     private void Attack()
     {
+        foreach (SwordHitEffect shf in swordHitEffects)
+        {
+            shf.played = false;
+        }
         soundMod = 1;
         prevPitch = 1;
         animator.SetBool("Attack", true);
         animator.SetBool("StopAttack", false);
-        
+
         prevAttack = Time.time;
-        
+
     }
-    private void playSwingSound(){
-         if (misses.Length > 0)
+    private void playSwingSound()
+    {
+        if (misses.Length > 0)
         {
             audioSource.clip = misses[Random.Range(0, misses.Length)];
             audioSource.Play();
             GameStats.swings++;
             isAttacking = true;
-           
+
         }
     }
     private void stopSwing()
@@ -74,12 +81,12 @@ public class HeroMelee : MonoBehaviour {
 
     private void OnCollisionEnter(Collision col)
     {
-		Collider other = col.collider;
+        Collider other = col.collider;
         if (isAttacking)
         {
             if (other.tag == "Creature" && isVisible)
             {
-                
+
                 other.gameObject.GetComponent<CharacterStats>().Health -= swordDamage + heroStats.damage;
                 if (hitFrog.Length > 0)
                 {
@@ -88,39 +95,43 @@ public class HeroMelee : MonoBehaviour {
                 }
 
             }
-			else if(isVisible && swordHitEffects.Length >0)
+            else if (isVisible && swordHitEffects.Length > 0)
             {
 
-                foreach(SwordHitEffect shf in swordHitEffects){
-					if(shf.tag == other.tag || shf.layerNumber == other.gameObject.layer)
-					{
-						foreach(ContactPoint cp in col.contacts)
-						{
-							GameObject go = Instantiate (shf.particles,cp.point ,Quaternion.identity) as GameObject;
-							Destroy(go,0.4f);
-							
-							
-						}
-                        if(!animator.GetBool("StopAttack")){
+                foreach (SwordHitEffect shf in swordHitEffects)
+                {
+                    if (shf.tag == other.tag || shf.layerNumber == other.gameObject.layer)
+                    {
+                        foreach (ContactPoint cp in col.contacts)
+                        {
+                            GameObject go = Instantiate(shf.particles, cp.point, Quaternion.identity) as GameObject;
+                            Destroy(go, 0.4f);
+
+
+                        }
+                        if (!shf.played)
+                        {
                             if (shf.audio.Length > 0)
                             {
+                                shf.played = true;
                                 AudioClip audio = shf.audio[(int)(Random.value * shf.audio.Length)];
                                 AudioSource sound = PlayClipAt(audio, col.contacts[0].point);
                                 prevPitch = Random.Range(prevPitch - 0.02f, prevPitch + 0.02f);
                                 sound.pitch = prevPitch;
                                 sound.volume = Mathf.Pow(1.2f, soundMod);
                                 soundMod /= 1.4f;
+                               
                             }
                         }
-					}
-                    animator.SetBool("StopAttack",true);
+                    }
+                     animator.SetBool("StopAttack", true);
 
-              
+
+                }
+
             }
-            
+
         }
-       
-    }
     }
     AudioSource PlayClipAt(AudioClip clip, Vector3 pos)
     {
@@ -133,25 +144,30 @@ public class HeroMelee : MonoBehaviour {
         Destroy(tempGO, clip.length); // destroy object after clip duration
         return aSource; // return the AudioSource reference
     }
-	private void makeVisible(){
-		isVisible = true;
-	}
-	private void makeInvisible(){
-		isVisible = false;
-	}
+    private void makeVisible()
+    {
+        isVisible = true;
+    }
+    private void makeInvisible()
+    {
+        isVisible = false;
+    }
 
 }
 [System.Serializable]
-public class SwordHitEffect{
+public class SwordHitEffect
+{
 
     public string name;
-	public AudioClip[] audio;
-	public int layerNumber ;
-	public string tag ;
-	public GameObject particles;
-    
-	public SwordHitEffect(){
-		layerNumber = -1;
-		tag = "Untagged";
-	}
+    public AudioClip[] audio;
+    public int layerNumber;
+    public string tag;
+    public GameObject particles;
+    public bool played = false;
+    public SwordHitEffect()
+    {
+        played = false;
+        layerNumber = -1;
+        tag = "Untagged";
+    }
 }

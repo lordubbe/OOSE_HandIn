@@ -2548,12 +2548,15 @@ MonoBehaviour:
     layerNumber: -1
     tag: Stone
     particles: {fileID: 100000, guid: 29a904e5532268c4a90c264692813a08, type: 2}
+    played: 0
   - name: Wood
     audio:
-    - {fileID: 8300000, guid: f54b1ae9ad61e4c189006d9d1c7fd944, type: 3}
+    - {fileID: 8300000, guid: 0a8e55d6f87cff34b9519f8429a7315f, type: 3}
+    - {fileID: 8300000, guid: aef0985cebe06d844991fee994aa7d05, type: 3}
     layerNumber: -1
     tag: Wood
     particles: {fileID: 100000, guid: 4934ec963e2cc00429e6b6906cdfb8e2, type: 2}
+    played: 0
 --- !u!114 &11400020
 MonoBehaviour:
   m_ObjectHideFlags: 1
