@@ -32,6 +32,8 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController
         private float fallSpeed;
 		//added by Jacob
 		private bool hasJustLanded = false;
+        [Range(0,0.2f)] 
+        public float pitchVariation = 0.05f;
 
         public bool useCheats = true;
 		private enum Direction
@@ -136,7 +138,8 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController
 						//SOUND
 						if (vAxis != 0 || hAxis != 0) {//if player is moving
 								if (!GetComponent<AudioSource> ().audio.isPlaying && charController.isGrounded) {
-										GetComponent<AudioSource> ().audio.Play ();					
+										GetComponent<AudioSource> ().audio.Play ();
+                                        GetComponent<AudioSource>().pitch = Random.Range(1 - pitchVariation, 1 + pitchVariation);
 								}
 						} else {
 								if (charController.isGrounded) {
@@ -203,7 +206,8 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController
                             fallSpeed += gravity * Time.deltaTime;
                             if (!hasJustLanded && charController.isGrounded)
                             {
-                                AudioSource.PlayClipAtPoint(landSound, transform.position);
+                                AudioSource audioS = AudioAtPoint.PlayClipAt(landSound, transform.position);
+                                audioS.pitch = Random.Range(1 - pitchVariation, 1 + pitchVariation);
                                 hasJustLanded = true;
                             }
                         }
@@ -324,7 +328,9 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController
              if (hits.Length > 0)
              {
                  int r = Random.Range(0, hit.Length);
-                 AudioSource.PlayClipAtPoint(hits[r], transform.position);
+                
+                 AudioSource audioS = AudioAtPoint.PlayClipAt(hits[r], transform.position);
+                 audioS.pitch = Random.Range(1 - pitchVariation, 1 + pitchVariation);
              }
        
 		}
@@ -339,7 +345,8 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController
             if (hits.Length > 0)
             {
                 int r = Random.Range(0, hit.Length);
-                AudioSource.PlayClipAtPoint(hits[r], position);
+                AudioSource audioS = AudioAtPoint.PlayClipAt(hits[r], transform.position);
+                audioS.pitch = Random.Range(1 - pitchVariation, 1 + pitchVariation);
             }
         }
 

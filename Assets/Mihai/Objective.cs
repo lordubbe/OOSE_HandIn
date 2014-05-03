@@ -37,12 +37,19 @@ public class Objective : MonoBehaviour {
     private int _chestsOpened;
     private int _monstersKilled;
 
+    private LevelSpawn ls;
+
     private void Awake(){
         LevelSpawn.FinishGeneration += BuildObjectives;
     }
 
     private void BuildObjectives()
     {
+        ls = GameObject.Find("LevelSpawner").GetComponent<LevelSpawn>();
+
+        monstersSpawned = ls.enemiesInLevel;
+        chestsSpawned = ls.chestsPlaced;
+
         monstersToKill = (int)(enemyObjective * monstersSpawned);
         chestsToOpen = (int)(chestsSpawned * chestObjective);
         monstersKilled = 0;

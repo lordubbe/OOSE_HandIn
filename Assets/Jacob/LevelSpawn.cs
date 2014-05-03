@@ -89,8 +89,8 @@ public class LevelSpawn : MonoBehaviour
     public delegate void FINISH_GENERATION();
     public static event FINISH_GENERATION FinishGeneration;
 
-
-
+    internal int enemiesInLevel = 0;
+    internal int chestsPlaced = 0;
     // Use this for initialization
     void Start()
     {
@@ -373,7 +373,7 @@ public class LevelSpawn : MonoBehaviour
         */
         //Place some goodies! Chests incominnnggg!
         int tries = 0;
-        int chestsPlaced = 0;
+      
         while (chestsPlaced < minAmountOfChests && tries < 20)
         {
             int x = Random.Range(0, MAX_LEVEL_WIDTH);
@@ -537,7 +537,7 @@ public class LevelSpawn : MonoBehaviour
         ██ ██▌▐█▌▐█▌.▐▌██▐█▌▐█▄▪▐█ ▐█▌·▐█▄▄▌▐█•█▌▐█▄▪▐█.▀ 
         ▀▀  █▪▀▀▀ ▀█▄▀▪▀▀ █▪ ▀▀▀▀  ▀▀▀  ▀▀▀ .▀  ▀ ▀▀▀▀  ▀ 
 */
-        int enemiesInLevel = 0;
+       
         if (spawnEnemies)
         {
             for (int x = 0; x < MAX_LEVEL_WIDTH; x++)
