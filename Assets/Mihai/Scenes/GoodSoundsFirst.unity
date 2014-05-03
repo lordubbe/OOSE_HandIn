@@ -237,6 +237,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 116973620}
   - 114: {fileID: 116973621}
+  - 114: {fileID: 116973622}
   m_Layer: 0
   m_Name: GameHandler
   m_TagString: Untagged
@@ -267,7 +268,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelSpawner: {fileID: 1723601082}
-  player: {fileID: 400096, guid: ab7e817bd7f714c46944dac1af82de98, type: 2}
+  player: {fileID: 400088, guid: ab361f328ecd561459d715d16899fa41, type: 2}
+--- !u!114 &116973622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 116973619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db1bfa8320f48c240b7e71bf66201115, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyObjective: .699999988
+  chestObjective: .800000012
+  levelToLoad: 2
+  ls: {fileID: 1723601085}
 --- !u!1 &120491253
 GameObject:
   m_ObjectHideFlags: 0
@@ -2626,6 +2642,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 0edf585c749944a939c3c0096a996327, type: 3}
   - {fileID: 8300000, guid: f54b1ae9ad61e4c189006d9d1c7fd944, type: 3}
   - {fileID: 8300000, guid: 6435d4fad4b114072a8e73a6c6b37620, type: 3}
+  pitchVariation: .0500000007
   useCheats: 1
 --- !u!143 &1715653287
 CharacterController:

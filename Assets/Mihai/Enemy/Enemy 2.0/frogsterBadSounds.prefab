@@ -361,7 +361,7 @@ GameObject:
   - 54: {fileID: 5400000}
   - 82: {fileID: 8200000}
   m_Layer: 0
-  m_Name: frogsterAI 1
+  m_Name: frogsterBadSounds
   m_TagString: Creature
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -648,7 +648,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100046}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.530104637, y: 6.15017128, z: -1.87955952}
+  m_LocalPosition: {x: -4.10242081, y: 5.05065489, z: 3.93125439}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 400044}
@@ -776,16 +776,14 @@ MonoBehaviour:
   seeDistance: 8
   alertDistance: 6
   attackDistance: 3
-  runIdleTime: 3
+  runIdleTime: 10
   die: {fileID: 100000, guid: 1d4068028ddd8f94e901286c14cfa08e, type: 2}
   enemy: {fileID: 0}
-  pitchVariation: .0500000007
+  pitchVariation: 0
   smallJumpSound:
   - {fileID: 8300000, guid: e869f343e3b4a4cc6ae0bf3c42050e44, type: 3}
   largeJumpSound:
   - {fileID: 8300000, guid: a3ac98e69f3ff48c3a57c8dff181e860, type: 3}
-  - {fileID: 8300000, guid: f9dae85b2236e4b65811b18bc8d962a3, type: 3}
-  - {fileID: 8300000, guid: 2ec96aef14368417681abb265582e588, type: 3}
   runSound:
   - {fileID: 8300000, guid: 4f6c642e2a5e04533a8e0aca3a248b02, type: 3}
 --- !u!136 &13600000

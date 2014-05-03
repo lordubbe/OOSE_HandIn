@@ -83,6 +83,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 116973620}
   - 114: {fileID: 116973621}
+  - 114: {fileID: 116973622}
   m_Layer: 0
   m_Name: GameHandler
   m_TagString: Untagged
@@ -113,7 +114,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelSpawner: {fileID: 1723601082}
-  player: {fileID: 400096, guid: ab7e817bd7f714c46944dac1af82de98, type: 2}
+  player: {fileID: 400088, guid: 3ecdddb93c05c364ebfcc6b3e681822f, type: 2}
+--- !u!114 &116973622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 116973619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db1bfa8320f48c240b7e71bf66201115, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyObjective: .699999988
+  chestObjective: .800000012
+  levelToLoad: 2
+  ls: {fileID: 1723601085}
 --- !u!1 &424201273
 GameObject:
   m_ObjectHideFlags: 0
@@ -388,7 +404,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1723601082}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2f51fba89126c334e92b7f129a728455, type: 3}
   m_Name: 
@@ -422,7 +438,7 @@ MonoBehaviour:
   trickTile: {fileID: 400000, guid: eeeb63d6ba9c347f4853ce3031a3d9f1, type: 2}
   torchTile: {fileID: 400004, guid: 8647e3cbec697412aa525f5c8108a5a3, type: 2}
   chestObject: {fileID: 400014, guid: a3109aaf975a04216abe06919ddf4044, type: 2}
-  enemyObject: {fileID: 400046, guid: 7a0575ec53cc4ac4b972b4b0d30d2918, type: 2}
+  enemyObject: {fileID: 400046, guid: 318a7cd68a1aad44287d1d005766162b, type: 2}
   decorations:
   - {fileID: 400000, guid: aaaed593b169d451083c4ffbe004c9b4, type: 2}
   - {fileID: 400002, guid: 33322e6254bd34c838c747d85dec0aab, type: 2}

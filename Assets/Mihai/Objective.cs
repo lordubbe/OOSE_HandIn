@@ -37,7 +37,7 @@ public class Objective : MonoBehaviour {
     private int _chestsOpened;
     private int _monstersKilled;
 
-    private LevelSpawn ls;
+    public LevelSpawn ls;
 
     private void Awake(){
         LevelSpawn.FinishGeneration += BuildObjectives;
@@ -45,13 +45,16 @@ public class Objective : MonoBehaviour {
 
     private void BuildObjectives()
     {
-        ls = GameObject.Find("LevelSpawner").GetComponent<LevelSpawn>();
+
+        
 
         monstersSpawned = ls.enemiesInLevel;
         chestsSpawned = ls.chestsPlaced;
 
-        monstersToKill = (int)(enemyObjective * monstersSpawned);
-        chestsToOpen = (int)(chestsSpawned * chestObjective);
+        monstersToKill = roundTo((int)(enemyObjective * monstersSpawned),5);
+        chestsToOpen = roundTo((int)(chestsSpawned * chestObjective),5,1);
+        Debug.Log(monstersSpawned + " " + chestsSpawned);
+        Debug.Log(monstersToKill + " " + chestsToOpen);
         monstersKilled = 0;
         chestsOpened = 0;
     }
@@ -61,5 +64,26 @@ public class Objective : MonoBehaviour {
         {
             Application.LoadLevel(levelToLoad);
         }
+    }
+
+    private int roundTo(int numberToRound, int numberToRoundTo )
+    {
+        if (numberToRound % numberToRoundTo < numberToRoundTo / 2)
+        {
+            return numberToRound - numberToRound % numberToRoundTo;
+        }
+        else return numberToRound + numberToRoundTo - numberToRound % numberToRoundTo;
+    }
+    private int roundTo(int numberToRound, int numberToRoundTo, int minValue)
+    {
+        if (numberToRound > minValue)
+        {
+            if (numberToRound % numberToRoundTo < numberToRoundTo / 2)
+            {
+                return numberToRound - numberToRound % numberToRoundTo;
+            }
+            else return numberToRound + numberToRoundTo - numberToRound % numberToRoundTo;
+        }
+        else return minValue;
     }
 }
