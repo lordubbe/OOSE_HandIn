@@ -23,7 +23,7 @@ public class HeroMelee : MonoBehaviour {
     private AudioSource audioSource;
 
 	private bool isVisible = false;
-   
+    private float prevPitch;
     
     private void Start(){
 		isVisible = false;
@@ -49,10 +49,12 @@ public class HeroMelee : MonoBehaviour {
     private void Attack()
     {
         soundMod = 1;
+        prevPitch = 1;
         animator.SetBool("Attack", true);
         animator.SetBool("StopAttack", false);
         
         prevAttack = Time.time;
+        
     }
     private void playSwingSound(){
          if (misses.Length > 0)
@@ -67,6 +69,7 @@ public class HeroMelee : MonoBehaviour {
     private void stopSwing()
     {
         isAttacking = false;
+        prevPitch = 1;
     }
 
     private void OnCollisionEnter(Collision col)
@@ -98,11 +101,17 @@ public class HeroMelee : MonoBehaviour {
 							
 							
 						}
-                        
-						AudioSource sound = PlayClipAt(shf.audio,col.contacts[0].point);
-                        sound.pitch = soundMod;
-                        sound.volume = Mathf.Pow(1.01f,soundMod);
-                        soundMod *= 1.01f;
+                        if(!animator.GetBool("StopAttack")){
+                            if (shf.audio.Length > 0)
+                            {
+                                AudioClip audio = shf.audio[(int)(Random.value * shf.audio.Length)];
+                                AudioSource sound = PlayClipAt(audio, col.contacts[0].point);
+                                prevPitch = Random.Range(prevPitch - 0.02f, prevPitch + 0.02f);
+                                sound.pitch = prevPitch;
+                                sound.volume = Mathf.Pow(1.2f, soundMod);
+                                soundMod /= 1.4f;
+                            }
+                        }
 					}
                     animator.SetBool("StopAttack",true);
 
@@ -134,13 +143,13 @@ public class HeroMelee : MonoBehaviour {
 }
 [System.Serializable]
 public class SwordHitEffect{
-	
-	
-	public AudioClip audio;
+
+    public string name;
+	public AudioClip[] audio;
 	public int layerNumber ;
 	public string tag ;
 	public GameObject particles;
-
+    
 	public SwordHitEffect(){
 		layerNumber = -1;
 		tag = "Untagged";

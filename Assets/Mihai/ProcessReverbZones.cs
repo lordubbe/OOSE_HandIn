@@ -192,7 +192,7 @@ public class ReverbZoneProperties
     public float CalculateDecayTime()
     {
        // Debug.Log(0.1611f+" * "+volume + "/(( " + perimeter + " * " + height + " + " + area + ") = " + (0.1611f * volume / ((perimeter * height + 2* area) * 0.05f)));
-        return 0.1611f * volume / ((perimeter * height +2* area) * 0.05f);
+        return 0.1611f * volume / ((perimeter * height +2* area) * 0.05f) ;
        
     }
 }

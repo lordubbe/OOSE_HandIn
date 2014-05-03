@@ -24,6 +24,7 @@ public class DetectReverbZone : MonoBehaviour {
             int x = (int)(transform.position.x / 2);
             int y = (int)(transform.position.y / 2);
             int z = (int)(transform.position.z / 2);
+            if(LevelSpawn.levelMatrix[x,z] !=null)
             if(LevelSpawn.levelMatrix[x,z].rzp !=null)
             if (LevelSpawn.levelMatrix[x,z].rzp.decayTime != rzp.decayTime)
             {
