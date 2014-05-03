@@ -12,7 +12,7 @@ SceneSettings:
     backfaceThreshold: 100
 --- !u!104 &2
 RenderSettings:
-  m_Fog: 1
+  m_Fog: 0
   m_FogColor: {r: .227941155, g: .127378881, b: .127378881, a: 1}
   m_FogMode: 3
   m_FogDensity: .0700000003
@@ -33,13 +33,19 @@ LevelGameManager:
 LightmapSettings:
   m_ObjectHideFlags: 0
   m_LightProbes: {fileID: 0}
-  m_Lightmaps: []
+  m_Lightmaps:
+  - m_Lightmap: {fileID: 2800000, guid: c430aedfd76844c77b8d3e5ce1cd918c, type: 3}
+    m_IndirectLightmap: {fileID: 2800000, guid: 92f8dccb5fe354188b29ab760b223606,
+      type: 3}
+  - m_Lightmap: {fileID: 2800000, guid: 385f06f24f2a64ceea0bd576b73a14b2, type: 3}
+    m_IndirectLightmap: {fileID: 2800000, guid: cf9bae343a30745a49ab8e73f9ebb72a,
+      type: 3}
   m_LightmapsMode: 1
   m_BakedColorSpace: 0
   m_UseDualLightmapsInForward: 0
   m_LightmapEditorSettings:
     m_Resolution: 50
-    m_LastUsedResolution: 0
+    m_LastUsedResolution: 50
     m_TextureWidth: 1024
     m_TextureHeight: 1024
     m_BounceBoost: 1
@@ -112,6 +118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce3392ea6fe4b446a80cba196c1b8624, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  testMode: 1
   levelSpawner: {fileID: 1723601082}
   player: {fileID: 400096, guid: 30b62256d4cb97540b14bc606f248b95, type: 2}
 --- !u!1 &424201273
@@ -445,7 +452,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   seedBasedGeneration: 0
   seed: 1657628617
-  spawnEnemies: 1
+  spawnEnemies: 0
   levelParent: {fileID: 850913288}
   Walls: {fileID: 424201274}
   emptyTile: {fileID: 400000, guid: ede89c57f0b204a189d04eb28f590208, type: 2}
@@ -474,10 +481,10 @@ MonoBehaviour:
   cratesStacked: {fileID: 400000, guid: 4bdde7ae224ae414e8f14ec93c113f9d, type: 2}
   arch: {fileID: 400000, guid: e4d7c6fd419cc4bd99c21be2b146c0ce, type: 2}
   exitObject: {fileID: 400000, guid: 23439fa21ab534609a67278506aa9d44, type: 2}
-  MAX_LEVEL_WIDTH: 50
-  MAX_LEVEL_HEIGHT: 50
-  minRooms: 20
-  maxRooms: 40
+  MAX_LEVEL_WIDTH: 30
+  MAX_LEVEL_HEIGHT: 30
+  minRooms: 6
+  maxRooms: 20
   minRoomWidth: 5
   minRoomHeight: 5
   maxRoomWidth: 5
