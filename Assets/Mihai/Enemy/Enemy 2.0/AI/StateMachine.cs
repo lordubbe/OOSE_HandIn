@@ -58,6 +58,11 @@ public class StateMachine : MonoBehaviour {
     private float prevTime = 0;
     internal float force = 0;
     private Animator animator;
+<<<<<<< HEAD
+=======
+
+    public AnimationClip attackAnimation;
+>>>>>>> parent of 55877a6... Sounds for the frog
     public void Start()
     {
         atDestination = false;
@@ -298,5 +303,17 @@ public class StateMachine : MonoBehaviour {
     {
         return Mathf.Pow(a.x - b.x, 2) + Mathf.Pow(a.y - b.y, 2) + Mathf.Pow(a.z - b.z, 2);
     }
+<<<<<<< HEAD
+=======
+
+    internal bool isAttacking = false;
+    private void attackStart()
+    {
+        isAttacking = true;
+    }
+    private void attackEnd(){
+        isAttacking = false;
+    }
+>>>>>>> parent of 55877a6... Sounds for the frog
     
 }
