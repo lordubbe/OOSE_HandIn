@@ -1,4 +1,4 @@
-﻿ using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
 public class Tile{
@@ -18,6 +18,9 @@ public class Tile{
 
 	public int x;//This will hold the x position of the tile
 	public int y;//This will hold the y position of the tile
+
+    public ReverbZoneProperties rzp;
+
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="Tile"/> class.

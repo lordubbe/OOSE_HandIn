@@ -121,7 +121,7 @@ public class LevelSpawn : MonoBehaviour
                     }
                     else
                     {
-                        levelMatrix[x, y].tileMesh = (Transform)Instantiate(levelMatrix[x, y].tileMesh, new Vector3(x * tileWidth, 0, y * tileHeight), Quaternion.identity);
+                        levelMatrix[x, y].tileMesh = (Transform)Instantiate(levelMatrix[x, y].tileMesh, new Vector3(x * tileWidth,0, y * tileHeight), Quaternion.identity);
                         levelMatrix[x, y].tileMesh.transform.parent = levelParent.transform;
                     }
                 }
@@ -217,23 +217,29 @@ public class LevelSpawn : MonoBehaviour
         ║  ║ ║║║║╠╩╗║║║║║╣   ║║║║╣ ╚═╗╠═╣║╣ ╚═╗
         ╚═╝╚═╝╩ ╩╚═╝╩╝╚╝╚═╝  ╩ ╩╚═╝╚═╝╩ ╩╚═╝╚═╝ (DE-IMPLEMENTED - SAVED FOR LATER)
 */
-        /*
+        
               //COMBINE THE MESHES OF THE ROOMS	
-              for(int roomCount = 0; roomCount<roomsInLevel.Length; roomCount++){//loop through rooms
+        /*    
+        for(int roomCount = 0; roomCount<roomsInLevel.Length; roomCount++){//loop through rooms
                   string roomName = "ROOM"+roomCount;
                   GameObject roomHolder = new GameObject(roomName);
                   for(int i=0; i< roomsInLevel[roomCount].tiles.GetLength(0); i++){
                       for(int j=0; j<roomsInLevel[roomCount].tiles.GetLength(1); j++){
                           if(roomsInLevel[roomCount].tiles[i,j] != null && roomsInLevel[roomCount].tiles[i,j].type != Tile.tileType.path){
-                              Transform tr = (Transform)Instantiate(roomsInLevel[roomCount].tiles[i,j].tileMesh, new Vector3(roomsInLevel[roomCount].tiles[i,j].x*tileWidth, tileHeight*2, roomsInLevel[roomCount].tiles[i,j].y*tileHeight), Quaternion.identity);
+                              Transform tr = (Transform)Instantiate(roomsInLevel[roomCount].tiles[i,j].tileMesh, new Vector3(roomsInLevel[roomCount].tiles[i,j].x*tileWidth, 1, roomsInLevel[roomCount].tiles[i,j].y*tileHeight), Quaternion.Euler(90,0,0));
                               tr.transform.parent = roomHolder.transform;
+                              
+                              Destroy(roomsInLevel[roomCount].tiles[i,j].tileMesh.gameObject);
                           }
 					
                       }
                   }
                   roomHolder.AddComponent<MeshMerger>();
+                 
+                  
               }
-              */
+         * */
+            
         /*
     ╔═╗╦  ╔═╗╔═╗╔═╗  ╔═╗═╗ ╦╦╔╦╗
     ╠═╝║  ╠═╣║  ║╣   ║╣ ╔╩╦╝║ ║ 
@@ -262,7 +268,7 @@ public class LevelSpawn : MonoBehaviour
                 Destroy(levelMatrix[a, b].tileMesh.gameObject);
                 exitCoords = new Vector3(a, 0, b);
                 levelMatrix[a, b].tileMesh = (Transform)Instantiate(exitObject, exitCoords * tileWidth, Quaternion.identity);
-                levelMatrix[a, b].isWalkable = false;
+                levelMatrix[a, b].isWalkable = true;
                 exitPlaced = true;
             }
         }
@@ -508,6 +514,7 @@ public class LevelSpawn : MonoBehaviour
             {//make sure temp is the highest of the two
                 temp = roomsInLevel[i].height;
             }
+            /*
             AudioReverbZone arz = roomCenter.GetComponent<AudioReverbZone>();
             arz.reverbPreset = AudioReverbPreset.User;
             arz.minDistance = temp;
@@ -520,6 +527,7 @@ public class LevelSpawn : MonoBehaviour
             arz.reverbDelay = 0.1f;
             arz.reflectionsDelay = 0;
             arz.density = 100;
+             * */
         }
 
         /*					SPAWN SOME 
@@ -552,7 +560,7 @@ public class LevelSpawn : MonoBehaviour
                             float strMulti = (enemyStrength + Random.Range(-0.2f, 0.1f));
                             if (enemyStats != null)
                             {
-                                enemyStats.damage *= strMulti;
+                                enemyStats.SetCreatureBasedOnStrength(strMulti);
                             }
                             if (sm != null)
                             {
@@ -560,7 +568,7 @@ public class LevelSpawn : MonoBehaviour
                                 sm.attackDistance *= strMulti;
                                 sm.seeDistance *= strMulti;
                             }
-                            enemy.transform.localScale *= strMulti;
+                            
                             enemiesInLevel++;
                         }
                     }
@@ -1196,6 +1204,8 @@ public class LevelSpawn : MonoBehaviour
         }
         return flippedArray;
     }
+
+  
     /*
  ███▄ ▄███▓ █     █░█    ██  ▄▄▄       ██░ ██  ▄▄▄       ██░ ██  ▄▄▄       ██░ ██  ▄▄▄       ▐██▌ 
 ▓██▒▀█▀ ██▒▓█░ █ ░█░██  ▓██▒▒████▄    ▓██░ ██▒▒████▄    ▓██░ ██▒▒████▄    ▓██░ ██▒▒████▄     ▐██▌ 

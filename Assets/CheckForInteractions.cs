@@ -2,22 +2,34 @@
 using System.Collections;
 
 public class CheckForInteractions : MonoBehaviour {
-    GameStats gs;
+    CharacterStats player;
 
     void Start()
     {
-      
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterStats>();
     }
 
 	// Update is called once per frame
 	void Update () {
 		GameObject.Find("ChestInteraction").GetComponent<GUIText>().enabled = false;
+        
 		RaycastHit hit;
-		CharacterController charCtrl = GetComponent<CharacterController>();
-		Vector3 p1 = transform.position + charCtrl.center;
-		if (Physics.SphereCast(p1, charCtrl.height / 2, transform.forward, out hit, 2f)){
+		//CharacterController charCtrl = GetComponent<CharacterController>();
+        Vector3 p1 = transform.position;
+        RaycastHit[] hits = Physics.SphereCastAll(p1,.5f, transform.forward, 2f);
+        bool ok = false;
+        foreach (RaycastHit h in hits)
+        {
+            if (h.transform.gameObject.tag == "Chest")
+            {
+                ok = true;
+                hit = h;
+            }
+
+        }
+		if (ok){
 			//print (hit.collider);
-			if(hit.transform.gameObject.tag == "Chest" && !hit.transform.gameObject.GetComponent<ChestStats>().hasBeenOpened){//if player hovers over chest and it hasn't already been opened
+			if(!hit.transform.gameObject.GetComponent<ChestStats>().hasBeenOpened){//if player hovers over chest and it hasn't already been opened
 				GameObject.Find("ChestInteraction").GetComponent<GUIText>().enabled = true;
 				if(Input.GetKeyDown(KeyCode.E)){
 					print ("chestOpen!");
@@ -26,8 +38,8 @@ public class CheckForInteractions : MonoBehaviour {
 						hit.transform.gameObject.GetComponent<ChestStats>().hasBeenOpened = true;
 						hit.transform.gameObject.GetComponentInChildren<ParticleSystem>().Play ();
 						hit.transform.gameObject.GetComponent<AudioSource>().audio.Play();
-                        CharacterStats player =  GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterStats>();
-
+                        
+						
                         int addedScore = (int)(player.Health * 10 * GameObject.Find("levelSpawner").GetComponent<LevelSpawn>().enemyStrength);
 
                         GameObject.Find("GUICamera").GetComponent<GUIManager>().score += addedScore;
@@ -36,6 +48,7 @@ public class CheckForInteractions : MonoBehaviour {
                         GameStats.healing += (int)(player.maxHealth - player.Health);
                         player.Health = player.maxHealth;
                         GameStats.chests++;
+                       
                         
                         
 					}

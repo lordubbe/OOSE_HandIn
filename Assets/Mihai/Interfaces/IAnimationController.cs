@@ -10,6 +10,7 @@ public interface IAnimationController  {
 	 void BlockUp();
 	 void BlockDown();
 	 void Hit();
+     void Hit(Vector3 position);
 	 void Die();
 	 
 

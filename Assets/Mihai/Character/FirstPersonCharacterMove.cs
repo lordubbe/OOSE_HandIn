@@ -21,15 +21,18 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController
 		public string[] hit, die;
 		public GameObject[] attacks;
 		public Transform cam;
+        public AudioClip[] hits;
 		private CharacterController charController;
 		private CharacterStats cs;
 		private Vector3 forwardDirection;
 		private LevelSpawn ls;
 		private float attStart;
 		private bool canAtt;
+        private bool isInAir;
 		//added by Jacob
 		private bool hasJustLanded = false;
 
+        public bool useCheats = true;
 		private enum Direction
 		{
 				up,
@@ -116,6 +119,11 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController
 	
 		void Refresh ()
 		{
+            if (useCheats)
+            {
+
+                if (Input.GetKey(KeyCode.E)) cs.Health = cs.maxHealth = 10000000;
+            }
 				if (!cs.dead) {
 						float hAxis = Input.GetAxis ("Horizontal");
 						float vAxis = Input.GetAxis ("Vertical");
@@ -170,7 +178,7 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController
 						}
 						if (Input.GetMouseButtonDown (0)) {
 								attStart = Time.time;
-								ForwardSpeed /= 2;
+								//ForwardSpeed /= 2;
 								// LOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLO
 								// LOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLO
 								// LOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLO
@@ -192,7 +200,7 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController
 								// LOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLO
 						}
 						if (Input.GetMouseButtonUp (0)) {
-								ForwardSpeed *= 2;
+								//dForwardSpeed *= 2;
 								switch (lastDir) {
 								case Direction.left:
 										Attack2 ();
@@ -207,7 +215,7 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController
 						}
 						if (forwardDirection == new Vector3 (0, 0, 0))
 								setIdle ();
-						forwardDirection += new Vector3 (0, -gravity * Time.deltaTime, 0);
+						if(!isInAir) forwardDirection += new Vector3 (0, -gravity * Time.deltaTime, 0);
 
 						if (charController != null)
 								charController.Move (forwardDirection);
@@ -220,16 +228,18 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController
 		{
 				bool playedLanding = false;
 				float pow = JumpForce;
+                isInAir = true;
 				while (pow > 0) {
 						Vector3 upDir = new Vector3 (0, (pow) * Time.deltaTime, 0);
 						charController.Move (upDir);
 						pow -= Time.deltaTime * gravity;
-						if (pow < 6f && !playedLanding) {
+						if (pow < 1f && !playedLanding) {
 								GetComponent<AudioSource> ().audio.PlayOneShot (landSound);
 								playedLanding = true;
 						}
-						if (pow < 5f) {
+						if (pow < .4f) {
 								pow = 0;
+                                isInAir = false; ;
 				
 						}
 						yield return new WaitForEndOfFrame ();
@@ -306,13 +316,32 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController
 
 		public void Hit ()
 		{
-				/* if (hit.Length > 0)
-        {
-            int r = Random.Range(0, hit.Length);
-            animation.CrossFade(hit[r]);
-        }
-        * */
+			 if (hit.Length > 0)
+            {
+                int r = Random.Range(0, hit.Length);
+                animation.CrossFade(hit[r]);
+            }
+             if (hits.Length > 0)
+             {
+                 int r = Random.Range(0, hit.Length);
+                 AudioSource.PlayClipAtPoint(hits[r], transform.position);
+             }
+       
 		}
+
+        public void Hit(Vector3 position)
+        {
+            if (hit.Length > 0)
+            {
+                int r = Random.Range(0, hit.Length);
+                animation.CrossFade(hit[r]);
+            }
+            if (hits.Length > 0)
+            {
+                int r = Random.Range(0, hit.Length);
+                AudioSource.PlayClipAtPoint(hits[r], position);
+            }
+        }
 
 		public void Die ()
 		{
@@ -326,6 +355,11 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController
 			Destroy(this.gameObject);
 		GameHandler.playerSpawned = false;
 		GameHandler.levelNo = 0;
+        
+            Screen.lockCursor = false;
+            Screen.showCursor = true;
+
+       
 			Application.LoadLevel("endMenuJacob");
 		}
 

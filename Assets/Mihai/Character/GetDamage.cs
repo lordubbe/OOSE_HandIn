@@ -5,7 +5,7 @@ public class GetDamage : MonoBehaviour {
 
     public CharacterStats heroStats;
     public HeroMelee sword;
-    
+    public FadeMaterial fadePain;
 	// Use this for initialization
 	void Start () {
 	
@@ -20,14 +20,20 @@ public class GetDamage : MonoBehaviour {
        if (other.collider.tag == "Creature")
         {
             
-            if (other.collider.GetComponent<StateMachine>().force > 0.1f && !sword.isAttacking && !heroStats.dead)
+            if (other.collider.GetComponent<StateMachine>().isAttacking && !sword.isAttacking && !heroStats.dead)
             {
                 heroStats.Health -= other.gameObject.GetComponent<CharacterStats>().damage;
+                heroStats.hitPosition = other.transform.position;
                 sword.prevAttack = Time.time;
-                
+                other.collider.GetComponent<StateMachine>().isAttacking = false;
+                fadePain.FadeIn(0.2f);
+                Invoke ("waitFadeOut",heroStats.maxHealth/(Mathf.Clamp (heroStats.Health,0.001f,heroStats.Health))*0.3f);
                // other.gameObject.GetComponent<CharacterStats>().Health = -10;
                
             }
         }
+    }
+    private void waitFadeOut(){
+		fadePain.FadeOut(0.4f);
     }
 }

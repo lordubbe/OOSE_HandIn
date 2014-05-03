@@ -780,9 +780,11 @@ GameObject:
   - 81: {fileID: 8100006}
   - 114: {fileID: 11400010}
   - 82: {fileID: 8200000}
+  - 114: {fileID: 11400024}
+  - 167: {fileID: 16700000}
   m_Layer: 13
   m_Name: Hero First Person2(Clone)
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2007,8 +2009,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: .920000017, y: .100000001, z: .170000002}
-  m_Center: {x: .600000024, y: -.00228803325, z: 0}
+  m_Size: {x: .720000029, y: .00999999978, z: .0799999982}
+  m_Center: {x: .560000002, y: -.00228803325, z: 0}
 --- !u!81 &8100000
 AudioListener:
   m_ObjectHideFlags: 1
@@ -2481,7 +2483,7 @@ MonoBehaviour:
   ForwardSpeed: 4
   SideSpeed: 3
   AttackSpeed: 1
-  JumpForce: 13
+  JumpForce: 4
   RotationSpeed: 180
   AttCullDown: .5
   minAttCulldown: .200000003
@@ -2514,6 +2516,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 0edf585c749944a939c3c0096a996327, type: 3}
   - {fileID: 8300000, guid: f54b1ae9ad61e4c189006d9d1c7fd944, type: 3}
   - {fileID: 8300000, guid: 6435d4fad4b114072a8e73a6c6b37620, type: 3}
+  useCheats: 1
 --- !u!114 &11400018
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2569,6 +2572,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4429d8d0f4bc8724fa6b5b774e65389b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &11400024
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 080aff613703c864cacfd46d404195aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  arz: {fileID: 16700000}
 --- !u!124 &12400000
 Behaviour:
   m_ObjectHideFlags: 1
@@ -2673,6 +2688,30 @@ CharacterController:
   m_SkinWidth: .0799999982
   m_MinMoveDistance: 0
   m_Center: {x: 0, y: .980000019, z: .430000007}
+--- !u!167 &16700000
+AudioReverbZone:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100096}
+  m_Enabled: 1
+  m_MinDistance: 10
+  m_MaxDistance: 30
+  m_ReverbPreset: 14
+  m_Room: -1000
+  m_RoomHF: -237
+  m_DecayTime: 2.70000005
+  m_DecayHFRatio: .790000021
+  m_Reflections: -1214
+  m_ReflectionsDelay: .0130000003
+  m_Reverb: 395
+  m_ReverbDelay: .0199999996
+  m_HFReference: 5000
+  m_RoomRolloffFactor: 0
+  m_Diffusion: 100
+  m_Density: 100
+  m_LFReference: 250
+  m_RoomLF: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

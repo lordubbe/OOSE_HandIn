@@ -4,7 +4,7 @@ using System.Collections;
 
 
 public class TriggerZoneForRigidBody : MonoBehaviour {
-
+    /*
     public GameObject targetObject;
 
     public float mass = 1;
@@ -25,7 +25,7 @@ public class TriggerZoneForRigidBody : MonoBehaviour {
         {
             if (sp.isTrigger)
             {
-                sp.radius = 10;
+                sp.radius = 5;
             }
         }
     }
@@ -46,4 +46,5 @@ public class TriggerZoneForRigidBody : MonoBehaviour {
     {
         if (targetObject.rigidbody != null) Destroy(targetObject.rigidbody,5.0f);
     }
+     * */
 }

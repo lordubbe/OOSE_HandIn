@@ -78,6 +78,9 @@ public class MeshMerger : MonoBehaviour
 		int normCount = 0;
 		int triCount = 0;
 		int uvCount = 0;
+
+        int uv1Count = 0;
+        int uv2Count = 0;
 		
 		foreach(MeshFilter mf in meshFilters)
 		{
@@ -85,6 +88,10 @@ public class MeshMerger : MonoBehaviour
 			normCount += mf.mesh.normals.Length;
 			triCount += mf.mesh.triangles.Length; 
 			uvCount += mf.mesh.uv.Length;
+
+            uv1Count += mf.mesh.uv1.Length;
+            uv2Count += mf.mesh.uv2.Length;
+
 			if(material == null)
 				material = mf.gameObject.renderer.material;       
 		}
@@ -97,11 +104,15 @@ public class MeshMerger : MonoBehaviour
 		BoneWeight[] weights = new BoneWeight[vertCount];
 		int[] tris  = new int[triCount];
 		Vector2[] uvs = new Vector2[uvCount];
+        Vector2[] uvs1 = new Vector2[uv1Count];
+        Vector2[] uvs2 = new Vector2[uv2Count];
 		
 		int vertOffset = 0;
 		int normOffset = 0;
 		int triOffset = 0;
 		int uvOffset = 0;
+        int uv1Offset = 0;
+        int uv2Offset = 0;
 		int meshOffset = 0;
 		
 		// merge the meshes and set up bones
@@ -119,12 +130,16 @@ public class MeshMerger : MonoBehaviour
 				weights[vertOffset].boneIndex0 = meshOffset;
 				verts[vertOffset++] = v;
 			}
-			
+           
 			foreach(Vector3 n in mf.mesh.normals)
 				norms[normOffset++] = n;
 			
 			foreach(Vector2 uv in mf.mesh.uv)
 				uvs[uvOffset++] = uv;
+            foreach (Vector2 uv in mf.mesh.uv1)
+                uvs1[uv1Offset++] = uv;
+            foreach (Vector2 uv in mf.mesh.uv2)
+                uvs2[uv2Offset++] = uv;
 			
 			meshOffset++;
 			
@@ -140,9 +155,12 @@ public class MeshMerger : MonoBehaviour
 		Mesh me = new Mesh();       
 		me.name = gameObject.name;
 		me.vertices = verts;
-		me.normals = norms;
+    	me.normals = norms;
 		me.boneWeights = weights;
 		me.uv = uvs;
+        me.uv1 = uvs1;
+        me.uv2 = uvs2;
+        
 		me.triangles = tris;
 		me.bindposes = bindPoses;
 		

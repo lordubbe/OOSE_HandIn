@@ -12,7 +12,7 @@ SceneSettings:
     backfaceThreshold: 100
 --- !u!104 &2
 RenderSettings:
-  m_Fog: 0
+  m_Fog: 1
   m_FogColor: {r: .227941155, g: .127378881, b: .127378881, a: 1}
   m_FogMode: 3
   m_FogDensity: .0700000003
@@ -33,19 +33,13 @@ LevelGameManager:
 LightmapSettings:
   m_ObjectHideFlags: 0
   m_LightProbes: {fileID: 0}
-  m_Lightmaps:
-  - m_Lightmap: {fileID: 2800000, guid: c430aedfd76844c77b8d3e5ce1cd918c, type: 3}
-    m_IndirectLightmap: {fileID: 2800000, guid: 92f8dccb5fe354188b29ab760b223606,
-      type: 3}
-  - m_Lightmap: {fileID: 2800000, guid: 385f06f24f2a64ceea0bd576b73a14b2, type: 3}
-    m_IndirectLightmap: {fileID: 2800000, guid: cf9bae343a30745a49ab8e73f9ebb72a,
-      type: 3}
+  m_Lightmaps: []
   m_LightmapsMode: 1
   m_BakedColorSpace: 0
   m_UseDualLightmapsInForward: 0
   m_LightmapEditorSettings:
     m_Resolution: 50
-    m_LastUsedResolution: 50
+    m_LastUsedResolution: 0
     m_TextureWidth: 1024
     m_TextureHeight: 1024
     m_BounceBoost: 1
@@ -118,7 +112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce3392ea6fe4b446a80cba196c1b8624, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testMode: 1
+  testMode: 0
   levelSpawner: {fileID: 1723601082}
   player: {fileID: 400096, guid: 30b62256d4cb97540b14bc606f248b95, type: 2}
 --- !u!1 &424201273
@@ -147,57 +141,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1723601083}
---- !u!1 &448706733
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 448706735}
-  - 167: {fileID: 448706734}
-  m_Layer: 0
-  m_Name: Reverb Zone
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!167 &448706734
-AudioReverbZone:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 448706733}
-  m_Enabled: 1
-  m_MinDistance: 10
-  m_MaxDistance: 15
-  m_ReverbPreset: 27
-  m_Room: -1000
-  m_RoomHF: -100
-  m_DecayTime: 1.49000001
-  m_DecayHFRatio: .829999983
-  m_Reflections: -2602
-  m_ReflectionsDelay: .00700000022
-  m_Reverb: 200
-  m_ReverbDelay: .0109999999
-  m_HFReference: 5000
-  m_RoomRolloffFactor: 0
-  m_Diffusion: 100
-  m_Density: 100
-  m_LFReference: 250
-  m_RoomLF: 0
---- !u!4 &448706735
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 448706733}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.00384941697, y: -46.7626038, z: -.349180281}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
 --- !u!1 &520068659
 GameObject:
   m_ObjectHideFlags: 0
@@ -483,7 +426,7 @@ MonoBehaviour:
   exitObject: {fileID: 400000, guid: 23439fa21ab534609a67278506aa9d44, type: 2}
   MAX_LEVEL_WIDTH: 30
   MAX_LEVEL_HEIGHT: 30
-  minRooms: 6
+  minRooms: 10
   maxRooms: 20
   minRoomWidth: 5
   minRoomHeight: 5

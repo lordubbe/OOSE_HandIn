@@ -5,8 +5,9 @@ public class CharacterStats : MonoBehaviour {
 
 	public float maxHealth;
     public GameObject[] objectsToDeleteOnDeath;
-	
 
+    public Transform meshToRandomizeColor;
+    internal Vector3 hitPosition = new Vector3(0,0,0);
 	public float Health {
 		get {
 			return _health;
@@ -15,7 +16,12 @@ public class CharacterStats : MonoBehaviour {
 			if(value<_health){
                 if (value < 0) Die();
 			if(!dead){
-				anim.Hit();
+				if(hitPosition != new Vector3(0,0,0)){
+                    anim.Hit();
+                    
+            }
+                else anim.Hit(hitPosition);
+                hitPosition = new Vector3(0, 0, 0);
 				//Debug.Log ("aaauch only "+value+" health left");
 				}
 			}
@@ -90,4 +96,11 @@ public class CharacterStats : MonoBehaviour {
 	private void DeleteGO(){
 		Destroy (gameObject);
 	}
+
+    public void SetCreatureBasedOnStrength(float str)
+    {
+        damage = damage * str;
+        transform.localScale *= str;
+        meshToRandomizeColor.renderer.material.color = new Color(Random.value, Random.value, Random.value);
+    }
 }
