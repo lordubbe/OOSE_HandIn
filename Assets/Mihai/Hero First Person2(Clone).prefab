@@ -2441,9 +2441,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 100018}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b37aefc3bed344343835262b93ecb58f, type: 3}
+  m_Script: {fileID: 11500000, guid: d1ba38fe6a1994943958f52301292559, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 11400014}
 --- !u!114 &11400014
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2529,6 +2530,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackDelay: .5
   swordDamage: 10
+  applyPitchVariation: 1
+  pitchVariation: .0500000007
   heroStats: {fileID: 11400014}
   misses:
   - {fileID: 8300000, guid: b885525d131ec4b18aade24a98307f44, type: 3}

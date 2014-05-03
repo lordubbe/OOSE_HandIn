@@ -2,11 +2,11 @@
 using System.Collections;
 
 public class CheckForInteractions : MonoBehaviour {
-    CharacterStats player;
+    public CharacterStats player;
 
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterStats>();
+        
     }
 
 	// Update is called once per frame
