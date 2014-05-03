@@ -29,6 +29,7 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController
 		private float attStart;
 		private bool canAtt;
         private bool isInAir;
+        private float fallSpeed;
 		//added by Jacob
 		private bool hasJustLanded = false;
 
@@ -215,8 +216,15 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController
 						}
 						if (forwardDirection == new Vector3 (0, 0, 0))
 								setIdle ();
-						if(!isInAir) forwardDirection += new Vector3 (0, -gravity * Time.deltaTime, 0);
-
+                        if (!isInAir)
+                        {
+                            forwardDirection += new Vector3(0, -fallSpeed * Time.deltaTime, 0);
+                            fallSpeed += gravity * Time.deltaTime;
+                        }
+                        else
+                        {
+                            fallSpeed = 0;
+                        }
 						if (charController != null)
 								charController.Move (forwardDirection);
 						else

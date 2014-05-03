@@ -7,6 +7,7 @@ public class ProcessReverbZones : MonoBehaviour {
     private byte[,] byteMatrix;
     private int xSize, ySize;
     public byte kernelSize = 5;
+  
 
 	// Use this for initialization
 	void Start () {
@@ -130,7 +131,13 @@ public class ProcessReverbZones : MonoBehaviour {
                 }
             }
         }
-        GameObject.FindGameObjectWithTag("Player").GetComponent<DetectReverbZone>().setRZP();
+        GameObject[] p = GameObject.FindGameObjectsWithTag("Player");
+        foreach(GameObject player in p){
+            if(player.GetComponent<DetectReverbZone>()){
+                player.GetComponent<DetectReverbZone>().setRZP();
+            }
+        }
+       
     }
 
     
