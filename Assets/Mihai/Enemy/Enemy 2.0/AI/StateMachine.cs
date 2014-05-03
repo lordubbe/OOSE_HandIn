@@ -57,6 +57,8 @@ public class StateMachine : MonoBehaviour {
     private CharacterStats stats;
     private float prevTime = 0;
     internal float force = 0;
+    [Range(0, 0.2f)]
+    public float pitchVariation = 0.05f;
     private Animator animator;
 
 
@@ -311,7 +313,9 @@ public class StateMachine : MonoBehaviour {
     private void attackStart()
     {
         isAttacking = true;
-        AudioSource.PlayClipAtPoint(largeJumpSound, transform.position);
+
+        AudioSource sound = AudioAtPoint.PlayClipAt(largeJumpSound, transform.position);
+        sound.pitch = Random.Range(sound.pitch - pitchVariation, sound.pitch + pitchVariation);
     }
     private void attackEnd(){
         isAttacking = false;
@@ -319,11 +323,15 @@ public class StateMachine : MonoBehaviour {
     }
     private void playSmallJumpSound()
     {
-        AudioSource.PlayClipAtPoint(smallJumpSound, transform.position);
+
+        AudioSource sound = AudioAtPoint.PlayClipAt(smallJumpSound, transform.position);
+        sound.pitch = Random.Range(sound.pitch - pitchVariation, sound.pitch + pitchVariation);
+       
     }
     private void playRunSound()
     {
-        AudioSource.PlayClipAtPoint(runSound, transform.position);
+        AudioSource sound = AudioAtPoint.PlayClipAt(runSound, transform.position);
+        sound.pitch = Random.Range(sound.pitch - pitchVariation, sound.pitch + pitchVariation);
     }
     
 }
