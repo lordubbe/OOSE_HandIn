@@ -6,7 +6,9 @@ public class HeroMelee : MonoBehaviour
 
     public float attackDelay = .5f;
     public float swordDamage = 10;
-
+    public bool applyPitchVariation = true;
+    [Range(0,0.3f)]
+    public float pitchVariation = 0.05f;
     public CharacterStats heroStats;
 
     private float attackTime = .8f;
@@ -67,6 +69,13 @@ public class HeroMelee : MonoBehaviour
         if (misses.Length > 0)
         {
             audioSource.clip = misses[Random.Range(0, misses.Length)];
+            if (applyPitchVariation)
+            {
+                prevPitch = Random.Range(prevPitch - pitchVariation, prevPitch + pitchVariation);
+                audioSource.pitch = prevPitch;
+                audioSource.volume = Mathf.Pow(1.2f, soundMod);
+                soundMod /= 1.4f;
+            }
             audioSource.Play();
             GameStats.swings++;
             isAttacking = true;
@@ -90,8 +99,15 @@ public class HeroMelee : MonoBehaviour
                 other.gameObject.GetComponent<CharacterStats>().Health -= swordDamage + heroStats.damage;
                 if (hitFrog.Length > 0)
                 {
-                    audioSource.clip = hitFrog[Random.Range(0, hitFrog.Length)];
-                    audioSource.Play();
+                   int audioIndex = (int)(Random.value * hitFrog.Length);
+                    AudioSource sound = AudioAtPoint.PlayClipAt(hitFrog[audioIndex], col.contacts[0].point);
+                    if (applyPitchVariation)
+                    {
+                        prevPitch = Random.Range(prevPitch - pitchVariation, prevPitch + pitchVariation);
+                        sound.pitch = prevPitch;
+                        sound.volume = Mathf.Pow(1.2f, soundMod);
+                        soundMod /= 1.4f;
+                    }
                 }
 
             }
@@ -115,11 +131,13 @@ public class HeroMelee : MonoBehaviour
                             {
                                 shf.played = true;
                                 AudioClip audio = shf.audio[(int)(Random.value * shf.audio.Length)];
-                                AudioSource sound = PlayClipAt(audio, col.contacts[0].point);
-                                prevPitch = Random.Range(prevPitch - 0.02f, prevPitch + 0.02f);
-                                sound.pitch = prevPitch;
-                                sound.volume = Mathf.Pow(1.2f, soundMod);
-                                soundMod /= 1.4f;
+                                AudioSource sound = AudioAtPoint.PlayClipAt(audio, col.contacts[0].point);
+                                if (applyPitchVariation) {
+                                    prevPitch = Random.Range(prevPitch - pitchVariation, prevPitch + pitchVariation);
+                                    sound.pitch = prevPitch;
+                                    sound.volume = Mathf.Pow(1.2f, soundMod);
+                                    soundMod /= 1.4f;
+                                }
                                
                             }
                         }
@@ -133,17 +151,7 @@ public class HeroMelee : MonoBehaviour
 
         }
     }
-    AudioSource PlayClipAt(AudioClip clip, Vector3 pos)
-    {
-        GameObject tempGO = new GameObject("TempAudio"); // create the temp object
-        tempGO.transform.position = pos; // set its position
-        AudioSource aSource = tempGO.AddComponent<AudioSource>(); // add an audio source
-        aSource.clip = clip; // define the clip
-        // set other aSource properties here, if desired
-        aSource.Play(); // start the sound
-        Destroy(tempGO, clip.length); // destroy object after clip duration
-        return aSource; // return the AudioSource reference
-    }
+    
     private void makeVisible()
     {
         isVisible = true;
