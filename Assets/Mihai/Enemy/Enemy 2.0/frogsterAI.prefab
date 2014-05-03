@@ -779,9 +779,15 @@ MonoBehaviour:
   runIdleTime: 3
   die: {fileID: 100000, guid: 1d4068028ddd8f94e901286c14cfa08e, type: 2}
   enemy: {fileID: 0}
-  smallJumpSound: {fileID: 8300000, guid: e869f343e3b4a4cc6ae0bf3c42050e44, type: 3}
-  largeJumpSound: {fileID: 8300000, guid: da816aab6aa334a51bad1a2d78649104, type: 3}
-  runSound: {fileID: 8300000, guid: 1fb468b4a1f424c738107e6e5f475e59, type: 3}
+  pitchVariation: .0500000007
+  smallJumpSound:
+  - {fileID: 8300000, guid: e869f343e3b4a4cc6ae0bf3c42050e44, type: 3}
+  largeJumpSound:
+  - {fileID: 8300000, guid: a3ac98e69f3ff48c3a57c8dff181e860, type: 3}
+  - {fileID: 8300000, guid: f9dae85b2236e4b65811b18bc8d962a3, type: 3}
+  - {fileID: 8300000, guid: 2ec96aef14368417681abb265582e588, type: 3}
+  runSound:
+  - {fileID: 8300000, guid: 4f6c642e2a5e04533a8e0aca3a248b02, type: 3}
 --- !u!136 &13600000
 CapsuleCollider:
   m_ObjectHideFlags: 1

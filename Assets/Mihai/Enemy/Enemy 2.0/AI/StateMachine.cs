@@ -62,9 +62,9 @@ public class StateMachine : MonoBehaviour {
     private Animator animator;
 
 
-    public AudioClip smallJumpSound;
-    public AudioClip largeJumpSound;
-    public AudioClip runSound;
+    public AudioClip[] smallJumpSound;
+    public AudioClip[] largeJumpSound;
+    public AudioClip[] runSound;
     
     
     public void Start()
@@ -314,8 +314,12 @@ public class StateMachine : MonoBehaviour {
     {
         isAttacking = true;
 
-        AudioSource sound = AudioAtPoint.PlayClipAt(largeJumpSound, transform.position);
-        sound.pitch = Random.Range(sound.pitch - pitchVariation, sound.pitch + pitchVariation);
+        if (largeJumpSound.Length > 0)
+        {
+            AudioClip ljs = largeJumpSound[Random.Range(0, largeJumpSound.Length)];
+            AudioSource sound = AudioAtPoint.PlayClipAt(ljs, transform.position);
+            sound.pitch = Random.Range(sound.pitch - pitchVariation, sound.pitch + pitchVariation);
+        }
     }
     private void attackEnd(){
         isAttacking = false;
@@ -323,15 +327,23 @@ public class StateMachine : MonoBehaviour {
     }
     private void playSmallJumpSound()
     {
-
-        AudioSource sound = AudioAtPoint.PlayClipAt(smallJumpSound, transform.position);
-        sound.pitch = Random.Range(sound.pitch - pitchVariation, sound.pitch + pitchVariation);
+        if(smallJumpSound.Length>0)
+        {
+            AudioClip sjs = smallJumpSound[Random.Range(0,smallJumpSound.Length)];
+            AudioSource sound = AudioAtPoint.PlayClipAt(sjs, transform.position);
+            sound.pitch = Random.Range(sound.pitch - pitchVariation, sound.pitch + pitchVariation);
+        }
        
     }
     private void playRunSound()
     {
-        AudioSource sound = AudioAtPoint.PlayClipAt(runSound, transform.position);
-        sound.pitch = Random.Range(sound.pitch - pitchVariation, sound.pitch + pitchVariation);
+        if (runSound.Length > 0)
+        {
+            AudioClip rs = runSound[Random.Range(0, runSound.Length)];
+            AudioSource sound = AudioAtPoint.PlayClipAt(rs, transform.position);
+            sound.pitch = Random.Range(sound.pitch - pitchVariation, sound.pitch + pitchVariation);
+        }
+       
     }
     
 }
