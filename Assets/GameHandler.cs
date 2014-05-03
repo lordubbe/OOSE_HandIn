@@ -11,7 +11,7 @@ public class GameHandler : MonoBehaviour
 
     public static bool playerSpawned = false;
 
-    public static int levelNo = 1;
+    public static int levelNo = 2;
     
     // Use this for initialization
     void Start()
@@ -49,7 +49,7 @@ public class GameHandler : MonoBehaviour
         levelSpawner.GetComponent<LevelSpawn>().maxRoomWidth = num;
         levelSpawner.GetComponent<LevelSpawn>().minRoomHeight = 5;
         levelSpawner.GetComponent<LevelSpawn>().maxRoomHeight = num;
-        levelSpawner.GetComponent<LevelSpawn>().enemyStrength = 1 + levelNo * 0.05f;
+       // levelSpawner.GetComponent<LevelSpawn>().enemyStrength = 1 + levelNo * 0.05f;
         levelSpawner.GetComponent<LevelSpawn>().enemySpawnFreq = (int)(10 + levelNo * 0.5f);
         
 

@@ -105,8 +105,7 @@ public class HeroMelee : MonoBehaviour
                     {
                         prevPitch = Random.Range(prevPitch - pitchVariation, prevPitch + pitchVariation);
                         sound.pitch = prevPitch;
-                        sound.volume = Mathf.Pow(1.2f, soundMod);
-                        soundMod /= 1.4f;
+                        sound.volume = 0.2f;
                     }
                 }
 

@@ -123,7 +123,7 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController
             if (useCheats)
             {
 
-                if (Input.GetKey(KeyCode.E)) cs.Health = cs.maxHealth = 10000000;
+                if (Input.GetKey(KeyCode.R)) cs.Health = cs.maxHealth = 10000000;
             }
 				if (!cs.dead) {
 						float hAxis = Input.GetAxis ("Horizontal");
@@ -139,7 +139,7 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController
 										GetComponent<AudioSource> ().audio.Play ();					
 								}
 						} else {
-								if (!hasJustLanded && charController.isGrounded) {
+								if (charController.isGrounded) {
 										GetComponent<AudioSource> ().audio.Stop ();
 								}
 						}
@@ -165,7 +165,7 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController
 								if (GetComponent<AudioSource> ().audio.isPlaying) {
 										GetComponent<AudioSource> ().audio.Stop ();
 								}
-								GetComponent<AudioSource> ().audio.PlayOneShot (jumpSound);
+								GetComponent<AudioSource> ().audio.PlayOneShot (jumpSound,.3f);
 								StartCoroutine ("onJump");
 
 								animation.CrossFade (jump);
@@ -179,26 +179,7 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController
 						}
 						if (Input.GetMouseButtonDown (0)) {
 								attStart = Time.time;
-								//ForwardSpeed /= 2;
-								// LOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLO
-								// LOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLO
-								// LOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLO
-								// LOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLO
-								// LOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLO
-								// LOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLO
-								// LOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLO
-								// LOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLO
-								// LOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLO
-								//AudioSource.PlayClipAtPoint(snare, transform.position);//SORRY MIHAI I WROTE THIS TO HELP TEST ZE AUDIO REVERB ZONES
-								// LOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLO
-								// LOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLO
-								// LOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLO
-								// LOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLO
-								// LOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLO
-								// LOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLO
-								// LOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLO
-								// LOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLO
-								// LOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLOLO
+								
 						}
 						if (Input.GetMouseButtonUp (0)) {
 								//dForwardSpeed *= 2;
@@ -220,32 +201,43 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController
                         {
                             forwardDirection += new Vector3(0, -fallSpeed * Time.deltaTime, 0);
                             fallSpeed += gravity * Time.deltaTime;
+                            if (!hasJustLanded && charController.isGrounded)
+                            {
+                                AudioSource.PlayClipAtPoint(landSound, transform.position);
+                                hasJustLanded = true;
+                            }
                         }
                         else
                         {
                             fallSpeed = 0;
+                          
                         }
 						if (charController != null)
 								charController.Move (forwardDirection);
 						else
 								Destroy (this);
+                       
 				}
 		}
 
 		private IEnumerator onJump ()
 		{
-				bool playedLanding = false;
-				float pow = JumpForce;
+              
+                yield return new WaitForEndOfFrame();
+                hasJustLanded = false;
+                bool playedLanding = false;
+                float pow = JumpForce;
                 isInAir = true;
 				while (pow > 0) {
 						Vector3 upDir = new Vector3 (0, (pow) * Time.deltaTime, 0);
 						charController.Move (upDir);
 						pow -= Time.deltaTime * gravity;
 						if (pow < 1f && !playedLanding) {
-								GetComponent<AudioSource> ().audio.PlayOneShot (landSound);
+								
 								playedLanding = true;
 						}
 						if (pow < .4f) {
+                               
 								pow = 0;
                                 isInAir = false; ;
 				

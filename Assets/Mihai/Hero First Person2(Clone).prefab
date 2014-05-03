@@ -2478,7 +2478,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   snare: {fileID: 8300000, guid: 775cdfd62053544e58e0f80473a3e2fb, type: 3}
-  jumpSound: {fileID: 8300000, guid: 0288e75ccf489494982788776f7e7902, type: 3}
+  jumpSound: {fileID: 8300000, guid: 2286387aa3da63043a3113a2cc2ccc58, type: 3}
   landSound: {fileID: 8300000, guid: 1fb468b4a1f424c738107e6e5f475e59, type: 3}
   ForwardSpeed: 3.83999991
   SideSpeed: 3
