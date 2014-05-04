@@ -208,6 +208,7 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController
                             {
                                 AudioSource audioS = AudioAtPoint.PlayClipAt(landSound, transform.position);
                                 audioS.pitch = Random.Range(1 - pitchVariation, 1 + pitchVariation);
+                                audioS.priority = 1;
                                 hasJustLanded = true;
                             }
                         }
@@ -331,6 +332,7 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController
                 
                  AudioSource audioS = AudioAtPoint.PlayClipAt(hits[r], transform.position);
                  audioS.pitch = Random.Range(1 - pitchVariation, 1 + pitchVariation);
+                 audioS.priority = 1;
              }
        
 		}
@@ -346,6 +348,7 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController
             {
                 int r = Random.Range(0, hit.Length);
                 AudioSource audioS = AudioAtPoint.PlayClipAt(hits[r], transform.position);
+                audioS.priority = 1;
                 audioS.pitch = Random.Range(1 - pitchVariation, 1 + pitchVariation);
             }
         }

@@ -60,12 +60,16 @@ public class Objective : MonoBehaviour {
     }
     private void checkComplete()
     {
-        if (monstersToKill == monstersKilled && chestsToOpen == chestsOpened)
+        if (monstersToKill <= monstersKilled && chestsToOpen <= chestsOpened)
         {
-            Application.LoadLevel(levelToLoad);
+
+            Invoke("loadLevel", 1.5f);
         }
     }
-
+    private void loadLevel()
+    {
+        Application.LoadLevel(levelToLoad);
+    }
     private int roundTo(int numberToRound, int numberToRoundTo )
     {
         if (numberToRound % numberToRoundTo < numberToRoundTo / 2)

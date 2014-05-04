@@ -50,7 +50,7 @@ public class GameHandler : MonoBehaviour
         levelSpawner.GetComponent<LevelSpawn>().minRoomHeight = 5;
         levelSpawner.GetComponent<LevelSpawn>().maxRoomHeight = num;
        // levelSpawner.GetComponent<LevelSpawn>().enemyStrength = 1 + levelNo * 0.05f;
-        levelSpawner.GetComponent<LevelSpawn>().enemySpawnFreq = (int)(10 + levelNo * 0.5f);
+        levelSpawner.GetComponent<LevelSpawn>().enemySpawnFreq = (int)(10 + levelNo * 0.1f);
         
 
 

@@ -318,6 +318,8 @@ public class StateMachine : MonoBehaviour {
         {
             AudioClip ljs = largeJumpSound[Random.Range(0, largeJumpSound.Length)];
             AudioSource sound = AudioAtPoint.PlayClipAt(ljs, transform.position);
+            sound.priority = 126;
+            sound.maxDistance = 8;
             sound.pitch = Random.Range(sound.pitch - pitchVariation, sound.pitch + pitchVariation);
         }
     }
@@ -331,6 +333,8 @@ public class StateMachine : MonoBehaviour {
         {
             AudioClip sjs = smallJumpSound[Random.Range(0,smallJumpSound.Length)];
             AudioSource sound = AudioAtPoint.PlayClipAt(sjs, transform.position);
+            sound.priority = 128;
+            sound.maxDistance = 25;
             sound.pitch = Random.Range(sound.pitch - pitchVariation, sound.pitch + pitchVariation);
         }
        
@@ -341,6 +345,8 @@ public class StateMachine : MonoBehaviour {
         {
             AudioClip rs = runSound[Random.Range(0, runSound.Length)];
             AudioSource sound = AudioAtPoint.PlayClipAt(rs, transform.position);
+            sound.priority = 127;
+            sound.maxDistance = 10;
             sound.pitch = Random.Range(sound.pitch - pitchVariation, sound.pitch + pitchVariation);
         }
        

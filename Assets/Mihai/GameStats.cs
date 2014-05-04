@@ -6,6 +6,12 @@ public class GameStats{
     internal static float kills{
         set{
             _kills = value;
+            Objective obj = GameObject.Find("GameHandler").GetComponent<Objective>();
+            if (obj != null)
+            {
+                obj.monstersKilled++;
+                Debug.Log(obj.monstersKilled+"/"+obj.monstersToKill);
+            }
             if(swings != 0){
 				accuracy = _kills/_swings * 100;
 			}
@@ -28,7 +34,22 @@ public class GameStats{
     }//
 
     internal static int score; //
-    internal static int chests;//
+    internal static int chests{
+        set{
+            _chests = value;
+            Objective obj = GameObject.Find("GameHandler").GetComponent<Objective>();
+            if (obj != null)
+            {
+                obj.chestsOpened++;
+                Debug.Log(obj.chestsOpened + "/" + obj.chestsOpened);
+            }
+           
+        }
+        get
+        {
+            return _chests;
+        }
+    }//
 
     internal static float accuracy;//
 
@@ -41,7 +62,7 @@ public class GameStats{
 
     private static float _kills;//
     private static float _swings;//
-
+    private static int _chests;
 	public static void resetAllStats(){
 		score = 0;
 		chests = 0;

@@ -74,6 +74,7 @@ public class HeroMelee : MonoBehaviour
                 prevPitch = Random.Range(prevPitch - pitchVariation, prevPitch + pitchVariation);
                 audioSource.pitch = prevPitch;
                 audioSource.volume = Mathf.Pow(1.2f, soundMod);
+              
                 soundMod /= 1.4f;
             }
             audioSource.Play();
@@ -105,7 +106,8 @@ public class HeroMelee : MonoBehaviour
                     {
                         prevPitch = Random.Range(prevPitch - pitchVariation, prevPitch + pitchVariation);
                         sound.pitch = prevPitch;
-                        sound.volume = 0.2f;
+                        sound.priority = 126;
+                        sound.volume = 0.4f;
                     }
                 }
 
@@ -134,6 +136,7 @@ public class HeroMelee : MonoBehaviour
                                 if (applyPitchVariation) {
                                     prevPitch = Random.Range(prevPitch - pitchVariation, prevPitch + pitchVariation);
                                     sound.pitch = prevPitch;
+                                    sound.priority = 126;
                                     sound.volume = Mathf.Pow(1.2f, soundMod);
                                     soundMod /= 1.4f;
                                 }
