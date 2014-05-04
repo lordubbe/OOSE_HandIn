@@ -9,7 +9,7 @@ public class FadeMaterial : MonoBehaviour {
     public void FadeOut(float time) {
  
         iTween.ValueTo(gameObject, iTween.Hash(
-            "from", 1.0f, "to", 0.0f,
+            "from", .15f, "to", 0.0f,
             "time", time, "easetype", "linear",
             "onupdate", "setAlpha"));
  
@@ -18,7 +18,7 @@ public class FadeMaterial : MonoBehaviour {
     public void FadeIn(float time) {
  
         iTween.ValueTo(gameObject, iTween.Hash(
-            "from", 0f, "to", 1f,
+            "from", 0f, "to", .15f,
             "time", time, "easetype", "linear",
             "onupdate", "setAlpha"));
  
