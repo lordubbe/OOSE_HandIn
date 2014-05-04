@@ -11,7 +11,7 @@ public class GameHandler : MonoBehaviour
 
     public static bool playerSpawned = false;
 
-    public static int levelNo = 20;
+    public static int levelNo = 5;
     
     // Use this for initialization
     void Start()

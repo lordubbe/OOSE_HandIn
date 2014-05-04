@@ -4,18 +4,32 @@ using System.Collections;
 public class NextLevelAfterObjectives : MonoBehaviour {
 
     private int level;
+    public GameObject tileOnTop;
+    public ParticleSystem ps;
+
+    private void Start()
+    {
+        ps.enableEmission = false;
+    }
     private void loadLevel()
     {
-        Invoke("_loadLevel",.5f);
+     
+            print("restarting level:" + level);
+            Application.LoadLevel(level);
+            Destroy(this.gameObject);
+        
     }
-   
+    
     public void playRevealAnimation(int level)
     {
+        ps.enableEmission = true;
+        Destroy(tileOnTop);
         this.level = level; 
     }
 
     public void OnTriggerEnter(Collider Other)
     {
+        Debug.Log(Other.tag);
         if (Other.tag == "Player")
         {
             loadLevel();

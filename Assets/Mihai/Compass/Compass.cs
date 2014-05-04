@@ -17,7 +17,7 @@ public class Compass : MonoBehaviour {
     {
         runs = true;
         
-        //star.renderer.enabled = false;
+        star.renderer.enabled = false;
         levelEnd = GameObject.Find("Exit(Clone)").transform;
         helper.transform.position = new Vector3(helper.position.x, levelEnd.position.y, helper.position.z);
     }
@@ -36,7 +36,7 @@ public class Compass : MonoBehaviour {
             
         }
     }
-    private void placeStar()
+    public void placeStar()
     {
         star.renderer.enabled = true;
     }

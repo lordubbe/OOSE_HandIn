@@ -104,8 +104,10 @@ public class Objective : MonoBehaviour {
     }
     private void loadExit()
     {
-        GameObject exit = GameObject.FindGameObjectWithTag("Exit");
-        GameObject.Find("Compass").GetComponent<Compass>().levelEnd = exit.transform;
+        GameObject exit = GameObject.Find("Exit(Clone)");
+        GameObject compass = GameObject.Find("Compass");
+        compass.GetComponent<Compass>().levelEnd = exit.transform;
+        compass.GetComponent<Compass>().placeStar();
         exit.GetComponent<NextLevelAfterObjectives>().playRevealAnimation(levelToLoad);
     }
     private int roundTo(int numberToRound, int numberToRoundTo )
