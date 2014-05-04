@@ -38,7 +38,7 @@ public class Objective : MonoBehaviour {
     private int _monstersKilled;
 
     public LevelSpawn ls;
-
+    public TextMesh killText, chestsText, finalObjectiveText;
     private void Awake(){
         LevelSpawn.FinishGeneration += BuildObjectives;
     }
@@ -53,17 +53,52 @@ public class Objective : MonoBehaviour {
 
         monstersToKill = roundTo((int)(enemyObjective * monstersSpawned),5);
         chestsToOpen = roundTo((int)(chestsSpawned * chestObjective),5,1);
+
         Debug.Log(monstersSpawned + " " + chestsSpawned);
         Debug.Log(monstersToKill + " " + chestsToOpen);
+
+        killText = GameObject.Find("FrogstersObjective").GetComponent<TextMesh>();
+        chestsText = GameObject.Find("ChestsObjective").GetComponent<TextMesh>();
+        finalObjectiveText = GameObject.Find("FinalObjective").GetComponent<TextMesh>();
         monstersKilled = 0;
         chestsOpened = 0;
     }
     private void checkComplete()
     {
-        if (monstersToKill <= monstersKilled && chestsToOpen <= chestsOpened)
+        if (killText != null && chestsText != null && finalObjectiveText != null)
+        {
+            if (monstersToKill <= monstersKilled && chestsToOpen <= chestsOpened)
+            {
+                killText.text = "Frogster hunting objective completed";
+                chestsText.text = "Chests objective completed";
+                finalObjectiveText.text = "Follow the star to the next level";
+                Invoke("loadLevel", 3.5f);
+            }
+            else if (monstersToKill <= monstersKilled)
+            {
+                killText.text = "Frogster hunting objective completed";
+                chestsText.text = "Chests found: " + chestsOpened + " /" + chestsToOpen;
+                finalObjectiveText.text = "";
+            }
+            else if (chestsToOpen <= chestsOpened)
+            {
+                chestsText.text = "Chests objective completed";
+                killText.text = "Frogsters killed: " + monstersKilled + " /" + monstersToKill;
+                finalObjectiveText.text = "";
+            }
+            else
+            {
+                chestsText.text = "Chests found: " + chestsOpened + " /" + chestsToOpen;
+                killText.text = "Frogsters killed: " + monstersKilled + " /" + monstersToKill;
+                finalObjectiveText.text = "";
+            }
+        }
+        else
         {
 
-            Invoke("loadLevel", 3.5f);
+            killText = GameObject.Find("FrogstersObjective").GetComponent<TextMesh>();
+            chestsText = GameObject.Find("ChestsObjective").GetComponent<TextMesh>();
+            finalObjectiveText = GameObject.Find("FinalObjective").GetComponent<TextMesh>();
         }
     }
     private void loadLevel()

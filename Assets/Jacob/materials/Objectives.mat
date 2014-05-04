@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: Objectives
-  m_Shader: {fileID: 34, guid: 0000000000000000f000000000000000, type: 0}
+  m_Shader: {fileID: 10750, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: []
   m_CustomRenderQueue: -1
   m_SavedProperties:
@@ -55,15 +55,15 @@ Material:
       data:
         first:
           name: _Color
-        second: {r: 1, g: 1, b: 1, a: 1}
+        second: {r: 1, g: .765517235, b: 0, a: 1}
       data:
         first:
           name: _SpecColor
-        second: {r: 1, g: 1, b: 1, a: 0}
+        second: {r: .75, g: .649594307, b: .386029422, a: 0}
       data:
         first:
           name: _Emission
-        second: {r: .742647052, g: .551524639, b: .551524639, a: 0}
+        second: {r: 1, g: .599999964, b: 0, a: 0}
       data:
         first:
           name: _TintColor
