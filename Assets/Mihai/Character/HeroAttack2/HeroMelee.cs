@@ -144,7 +144,10 @@ public class HeroMelee : MonoBehaviour
                             }
                         }
                     }
-                     animator.SetBool("StopAttack", true);
+                    animator.SetBool("StopAttack", true);
+					isAttacking = false;
+					prevPitch = 1;
+					isVisible = false;
 
 
                 }
