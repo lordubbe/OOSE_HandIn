@@ -1085,7 +1085,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100034}
-  m_LocalRotation: {x: .339256287, y: .00562796788, z: -.00936743245, w: .940630496}
+  m_LocalRotation: {x: .339256316, y: .00562796835, z: -.00936743338, w: .940630555}
   m_LocalPosition: {x: -11.3028641, y: -.0319185257, z: -.0487060547}
   m_LocalScale: {x: 1.00000012, y: 1, z: 1.00000012}
   m_Children:
@@ -1421,7 +1421,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100090}
-  m_LocalRotation: {x: .123360977, y: .871154845, z: -.177566692, w: -.440841675}
+  m_LocalRotation: {x: .123360984, y: .871154904, z: -.177566707, w: -.440841705}
   m_LocalPosition: {x: -1.61773181, y: 3.2208097, z: -3.81469727e-06}
   m_LocalScale: {x: -1, y: -1, z: -1}
   m_Children:
@@ -2516,6 +2516,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 0edf585c749944a939c3c0096a996327, type: 3}
   - {fileID: 8300000, guid: f54b1ae9ad61e4c189006d9d1c7fd944, type: 3}
   - {fileID: 8300000, guid: 6435d4fad4b114072a8e73a6c6b37620, type: 3}
+  pitchVariation: .0500000007
   useCheats: 1
 --- !u!114 &11400018
 MonoBehaviour:
