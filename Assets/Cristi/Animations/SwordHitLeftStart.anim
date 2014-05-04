@@ -1925,7 +1925,7 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: .5
+  - time: .449999988
     functionName: makeVisible
     data: 
     objectReferenceParameter: {fileID: 0}
@@ -1939,7 +1939,7 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: .833333313
+  - time: .800000012
     functionName: makeInvisible
     data: 
     objectReferenceParameter: {fileID: 0}

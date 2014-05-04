@@ -111,7 +111,7 @@ State:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: startAttack
-  m_Speed: 1.29999995
+  m_Speed: 1.20000005
   m_CycleOffset: 0
   m_Motions:
   - {fileID: 7400000, guid: c8025bb41e96358449007444cd78c5b0, type: 2}
