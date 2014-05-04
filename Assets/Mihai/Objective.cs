@@ -39,6 +39,7 @@ public class Objective : MonoBehaviour {
 
     public LevelSpawn ls;
     public TextMesh killText, chestsText, finalObjectiveText;
+
     private void Awake(){
         LevelSpawn.FinishGeneration += BuildObjectives;
     }
@@ -72,7 +73,7 @@ public class Objective : MonoBehaviour {
                 killText.text = "Frogster hunting objective completed";
                 chestsText.text = "Chests objective completed";
                 finalObjectiveText.text = "Follow the star to the next level";
-                Invoke("loadLevel", 3.5f);
+                Invoke("loadExit", .4f);
             }
             else if (monstersToKill <= monstersKilled)
             {
@@ -101,9 +102,11 @@ public class Objective : MonoBehaviour {
             finalObjectiveText = GameObject.Find("FinalObjective").GetComponent<TextMesh>();
         }
     }
-    private void loadLevel()
+    private void loadExit()
     {
-        Application.LoadLevel(levelToLoad);
+        GameObject exit = GameObject.FindGameObjectWithTag("Exit");
+        GameObject.Find("Compass").GetComponent<Compass>().levelEnd = exit.transform;
+        exit.GetComponent<NextLevelAfterObjectives>().playRevealAnimation(levelToLoad);
     }
     private int roundTo(int numberToRound, int numberToRoundTo )
     {
