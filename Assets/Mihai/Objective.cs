@@ -63,7 +63,7 @@ public class Objective : MonoBehaviour {
         if (monstersToKill <= monstersKilled && chestsToOpen <= chestsOpened)
         {
 
-            Invoke("loadLevel", 1.5f);
+            Invoke("loadLevel", 3.5f);
         }
     }
     private void loadLevel()

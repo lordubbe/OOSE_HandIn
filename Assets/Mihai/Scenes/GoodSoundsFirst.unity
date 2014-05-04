@@ -280,7 +280,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db1bfa8320f48c240b7e71bf66201115, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyObjective: .699999988
+  enemyObjective: .200000003
   chestObjective: .800000012
   levelToLoad: 2
   ls: {fileID: 1723601085}
@@ -997,7 +997,7 @@ Transform:
   m_PrefabParentObject: {fileID: 400090, guid: ab7e817bd7f714c46944dac1af82de98, type: 2}
   m_PrefabInternal: {fileID: 1742027510}
   m_GameObject: {fileID: 580361265}
-  m_LocalRotation: {x: .123360977, y: .871154845, z: -.177566692, w: -.440841675}
+  m_LocalRotation: {x: .123360984, y: .871154904, z: -.177566707, w: -.440841705}
   m_LocalPosition: {x: -1.61773181, y: 3.2208097, z: -3.81469727e-06}
   m_LocalScale: {x: -1, y: -1, z: -1}
   m_Children:
@@ -1823,6 +1823,7 @@ Transform:
   - {fileID: 1702174953}
   - {fileID: 2086697728}
   - {fileID: 1946547979}
+  - {fileID: 1723285090}
   m_Father: {fileID: 859664634}
 --- !u!81 &1167752289
 AudioListener:
@@ -2418,7 +2419,7 @@ Transform:
   m_PrefabParentObject: {fileID: 400034, guid: ab7e817bd7f714c46944dac1af82de98, type: 2}
   m_PrefabInternal: {fileID: 1742027510}
   m_GameObject: {fileID: 1710050817}
-  m_LocalRotation: {x: .339256287, y: .00562796788, z: -.00936743245, w: .940630496}
+  m_LocalRotation: {x: .339256316, y: .00562796835, z: -.00936743338, w: .940630555}
   m_LocalPosition: {x: -11.3028641, y: -.0319185257, z: -.0487060547}
   m_LocalScale: {x: 1.00000012, y: 1, z: 1.00000012}
   m_Children:
@@ -2701,6 +2702,79 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arz: {fileID: 1715653284}
+--- !u!1 &1723285089
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100108, guid: ab7e817bd7f714c46944dac1af82de98, type: 2}
+  m_PrefabInternal: {fileID: 1742027510}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1723285090}
+  - 33: {fileID: 1723285093}
+  - 64: {fileID: 1723285092}
+  - 23: {fileID: 1723285091}
+  m_Layer: 10
+  m_Name: Objectives
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1723285090
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400108, guid: ab7e817bd7f714c46944dac1af82de98, type: 2}
+  m_PrefabInternal: {fileID: 1742027510}
+  m_GameObject: {fileID: 1723285089}
+  m_LocalRotation: {x: -1.15202333e-07, y: .707106769, z: -.707106888, w: -1.15202319e-07}
+  m_LocalPosition: {x: -7.21774244, y: 3.56119728, z: 6.55892563}
+  m_LocalScale: {x: .299671143, y: .299671143, z: .299671143}
+  m_Children: []
+  m_Father: {fileID: 1167752288}
+--- !u!23 &1723285091
+Renderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 2300020, guid: ab7e817bd7f714c46944dac1af82de98,
+    type: 2}
+  m_PrefabInternal: {fileID: 1742027510}
+  m_GameObject: {fileID: 1723285089}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_LightmapIndex: 255
+  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
+  m_Materials:
+  - {fileID: 2100000, guid: 5e623351c086c4a65a23a02a5487dc25, type: 2}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_LightProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_SortingLayerID: 0
+--- !u!64 &1723285092
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 6400006, guid: ab7e817bd7f714c46944dac1af82de98,
+    type: 2}
+  m_PrefabInternal: {fileID: 1742027510}
+  m_GameObject: {fileID: 1723285089}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_SmoothSphereCollisions: 0
+  m_Convex: 0
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!33 &1723285093
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 3300016, guid: ab7e817bd7f714c46944dac1af82de98,
+    type: 2}
+  m_PrefabInternal: {fileID: 1742027510}
+  m_GameObject: {fileID: 1723285089}
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1723601082
 GameObject:
   m_ObjectHideFlags: 0
@@ -2756,8 +2830,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 149b1ac25de764c03bfd0e285e78aa14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seedBasedGeneration: 0
-  seed: 1657628617
+  seedBasedGeneration: 1
+  seed: 12312312
   spawnEnemies: 1
   levelParent: {fileID: 850913288}
   Walls: {fileID: 424201274}
