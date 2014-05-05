@@ -37,7 +37,7 @@ public class CheckForInteractions : MonoBehaviour {
 						hit.transform.gameObject.GetComponentInChildren<Animation>().Play();//play the animation!
 						hit.transform.gameObject.GetComponent<ChestStats>().hasBeenOpened = true;
 						hit.transform.gameObject.GetComponentInChildren<ParticleSystem>().Play ();
-						hit.transform.gameObject.GetComponent<AudioSource>().audio.Play();
+						
                         
 						
                         int addedScore = (int)(player.Health * 10 * GameObject.Find("levelSpawner").GetComponent<LevelSpawn>().enemyStrength);

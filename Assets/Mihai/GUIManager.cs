@@ -21,9 +21,10 @@ public class GUIManager : MonoBehaviour {
 	}
 	private void updateLife(){
 		maxLife = cs.maxHealth;
+        
 		_life = cs.Health;
 		healthBar.text = "Health: "+((int)Mathf.Clamp (_life/maxLife * 100,0,100)).ToString();
-		monstersKilled.text = ""+score;
+		if(!cs.dead)monstersKilled.text = ""+score;
 
         if (lifeCylinder == null)
         {

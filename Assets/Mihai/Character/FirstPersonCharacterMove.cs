@@ -49,7 +49,7 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController
 		void Awake ()
 		{
 				//ADDED BY JACOB, MIHAI PLS DON'T BE MAD
-				DontDestroyOnLoad (this.gameObject);
+				//DontDestroyOnLoad (this.gameObject);
 				//
 
 				canAtt = true;
@@ -113,19 +113,34 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController
 				if (ls.playerSpawn != null)
 						transform.position = ls.playerSpawn;
 		}
+        void Update()
+        {
+            if(transform.position.y<-30) Application.LoadLevel(Application.loadedLevel + 1);
+        }
 
 		void OnDestroy ()
 		{
 				Performance.UpdateEvent -= Refresh;
 		LevelSpawn.FinishGeneration -= putPlayerOnStart;
 		}
-	
+     
 		void Refresh ()
 		{
             if (useCheats)
             {
 
                 if (Input.GetKey(KeyCode.R)) cs.Health = cs.maxHealth = 10000000;
+            }
+            else
+            {
+                if (Input.GetKey(KeyCode.R) && cs.dead)
+                {
+
+                    cs.Health = cs.maxHealth;
+                    cs.dead = false;
+                    animation.CrossFade(idle);
+                    transform.position = ls.playerSpawn;
+                }
             }
 				if (!cs.dead) {
 						float hAxis = Input.GetAxis ("Horizontal");
@@ -358,7 +373,8 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController
 			if (die.Length > 0) {
 				int r = Random.Range (0, die.Length);
 				animation.CrossFade (die [r]);
-				Invoke("goToEndScreen", 3f);
+                GameObject.Find("score").GetComponent<TextMesh>().text = "Press R to Respawn";
+				//Invoke("goToEndScreen", 3f);
 			}
 		}
 		private void goToEndScreen(){

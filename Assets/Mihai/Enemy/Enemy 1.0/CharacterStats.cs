@@ -40,7 +40,7 @@ public class CharacterStats : MonoBehaviour {
 	public bool dead;
 	public IAnimationController anim;
 	
-	public float _health;
+	private float _health;
    
 	private void Awake(){
 		_health = maxHealth;
@@ -58,10 +58,7 @@ public class CharacterStats : MonoBehaviour {
 			if(maxHealth>_health){
 				_health+= regenPerSecond * Time.deltaTime;
 			}
-			if(_health<=0 && !dead){
-				Die ();
-				
-			}
+			
 		}
 	}	
 	public IAnimationController getAnim(){
@@ -81,15 +78,16 @@ public class CharacterStats : MonoBehaviour {
             GameStats.kills++;
             GameStats.scoreFromMonsters += score;
             GameStats.score += score;
+            Collider col = gameObject.GetComponent<Collider>();
+            foreach (GameObject go in objectsToDeleteOnDeath)
+            {
+                if (go != null) Destroy(go);
+            }
+            Destroy(col);
         }
 		if(anim!=null)anim.Die ();
 		dead = true;
-		Collider col = gameObject.GetComponent<Collider>();
-        foreach (GameObject go in objectsToDeleteOnDeath)
-        {
-            if (go != null) Destroy(go);
-        }
-		//Destroy (col);
+		
 		//gameObject.tag = "Dead";
 		//Invoke("DeleteGO",10.0f);
 	}

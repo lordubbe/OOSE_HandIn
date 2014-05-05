@@ -760,7 +760,6 @@ MonoBehaviour:
   damage: 10
   defence: 0
   dead: 0
-  _health: 2
 --- !u!114 &11400004
 MonoBehaviour:
   m_ObjectHideFlags: 1

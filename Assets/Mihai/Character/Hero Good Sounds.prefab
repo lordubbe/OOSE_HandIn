@@ -725,6 +725,7 @@ GameObject:
   - 82: {fileID: 8200002}
   - 114: {fileID: 11400022}
   - 167: {fileID: 16700000}
+  - 114: {fileID: 11400026}
   m_Layer: 12
   m_Name: Hero Good Sounds
   m_TagString: Player
@@ -2434,7 +2435,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: .720000029, y: .00999999978, z: .0799999982}
+  m_Size: {x: .720000029, y: .119999997, z: .0799999982}
   m_Center: {x: .560000002, y: -.00228803325, z: 0}
 --- !u!65 &6500002
 BoxCollider:
@@ -2566,7 +2567,7 @@ AudioSource:
   m_GameObject: {fileID: 100088}
   m_Enabled: 1
   serializedVersion: 3
-  m_audioClip: {fileID: 8300000, guid: 50861a50199e34d49b74705f6e3e0e4d, type: 3}
+  m_audioClip: {fileID: 8300000, guid: dde3d4ae92f3ce8458294fa7c2b956b7, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -2577,21 +2578,21 @@ AudioSource:
   MinDistance: 1
   MaxDistance: 500
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 2
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
   rolloffCustomCurve:
     serializedVersion: 2
     m_Curve:
-    - time: 0
-      value: 1
+    - time: .221512198
+      value: .997032642
       inSlope: 0
-      outSlope: 0
+      outSlope: -1.00200403
       tangentMode: 0
     - time: 1
       value: 0
-      inSlope: 0
+      inSlope: -1.00200403
       outSlope: 0
       tangentMode: 0
     m_PreInfinity: 2
@@ -2599,10 +2600,10 @@ AudioSource:
   panLevelCustomCurve:
     serializedVersion: 2
     m_Curve:
-    - time: 0
+    - time: .155210644
       value: 1
-      inSlope: 0
-      outSlope: 0
+      inSlope: .475832283
+      outSlope: .475832283
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -2922,6 +2923,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: b2b7d58b42c8a4fa097719e3bd3ec429, type: 3}
   - {fileID: 8300000, guid: 646ccfe5a96f84e7db52c12e25aa851e, type: 3}
   - {fileID: 8300000, guid: f06d128fb26314fb68166bb891b9d755, type: 3}
+  - {fileID: 8300000, guid: 24a57be6496c6d546b2764c456de1b6c, type: 3}
+  - {fileID: 8300000, guid: 8ef3327e4f7bede49a22bf1baba1d102, type: 3}
+  - {fileID: 8300000, guid: ac9a1cd67f74bda4192a3cd49e0b8390, type: 3}
+  - {fileID: 8300000, guid: 743fb87792ad8c4498295bb958af62ff, type: 3}
   swordHitEffects:
   - name: Stone
     audio:
@@ -3033,7 +3038,6 @@ MonoBehaviour:
   damage: 10
   defence: 10
   dead: 0
-  _health: 91.8344116
 --- !u!114 &11400018
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3058,7 +3062,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   snare: {fileID: 8300000, guid: 775cdfd62053544e58e0f80473a3e2fb, type: 3}
   jumpSound: {fileID: 8300000, guid: 2286387aa3da63043a3113a2cc2ccc58, type: 3}
-  landSound: {fileID: 8300000, guid: 1fb468b4a1f424c738107e6e5f475e59, type: 3}
+  landSound: {fileID: 8300000, guid: 809c59639dff1974c92db7676b4c8d94, type: 3}
   ForwardSpeed: 3.83999991
   SideSpeed: 3
   AttackSpeed: 1
@@ -3124,6 +3128,17 @@ MonoBehaviour:
   compassArrow: {fileID: 400118}
   star: {fileID: 400120}
   helper: {fileID: 400122}
+--- !u!114 &11400026
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac411f17dbf91054c8e9abe7c4c0feb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!124 &12400000
 Behaviour:
   m_ObjectHideFlags: 1

@@ -4,7 +4,7 @@ using System.Collections;
 public class LoadLevelOnClick : MonoBehaviour {
 
 	public AudioClip startGameSound;
-
+    public int LevelToLoad = 1;
 	void OnMouseUpAsButton() {
 		//if(!GetComponent<AudioSource>().isPlaying){
 		Camera.main.GetComponent<AudioSource>().Stop ();
@@ -25,7 +25,7 @@ public class LoadLevelOnClick : MonoBehaviour {
 
 	IEnumerator waitForSeconds(float seconds) {
 		yield return new WaitForSeconds(seconds);
-		Application.LoadLevel("testScene");
+		Application.LoadLevel(LevelToLoad);
 
 	}
 }

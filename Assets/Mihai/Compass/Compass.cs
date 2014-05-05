@@ -7,7 +7,7 @@ public class Compass : MonoBehaviour {
     public Transform compassArrow;
     public Transform star;
     public Transform helper;
-    private bool runs;
+    internal bool runs;
 
     private void Awake()
     {

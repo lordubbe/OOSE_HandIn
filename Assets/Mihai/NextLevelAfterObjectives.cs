@@ -6,17 +6,18 @@ public class NextLevelAfterObjectives : MonoBehaviour {
     private int level;
     public GameObject tileOnTop;
     public ParticleSystem ps;
-
+    
     private void Start()
     {
         ps.enableEmission = false;
     }
     private void loadLevel()
     {
-     
+            
             print("restarting level:" + level);
+            LevelSpawn.resetEvent();
             Application.LoadLevel(level);
-            Destroy(this.gameObject);
+            
         
     }
     
@@ -32,6 +33,7 @@ public class NextLevelAfterObjectives : MonoBehaviour {
         Debug.Log(Other.tag);
         if (Other.tag == "Player")
         {
+            
             loadLevel();
         }
     }

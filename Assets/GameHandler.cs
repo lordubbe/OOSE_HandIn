@@ -11,23 +11,19 @@ public class GameHandler : MonoBehaviour
 
     public static bool playerSpawned = false;
 
-    public static int levelNo = 5;
+    public static int levelNo = 18;
     
     // Use this for initialization
     void Start()
     {
         levelSpawner = GameObject.Find("levelSpawner");
 
-        levelNo++;
+        //levelNo++;
         GameStats.level = levelNo;
         print("LEVEL: " + levelNo);
         //DontDestroyOnLoad(this.gameObject);
         //GameObject.Find("levelSpawner").GetComponent<LevelSpawn>().
-        if (!playerSpawned)
-        {
-            Instantiate(player, levelSpawner.GetComponent<LevelSpawn>().playerSpawn, Quaternion.identity);
-            playerSpawned = true;
-        }
+        _spawnPlayer();
         //algorithm for increasing levelSize
     
         int levelSize = (int)(5 * (levelNo / 2));
@@ -56,9 +52,17 @@ public class GameHandler : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
+    public void spawnPlayer()
     {
-
+        _spawnPlayer();  
     }
+    private void _spawnPlayer()
+    {
+        if (!playerSpawned)
+        {
+            Instantiate(player, levelSpawner.GetComponent<LevelSpawn>().playerSpawn, Quaternion.identity);
+            // playerSpawned = true;
+        }
+    }
+
 }

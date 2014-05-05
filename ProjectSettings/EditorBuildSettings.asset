@@ -12,8 +12,18 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Jacob/menuScreenWorking.unity
   - enabled: 1
+    path: Assets/Mihai/Scenes/GoodSoundsFirst.unity
+  - enabled: 0
+    path: Assets/Mihai/Scenes/BadSoundsFirst.unity
+  - enabled: 1
+    path: Assets/Mihai/Scenes/GoodSoundsSecond.unity
+  - enabled: 0
+    path: Assets/Mihai/Scenes/BadSoundsSecond.unity
+  - enabled: 1
+    path: Assets/Mihai/Scenes/thanksForTestingFuckingAssholeYouWereProbablyReallyShitAtTheGame.unity
+  - enabled: 0
     path: Assets/Jacob/testScene.unity
   - enabled: 0
     path: Assets/Jacob/endMenuJacob.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/Cristi/endMenuJacob.unity

@@ -132,7 +132,7 @@ public class StateMachine : MonoBehaviour {
     private void idleTransitions()
     {
         if(enemy!=null){
-            if (stats._health < 0)
+            if (stats.Health < 0)
             {
                 state = State.die;
             }else
@@ -155,7 +155,7 @@ public class StateMachine : MonoBehaviour {
     {
         if (enemy != null)
         {
-            if (stats._health < 0)
+            if (stats.Health < 0)
             {
                 state = State.die;
             }
@@ -181,7 +181,7 @@ public class StateMachine : MonoBehaviour {
     {
         if (enemy != null)
         {
-            if (stats._health < 0)
+            if (stats.Health < 0)
             {
                 state = State.die;
             }
@@ -205,7 +205,7 @@ public class StateMachine : MonoBehaviour {
     {
         if (enemy != null)
         {
-            if (stats._health < 0)
+            if (stats.Health < 0)
             {
                 state = State.die;
             }
@@ -229,7 +229,7 @@ public class StateMachine : MonoBehaviour {
     {
         if (enemy != null)
         {
-            if (stats._health < 0)
+            if (stats.Health < 0)
             {
                 state = State.die;
             }
@@ -347,7 +347,7 @@ public class StateMachine : MonoBehaviour {
             AudioSource sound = AudioAtPoint.PlayClipAt(rs, transform.position);
             sound.priority = 127;
             sound.maxDistance = 10;
-            sound.pitch = Random.Range(sound.pitch - pitchVariation, sound.pitch + pitchVariation);
+            sound.pitch = Random.Range(sound.pitch - pitchVariation*2, sound.pitch + pitchVariation*2);
         }
        
     }

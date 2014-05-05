@@ -36,7 +36,18 @@ public class HeroMelee : MonoBehaviour
     }
     private void Update()
     {
-
+        if (heroStats.dead)
+        {
+            renderer.enabled = false;
+            collider.enabled = false;
+            animator.enabled = false;
+        }
+        else
+        {
+            renderer.enabled = true;
+            collider.enabled = true;
+            animator.enabled = true;
+        }
         if (Input.GetMouseButtonDown(0))
         {
             Attack();
@@ -106,9 +117,10 @@ public class HeroMelee : MonoBehaviour
                     {
                         prevPitch = Random.Range(prevPitch - pitchVariation, prevPitch + pitchVariation);
                         sound.pitch = prevPitch;
-                        sound.priority = 126;
+                       
                         sound.volume = 0.4f;
                     }
+                    sound.priority = 126;
                 }
 
             }
@@ -132,14 +144,16 @@ public class HeroMelee : MonoBehaviour
                             {
                                 shf.played = true;
                                 AudioClip audio = shf.audio[(int)(Random.value * shf.audio.Length)];
+                                Debug.Log(shf.audio.Length);
                                 AudioSource sound = AudioAtPoint.PlayClipAt(audio, col.contacts[0].point);
                                 if (applyPitchVariation) {
                                     prevPitch = Random.Range(prevPitch - pitchVariation, prevPitch + pitchVariation);
                                     sound.pitch = prevPitch;
-                                    sound.priority = 126;
+                                    
                                     sound.volume = Mathf.Pow(1.2f, soundMod);
                                     soundMod /= 1.4f;
                                 }
+                                sound.priority = 1;
                                
                             }
                         }

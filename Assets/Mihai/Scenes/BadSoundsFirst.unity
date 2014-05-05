@@ -126,10 +126,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db1bfa8320f48c240b7e71bf66201115, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyObjective: .699999988
-  chestObjective: .800000012
+  enemyObjective: .400000006
+  chestObjective: .699999988
   levelToLoad: 2
   ls: {fileID: 1723601085}
+  killText: {fileID: 0}
+  chestsText: {fileID: 0}
+  finalObjectiveText: {fileID: 0}
 --- !u!1 &424201273
 GameObject:
   m_ObjectHideFlags: 0
@@ -165,7 +168,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 520068661}
   - 132: {fileID: 520068660}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ChestInteraction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -422,8 +425,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 149b1ac25de764c03bfd0e285e78aa14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seedBasedGeneration: 0
-  seed: 1657628617
+  seedBasedGeneration: 1
+  seed: 2101648758
   spawnEnemies: 1
   levelParent: {fileID: 850913288}
   Walls: {fileID: 424201274}
@@ -437,7 +440,7 @@ MonoBehaviour:
   lavaTile: {fileID: 400000, guid: 14245e767ae9746a1934199fffff4a18, type: 2}
   trickTile: {fileID: 400000, guid: eeeb63d6ba9c347f4853ce3031a3d9f1, type: 2}
   torchTile: {fileID: 400004, guid: 8647e3cbec697412aa525f5c8108a5a3, type: 2}
-  chestObject: {fileID: 400014, guid: a3109aaf975a04216abe06919ddf4044, type: 2}
+  chestObject: {fileID: 400014, guid: c27edd27d275385469d31489ab299e16, type: 2}
   enemyObject: {fileID: 400046, guid: 318a7cd68a1aad44287d1d005766162b, type: 2}
   decorations:
   - {fileID: 400000, guid: aaaed593b169d451083c4ffbe004c9b4, type: 2}
@@ -452,7 +455,7 @@ MonoBehaviour:
   stonePillar: {fileID: 400000, guid: 4ed4f8014fe5f47958ccfc72d1cce997, type: 2}
   cratesStacked: {fileID: 400000, guid: 4bdde7ae224ae414e8f14ec93c113f9d, type: 2}
   arch: {fileID: 400000, guid: e4d7c6fd419cc4bd99c21be2b146c0ce, type: 2}
-  exitObject: {fileID: 400000, guid: 23439fa21ab534609a67278506aa9d44, type: 2}
+  exitObject: {fileID: 400084, guid: e0a5f2bb581a6e04e82009db51565110, type: 2}
   MAX_LEVEL_WIDTH: 30
   MAX_LEVEL_HEIGHT: 30
   minRooms: 10
@@ -465,8 +468,8 @@ MonoBehaviour:
   exitCoords: {x: 0, y: 0, z: 0}
   enemySpawnFreq: 10
   enemyStrength: 1
-  chestSpawnFreq: 5
-  minAmountOfChests: 1
+  chestSpawnFreq: 10
+  minAmountOfChests: 7
   playerSpawn: {x: 0, y: 0, z: 0}
   lights: []
   generationDone: 0

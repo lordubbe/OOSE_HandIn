@@ -17,16 +17,17 @@ public class ImageProcessing
         int ySize = binaryMatrix.GetLength(1);
         byte[,] auxMatrix = new byte[xSize, ySize];
 
-        for (int x = kernelSize / 2; x < xSize - kernelSize / 2; x++)
+        for (int x = 0; x < xSize; x++)
         {
-            for (int y = kernelSize / 2; y < ySize - kernelSize / 2; y++)
+            for (int y =0; y < ySize; y++)
             {
                 byte nr = 0;
                 for (int xK = -kernelSize / 2; xK <= kernelSize / 2; xK++)
                 {
                     for (int yK = -kernelSize / 2; yK <= kernelSize / 2; yK++)
                     {
-                        nr += binaryMatrix[x + xK, y + yK];
+                        if (x + xK < 0 || x + xK >= xSize || y + yK < 0 || y + yK >= ySize) nr += binaryMatrix[x, y];
+                        else nr += binaryMatrix[x + xK, y + yK];
                     }
                 }
                 if (nr == kernelSize * kernelSize) auxMatrix[x, y] = 1;
@@ -41,16 +42,17 @@ public class ImageProcessing
         int xSize = binaryMatrix.GetLength(0);
         int ySize = binaryMatrix.GetLength(1);
         byte[,] auxMatrix = new byte[xSize, ySize];
-        for (int x = kernelSize / 2; x < xSize - kernelSize / 2; x++)
+        for (int x = 0; x < xSize; x++)
         {
-            for (int y = kernelSize / 2; y < ySize - kernelSize / 2; y++)
+            for (int y = 0; y < ySize; y++)
             {
                 byte nr = 0;
                 for (int xK = -kernelSize / 2; xK <= kernelSize / 2; xK++)
                 {
                     for (int yK = -kernelSize / 2; yK <= kernelSize / 2; yK++)
                     {
-                        nr += binaryMatrix[x + xK, y + yK];
+                        if (x + xK < 0 || x + xK >= xSize || y + yK < 0 || y + yK >= ySize) nr += binaryMatrix[x, y];
+                        else nr += binaryMatrix[x + xK, y + yK];
                     }
                 }
                 if (nr > 0) auxMatrix[x, y] = 1;

@@ -1378,7 +1378,7 @@ GameObject:
   - 23: {fileID: 216286872}
   m_Layer: 0
   m_Name: groundTile
-  m_TagString: Untagged
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1673,7 +1673,7 @@ GameObject:
   - 64: {fileID: 232738230}
   m_Layer: 0
   m_Name: barrel
-  m_TagString: Untagged
+  m_TagString: Wood
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2485,7 +2485,7 @@ GameObject:
   - 65: {fileID: 343592902}
   m_Layer: 0
   m_Name: box
-  m_TagString: Untagged
+  m_TagString: Wood
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2783,7 +2783,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 360788210}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 581e539af36764f93a473ffb51c5591c, type: 3}
+  m_Script: {fileID: 11500000, guid: 74d0324a7926ec84789b35f46caf3a31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &360788216
@@ -2794,7 +2794,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 360788210}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46e59c50a9bf0455d9477affb927998f, type: 3}
+  m_Script: {fileID: 11500000, guid: aab72466cc9ad614fa32896c468b1687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   instructionsPage: {fileID: 970249896}
@@ -2871,7 +2871,7 @@ GameObject:
   - 23: {fileID: 367140015}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3205,7 +3205,7 @@ GameObject:
   - 23: {fileID: 401835718}
   m_Layer: 0
   m_Name: groundTile
-  m_TagString: Untagged
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4082,7 +4082,7 @@ GameObject:
   - 23: {fileID: 536616299}
   m_Layer: 0
   m_Name: groundTile
-  m_TagString: Untagged
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4421,7 +4421,7 @@ GameObject:
   - 54: {fileID: 575442372}
   m_Layer: 0
   m_Name: CratesStacked
-  m_TagString: Untagged
+  m_TagString: Wood
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5347,7 +5347,7 @@ GameObject:
   - 65: {fileID: 682040392}
   m_Layer: 0
   m_Name: box
-  m_TagString: Untagged
+  m_TagString: Wood
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5533,7 +5533,7 @@ GameObject:
   - 23: {fileID: 693855494}
   m_Layer: 0
   m_Name: groundTile
-  m_TagString: Untagged
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5893,9 +5893,11 @@ GameObject:
   - 33: {fileID: 730967603}
   - 23: {fileID: 730967602}
   - 95: {fileID: 730967601}
+  - 65: {fileID: 730967605}
+  - 54: {fileID: 730967604}
   m_Layer: 0
   m_Name: woodColumn
-  m_TagString: Untagged
+  m_TagString: Wood
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5956,6 +5958,35 @@ MeshFilter:
   m_PrefabInternal: {fileID: 1731511884}
   m_GameObject: {fileID: 730967599}
   m_Mesh: {fileID: 4300000, guid: c5d8de7fa13df451784917cf29530107, type: 3}
+--- !u!54 &730967604
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 5400004, guid: b67e4f2eb9b674dc483f1b7901e3604f,
+    type: 2}
+  m_PrefabInternal: {fileID: 1731511884}
+  m_GameObject: {fileID: 730967599}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
+--- !u!65 &730967605
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 6500004, guid: b67e4f2eb9b674dc483f1b7901e3604f,
+    type: 2}
+  m_PrefabInternal: {fileID: 1731511884}
+  m_GameObject: {fileID: 730967599}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: .12260437, y: 1.99407768, z: .1226044}
+  m_Center: {x: 0, y: .999306679, z: 0}
 --- !u!1 &734771511
 GameObject:
   m_ObjectHideFlags: 0
@@ -6042,7 +6073,7 @@ GameObject:
   - 64: {fileID: 745267752}
   m_Layer: 0
   m_Name: barrel
-  m_TagString: Untagged
+  m_TagString: Wood
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6970,7 +7001,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 788773163}
   - 65: {fileID: 788773164}
-  - 54: {fileID: 788773165}
   m_Layer: 0
   m_Name: Pillar 1
   m_TagString: Untagged
@@ -7010,22 +7040,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: .389999986, y: 3.45000005, z: .389999986}
   m_Center: {x: 0, y: 3.25999999, z: 0}
---- !u!54 &788773165
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 5400000, guid: b67e4f2eb9b674dc483f1b7901e3604f,
-    type: 2}
-  m_PrefabInternal: {fileID: 1637592000}
-  m_GameObject: {fileID: 788773162}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: .0500000007
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 126
-  m_CollisionDetection: 0
 --- !u!1 &822159619
 GameObject:
   m_ObjectHideFlags: 0
@@ -7653,7 +7667,7 @@ GameObject:
   - 65: {fileID: 929612438}
   m_Layer: 0
   m_Name: box
-  m_TagString: Untagged
+  m_TagString: Wood
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8908,7 +8922,7 @@ GameObject:
   - 23: {fileID: 1111924796}
   m_Layer: 0
   m_Name: groundTile
-  m_TagString: Untagged
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9643,9 +9657,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1246253465}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 581e539af36764f93a473ffb51c5591c, type: 3}
+  m_Script: {fileID: 11500000, guid: 9f0820917881bd141bf5923a8aef6b01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startGameSound: {fileID: 8300000, guid: 853499a5654e84550810233804424f4f, type: 3}
+  LevelToLoad: 1
 --- !u!114 &1246253471
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9654,10 +9670,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1246253465}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1233154c4b009400ead2561d14a3cb3d, type: 3}
+  m_Script: {fileID: 11500000, guid: 74d0324a7926ec84789b35f46caf3a31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startGameSound: {fileID: 8300000, guid: 853499a5654e84550810233804424f4f, type: 3}
 --- !u!82 &1246253472
 AudioSource:
   m_ObjectHideFlags: 0
@@ -9901,7 +9916,7 @@ GameObject:
   - 23: {fileID: 1280984585}
   m_Layer: 0
   m_Name: groundTile
-  m_TagString: Untagged
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10246,9 +10261,11 @@ GameObject:
   - 33: {fileID: 1309460576}
   - 23: {fileID: 1309460575}
   - 95: {fileID: 1309460574}
+  - 65: {fileID: 1309460578}
+  - 54: {fileID: 1309460577}
   m_Layer: 0
   m_Name: woodColumn
-  m_TagString: Untagged
+  m_TagString: Wood
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10309,6 +10326,35 @@ MeshFilter:
   m_PrefabInternal: {fileID: 1637592000}
   m_GameObject: {fileID: 1309460572}
   m_Mesh: {fileID: 4300000, guid: c5d8de7fa13df451784917cf29530107, type: 3}
+--- !u!54 &1309460577
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 5400004, guid: b67e4f2eb9b674dc483f1b7901e3604f,
+    type: 2}
+  m_PrefabInternal: {fileID: 1637592000}
+  m_GameObject: {fileID: 1309460572}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
+--- !u!65 &1309460578
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 6500004, guid: b67e4f2eb9b674dc483f1b7901e3604f,
+    type: 2}
+  m_PrefabInternal: {fileID: 1637592000}
+  m_GameObject: {fileID: 1309460572}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: .12260437, y: 1.99407768, z: .1226044}
+  m_Center: {x: 0, y: .999306679, z: 0}
 --- !u!1 &1310694493
 GameObject:
   m_ObjectHideFlags: 0
@@ -10717,7 +10763,7 @@ GameObject:
   - 65: {fileID: 1381653639}
   m_Layer: 0
   m_Name: box
-  m_TagString: Untagged
+  m_TagString: Wood
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11234,7 +11280,7 @@ GameObject:
   - 54: {fileID: 1431714775}
   m_Layer: 0
   m_Name: CratesStacked
-  m_TagString: Untagged
+  m_TagString: Wood
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11961,7 +12007,7 @@ GameObject:
   - 23: {fileID: 1584050258}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12876,7 +12922,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1744803227}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 581e539af36764f93a473ffb51c5591c, type: 3}
+  m_Script: {fileID: 11500000, guid: 74d0324a7926ec84789b35f46caf3a31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1744803233
@@ -12887,7 +12933,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1744803227}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 596424e77d6104201bca7c5aa3a2550e, type: 3}
+  m_Script: {fileID: 11500000, guid: 21e87296fb7561b408965852f7e6c88b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!82 &1744803234
@@ -13033,7 +13079,7 @@ GameObject:
   - 23: {fileID: 1761694106}
   m_Layer: 0
   m_Name: groundTile
-  m_TagString: Untagged
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13178,7 +13224,7 @@ GameObject:
   - 65: {fileID: 1798810251}
   m_Layer: 0
   m_Name: box
-  m_TagString: Untagged
+  m_TagString: Wood
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13562,7 +13608,7 @@ GameObject:
   - 65: {fileID: 1860316258}
   m_Layer: 0
   m_Name: box
-  m_TagString: Untagged
+  m_TagString: Wood
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14317,7 +14363,7 @@ GameObject:
   - 23: {fileID: 1980852607}
   m_Layer: 0
   m_Name: groundTile
-  m_TagString: Untagged
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14459,7 +14505,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 1984813887}
   - 65: {fileID: 1984813888}
-  - 54: {fileID: 1984813889}
   m_Layer: 0
   m_Name: Pillar 1
   m_TagString: Untagged
@@ -14499,22 +14544,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: .389999986, y: 3.45000005, z: .389999986}
   m_Center: {x: 0, y: 3.25999999, z: 0}
---- !u!54 &1984813889
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 5400000, guid: b67e4f2eb9b674dc483f1b7901e3604f,
-    type: 2}
-  m_PrefabInternal: {fileID: 1731511884}
-  m_GameObject: {fileID: 1984813886}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: .0500000007
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 126
-  m_CollisionDetection: 0
 --- !u!1 &1989047501
 GameObject:
   m_ObjectHideFlags: 0
@@ -14528,7 +14557,7 @@ GameObject:
   - 23: {fileID: 1989047502}
   m_Layer: 0
   m_Name: groundTileh
-  m_TagString: Untagged
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15112,7 +15141,7 @@ GameObject:
   - 23: {fileID: 2114005774}
   m_Layer: 0
   m_Name: groundTile
-  m_TagString: Untagged
+  m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
