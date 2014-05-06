@@ -11,9 +11,9 @@ EditorBuildSettings:
     path: Assets/Mihai/jcs.unity
   - enabled: 1
     path: Assets/Jacob/menuScreenWorking.unity
-  - enabled: 1
-    path: Assets/Mihai/Scenes/GoodSoundsFirst.unity
   - enabled: 0
+    path: Assets/Mihai/Scenes/GoodSoundsFirst.unity
+  - enabled: 1
     path: Assets/Mihai/Scenes/BadSoundsFirst.unity
   - enabled: 1
     path: Assets/Mihai/Scenes/GoodSoundsSecond.unity

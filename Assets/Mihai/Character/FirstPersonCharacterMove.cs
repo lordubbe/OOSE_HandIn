@@ -115,7 +115,12 @@ public class FirstPersonCharacterMove : MonoBehaviour,IAnimationController
 		}
         void Update()
         {
-            if(transform.position.y<-30) Application.LoadLevel(Application.loadedLevel + 1);
+            if (transform.position.y < -30)
+            {
+                LevelSpawn.resetEvent();
+                Application.LoadLevel(Application.loadedLevel+1);
+
+            }
         }
 
 		void OnDestroy ()

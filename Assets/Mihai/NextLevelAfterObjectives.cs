@@ -34,7 +34,7 @@ public class NextLevelAfterObjectives : MonoBehaviour {
         if (Other.tag == "Player")
         {
             
-            loadLevel();
+            //loadLevel();
         }
     }
 }
